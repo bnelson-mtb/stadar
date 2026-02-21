@@ -1,6 +1,9 @@
+using System.Text.Json;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddOpenApi();
+builder.Services.AddHttpClient();
 
 builder.Services.AddCors(options =>
 {
@@ -20,23 +23,121 @@ if (app.Environment.IsDevelopment())
 app.UseCors();
 app.UseHttpsRedirection();
 
-app.MapGet("/api/events", () =>
+app.MapGet("/api/events", async (IHttpClientFactory httpClientFactory, IConfiguration config) =>
 {
-    var events = new List<SportEvent>
-    {
-        new(1, "Utah Jazz", "Los Angeles Lakers", new DateTime(2026, 2, 24, 19, 0, 0), "Delta Center", "Basketball", "NBA", "Salt Lake City", 40.7683, -111.9011),
-        new(2, "Utah Jazz", "Golden State Warriors", new DateTime(2026, 2, 28, 20, 30, 0), "Delta Center", "Basketball", "NBA", "Salt Lake City", 40.7683, -111.9011),
-        new(3, "Real Salt Lake", "LAFC", new DateTime(2026, 3, 1, 19, 30, 0), "America First Field", "Soccer", "MLS", "Sandy", 40.5829, -111.8933),
-        new(4, "Utah Utes", "BYU Cougars", new DateTime(2026, 3, 5, 18, 0, 0), "Jon M. Huntsman Center", "Basketball", "NCAA", "Salt Lake City", 40.7627, -111.8310),
-        new(5, "Utah Hockey Club", "Colorado Avalanche", new DateTime(2026, 3, 7, 19, 0, 0), "Delta Center", "Hockey", "NHL", "Salt Lake City", 40.7683, -111.9011),
-        new(6, "Real Salt Lake", "Portland Timbers", new DateTime(2026, 3, 8, 18, 0, 0), "America First Field", "Soccer", "MLS", "Sandy", 40.5829, -111.8933),
-        new(7, "Utah Utes", "Arizona Wildcats", new DateTime(2026, 3, 12, 20, 0, 0), "Rice-Eccles Stadium", "Football", "NCAA", "Salt Lake City", 40.7600, -111.8492),
-        new(8, "Utah Jazz", "Denver Nuggets", new DateTime(2026, 3, 14, 19, 0, 0), "Delta Center", "Basketball", "NBA", "Salt Lake City", 40.7683, -111.9011),
-        new(9, "Utah Mammoth", "San Diego Seals", new DateTime(2026, 3, 15, 18, 0, 0), "Maverik Center", "Lacrosse", "NLL", "West Valley City", 40.6840, -111.9511),
-        new(10, "Utah Hockey Club", "Vegas Golden Knights", new DateTime(2026, 3, 20, 19, 30, 0), "Delta Center", "Hockey", "NHL", "Salt Lake City", 40.7683, -111.9011),
-    };
+    var apiKey = config["Ticketmaster:ApiKey"];
+    if (string.IsNullOrEmpty(apiKey))
+        return Results.Problem("Ticketmaster API key not configured");
 
-    return events.OrderBy(e => e.DateTime).ToArray();
+    var client = httpClientFactory.CreateClient();
+    var url = $"https://app.ticketmaster.com/discovery/v2/events.json?apikey={apiKey}&stateCode=UT&classificationName=sports&size=50&sort=date,asc";
+
+    var response = await client.GetAsync(url);
+    if (!response.IsSuccessStatusCode)
+        return Results.Problem("Failed to fetch events from Ticketmaster");
+
+    var json = await response.Content.ReadFromJsonAsync<JsonElement>();
+
+    if (!json.TryGetProperty("_embedded", out var embedded) ||
+        !embedded.TryGetProperty("events", out var eventsArray))
+    {
+        return Results.Ok(Array.Empty<SportEvent>());
+    }
+
+    var events = new List<SportEvent>();
+    var id = 1;
+
+    foreach (var ev in eventsArray.EnumerateArray())
+    {
+        // Get team names from attractions
+        var homeTeam = "";
+        var awayTeam = "";
+        if (ev.TryGetProperty("_embedded", out var evEmbedded) &&
+            evEmbedded.TryGetProperty("attractions", out var attractions))
+        {
+            var teams = attractions.EnumerateArray().ToList();
+            if (teams.Count >= 1) homeTeam = teams[0].GetProperty("name").GetString() ?? "";
+            if (teams.Count >= 2) awayTeam = teams[1].GetProperty("name").GetString() ?? "";
+        }
+
+        // Skip events with no identifiable teams
+        if (string.IsNullOrEmpty(homeTeam)) continue;
+
+        // Get date/time
+        var dateTime = DateTime.UtcNow;
+        if (ev.TryGetProperty("dates", out var dates) &&
+            dates.TryGetProperty("start", out var start))
+        {
+            if (start.TryGetProperty("dateTime", out var dtProp))
+                DateTime.TryParse(dtProp.GetString(), out dateTime);
+            else if (start.TryGetProperty("localDate", out var localDate))
+                DateTime.TryParse(localDate.GetString(), out dateTime);
+        }
+
+        // Get venue info
+        var venue = "";
+        var city = "";
+        var state = "";
+        double lat = 0, lng = 0;
+        if (ev.TryGetProperty("_embedded", out var evEmb2) &&
+            evEmb2.TryGetProperty("venues", out var venues))
+        {
+            var v = venues.EnumerateArray().FirstOrDefault();
+            venue = v.TryGetProperty("name", out var vName) ? vName.GetString() ?? "" : "";
+            if (v.TryGetProperty("city", out var vCity))
+                city = vCity.TryGetProperty("name", out var cName) ? cName.GetString() ?? "" : "";
+            if (v.TryGetProperty("state", out var vState))
+                state = vState.TryGetProperty("stateCode", out var sCode) ? sCode.GetString() ?? "" : "";
+            if (v.TryGetProperty("location", out var loc))
+            {
+                if (loc.TryGetProperty("latitude", out var latProp))
+                    double.TryParse(latProp.GetString(), out lat);
+                if (loc.TryGetProperty("longitude", out var lngProp))
+                    double.TryParse(lngProp.GetString(), out lng);
+            }
+        }
+
+        // Get sport/league from classifications
+        var sport = "";
+        var league = "";
+        if (ev.TryGetProperty("classifications", out var classifications))
+        {
+            var classification = classifications.EnumerateArray().FirstOrDefault();
+            if (classification.TryGetProperty("genre", out var genre))
+                sport = genre.TryGetProperty("name", out var gName) ? gName.GetString() ?? "" : "";
+            if (classification.TryGetProperty("subGenre", out var subGenre))
+                league = subGenre.TryGetProperty("name", out var sgName) ? sgName.GetString() ?? "" : "";
+        }
+
+        // Get ticket URL
+        var ticketUrl = ev.TryGetProperty("url", out var urlProp) ? urlProp.GetString() ?? "" : "";
+
+        // Get event image
+        var imageUrl = "";
+        if (ev.TryGetProperty("images", out var images))
+        {
+            // Prefer a 16:9 ratio image
+            foreach (var img in images.EnumerateArray())
+            {
+                var ratio = img.TryGetProperty("ratio", out var rProp) ? rProp.GetString() : "";
+                var imgUrl = img.TryGetProperty("url", out var iProp) ? iProp.GetString() ?? "" : "";
+                if (ratio == "16_9" && !string.IsNullOrEmpty(imgUrl))
+                {
+                    imageUrl = imgUrl;
+                    break;
+                }
+                if (string.IsNullOrEmpty(imageUrl) && !string.IsNullOrEmpty(imgUrl))
+                    imageUrl = imgUrl;
+            }
+        }
+
+        events.Add(new SportEvent(
+            id++, homeTeam, awayTeam, dateTime, venue, sport, league,
+            city, state, lat, lng, ticketUrl, imageUrl
+        ));
+    }
+
+    return Results.Ok(events);
 })
 .WithName("GetEvents");
 
@@ -51,6 +152,9 @@ record SportEvent(
     string Sport,
     string League,
     string City,
+    string State,
     double Latitude,
-    double Longitude
+    double Longitude,
+    string TicketUrl,
+    string ImageUrl
 );
