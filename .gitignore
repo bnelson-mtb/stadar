@@ -6,6 +6,9 @@
 # dotenv files
 .env
 
+# API keys / secrets
+Api/appsettings.Development.json
+
 # User-specific files
 *.rsuser
 *.suo
