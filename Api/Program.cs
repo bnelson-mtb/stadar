@@ -45,10 +45,13 @@ app.MapGet("/api/events", async (IHttpClientFactory httpClientFactory, IConfigur
     }
 
     var events = new List<SportEvent>();
-    var id = 1;
 
     foreach (var ev in eventsArray.EnumerateArray())
     {
+        // Get Ticketmaster event ID and name
+        var tmId = ev.TryGetProperty("id", out var idProp) ? idProp.GetString() ?? "" : "";
+        var eventName = ev.TryGetProperty("name", out var nameProp) ? nameProp.GetString() ?? "" : "";
+
         // Get team names from attractions
         var homeTeam = "";
         var awayTeam = "";
@@ -58,6 +61,22 @@ app.MapGet("/api/events", async (IHttpClientFactory httpClientFactory, IConfigur
             var teams = attractions.EnumerateArray().ToList();
             if (teams.Count >= 1) homeTeam = teams[0].GetProperty("name").GetString() ?? "";
             if (teams.Count >= 2) awayTeam = teams[1].GetProperty("name").GetString() ?? "";
+        }
+
+        // Fallback: parse event name for "X vs Y" pattern when away team is missing
+        if (!string.IsNullOrEmpty(eventName) && string.IsNullOrEmpty(awayTeam))
+        {
+            var vsIndex = eventName.IndexOf("vs", StringComparison.OrdinalIgnoreCase);
+            if (vsIndex >= 0)
+            {
+                var parsed = eventName[(vsIndex + 4)..].Trim();
+                if (!string.IsNullOrEmpty(parsed))
+                {
+                    awayTeam = parsed;
+                    if (string.IsNullOrEmpty(homeTeam))
+                        homeTeam = eventName[..vsIndex].Trim();
+                }
+            }
         }
 
         // Skip events with no identifiable teams
@@ -132,7 +151,7 @@ app.MapGet("/api/events", async (IHttpClientFactory httpClientFactory, IConfigur
         }
 
         events.Add(new SportEvent(
-            id++, homeTeam, awayTeam, dateTime, venue, sport, league,
+            tmId, eventName, homeTeam, awayTeam, dateTime, venue, sport, league,
             city, state, lat, lng, ticketUrl, imageUrl
         ));
     }
@@ -144,7 +163,8 @@ app.MapGet("/api/events", async (IHttpClientFactory httpClientFactory, IConfigur
 app.Run();
 
 record SportEvent(
-    int Id,
+    string Id,
+    string Name,
     string HomeTeam,
     string AwayTeam,
     DateTime DateTime,

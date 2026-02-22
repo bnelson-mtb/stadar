@@ -1,10 +1,22 @@
 import { useState, useEffect } from 'react'
 import EventCard from '../components/EventCard.jsx'
+import FilterBar from '../components/FilterBar.jsx'
+import useFavorites from '../hooks/useFavorites.js'
+
+function toggleArrayItem(arr, item) {
+  return arr.includes(item) ? arr.filter(x => x !== item) : [...arr, item]
+}
 
 function DiscoverPage() {
   const [events, setEvents] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+
+  const [selectedSports, setSelectedSports] = useState([])
+  const [selectedLeagues, setSelectedLeagues] = useState([])
+  const [showFavoritesOnly, setShowFavoritesOnly] = useState(false)
+
+  const { favorites, toggleFavorite, isFavorite } = useFavorites()
 
   useEffect(() => {
     fetch('http://localhost:5068/api/events')
@@ -21,6 +33,13 @@ function DiscoverPage() {
         setLoading(false)
       })
   }, [])
+
+  const filteredEvents = events.filter(event => {
+    if (selectedSports.length > 0 && !selectedSports.includes(event.sport)) return false
+    if (selectedLeagues.length > 0 && !selectedLeagues.includes(event.league)) return false
+    if (showFavoritesOnly && !isFavorite(event.homeTeam) && !isFavorite(event.awayTeam)) return false
+    return true
+  })
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -50,14 +69,38 @@ function DiscoverPage() {
         )}
 
         {!loading && !error && events.length > 0 && (
-          <div className="space-y-3">
-            <p className="text-sm text-gray-400 font-medium">
-              {events.length} upcoming events
-            </p>
-            {events.map(event => (
-              <EventCard key={event.id} event={event} />
-            ))}
-          </div>
+          <>
+            <FilterBar
+              selectedSports={selectedSports}
+              onToggleSport={s => setSelectedSports(prev => toggleArrayItem(prev, s))}
+              selectedLeagues={selectedLeagues}
+              onToggleLeague={l => setSelectedLeagues(prev => toggleArrayItem(prev, l))}
+              showFavoritesOnly={showFavoritesOnly}
+              onToggleFavoritesOnly={() => setShowFavoritesOnly(prev => !prev)}
+              hasFavorites={favorites.length > 0}
+            />
+
+            <div className="space-y-3">
+              <p className="text-sm text-gray-400 font-medium">
+                {filteredEvents.length === events.length
+                  ? `${events.length} upcoming events`
+                  : `${filteredEvents.length} of ${events.length} events`}
+              </p>
+              {filteredEvents.map(event => (
+                <EventCard
+                  key={event.id}
+                  event={event}
+                  isFavorite={isFavorite(event.homeTeam)}
+                  onToggleFavorite={toggleFavorite}
+                />
+              ))}
+              {filteredEvents.length === 0 && (
+                <div className="text-center py-8 text-gray-400">
+                  No events match your filters
+                </div>
+              )}
+            </div>
+          </>
         )}
       </main>
     </div>
