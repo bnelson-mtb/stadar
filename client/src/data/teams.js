@@ -1,6 +1,9 @@
 // Helper to build ESPN CDN logo URLs
 const espn = (sport, id) => `https://a.espncdn.com/i/teamlogos/${sport}/500/${id}.png`
 
+// Helper for PLL team logo URLs
+const pll = (team) => `https://img.premierlacrosseleague.com/Teams/2024/Logo/2024_${team}_primary_color.png`
+
 // ============================================================
 //  PRO LEAGUES
 // ============================================================
@@ -56,7 +59,14 @@ const ECHL = {
 }
 
 const PLL = {
-  'Utah Archers':             { color: '#1C4F3F', logo: null, shortName: 'Archers' },
+  'Utah Archers':             { color: '#fc5016', logo: pll(archers), shortName: 'Archers' },
+  'California Redwoods':      { color: '#fed200', logo: pll(redwoods), shortName: 'Redwoods' },
+  'Carolina Chaos':           { color: '#D2001C', logo: pll(chaos), shortName: 'Chaos' },
+  'Denver Outlaws':           { color: '#fb5014', logo: pll(outlaws), shortName: 'Outlaws' },
+  'Boston Cannons':           { color: '#c61f30', logo: pll(cannons), shortName: 'Cannons' },
+  'Maryland Whipsnakes':      { color: '#fd0000', logo: pll(whipsnakes), shortName: 'Whipsnakes' },
+  'New York Atlas':           { color: '#00affc', logo: pll(atlas), shortName: 'Atlas' },
+  'Philadelphia Waterdogs':   { color: '#6a1ec1', logo: pll(waterdogs), shortName: 'Waterdogs' },
 }
 
 const LOVB_TEAMS = {
