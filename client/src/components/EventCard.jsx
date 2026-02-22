@@ -1,28 +1,26 @@
-const sportIcons = {
-  Basketball: '\u{1F3C0}',
-  Soccer: '\u26BD',
-  Hockey: '\u{1F3D2}',
-  Football: '\u{1F3C8}',
-  Lacrosse: '\u{1F94D}',
-  Volleyball: '\u{1F3D0}',
-}
-
-const teamColors = {
-  'Utah Jazz':                '#002B5C',
-  'Real Salt Lake':           '#B30838',
-  "Utah Men's Basketball":    '#CC0000',
-  "Utah Women's Basketball":  '#CC0000',
-  'Utah Mammoth':             '#1C4F3F',
-  'Utah Archers':             '#1C4F3F',
-  'Utah Grizzlies':           '#002244',
-  'LOVB Salt Lake Volleyball':'#E91E63',
-}
+import { useState } from 'react'
+import TEAMS, { SPORT_ICONS, LEAGUE_COLORS } from '../data/teams'
 
 function TeamLogo({ name }) {
+  const [imgError, setImgError] = useState(false)
   if (!name) return null
-  const initials = name.split(' ').map(w => w[0]).join('').slice(0, 3)
-  const bg = teamColors[name] || '#6B7280'
 
+  const team = TEAMS[name]
+  const bg = team?.color || '#6B7280'
+  const logoUrl = team?.logo
+
+  if (logoUrl && !imgError) {
+    return (
+      <img
+        src={logoUrl}
+        alt={name}
+        className="w-7 h-7 rounded-full object-cover shrink-0"
+        onError={() => setImgError(true)}
+      />
+    )
+  }
+
+  const initials = name.split(' ').map(w => w[0]).join('').slice(0, 3)
   return (
     <div
       className="w-7 h-7 rounded-full flex items-center justify-center text-white text-[10px] font-bold shrink-0"
@@ -34,26 +32,16 @@ function TeamLogo({ name }) {
   )
 }
 
-const leagueColors = {
-  NBA: 'bg-orange-500',
-  MLS: 'bg-green-500',
-  NHL: 'bg-blue-500',
-  NFL: 'bg-red-500',
-  College: 'bg-sky-500',
-  'Minor League': 'bg-slate-500',
-  NLL: 'bg-emerald-600',
-}
-
-function EventCard({ event }) {
+function EventCard({ event, isFavorite, onToggleFavorite }) {
   const date = new Date(event.dateTime)
 
   const dayOfWeek = date.toLocaleDateString('en-US', { weekday: 'short' })
   const monthDay = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
   const time = date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })
 
-  const badgeColor = leagueColors[event.league] || 'bg-gray-500'
-  const borderColor = teamColors[event.homeTeam] || '#6B7280'
-  const icon = sportIcons[event.sport] || ''
+  const badgeColor = LEAGUE_COLORS[event.league] || 'bg-gray-500'
+  const borderColor = TEAMS[event.homeTeam]?.color || '#6B7280'
+  const icon = SPORT_ICONS[event.sport] || ''
 
   return (
     <div
@@ -73,6 +61,15 @@ function EventCard({ event }) {
           <div className="flex items-center gap-2 mb-1">
             <TeamLogo name={event.homeTeam} />
             <span className="text-lg font-bold text-gray-900">{event.homeTeam}</span>
+            <button
+              onClick={(e) => { e.stopPropagation(); onToggleFavorite(event.homeTeam) }}
+              className={`transition-colors ${isFavorite ? 'text-red-500' : 'text-gray-300 hover:text-red-300'}`}
+              title={isFavorite ? `Unfollow ${event.homeTeam}` : `Follow ${event.homeTeam}`}
+            >
+              <svg className="w-4 h-4" viewBox="0 0 24 24" fill={isFavorite ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
+              </svg>
+            </button>
           </div>
           {event.awayTeam && (
             <div className="flex items-center gap-2">
