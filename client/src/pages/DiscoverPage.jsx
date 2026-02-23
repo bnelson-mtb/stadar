@@ -102,6 +102,46 @@ function DiscoverPage() {
             </div>
           </>
         )}
+
+        {/* Hardcoded event cards for testing */}
+        <div className="mt-4 space-y-3">
+          <EventCard
+            key="test123"
+            event={{
+              id: 'test123',
+              homeTeam: 'LOVB Salt Lake Volleyball',
+              awayTeam: 'LOVB Nebraska',
+              dateTime: '2026-06-01T01:00:00Z',
+              venue: 'Buell Arena',
+              sport: 'Volleyball',
+              league: 'Misc',
+              city: 'Herriman',
+              state: 'UT',
+              ticketUrl: '',
+            }}
+            isFavorite={isFavorite('Utah Archers')}
+            onToggleFavorite={toggleFavorite}
+          />
+        </div>
+                <div className="mt-4 space-y-3">
+          <EventCard
+            key="test123"
+            event={{
+              id: 'den',
+              homeTeam: 'Denver Broncos',
+              awayTeam: 'Seattle Seahawks',
+              dateTime: '2026-06-01T01:00:00Z',
+              venue: 'Mile High Stadium',
+              sport: 'Football',
+              league: 'NFL',
+              city: 'Denver',
+              state: 'CO',
+              ticketUrl: '',
+            }}
+            isFavorite={isFavorite('Denver Broncos')}
+            onToggleFavorite={toggleFavorite}
+          />
+        </div>
       </main>
     </div>
   )
