@@ -1,4 +1,5 @@
 using System.Text.Json;
+using System.Text.RegularExpressions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -116,17 +117,23 @@ app.MapGet("/api/events", async (IHttpClientFactory httpClientFactory, IConfigur
             }
         }
 
-        // Get sport/league from classifications
-        var sport = "";
-        var league = "";
+        // Get raw sport/league from Ticketmaster classifications
+        var rawSport = "";
+        var rawLeague = "";
         if (ev.TryGetProperty("classifications", out var classifications))
         {
             var classification = classifications.EnumerateArray().FirstOrDefault();
             if (classification.TryGetProperty("genre", out var genre))
-                sport = genre.TryGetProperty("name", out var gName) ? gName.GetString() ?? "" : "";
+                rawSport = genre.TryGetProperty("name", out var gName) ? gName.GetString() ?? "" : "";
             if (classification.TryGetProperty("subGenre", out var subGenre))
-                league = subGenre.TryGetProperty("name", out var sgName) ? sgName.GetString() ?? "" : "";
+                rawLeague = subGenre.TryGetProperty("name", out var sgName) ? sgName.GetString() ?? "" : "";
         }
+
+        var normalized = NormalizeEvent(eventName, homeTeam, awayTeam, rawSport, rawLeague);
+        homeTeam = normalized.HomeTeam;
+        awayTeam = normalized.AwayTeam;
+        var sport = normalized.Sport;
+        var league = normalized.League;
 
         // Get ticket URL
         var ticketUrl = ev.TryGetProperty("url", out var urlProp) ? urlProp.GetString() ?? "" : "";
@@ -161,6 +168,173 @@ app.MapGet("/api/events", async (IHttpClientFactory httpClientFactory, IConfigur
 .WithName("GetEvents");
 
 app.Run();
+
+static (string HomeTeam, string AwayTeam, string Sport, string League) NormalizeEvent(
+    string eventName,
+    string homeTeam,
+    string awayTeam,
+    string rawSport,
+    string rawLeague)
+{
+    string normalizedHome = NormalizeTeamName(homeTeam ?? "") ?? "";
+    string normalizedAway = NormalizeTeamName(awayTeam ?? "") ?? "";
+    (string HomeTeam, string AwayTeam, string Sport, string League) AsNormalized(string sport, string league)
+        => (normalizedHome ?? "", normalizedAway ?? "", sport, league);
+
+    var title = (eventName ?? "").ToLowerInvariant();
+    var lowerHome = (normalizedHome ?? "").ToLowerInvariant();
+    var lowerAway = (normalizedAway ?? "").ToLowerInvariant();
+    var lowerSport = (rawSport ?? "").ToLowerInvariant();
+    var lowerLeague = (rawLeague ?? "").ToLowerInvariant();
+
+    bool mentionsMens = ContainsAny(title, "men's", "mens", "men ");
+    bool mentionsWomens = ContainsAny(title, "women's", "womens", "women ");
+    bool hasCollegeTeamWord = ContainsAny(lowerHome, "utes", "cougars", "aggies", "wildcats", "bearcats", "cyclones", "jayhawks", "mountaineers")
+                              || ContainsAny(lowerAway, "utes", "cougars", "aggies", "wildcats", "bearcats", "cyclones", "jayhawks", "mountaineers");
+    bool isCollegeContext = hasCollegeTeamWord || ContainsAny(lowerLeague, "college", "ncaa");
+    bool likelyNwsl = ContainsAny(title, "nwsl")
+                      || ContainsAny(lowerHome, "utah royals", "gotham fc", "portland thorns", "angel city", "washington spirit")
+                      || ContainsAny(lowerAway, "utah royals", "gotham fc", "portland thorns", "angel city", "washington spirit");
+
+    // Pro league explicit mappings first.
+    if (likelyNwsl)
+    {
+        return AsNormalized("Soccer", "NWSL");
+    }
+
+    if (ContainsAny(lowerHome, "lovb ") || ContainsAny(lowerAway, "lovb "))
+    {
+        return AsNormalized(mentionsWomens ? "Women's Volleyball" : "Volleyball", "LOVB");
+    }
+
+    if (ContainsAny(lowerLeague, "major league soccer") || lowerLeague == "mls")
+        return AsNormalized("Soccer", "MLS");
+
+    if (lowerLeague == "nba" || ContainsAny(lowerSport, "basketball") && ContainsAny(lowerHome, "lakers", "jazz", "nuggets", "warriors"))
+        return AsNormalized("Basketball", "NBA");
+
+    if (lowerLeague == "nhl" || ContainsAny(lowerSport, "hockey") && ContainsAny(lowerHome, "mammoth", "avalanche", "golden knights", "oilers"))
+        return AsNormalized("Hockey", "NHL");
+
+    if (lowerLeague == "nfl")
+        return AsNormalized("Football", "NFL");
+
+    if (ContainsAny(lowerLeague, "major league baseball") || lowerLeague == "mlb")
+        return AsNormalized("Baseball", "MLB");
+
+    if (lowerLeague == "premier lacrosse league" || lowerLeague == "pll")
+        return AsNormalized("Lacrosse", "PLL");
+
+    if (ContainsAny(lowerLeague, "echl", "ahl", "minor"))
+        return AsNormalized("Hockey", "Minor League");
+
+    // College buckets and NCAA-style labels.
+    if (ContainsAny(lowerSport, "football") || ContainsAny(title, " football"))
+        return AsNormalized("Football", isCollegeContext ? "NCAAF" : "Football");
+
+    if (ContainsAny(lowerSport, "baseball") || ContainsAny(title, "baseball"))
+        return AsNormalized("Baseball", isCollegeContext ? "NCAA Baseball" : "MLB");
+
+    if (ContainsAny(lowerSport, "softball") || ContainsAny(title, "softball"))
+        return AsNormalized("Softball", isCollegeContext ? "NCAA Softball" : "Softball");
+
+    if (ContainsAny(lowerSport, "basketball") || ContainsAny(title, "basketball"))
+    {
+        if (mentionsWomens) return AsNormalized("Basketball", "NCAAW");
+        if (mentionsMens) return AsNormalized("Basketball", "NCAAM");
+        return AsNormalized("Basketball", isCollegeContext ? "NCAAM" : "Basketball");
+    }
+
+    if (ContainsAny(lowerSport, "volleyball") || ContainsAny(title, "volleyball"))
+    {
+        if (mentionsWomens) return AsNormalized("Women's Volleyball", "Women's VB");
+        if (mentionsMens) return AsNormalized("Volleyball", "Men's VB");
+        return AsNormalized("Volleyball", "Volleyball");
+    }
+
+    if (ContainsAny(lowerSport, "soccer") || ContainsAny(title, "fc"))
+    {
+        if (mentionsWomens) return AsNormalized("Soccer", likelyNwsl ? "NWSL" : "Women's Soccer");
+        if (mentionsMens) return AsNormalized("Soccer", "Men's Soccer");
+        return AsNormalized("Soccer", "Soccer");
+    }
+
+    // Last-resort cleanup for unclear labels like "Miscellaneous".
+    if (lowerSport == "miscellaneous" || lowerSport == "misc")
+    {
+        if (ContainsAny(title, "soccer", "fc")) return AsNormalized("Soccer", mentionsWomens ? (likelyNwsl ? "NWSL" : "Women's Soccer") : "Soccer");
+        if (ContainsAny(title, "volleyball")) return AsNormalized(mentionsWomens ? "Women's Volleyball" : "Volleyball", mentionsWomens ? "Women's VB" : mentionsMens ? "Men's VB" : "Volleyball");
+        if (ContainsAny(title, "basketball")) return AsNormalized("Basketball", mentionsWomens ? "NCAAW" : "NCAAM");
+        if (ContainsAny(title, "football")) return AsNormalized("Football", isCollegeContext ? "NCAAF" : "Football");
+        if (ContainsAny(title, "baseball")) return AsNormalized("Baseball", isCollegeContext ? "NCAA Baseball" : "MLB");
+        if (ContainsAny(title, "softball")) return AsNormalized("Softball", isCollegeContext ? "NCAA Softball" : "Softball");
+    }
+
+    if (ContainsAny(lowerSport, "wrestling", "ice skating"))
+        return AsNormalized("Misc", "Misc");
+
+    var fallbackSport = ToTitle(rawSport);
+    var fallbackLeague = ToTitle(rawLeague);
+    if (!IsCoreSport(fallbackSport))
+        return AsNormalized("Misc", "Misc");
+
+    return AsNormalized(fallbackSport, string.IsNullOrWhiteSpace(fallbackLeague) ? fallbackSport : fallbackLeague);
+}
+
+static string NormalizeTeamName(string teamName)
+{
+    if (string.IsNullOrWhiteSpace(teamName)) return "";
+
+    var normalized = teamName.Trim();
+    normalized = Regex.Replace(
+        normalized,
+        @"^LOVB\s+(.+?)\s+Volleyball$",
+        "LOVB $1",
+        RegexOptions.IgnoreCase);
+    normalized = Regex.Replace(
+        normalized,
+        @"\s+(Men'?s|Women'?s|Mens|Womens)\s+(Basketball|Volleyball|Soccer)\s*$",
+        "",
+        RegexOptions.IgnoreCase);
+    normalized = Regex.Replace(
+        normalized,
+        @"\s+(Football|Baseball|Softball|Gymnastics)\s*$",
+        "",
+        RegexOptions.IgnoreCase);
+
+    return normalized.Trim();
+}
+
+static bool IsCoreSport(string sport)
+{
+    if (string.IsNullOrWhiteSpace(sport)) return false;
+    return sport.Equals("Basketball", StringComparison.OrdinalIgnoreCase)
+        || sport.Equals("Volleyball", StringComparison.OrdinalIgnoreCase)
+        || sport.Equals("Women's Volleyball", StringComparison.OrdinalIgnoreCase)
+        || sport.Equals("Football", StringComparison.OrdinalIgnoreCase)
+        || sport.Equals("Baseball", StringComparison.OrdinalIgnoreCase)
+        || sport.Equals("Softball", StringComparison.OrdinalIgnoreCase)
+        || sport.Equals("Soccer", StringComparison.OrdinalIgnoreCase)
+        || sport.Equals("Hockey", StringComparison.OrdinalIgnoreCase)
+        || sport.Equals("Lacrosse", StringComparison.OrdinalIgnoreCase);
+}
+
+static bool ContainsAny(string value, params string[] needles)
+{
+    if (string.IsNullOrEmpty(value)) return false;
+    foreach (var needle in needles)
+    {
+        if (value.Contains(needle, StringComparison.OrdinalIgnoreCase))
+            return true;
+    }
+    return false;
+}
+
+static string ToTitle(string? value)
+{
+    if (string.IsNullOrWhiteSpace(value)) return "";
+    return char.ToUpperInvariant(value[0]) + value[1..];
+}
 
 record SportEvent(
     string Id,

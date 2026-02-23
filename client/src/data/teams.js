@@ -79,7 +79,7 @@ const NHL = {
 }
 
 const NFL = {
-  'Denver Broncos':           { color: '#FB4F14', logo: espn3('nfl', 'den'),  shortName: 'Broncos' },
+  'Denver Broncos':           { color: '#FB4F14', logo: 'https://a.espncdn.com/combiner/i?img=/i/teamlogos/nfl/500/den.png',  shortName: 'Broncos' },
   'Las Vegas Raiders':        { color: '#000000', logo: espn2('nfl', 'lv'),   shortName: 'Raiders' },
   'Arizona Cardinals':        { color: '#97233F', logo: espn2('nfl', 'ari'),  shortName: 'Cardinals' },
   'Los Angeles Rams':        { color: '#003594', logo: espn2('nfl', 'lar'),   shortName: 'Rams' },
@@ -116,7 +116,7 @@ const NFL = {
 const MLS = {
   'Real Salt Lake':           { color: '#B30838', logo: espn3('soccer', '4771'), shortName: 'Salt Lake' },
   'Atlanta United':           { color: '#a02336', logo: espn3('soccer', '3089'), shortName: 'Atlanta' },
-  'Austin FC':                { color: '#00ba43', logo: espn3('soccer', '5571'), shortName: 'Austin' },
+  'Austin FC':                { color: '#00ba43', logo: espn3('soccer', '20906'), shortName: 'Austin' },
   'Chicago Fire FC':          { color: '#ff0000', logo: espn3('soccer', '3088'), shortName: 'Chicago' },
   'FC Cincinnati':            { color: '#003087', logo: espn3('soccer', '3090'), shortName: 'Cincinnati' },
   'FC Dallas':                { color: '#c5083b', logo: espn3('soccer', '3091'), shortName: 'Dallas' },
@@ -142,37 +142,41 @@ const MLS = {
   'St. Louis City SC':        { color: '#f31358', logo: espn3('soccer', '3112'), shortName: 'St. Louis' },
 }
 
+const NWSL = {
+  'Utah Royals FC':           { color: '#0b1f8a', logo: 'https://upload.wikimedia.org/wikipedia/en/7/72/Utah_Royals_FC_logo.svg', shortName: 'Royals' },
+}
+
 const ECHL = {
   'Utah Grizzlies':           { color: '#002244', logo: 'https://assets.leaguestat.com/echl/logos/23.png', shortName: 'Grizzlies' },
   'Adirondack Thunder':       { color: '#c91f2c', logo: 'https://assets.leaguestat.com/echl/logos/74.png', shortName: 'Thunder' },
   'Allen Americans':          { color: '#a81e2e', logo: 'https://assets.leaguestat.com/echl/logos/66.png', shortName: 'Americans' },
   'Atlanta Gladiators':       { color: '#fab418', logo: 'https://assets.leaguestat.com/echl/logos/10.png', shortName: 'Gladiators' },
-  'Bloomington Bisons':       { color: '#69cff3', logo: null, shortName: 'Bisons' },
-  'Cincinnati Cyclones':      { color: '#e21836', logo: null, shortName: 'Cyclones' },
-  'Florida Everblades':       { color: '#004687', logo: null, shortName: 'Everblades' },
-  'Fort Wayne Komets':        { color: '#fdb827', logo: null, shortName: 'Komets' },
-  'Greensboro Gargolyes':     { color: '#482a73', logo: null, shortName: 'Gargoyles' },
-  'Greenville Swamp Rabbits': { color: '#cb5d26', logo: null, shortName: 'Swamp Rabbits' },
-  'Idaho Steelheads':         { color: '#bac5c5', logo: null, shortName: 'Steelheads' },
-  'Jacksonville Icemen':      { color: '#a4a4bc', logo: null, shortName: 'Icemen' },
-  'Indy Fuel':                { color: '#cd1f2d', logo: null, shortName: 'Fuel' },
-  'Iowa Heartlanders':        { color: '#debb11', logo: null, shortName: 'Heartlanders' },
-  'Kalamazoo Wings':          { color: '#e03a3e', logo: null, shortName: 'Wings' },
-  'Kansas City Mavericks':    { color: '#ec5e21', logo: null, shortName: 'Mavericks' },
-  'Maine Mariners':           { color: '#002654', logo: null, shortName: 'Mariners' },
-  'Norfolk Admirals':         { color: '#002654', logo: null, shortName: 'Admirals' },
-  'Orlando Solar Bears':      { color: '#f4791f', logo: null, shortName: 'Solar Bears' },
-  'Rapid City Rush':          { color: '#e03a3e', logo: null, shortName: 'Rush' },
-  'Reading Royals':           { color: '#5b3793', logo: null, shortName: 'Royals' },
-  'Savannah Ghost Pirates':   { color: '#5db64a', logo: null, shortName: 'Ghost Pirates' },
-  'South Carolina Stingrays': { color: '#002654', logo: null, shortName: 'Stingrays' },
+  'Bloomington Bisons':       { color: '#69cff3', logo: 'https://assets.leaguestat.com/echl/logos/107.png', shortName: 'Bisons' },
+  'Cincinnati Cyclones':      { color: '#e21836', logo: 'https://assets.leaguestat.com/echl/logos/5.png', shortName: 'Cyclones' },
+  'Florida Everblades':       { color: '#004687', logo: 'https://assets.leaguestat.com/echl/logos/8.png', shortName: 'Everblades' },
+  'Fort Wayne Komets':        { color: '#fdb827', logo: 'https://assets.leaguestat.com/echl/logos/60.png', shortName: 'Komets' },
+  'Greensboro Gargolyes':     { color: '#482a73', logo: 'https://assets.leaguestat.com/echl/logos/108.png', shortName: 'Gargoyles' },
+  'Greenville Swamp Rabbits': { color: '#cb5d26', logo: 'https://assets.leaguestat.com/echl/logos/52.png', shortName: 'Swamp Rabbits' },
+  'Idaho Steelheads':         { color: '#bac5c5', logo: 'https://assets.leaguestat.com/echl/logos/11.png', shortName: 'Steelheads' },
+  'Jacksonville Icemen':      { color: '#a4a4bc', logo: 'https://assets.leaguestat.com/echl/logos/79.png', shortName: 'Icemen' },
+  'Indy Fuel':                { color: '#cd1f2d', logo: 'https://assets.leaguestat.com/echl/logos/65.png', shortName: 'Fuel' },
+  'Iowa Heartlanders':        { color: '#debb11', logo: 'https://assets.leaguestat.com/echl/logos/98.png', shortName: 'Heartlanders' },
+  'Kalamazoo Wings':          { color: '#e03a3e', logo: 'https://assets.leaguestat.com/echl/logos/50.png', shortName: 'Wings' },
+  'Kansas City Mavericks':    { color: '#ec5e21', logo: 'https://assets.leaguestat.com/echl/logos/68.png', shortName: 'Mavericks' },
+  'Maine Mariners':           { color: '#002654', logo: 'https://assets.leaguestat.com/echl/logos/82.png', shortName: 'Mariners' },
+  'Norfolk Admirals':         { color: '#002654', logo: 'https://assets.leaguestat.com/echl/logos/76.png', shortName: 'Admirals' },
+  'Orlando Solar Bears':      { color: '#f4791f', logo: 'https://assets.leaguestat.com/echl/logos/61.png', shortName: 'Solar Bears' },
+  'Rapid City Rush':          { color: '#e03a3e', logo: 'https://assets.leaguestat.com/echl/logos/70.png', shortName: 'Rush' },
+  'Reading Royals':           { color: '#5b3793', logo: 'https://assets.leaguestat.com/echl/logos/17.png', shortName: 'Royals' },
+  'Savannah Ghost Pirates':   { color: '#5db64a', logo: 'https://assets.leaguestat.com/echl/logos/102.png', shortName: 'Ghost Pirates' },
+  'South Carolina Stingrays': { color: '#002654', logo: 'https://assets.leaguestat.com/echl/logos/18.png', shortName: 'Stingrays' },
   'Tahoe Knight Monsters':    { color: '#007282', logo: 'https://assets.leaguestat.com/echl/logos/106.png', shortName: 'Knight Monsters' },
-  'Toledo Walleye':           { color: '#0079c2', logo: null, shortName: 'Walleye' },
-  'Trois-Rivières Lions':     { color: '#234586', logo: null, shortName: 'Lions' },
-  'Tulsa Oilers':             { color: '#7b212d', logo: null, shortName: 'Oilers' },
-  'Wheeling Nailers':         { color: '#f5b31b', logo: null, shortName: 'Nailers' },
-  'Witchita Thunder':         { color: '#005da6', logo: null, shortName: 'Thunder' },
-  'Worcester Railers':        { color: '#0f2c52', logo: null, shortName: 'Railers' },
+  'Toledo Walleye':           { color: '#0079c2', logo: 'https://assets.leaguestat.com/echl/logos/21.png', shortName: 'Walleye' },
+  'Trois-Rivières Lions':     { color: '#234586', logo: 'https://assets.leaguestat.com/echl/logos/99.png', shortName: 'Lions' },
+  'Tulsa Oilers':             { color: '#7b212d', logo: 'https://assets.leaguestat.com/echl/logos/71.png', shortName: 'Oilers' },
+  'Wheeling Nailers':         { color: '#f5b31b', logo: 'https://assets.leaguestat.com/echl/logos/25_73.png', shortName: 'Nailers' },
+  'Witchita Thunder':         { color: '#005da6', logo: 'https://assets.leaguestat.com/echl/logos/72.png', shortName: 'Thunder' },
+  'Worcester Railers':        { color: '#0f2c52', logo: 'https://assets.leaguestat.com/echl/logos/77.png', shortName: 'Railers' },
 }
 
 const AHL = {
@@ -193,7 +197,7 @@ const PLL = {
 }
 
 const LOVB_TEAMS = {
-  'LOVB Salt Lake Volleyball': { color: '#fff84d', logo: 'https://upload.wikimedia.org/wikipedia/commons/7/7b/LOVB_Salt_Lake_logo.webp', shortName: 'SLC' },
+  'LOVB Salt Lake Volleyball': { color: '#fff84d', logo: 'https://upload.wikimedia.org/wikipedia/commons/7/7b/LOVB_Salt_Lake_logo.webp', shortName: 'SLC', displayName: 'LOVB Salt Lake' },
   'LOVB Houston':              { color: '#5b9af9', logo: 'https://upload.wikimedia.org/wikipedia/commons/d/d7/LOVB_Houston_logo.webp', shortName: 'Houston' },
   'LOVB Austin':               { color: '#9e8aff', logo: 'https://upload.wikimedia.org/wikipedia/commons/3/34/LOVB_Austin_logo.webp', shortName: 'Austin' },
   'LOVB Atlanta':              { color: '#ff73c7', logo: 'https://upload.wikimedia.org/wikipedia/commons/a/ae/LOVB_Atlanta_logo.webp', shortName: 'Atlanta' },
@@ -205,6 +209,7 @@ const LOVB_TEAMS = {
 //  COLLEGE (NCAA)
 //  One entry per school — shared across all sports and genders.
 //  tmNames lists known Ticketmaster name variations.
+//  Optional displayName forces one canonical label for all variants.
 // ============================================================
 
 const NCAA = {
@@ -299,7 +304,7 @@ const NCAA = {
     logo: espn('ncaa', '38'),
     shortName: 'Buffaloes',
     tmNames: [
-      'Colorado Buffaloes', 'Colorado Buffaloes Football',
+      'University of Colorado Buffaloes', 'Colorado Buffaloes Football',
       "Colorado Buffaloes Men's Basketball", "Colorado Buffaloes Women's Basketball",
     ],
   },
@@ -354,7 +359,7 @@ const NCAA = {
     shortName: 'Bearcats',
     tmNames: [
       'Cincinnati Bearcats', 'Cincinnati Bearcats Football',
-      "Cincinnati Bearcats Men's Basketball", "Cincinnati Bearcats Women's Basketball",
+      "Cincinnati Bearcats Mens", "Cincinnati Bearcats Women's Basketball",
     ],
   },
   'Houston': {
@@ -413,39 +418,80 @@ const NCAA = {
 const TEAMS = {}
 
 // Pro teams: key is already the Ticketmaster name
-for (const league of [NBA, NHL, MLS, ECHL, PLL, LOVB_TEAMS]) {
+for (const league of [NBA, NHL, MLS, NWSL, ECHL, PLL, LOVB_TEAMS]) {
   for (const [name, data] of Object.entries(league)) {
     TEAMS[name] = data
+    if (data?.displayName) TEAMS[data.displayName] = data
   }
 }
 
 // College: expand tmNames so each variation maps to the school data
-for (const [, school] of Object.entries(NCAA)) {
-  const { tmNames, ...teamData } = school
+for (const [schoolName, school] of Object.entries(NCAA)) {
+  const { tmNames, displayName, ...baseData } = school
+  const canonicalName = displayName || `${schoolName} ${school.shortName}`
+  const teamData = { ...baseData, displayName: canonicalName, canonicalKey: schoolName }
+
+  TEAMS[schoolName] = teamData
+  TEAMS[canonicalName] = teamData
   for (const name of tmNames) {
     TEAMS[name] = teamData
   }
 }
 
-export { NCAA, NBA, NHL, MLS, ECHL, PLL, LOVB_TEAMS }
+function normalizeLookupName(name) {
+  if (!name) return ''
+  return name
+    .replace(/^University of\s+/i, '')
+    .replace(/\s{2,}/g, ' ')
+    .trim()
+}
+
+export function getTeamData(name) {
+  if (!name) return null
+  return TEAMS[name] || TEAMS[normalizeLookupName(name)] || null
+}
+
+export function getCanonicalTeamName(name) {
+  if (!name) return ''
+  const data = getTeamData(name)
+  return data?.displayName || name
+}
+
+export { NCAA, NBA, NHL, MLS, NWSL, ECHL, PLL, LOVB_TEAMS }
 
 export const SPORT_ICONS = {
   Basketball: '\u{1F3C0}',
   Soccer: '\u26BD',
   Hockey: '\u{1F3D2}',
   Football: '\u{1F3C8}',
+  Baseball: '\u26BE',
+  Softball: '\u{1F94E}',
   Lacrosse: '\u{1F94D}',
   Volleyball: '\u{1F3D0}',
+  "Women's Volleyball": '\u{1F3D0}',
+  Misc: '\u{1F3AF}',
 }
 
 export const LEAGUE_COLORS = {
   NBA: 'bg-orange-600',
+  MLB: 'bg-blue-700',
   MLS: 'bg-red-800',
+  NWSL: 'bg-pink-600',
+  "Women's Soccer": 'bg-pink-600',
+  "Men's Soccer": 'bg-cyan-700',
   NHL: 'bg-black',
   NFL: 'bg-blue-900',
-  College: 'bg-sky-500',
+  NCAAM: 'bg-sky-600',
+  NCAAW: 'bg-indigo-700',
+  NCAAF: 'bg-emerald-700',
+  "NCAA Baseball": 'bg-lime-700',
+  "NCAA Softball": 'bg-teal-700',
+  "Men's VB": 'bg-amber-600',
+  "Women's VB": 'bg-fuchsia-700',
+  LOVB: 'bg-rose-600',
   'Minor League': 'bg-slate-500',
   PLL: 'bg-yellow-500',
+  Misc: 'bg-gray-500',
 }
 
 export default TEAMS

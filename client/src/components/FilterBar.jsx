@@ -1,9 +1,8 @@
 import { SPORT_ICONS, LEAGUE_COLORS } from '../data/teams'
 
-const SPORTS = ['Basketball', 'Soccer', 'Hockey', 'Football', 'Lacrosse', 'Volleyball']
-const LEAGUES = ['NBA', 'MLS', 'NHL', 'NFL', 'College', 'Minor League', 'PLL']
-
 export default function FilterBar({
+  sports = [],
+  leagues = [],
   selectedSports,
   onToggleSport,
   selectedLeagues,
@@ -28,7 +27,7 @@ export default function FilterBar({
       )}
 
       <div className="flex flex-wrap gap-2">
-        {SPORTS.map(sport => (
+        {sports.map(sport => (
           <button
             key={sport}
             onClick={() => onToggleSport(sport)}
@@ -44,7 +43,7 @@ export default function FilterBar({
       </div>
 
       <div className="flex flex-wrap gap-2">
-        {LEAGUES.map(league => {
+        {leagues.map(league => {
           const isSelected = selectedLeagues.includes(league)
           return (
             <button
