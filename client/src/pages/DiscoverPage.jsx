@@ -14,7 +14,6 @@ const SPORT_ORDER = [
   'Baseball',
   'Softball',
   'Volleyball',
-  "Women's Volleyball",
   'Soccer',
   'Hockey',
   'Lacrosse',
@@ -42,7 +41,7 @@ const LEAGUE_ORDER = [
   'Misc',
 ]
 
-const DEFAULT_SPORTS = ['Football', 'Baseball', 'Softball', "Women's Volleyball"]
+const DEFAULT_SPORTS = ['Football', 'Baseball', 'Softball', 'Volleyball']
 const DEFAULT_LEAGUES = ['NCAAF', 'MLB', "Women's VB", 'NCAA Baseball', 'NCAA Softball']
 
 function orderedUnique(values, order) {
@@ -57,10 +56,25 @@ function orderedUnique(values, order) {
   })
 }
 
+const US_STATES = [
+  ['AL','Alabama'],['AK','Alaska'],['AZ','Arizona'],['AR','Arkansas'],['CA','California'],
+  ['CO','Colorado'],['CT','Connecticut'],['DE','Delaware'],['DC','Washington DC'],['FL','Florida'],
+  ['GA','Georgia'],['HI','Hawaii'],['ID','Idaho'],['IL','Illinois'],['IN','Indiana'],
+  ['IA','Iowa'],['KS','Kansas'],['KY','Kentucky'],['LA','Louisiana'],['ME','Maine'],
+  ['MD','Maryland'],['MA','Massachusetts'],['MI','Michigan'],['MN','Minnesota'],['MS','Mississippi'],
+  ['MO','Missouri'],['MT','Montana'],['NE','Nebraska'],['NV','Nevada'],['NH','New Hampshire'],
+  ['NJ','New Jersey'],['NM','New Mexico'],['NY','New York'],['NC','North Carolina'],['ND','North Dakota'],
+  ['OH','Ohio'],['OK','Oklahoma'],['OR','Oregon'],['PA','Pennsylvania'],['RI','Rhode Island'],
+  ['SC','South Carolina'],['SD','South Dakota'],['TN','Tennessee'],['TX','Texas'],['UT','Utah'],
+  ['VT','Vermont'],['VA','Virginia'],['WA','Washington'],['WV','West Virginia'],['WI','Wisconsin'],
+  ['WY','Wyoming'],
+]
+
 function DiscoverPage() {
   const [events, setEvents] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  const [location, setLocation] = useState('UT')
 
   const [selectedSports, setSelectedSports] = useState([])
   const [selectedLeagues, setSelectedLeagues] = useState([])
@@ -69,7 +83,11 @@ function DiscoverPage() {
   const { favorites, toggleFavorite, isFavorite } = useFavorites()
 
   useEffect(() => {
-    fetch('http://localhost:5068/api/events')
+    setLoading(true)
+    setError(null)
+    setSelectedSports([])
+    setSelectedLeagues([])
+    fetch(`http://localhost:5068/api/events?stateCode=${location}`)
       .then(res => {
         if (!res.ok) throw new Error('Failed to fetch events')
         return res.json()
@@ -82,7 +100,7 @@ function DiscoverPage() {
         setError(err.message)
         setLoading(false)
       })
-  }, [])
+  }, [location])
 
   const filteredEvents = events.filter(event => {
     if (selectedSports.length > 0 && !selectedSports.includes(event.sport)) return false
@@ -102,10 +120,23 @@ function DiscoverPage() {
     <div className="min-h-screen bg-gray-50">
       <header className="bg-white border-b border-gray-200">
         <div className="max-w-2xl mx-auto px-4 py-6">
-          <h1 className="text-3xl font-extrabold text-gray-900 tracking-tight">
-            stadar
-          </h1>
-          <p className="text-gray-500 mt-1">Live sports near you</p>
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-3xl font-extrabold text-gray-900 tracking-tight">
+                stadar
+              </h1>
+              <p className="text-gray-500 mt-1">Live sports near you</p>
+            </div>
+            <select
+              value={location}
+              onChange={e => setLocation(e.target.value)}
+              className="border border-gray-300 rounded-lg px-3 py-2 text-sm font-medium text-gray-700 bg-white hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              {US_STATES.map(([code, name]) => (
+                <option key={code} value={code}>{code} — {name}</option>
+              ))}
+            </select>
+          </div>
         </div>
       </header>
 
@@ -163,26 +194,7 @@ function DiscoverPage() {
         )}
 
         {/* Hardcoded event cards for testing */}
-        <div className="mt-4 space-y-3">
-          <EventCard
-            key="test123"
-            event={{
-              id: 'test123',
-              homeTeam: 'LOVB Salt Lake Volleyball',
-              awayTeam: 'LOVB Austin',
-              dateTime: '2026-06-01T01:00:00Z',
-              venue: 'Lifetime Activities Center',
-              sport: 'Volleyball',
-              league: 'LOVB',
-              city: 'Herriman',
-              state: 'UT',
-              ticketUrl: '',
-            }}
-            isFavorite={isFavorite('Utah Archers')}
-            onToggleFavorite={toggleFavorite}
-          />
-        </div>
-                <div className="mt-4 space-y-3">
+                {/* <div className="mt-4 space-y-3">
           <EventCard
             key="test1234"
             event={{
@@ -200,7 +212,7 @@ function DiscoverPage() {
             isFavorite={isFavorite('Denver Broncos')}
             onToggleFavorite={toggleFavorite}
           />
-        </div>
+        </div> */}
       </main>
     </div>
   )
