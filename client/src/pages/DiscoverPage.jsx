@@ -2,9 +2,59 @@ import { useState, useEffect } from 'react'
 import EventCard from '../components/EventCard.jsx'
 import FilterBar from '../components/FilterBar.jsx'
 import useFavorites from '../hooks/useFavorites.js'
+import { getCanonicalTeamName } from '../data/teams'
 
 function toggleArrayItem(arr, item) {
   return arr.includes(item) ? arr.filter(x => x !== item) : [...arr, item]
+}
+
+const SPORT_ORDER = [
+  'Basketball',
+  'Football',
+  'Baseball',
+  'Softball',
+  'Volleyball',
+  "Women's Volleyball",
+  'Soccer',
+  'Hockey',
+  'Lacrosse',
+  'Misc',
+]
+const LEAGUE_ORDER = [
+  'NBA',
+  'NFL',
+  'MLB',
+  'NHL',
+  'MLS',
+  'PLL',
+  'NCAAM',
+  'NCAAW',
+  'NCAAF',
+  'NCAA Baseball',
+  'NCAA Softball',
+  "Men's VB",
+  "Women's VB",
+  'NWSL',
+  "Women's Soccer",
+  "Men's Soccer",
+  'LOVB',
+  'Minor League',
+  'Misc',
+]
+
+const DEFAULT_SPORTS = ['Football', 'Baseball', 'Softball', "Women's Volleyball"]
+const DEFAULT_LEAGUES = ['NCAAF', 'MLB', "Women's VB", 'NCAA Baseball', 'NCAA Softball']
+
+function orderedUnique(values, order) {
+  const unique = [...new Set(values.filter(Boolean))]
+  return unique.sort((a, b) => {
+    const ia = order.indexOf(a)
+    const ib = order.indexOf(b)
+    if (ia === -1 && ib === -1) return a.localeCompare(b)
+    if (ia === -1) return 1
+    if (ib === -1) return -1
+    return ia - ib
+  })
 }
 
 function DiscoverPage() {
@@ -37,9 +87,16 @@ function DiscoverPage() {
   const filteredEvents = events.filter(event => {
     if (selectedSports.length > 0 && !selectedSports.includes(event.sport)) return false
     if (selectedLeagues.length > 0 && !selectedLeagues.includes(event.league)) return false
-    if (showFavoritesOnly && !isFavorite(event.homeTeam) && !isFavorite(event.awayTeam)) return false
+    if (
+      showFavoritesOnly &&
+      !isFavorite(getCanonicalTeamName(event.homeTeam)) &&
+      !isFavorite(getCanonicalTeamName(event.awayTeam))
+    ) return false
     return true
   })
+
+  const sports = orderedUnique([...events.map(e => e.sport), ...DEFAULT_SPORTS], SPORT_ORDER)
+  const leagues = orderedUnique([...events.map(e => e.league), ...DEFAULT_LEAGUES], LEAGUE_ORDER)
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -71,6 +128,8 @@ function DiscoverPage() {
         {!loading && !error && events.length > 0 && (
           <>
             <FilterBar
+              sports={sports}
+              leagues={leagues}
               selectedSports={selectedSports}
               onToggleSport={s => setSelectedSports(prev => toggleArrayItem(prev, s))}
               selectedLeagues={selectedLeagues}
@@ -90,7 +149,7 @@ function DiscoverPage() {
                 <EventCard
                   key={event.id}
                   event={event}
-                  isFavorite={isFavorite(event.homeTeam)}
+                  isFavorite={isFavorite(getCanonicalTeamName(event.homeTeam))}
                   onToggleFavorite={toggleFavorite}
                 />
               ))}
@@ -110,11 +169,11 @@ function DiscoverPage() {
             event={{
               id: 'test123',
               homeTeam: 'LOVB Salt Lake Volleyball',
-              awayTeam: 'LOVB Nebraska',
+              awayTeam: 'LOVB Austin',
               dateTime: '2026-06-01T01:00:00Z',
-              venue: 'Buell Arena',
+              venue: 'Lifetime Activities Center',
               sport: 'Volleyball',
-              league: 'Misc',
+              league: 'LOVB',
               city: 'Herriman',
               state: 'UT',
               ticketUrl: '',
@@ -125,7 +184,7 @@ function DiscoverPage() {
         </div>
                 <div className="mt-4 space-y-3">
           <EventCard
-            key="test123"
+            key="test1234"
             event={{
               id: 'den',
               homeTeam: 'Denver Broncos',
