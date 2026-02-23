@@ -1,7 +1,7 @@
 import { SPORT_ICONS, LEAGUE_COLORS } from '../data/teams'
 
 const SPORTS = ['Basketball', 'Soccer', 'Hockey', 'Football', 'Lacrosse', 'Volleyball']
-const LEAGUES = ['NBA', 'MLS', 'NHL', 'NFL', 'College', 'Minor League', 'NLL']
+const LEAGUES = ['NBA', 'MLS', 'NHL', 'NFL', 'College', 'Minor League', 'PLL']
 
 export default function FilterBar({
   selectedSports,

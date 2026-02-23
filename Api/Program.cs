@@ -69,7 +69,7 @@ app.MapGet("/api/events", async (IHttpClientFactory httpClientFactory, IConfigur
             var vsIndex = eventName.IndexOf("vs", StringComparison.OrdinalIgnoreCase);
             if (vsIndex >= 0)
             {
-                var parsed = eventName[(vsIndex + 4)..].Trim();
+                var parsed = eventName[(vsIndex + 3)..].Trim();
                 if (!string.IsNullOrEmpty(parsed))
                 {
                     awayTeam = parsed;
