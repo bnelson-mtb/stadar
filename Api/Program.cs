@@ -26,24 +26,30 @@ app.UseHttpsRedirection();
 
 app.MapGet("/api/events", async (IHttpClientFactory httpClientFactory, IConfiguration config, HttpContext ctx) =>
 {
+    // Get Ticketmaster API key from configuration
     var apiKey = config["Ticketmaster:ApiKey"];
     if (string.IsNullOrEmpty(apiKey))
         return Results.Problem("Ticketmaster API key not configured");
 
+    // Get state code from query parameter, default to "UT" if missing or invalid
     var stateCode = ctx.Request.Query["stateCode"].FirstOrDefault() ?? "UT";
     if (stateCode.Length != 2 || !stateCode.All(char.IsLetter))
         stateCode = "UT";
     stateCode = stateCode.ToUpperInvariant();
 
+    // Build Ticketmaster API URL with filters for sports events in the specified state
     var client = httpClientFactory.CreateClient();
     var url = $"https://app.ticketmaster.com/discovery/v2/events.json?apikey={apiKey}&stateCode={stateCode}&classificationName=sports&size=50&sort=date,asc";
 
+    // Fetch for the specified state
+    Console.WriteLine($"Fetching events from Ticketmaster for state: {stateCode}");
     var response = await client.GetAsync(url);
     if (!response.IsSuccessStatusCode)
         return Results.Problem("Failed to fetch events from Ticketmaster");
 
     var json = await response.Content.ReadFromJsonAsync<JsonElement>();
 
+    // Get events from _embedded.events array, or return empty if not present
     if (!json.TryGetProperty("_embedded", out var embedded) ||
         !embedded.TryGetProperty("events", out var eventsArray))
     {
@@ -52,6 +58,7 @@ app.MapGet("/api/events", async (IHttpClientFactory httpClientFactory, IConfigur
 
     var events = new List<SportEvent>();
 
+    // Process each event in the array
     foreach (var ev in eventsArray.EnumerateArray())
     {
         // Get Ticketmaster event ID and name
@@ -162,6 +169,7 @@ app.MapGet("/api/events", async (IHttpClientFactory httpClientFactory, IConfigur
             }
         }
 
+        // Add the event to the list
         events.Add(new SportEvent(
             tmId, eventName, homeTeam, awayTeam, dateTime, venue, sport, league,
             city, state, lat, lng, ticketUrl, imageUrl
