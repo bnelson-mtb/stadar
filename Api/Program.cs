@@ -141,6 +141,28 @@ app.MapGet("/api/events", async (IHttpClientFactory httpClientFactory, IConfigur
                 rawLeague = subGenre.TryGetProperty("name", out var sgName) ? sgName.GetString() ?? "" : "";
         }
 
+        // Fallback: if event-level genre is Miscellaneous, scan attractions for a better classification
+        if (rawSport.Equals("Miscellaneous", StringComparison.OrdinalIgnoreCase) || string.IsNullOrEmpty(rawSport))
+        {
+            if (ev.TryGetProperty("_embedded", out var evEmb3) &&
+                evEmb3.TryGetProperty("attractions", out var attractionsForClass))
+            {
+                foreach (var attr in attractionsForClass.EnumerateArray())
+                {
+                    if (!attr.TryGetProperty("classifications", out var attrClass)) continue;
+                    var firstAttrClass = attrClass.EnumerateArray().FirstOrDefault();
+                    var attrGenre = firstAttrClass.TryGetProperty("genre", out var ag) && ag.TryGetProperty("name", out var agn) ? agn.GetString() ?? "" : "";
+                    var attrSubGenre = firstAttrClass.TryGetProperty("subGenre", out var asg) && asg.TryGetProperty("name", out var asgn) ? asgn.GetString() ?? "" : "";
+                    if (!string.IsNullOrEmpty(attrGenre) && !attrGenre.Equals("Miscellaneous", StringComparison.OrdinalIgnoreCase))
+                    {
+                        rawSport = attrGenre;
+                        rawLeague = attrSubGenre;
+                        break;
+                    }
+                }
+            }
+        }
+
         var normalized = NormalizeEvent(eventName, homeTeam, awayTeam, rawSport, rawLeague);
         homeTeam = normalized.HomeTeam;
         awayTeam = normalized.AwayTeam;
@@ -207,13 +229,22 @@ static (string HomeTeam, string AwayTeam, string Sport, string League) Normalize
     if (proMatch.Sport != null)
         return Result(proMatch.Sport, proMatch.League!);
 
-    // 2. Minor league hockey
+    // 2. Minor league — use genre to determine sport, default to hockey for ECHL/AHL
     if (lowerLeague.Contains("echl", StringComparison.OrdinalIgnoreCase)
-        || lowerLeague.Contains("ahl", StringComparison.OrdinalIgnoreCase)
-        || lowerLeague.Contains("minor league", StringComparison.OrdinalIgnoreCase))        
+        || lowerLeague.Contains("ahl", StringComparison.OrdinalIgnoreCase))
         return Result("Hockey", "Minor League");
 
-    // 3. LOVB (name-based, but not location-specific)
+    if (lowerLeague.Contains("minor league", StringComparison.OrdinalIgnoreCase))
+    {
+        var minorSport = MapSport(lowerSport) ?? "Hockey";
+        return Result(minorSport, "Minor League");
+    }
+
+    // 3. NWSL by team name (TM doesn't always tag these correctly)
+    if (IsNwslTeam(normalizedHome) || IsNwslTeam(normalizedAway))
+        return Result("Soccer", "NWSL");
+
+    // 4. LOVB (name-based, but not location-specific)
     if (lowerHome.Contains("lovb") || lowerAway.Contains("lovb"))
         return Result("Volleyball", "LOVB");
 
@@ -231,17 +262,17 @@ static (string HomeTeam, string AwayTeam, string Sport, string League) Normalize
     // 5. Resolve sport from TM genre
     var mappedSport = MapSport(lowerSport);
     if (mappedSport != null)
-        return Result(mappedSport, mappedSport);
+        return Result(mappedSport, "");
 
     // 6. Miscellaneous / missing genre — try to parse from event title
     if (string.IsNullOrWhiteSpace(lowerSport)
         || lowerSport.Equals("miscellaneous", StringComparison.OrdinalIgnoreCase))
     {
         var guessed = ResolveSport("", title);
-        if (guessed != "Misc") return Result(guessed, guessed);
+        if (guessed != "Misc") return Result(guessed, "");
     }
 
-    return Result("Misc", "Misc");
+    return Result("Misc", "");
 }
 
 static (string? Sport, string? League) MatchProLeague(string subGenre)
@@ -309,10 +340,33 @@ static string ResolveCollegeLeague(string sport, string title)
         "Football"   => "NCAAF",
         "Baseball"   => "NCAA Baseball",
         "Softball"   => "NCAA Softball",
-        "Volleyball" => mentionsWomens ? "Women's VB" : mentionsMens ? "Men's VB" : "NCAA VB",
+        "Volleyball" => mentionsWomens ? "NCAA WVB" : mentionsMens ? "NCAA MVB" : "NCAA VB",
         "Soccer"     => mentionsWomens ? "Women's Soccer" : mentionsMens ? "Men's Soccer" : "NCAA Soccer",
         _            => "NCAA",
     };
+}
+
+static bool IsNwslTeam(string team)
+{
+    // Add NWSL teams here as the league expands
+    string[] nwslTeams =
+    [
+        "Utah Royals",
+        "Portland Thorns",
+        "North Carolina Courage",
+        "Chicago Red Stars",
+        "Washington Spirit",
+        "OL Reign",
+        "Houston Dash",
+        "Kansas City Current",
+        "Angel City",
+        "San Diego Wave",
+        "Racing Louisville",
+        "Gotham FC",
+        "Orlando Pride",
+        "Seattle Reign",
+    ];
+    return nwslTeams.Any(n => team.Contains(n, StringComparison.OrdinalIgnoreCase));
 }
 
 static string NormalizeTeamName(string teamName)

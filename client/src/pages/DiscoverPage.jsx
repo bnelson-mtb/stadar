@@ -31,8 +31,6 @@ const LEAGUE_ORDER = [
   'NCAAF',
   'NCAA Baseball',
   'NCAA Softball',
-  "Men's VB",
-  "Women's VB",
   'NWSL',
   "Women's Soccer",
   "Men's Soccer",
@@ -42,7 +40,7 @@ const LEAGUE_ORDER = [
 ]
 
 const DEFAULT_SPORTS = ['Football', 'Baseball', 'Softball', 'Volleyball']
-const DEFAULT_LEAGUES = ['NCAAF', 'MLB', "Women's VB", 'NCAA Baseball', 'NCAA Softball']
+const DEFAULT_LEAGUES = ['NCAAF', 'MLB', 'NCAA Baseball', 'NCAA Softball']
 
 function orderedUnique(values, order) {
   const unique = [...new Set(values.filter(Boolean))]
