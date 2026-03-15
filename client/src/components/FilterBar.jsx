@@ -16,10 +16,10 @@ export default function FilterBar({
       {hasFavorites && (
         <button
           onClick={onToggleFavoritesOnly}
-          className={`px-3 py-1.5 rounded-full text-sm font-medium transition-colors ${
+          className={`px-3 py-1.5 rounded-full text-sm font-medium transition-colors border ${
             showFavoritesOnly
-              ? 'bg-red-500 text-white'
-              : 'bg-white text-gray-600 border border-gray-300'
+              ? 'bg-red-500 text-white border-transparent'
+              : 'bg-white text-gray-600 border-gray-300'
           }`}
         >
           {showFavoritesOnly ? '\u2665' : '\u2661'} My Teams
@@ -31,10 +31,10 @@ export default function FilterBar({
           <button
             key={sport}
             onClick={() => onToggleSport(sport)}
-            className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${
+            className={`px-3 py-1 rounded-full text-xs font-medium transition-colors border ${
               selectedSports.includes(sport)
-                ? 'bg-gray-800 text-white'
-                : 'bg-white text-gray-500 border border-gray-200'
+                ? 'bg-gray-800 text-white border-transparent'
+                : 'bg-white text-gray-500 border-gray-200'
             }`}
           >
             {SPORT_ICONS[sport]} {sport}
@@ -49,10 +49,10 @@ export default function FilterBar({
             <button
               key={league}
               onClick={() => onToggleLeague(league)}
-              className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${
+              className={`px-3 py-1 rounded-full text-xs font-medium transition-colors border ${
                 isSelected
-                  ? `${LEAGUE_COLORS[league] || 'bg-gray-500'} text-white`
-                  : 'bg-white text-gray-500 border border-gray-200'
+                  ? `${LEAGUE_COLORS[league] || 'bg-gray-500'} text-white border-transparent`
+                  : 'bg-white text-gray-500 border-gray-200'
               }`}
             >
               {league}
