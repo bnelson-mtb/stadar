@@ -1,518 +1,3 @@
-// Logo URL helpers
-const espnLogo = (sport, id) => `https://a.espncdn.com/i/teamlogos/${sport}/500/${id}.png`
-const espnScoreboard = (sport, id) => `https://a.espncdn.com/combiner/i?img=/i/teamlogos/${sport}/500/scoreboard/${id}.png`
-const espnCombiner = (sport, id) => `https://a.espncdn.com/combiner/i?img=/i/teamlogos/${sport}/500/${id}.png`
-const echlLogo = (id) => `https://assets.leaguestat.com/echl/logos/${id}.png`
-const pllLogo = (team) => `https://img.premierlacrosseleague.com/Teams/2024/Logo/2024_${team}_primary_color.png`
-const nwslLogo = (version, slug) => `https://images.nwslsoccer.com/image/private/t_q-best/${version}/prd/assets/teams/${slug}.svg`
-const nwslLogoPng = (version, slug) => `https://www.nwslsoccer.com/_next/image?url=https%3A%2F%2Fimages.nwslsoccer.com%2Fimage%2Fprivate%2Ft_q-best%2F${version}%2Fprd%2Fassets%2Fteams%2F${slug}.png&w=48&q=75`
-const mlbLogo = (id) => `https://a.espncdn.com/combiner/i?img=/i/teamlogos/mlb/500/${id}.png&h=200&w=200`
-const milbLogo = (id) => `https://www.mlbstatic.com/team-logos/${id}.svg`
-const pwhlLogo = (id) => `https://a.espncdn.com/i/teamlogos/pwhl/500/${id}.png`
-
-// ============================================================
-//  PRO MEN'S LEAGUES
-// ============================================================
-
-const NBA = {
-  'Utah Jazz':                { color: '#002B5C', logo: espnLogo('nba', 'utah'), shortName: 'Jazz' },
-  'Denver Nuggets':           { color: '#0E2240', logo: espnLogo('nba', 'den'),  shortName: 'Nuggets' },
-  'Phoenix Suns':             { color: '#1D1160', logo: espnLogo('nba', 'phx'),  shortName: 'Suns' },
-  'Los Angeles Lakers':       { color: '#552583', logo: espnLogo('nba', 'lal'),  shortName: 'Lakers' },
-  'LA Clippers':              { color: '#C8102E', logo: espnLogo('nba', 'lac'),  shortName: 'Clippers' },
-  'Los Angeles Clippers':     { color: '#C8102E', logo: espnLogo('nba', 'lac'),  shortName: 'Clippers' },
-  'Portland Trail Blazers':   { color: '#E03A3E', logo: espnLogo('nba', 'por'),  shortName: 'Blazers' },
-  'Sacramento Kings':         { color: '#5A2D81', logo: espnLogo('nba', 'sac'),  shortName: 'Kings' },
-  'Golden State Warriors':    { color: '#1D428A', logo: espnLogo('nba', 'gs'),   shortName: 'Warriors' },
-  'Oklahoma City Thunder':    { color: '#007AC1', logo: espnLogo('nba', 'okc'),  shortName: 'Thunder' },
-  'Minnesota Timberwolves':   { color: '#0C2340', logo: espnLogo('nba', 'min'),  shortName: 'Timberwolves' },
-  'Dallas Mavericks':         { color: '#00538C', logo: espnLogo('nba', 'dal'),  shortName: 'Mavericks' },
-  'San Antonio Spurs':        { color: '#000000', logo: espnLogo('nba', 'sa'),   shortName: 'Spurs' },
-  'Memphis Grizzlies':        { color: '#5D76A9', logo: espnLogo('nba', 'mem'),  shortName: 'Grizzlies' },
-  'Houston Rockets':          { color: '#CE1141', logo: espnLogo('nba', 'hou'),  shortName: 'Rockets' },
-  'New Orleans Pelicans':     { color: '#0C2340', logo: espnLogo('nba', 'no'),   shortName: 'Pelicans' },
-  'New York Knicks':         { color: '#006BB6', logo: espnLogo('nba', 'ny'),   shortName: 'Knicks' },
-  'Miami Heat':              { color: '#98002E', logo: espnLogo('nba', 'mia'),  shortName: 'Heat' },
-  'Atlanta Hawks':           { color: '#E03A3E', logo: espnLogo('nba', 'atl'),  shortName: 'Hawks' },
-  'Chicago Bulls':           { color: '#CE1141', logo: espnLogo('nba', 'chi'),  shortName: 'Bulls' },
-  'Cleveland Cavaliers':     { color: '#6F263D', logo: espnLogo('nba', 'cle'),  shortName: 'Cavaliers' },
-  'Indiana Pacers':         { color: '#002D62', logo: espnLogo('nba', 'ind'),  shortName: 'Pacers' },
-  'Orlando Magic':          { color: '#0077C0', logo: espnLogo('nba', 'orl'),  shortName: 'Magic' },
-  'Toronto Raptors':        { color: '#CE1141', logo: espnLogo('nba', 'tor'),  shortName: 'Raptors' },
-  'Washington Wizards':     { color: '#002B5C', logo: espnLogo('nba', 'wsh'),  shortName: 'Wizards' },
-  'Boston Celtics':         { color: '#007A33', logo: espnLogo('nba', 'bos'),  shortName: 'Celtics' },
-  'Philadelphia 76ers':     { color: '#006BB6', logo: espnLogo('nba', 'phi'),  shortName: '76ers' },
-  'Milwaukee Bucks':        { color: '#00471B', logo: espnLogo('nba', 'mil'),  shortName: 'Bucks' },
-  'Charlotte Hornets':      { color: '#1D1160', logo: espnLogo('nba', 'cha'),  shortName: 'Hornets' },
-  'Detroit Pistons':        { color: '#C8102E', logo: espnLogo('nba', 'det'),  shortName: 'Pistons' },
-}
-
-const NHL = {
-  'Utah Mammoth':             { color: '#131F33', logo: espnLogo('nhl', 'uta'),  shortName: 'Utah Mammoth' },
-  'Colorado Avalanche':       { color: '#6F263D', logo: espnLogo('nhl', 'col'),  shortName: 'Avalanche' },
-  'Vegas Golden Knights':     { color: '#B4975A', logo: espnLogo('nhl', 'vgk'),  shortName: 'Golden Knights' },
-  'Dallas Stars':             { color: '#006847', logo: espnLogo('nhl', 'dal'),  shortName: 'Stars' },
-  'Minnesota Wild':           { color: '#154734', logo: espnLogo('nhl', 'min'),  shortName: 'Wild' },
-  'St. Louis Blues':          { color: '#002F87', logo: espnLogo('nhl', 'stl'),  shortName: 'Blues' },
-  'Nashville Predators':      { color: '#FFB81C', logo: espnLogo('nhl', 'nsh'),  shortName: 'Predators' },
-  'Winnipeg Jets':            { color: '#041E42', logo: espnLogo('nhl', 'wpg'),  shortName: 'Jets' },
-  'Calgary Flames':           { color: '#D2001C', logo: espnLogo('nhl', 'cgy'),  shortName: 'Flames' },
-  'Edmonton Oilers':          { color: '#041E42', logo: espnLogo('nhl', 'edm'),  shortName: 'Oilers' },
-  'Vancouver Canucks':        { color: '#00205B', logo: espnLogo('nhl', 'van'),  shortName: 'Canucks' },
-  'Seattle Kraken':           { color: '#001628', logo: espnLogo('nhl', 'sea'),  shortName: 'Kraken' },
-  'Los Angeles Kings':        { color: '#111111', logo: espnLogo('nhl', 'la'),   shortName: 'Kings' },
-  'Anaheim Ducks':            { color: '#F47A38', logo: espnLogo('nhl', 'ana'),  shortName: 'Ducks' },
-  'San Jose Sharks':          { color: '#006D75', logo: espnLogo('nhl', 'sj'),   shortName: 'Sharks' },
-  'Florida Panthers':          { color: '#041E42', logo: espnLogo('nhl', 'fla'),  shortName: 'Panthers' },
-  'Columbus Blue Jackets':    { color: '#002654', logo: espnLogo('nhl', 'cbj'),  shortName: 'Blue Jackets' },
-  'Pittsburgh Penguins':      { color: '#000000', logo: espnLogo('nhl', 'pit'),  shortName: 'Penguins' },
-  'New York Rangers':        { color: '#0038A8', logo: espnLogo('nhl', 'nyr'),  shortName: 'Rangers' },
-  'New Jersey Devils':       { color: '#E03A3E', logo: espnLogo('nhl', 'nj'),   shortName: 'Devils' },
-  'Boston Bruins':           { color: '#FFB612', logo: espnLogo('nhl', 'bos'),  shortName: 'Bruins' },
-  'Buffalo Sabres':         { color: '#002654', logo: espnLogo('nhl', 'buf'),  shortName: 'Sabres' },
-  'Ottawa Senators':        { color: '#E03A3E', logo: espnLogo('nhl', 'ott'),  shortName: 'Senators' },
-  'Carolina Hurricanes':     { color: '#E03A3E', logo: espnLogo('nhl', 'car'),  shortName: 'Hurricanes' },
-  'Washington Capitals':     { color: '#E03A3E', logo: espnLogo('nhl', 'wsh'),  shortName: 'Capitals' },
-  'Toronto Maple Leafs':     { color: '#002654', logo: espnLogo('nhl', 'tor'),  shortName: 'Maple Leafs' },
-  'Montreal Canadiens':      { color: '#AF1E2D', logo: espnLogo('nhl', 'mtl'),  shortName: 'Canadiens' },
-  'Tampa Bay Lightning':     { color: '#002654', logo: espnLogo('nhl', 'tb'),   shortName: 'Lightning' },
-  'New York Islanders':      { color: '#00539B', logo: espnLogo('nhl', 'nyi'),  shortName: 'Islanders' },
-  'Chicago Blackhawks':       { color: '#CF0A2C', logo: espnLogo('nhl', 'chi'),  shortName: 'Blackhawks' },
-  'Detroit Red Wings':        { color: '#CE1126', logo: espnLogo('nhl', 'det'),  shortName: 'Red Wings' },
-  'Philadelphia Flyers':        { color: '#E03A3E', logo: espnLogo('nhl', 'phi'),  shortName: 'Flyers' },
-}
-
-const NFL = {
-  'Denver Broncos':           { color: '#FB4F14', logo: espnScoreboard('nfl', 'den'),  shortName: 'Broncos' },
-  'Las Vegas Raiders':        { color: '#000000', logo: espnScoreboard('nfl', 'lv'),   shortName: 'Raiders' },
-  'Arizona Cardinals':        { color: '#97233F', logo: espnScoreboard('nfl', 'ari'),  shortName: 'Cardinals' },
-  'Los Angeles Rams':        { color: '#003594', logo: espnScoreboard('nfl', 'lar'),   shortName: 'Rams' },
-  'Kansas City Chiefs':      { color: '#E31837', logo: espnScoreboard('nfl', 'kc'),   shortName: 'Chiefs' },
-  'San Francisco 49ers':     { color: '#B3995D', logo: espnScoreboard('nfl', 'sf'),   shortName: '49ers' },
-  'Seattle Seahawks':        { color: '#69BE28', logo: espnScoreboard('nfl', 'sea'),  shortName: 'Seahawks' },
-  'Minnesota Vikings':       { color: '#4F2683', logo: espnScoreboard('nfl', 'min'),  shortName: 'Vikings' },
-  'Green Bay Packers':       { color: '#203731', logo: espnScoreboard('nfl', 'gb'),   shortName: 'Packers' },
-  'Los Angeles Chargers':    { color: '#002A5E', logo: espnScoreboard('nfl', 'lac'),  shortName: 'Chargers' },
-  'New Orleans Saints':     { color: '#D3BC8D', logo: espnScoreboard('nfl', 'no'),   shortName: 'Saints' },
-  'Tampa Bay Buccaneers':   { color: '#D50A0A', logo: espnScoreboard('nfl', 'tb'),   shortName: 'Buccaneers' },
-  'Atlanta Falcons':        { color: '#A71930', logo: espnScoreboard('nfl', 'atl'),  shortName: 'Falcons' },
-  'New York Giants':        { color: '#0B2265', logo: espnScoreboard('nfl', 'nyg'),  shortName: 'Giants' },
-  'Philadelphia Eagles':    { color: '#004C54', logo: espnScoreboard('nfl', 'phi'),  shortName: 'Eagles' },
-  'Pittsburgh Steelers':    { color: '#FFB612', logo: espnScoreboard('nfl', 'pit'),  shortName: 'Steelers' },
-  'Cleveland Browns':       { color: '#311D00', logo: espnScoreboard('nfl', 'cle'),  shortName: 'Browns' },
-  'Baltimore Ravens':       { color: '#241773', logo: espnScoreboard('nfl', 'bal'),  shortName: 'Ravens' },
-  'New England Patriots':   { color: '#002244', logo: espnScoreboard('nfl', 'ne'),   shortName: 'Patriots' },
-  'Miami Dolphins':         { color: '#008E97', logo: espnScoreboard('nfl', 'mia'),  shortName: 'Dolphins' },
-  'Buffalo Bills':          { color: '#00338D', logo: espnScoreboard('nfl', 'buf'),  shortName: 'Bills' },
-  'Carolina Panthers':      { color: '#0085CA', logo: espnScoreboard('nfl', 'car'),  shortName: 'Panthers' },
-  'Washington Commanders':  { color: '#5A1414', logo: espnScoreboard('nfl', 'wsh'),  shortName: 'Commanders' },
-  'New York Jets':         { color: '#125740', logo: espnScoreboard('nfl', 'nyj'),  shortName: 'Jets' },
-  'Cincinnati Bengals':     { color: '#FB4F14', logo: espnScoreboard('nfl', 'cin'),  shortName: 'Bengals' },
-  'Indianapolis Colts':     { color: '#002C5F', logo: espnScoreboard('nfl', 'ind'),  shortName: 'Colts' },
-  'Tennessee Titans':       { color: '#4B92DB', logo: espnScoreboard('nfl', 'ten'),  shortName: 'Titans' },
-  'Jacksonville Jaguars':   { color: '#006778', logo: espnScoreboard('nfl', 'jax'),  shortName: 'Jaguars' },
-  'Dallas Cowboys':         { color: '#003594', logo: espnScoreboard('nfl', 'dal'),  shortName: 'Cowboys' },
-  'Chicago Bears':           { color: '#0B162A', logo: espnScoreboard('nfl', 'chi'),  shortName: 'Bears' },
-  'Detroit Lions':          { color: '#0076B6', logo: espnScoreboard('nfl', 'det'),  shortName: 'Lions' },
-  'Houston Texans':         { color: '#03202F', logo: espnScoreboard('nfl', 'hou'),  shortName: 'Texans' },
-}
-
-const MLB = {
-  'New York Yankees':         { color: '#003087', logo: mlbLogo('nyy'),  shortName: 'Yankees' },
-  'Chicago White Sox':        { color: '#BD3039', logo: mlbLogo('chw'),  shortName: 'White Sox' },
-  'Cleveland Guardians':      { color: '#E31937', logo: mlbLogo('cle'),  shortName: 'Guardians' },
-  'Kansas City Royals':       { color: '#004687', logo: mlbLogo('kc'),   shortName: 'Royals' },
-  'Minnesota Twins':          { color: '#002654', logo: mlbLogo('min'),  shortName: 'Twins' },
-  'Chicago Cubs':             { color: '#0E3386', logo: mlbLogo('chc'),  shortName: 'Cubs' },
-  'Cincinnati Reds':          { color: '#C6011F', logo: mlbLogo('cin'),  shortName: 'Reds' },
-  'Milwaukee Brewers':        { color: '#12284B', logo: mlbLogo('mil'),  shortName: 'Brewers' },
-  'Pittsburgh Pirates':       { color: '#000000', logo: mlbLogo('pit'),  shortName: 'Pirates' },
-  'St. Louis Cardinals':      { color: '#C41E3A', logo: mlbLogo('stl'),  shortName: 'Cardinals' },
-  'Baltimore Orioles':        { color: '#DF4601', logo: mlbLogo('bal'),  shortName: 'Orioles' },
-  'Boston Red Sox':           { color: '#BD3039', logo: mlbLogo('bos'),  shortName: 'Red Sox' },
-  'Tampa Bay Rays':           { color: '#092C5C', logo: mlbLogo('tb'),   shortName: 'Rays' },
-  'Toronto Blue Jays':        { color: '#134A8E', logo: mlbLogo('tor'),  shortName: 'Blue Jays' },
-  'Atlanta Braves':           { color: '#13274F', logo: mlbLogo('atl'),  shortName: 'Braves' },
-  'Miami Marlins':            { color: '#00A3E0', logo: mlbLogo('mia'),  shortName: 'Marlins' },
-  'New York Mets':            { color: '#002654', logo: mlbLogo('nym'),  shortName: 'Mets' },
-  'Philadelphia Phillies':    { color: '#E81828', logo: mlbLogo('phi'),  shortName: 'Phillies' },
-  'Washington Nationals':     { color: '#AB0003', logo: mlbLogo('wsh'),  shortName: 'Nationals' },
-  'Athletics':                { color: '#003831', logo: mlbLogo('ath'),  shortName: 'Athletics' },
-  'Houston Astros':           { color: '#002D62', logo: mlbLogo('hou'),  shortName: 'Astros' },
-  'Los Angeles Angels':       { color: '#BA0021', logo: mlbLogo('laa'),  shortName: 'Angels' },
-  'Seattle Mariners':         { color: '#0C2C56', logo: mlbLogo('sea'),  shortName: 'Mariners' },
-  'Texas Rangers':            { color: '#003594', logo: mlbLogo('tex'),  shortName: 'Rangers' },
-  'Arizona Diamondbacks':     { color: '#A71930', logo: mlbLogo('ari'),  shortName: 'Diamondbacks' },
-  'Colorado Rockies':         { color: '#333366', logo: mlbLogo('col'),  shortName: 'Rockies' },
-  'Los Angeles Dodgers':      { color: '#005A9C', logo: mlbLogo('la'),   shortName: 'Dodgers' },
-  'San Diego Padres':         { color: '#002654', logo: mlbLogo('sd'),   shortName: 'Padres' },
-  'San Francisco Giants':     { color: '#FD5A1E', logo: mlbLogo('sf'),   shortName: 'Giants' },
-}
-
-const MLS = {
-  'Real Salt Lake':           { color: '#B30838', logo: espnCombiner('soccer', '4771'), shortName: 'Salt Lake' },
-  'Atlanta United':           { color: '#a02336', logo: espnCombiner('soccer', '3089'), shortName: 'Atlanta' },
-  'Austin FC':                { color: '#00ba43', logo: espnCombiner('soccer', '20906'), shortName: 'Austin' },
-  'Chicago Fire FC':          { color: '#ff0000', logo: espnCombiner('soccer', '3088'), shortName: 'Chicago' },
-  'FC Cincinnati':            { color: '#003087', logo: espnCombiner('soccer', '3090'), shortName: 'Cincinnati' },
-  'FC Dallas':                { color: '#c5083b', logo: espnCombiner('soccer', '3091'), shortName: 'Dallas' },
-  'Houston Dynamo FC':        { color: '#bf5408', logo: espnCombiner('soccer', '3092'), shortName: 'Houston' },
-  'Sporting Kansas City':     { color: '#aac9f1', logo: espnCombiner('soccer', '3093'), shortName: 'Kansas City' },
-  'LA Galaxy':                { color: '#13294b', logo: espnCombiner('soccer', '3094'), shortName: 'LA Galaxy' },
-  'Los Angeles FC':           { color: '#c19f6c', logo: espnCombiner('soccer', '3095'), shortName: 'LAFC' },
-  'Inter Miami CF':           { color: '#ff7eb9', logo: espnCombiner('soccer', '3096'), shortName: 'Miami' },
-  'Minnesota United FC':      { color: '#58595B', logo: espnCombiner('soccer', '3097'), shortName: 'Minnesota' },
-  'CF Montréal':              { color: '#0A1E8B', logo: espnCombiner('soccer', '3098'), shortName: 'Montréal' },
-  'Nashville SC':             { color: '#FFB81C', logo: espnCombiner('soccer', '3099'), shortName: 'Nashville' },
-  'New England Revolution':   { color: '#002244', logo: espnCombiner('soccer', '3100'), shortName: 'New England' },
-  'New York City FC':         { color: '#6CADDF', logo: espnCombiner('soccer', '3102'), shortName: 'NYCFC' },
-  'Red Bull New York':        { color: '#DB0320', logo: espnCombiner('soccer', '3103'), shortName: 'Red Bulls' },
-  'Orlando City':             { color: '#660099', logo: espnCombiner('soccer', '3104'), shortName: 'Orlando' },
-  'Philadelphia Union':       { color: '#002654', logo: espnCombiner('soccer', '3105'), shortName: 'Philadelphia' },
-  'Portland Timbers':         { color: '#154734', logo: espnCombiner('soccer', '3106'), shortName: 'Portland' },
-  'San Jose Earthquakes':     { color: '#006D75', logo: espnCombiner('soccer', '3107'), shortName: 'San Jose' },
-  'San Diego FC':             { color: '#002654', logo: espnCombiner('soccer', '3108'), shortName: 'San Diego' },
-  'Seattle Sounders FC':      { color: '#4eb64e', logo: espnCombiner('soccer', '9726'), shortName: 'Seattle' },
-  'Toronto FC':               { color: '#bd394d', logo: espnCombiner('soccer', '3110'), shortName: 'Toronto' },
-  'Vancouver Whitecaps FC':   { color: '#ffffff', logo: espnCombiner('soccer', '3111'), shortName: 'Vancouver' },
-  'St. Louis City SC':        { color: '#f31358', logo: espnCombiner('soccer', '3112'), shortName: 'St. Louis' },
-}
-
-const PLL = {
-  'Utah Archers':             { color: '#fc5016', logo: pllLogo('archers'), shortName: 'Archers' },
-  'California Redwoods':      { color: '#fed200', logo: pllLogo('redwoods'), shortName: 'Redwoods' },
-  'Carolina Chaos':           { color: '#D2001C', logo: pllLogo('chaos'), shortName: 'Chaos' },
-  'Denver Outlaws':           { color: '#fb5014', logo: pllLogo('outlaws'), shortName: 'Outlaws' },
-  'Boston Cannons':           { color: '#c61f30', logo: pllLogo('cannons'), shortName: 'Cannons' },
-  'Maryland Whipsnakes':      { color: '#fd0000', logo: pllLogo('whipsnakes'), shortName: 'Whipsnakes' },
-  'New York Atlas':           { color: '#00affc', logo: pllLogo('atlas'), shortName: 'Atlas' },
-  'Philadelphia Waterdogs':   { color: '#6a1ec1', logo: pllLogo('waterdogs'), shortName: 'Waterdogs' },
-}
-
-// ============================================================
-//  PRO WOMEN'S LEAGUES
-// ============================================================
-
-const NWSL = {
-  'Utah Royals FC':           { color: '#0b1f8a', logo: nwslLogo('v1710436109', 'utah-royals-fc'),    shortName: 'Royals' },
-  'Washington Spirit':        { color: '#ff0000', logo: nwslLogo('v1712866158', 'washington-spirit'), shortName: 'Spirit' },
-  'Seattle Reign':            { color: '#6dbbd1', logo: nwslLogo('v1710436107', 'seattle-reign'),     shortName: 'Reign' },
-  'San Diego Wave FC':        { color: '#002654', logo: nwslLogo('v1710436109', 'san-diego-wave-fc'), shortName: 'Wave' },
-  'Racing Louisville FC':     { color: '#000000', logo: nwslLogo('v1710436103', 'racing-louisville-fc'), shortName: 'Louisville' },
-  'Portland Thorns FC':       { color: '#ff0000', logo: nwslLogo('v1710436101', 'portland-thorns-fc'), shortName: 'Thorns' },
-  'Orlando Pride':            { color: '#660099', logo: nwslLogo('v1710436099', 'orlando-pride'), shortName: 'Pride' },
-  'North Carolina Courage':   { color: '#002654', logo: nwslLogo('v1712866345', 'north-carolina-courage'), shortName: 'Courage' },
-  'Gotham FC':                { color: '#000000', logo: nwslLogoPng('v1768567024', 'nj-ny-gotham-fc'),  shortName: 'Gotham' },
-  'Kansas City Current':      { color: '#000000', logo: nwslLogo('v1710436094', 'kansas-city-current'), shortName: 'Current' },
-  'Houston Dash':             { color: '#bf5408', logo: nwslLogo('v1710436093', 'houston-dash'), shortName: 'Dash' },
-  'Denver Summit FC':         { color: '#fb4f14', logo: nwslLogoPng('v1757004382', 'denver-summit-fc'), shortName: 'Summit' },
-  'Chicago Stars FC':         { color: '#ff0000', logo: nwslLogoPng('v1768567406', 'chicago-stars'),   shortName: 'Stars' },
-  'Boston Legacy FC':         { color: '#002244', logo: nwslLogoPng('v1749431607', 'bos-nation-fc'),   shortName: 'Legacy' },
-  'Bay FC':                   { color: '#000000', logo: nwslLogo('v1710436090', 'bay-fc'), shortName: 'Bay FC' },
-  'Angel City FC':            { color: '#000000', logo: nwslLogo('v1710436088', 'angel-city-fc'), shortName: 'Angel City' },
-}
-
-const LOVB_TEAMS = {
-  'LOVB Salt Lake Volleyball': { color: '#fff84d', logo: 'https://upload.wikimedia.org/wikipedia/commons/7/7b/LOVB_Salt_Lake_logo.webp', shortName: 'SLC', displayName: 'LOVB Salt Lake' },
-  'LOVB Houston':              { color: '#5b9af9', logo: 'https://upload.wikimedia.org/wikipedia/commons/d/d7/LOVB_Houston_logo.webp', shortName: 'Houston' },
-  'LOVB Austin':               { color: '#9e8aff', logo: 'https://upload.wikimedia.org/wikipedia/commons/3/34/LOVB_Austin_logo.webp', shortName: 'Austin' },
-  'LOVB Atlanta':              { color: '#ff73c7', logo: 'https://upload.wikimedia.org/wikipedia/commons/a/ae/LOVB_Atlanta_logo.webp', shortName: 'Atlanta' },
-  'LOVB Nebraska':             { color: '#33f08a', logo: 'https://www.oursportscentral.com/graphics/teams/resized/lovb_nebraska26-200.png', shortName: 'Nebraska' },
-  'LOVB Madison':              { color: '#4de7fd', logo: 'https://upload.wikimedia.org/wikipedia/commons/5/5a/LOVB_Madison_logo.webp', shortName: 'Madison' },
-}
-
-const WNBA = {
-}
-
-const PWHL = {
-  'Boston Fleet':             { color: '#021F5B', logo: pwhlLogo('bos'),  shortName: 'Fleet' },
-  'Minnesota Frost':          { color: '#154734', logo: pwhlLogo('min'),  shortName: 'Frost' },
-  'Montréal Victoire':        { color: '#AF1E2D', logo: pwhlLogo('mtl'),  shortName: 'Victoire' },
-  'New York Sirens':          { color: '#C8102E', logo: pwhlLogo('ny'),   shortName: 'Sirens' },
-  'Ottawa Charge':            { color: '#D4121B', logo: pwhlLogo('ott'),  shortName: 'Charge' },
-  'Toronto Sceptres':         { color: '#002654', logo: pwhlLogo('tor'),  shortName: 'Sceptres' },
-}
-
-// ============================================================
-//  MINOR LEAGUES
-// ============================================================
-
-const ECHL = {
-  'Utah Grizzlies':           { color: '#002244', logo: echlLogo('23'), shortName: 'Grizzlies' },
-  'Adirondack Thunder':       { color: '#c91f2c', logo: echlLogo('74'), shortName: 'Thunder' },
-  'Allen Americans':          { color: '#a81e2e', logo: echlLogo('66'), shortName: 'Americans' },
-  'Atlanta Gladiators':       { color: '#fab418', logo: echlLogo('10'), shortName: 'Gladiators' },
-  'Bloomington Bison':       { color: '#69cff3', logo: echlLogo('107'), shortName: 'Bisons' },
-  'Cincinnati Cyclones':      { color: '#e21836', logo: echlLogo('5'), shortName: 'Cyclones' },
-  'Florida Everblades':       { color: '#004687', logo: echlLogo('8'), shortName: 'Everblades' },
-  'Fort Wayne Komets':        { color: '#fdb827', logo: echlLogo('60'), shortName: 'Komets' },
-  'Greensboro Gargoyles':     { color: '#482a73', logo: echlLogo('108'), shortName: 'Gargoyles' },
-  'Greenville Swamp Rabbits': { color: '#cb5d26', logo: echlLogo('52'), shortName: 'Swamp Rabbits' },
-  'Idaho Steelheads':         { color: '#bac5c5', logo: echlLogo('11'), shortName: 'Steelheads' },
-  'Jacksonville Icemen':      { color: '#a4a4bc', logo: echlLogo('79'), shortName: 'Icemen' },
-  'Indy Fuel':                { color: '#cd1f2d', logo: echlLogo('65'), shortName: 'Fuel' },
-  'Iowa Heartlanders':        { color: '#debb11', logo: echlLogo('98'), shortName: 'Heartlanders' },
-  'Kalamazoo Wings':          { color: '#e03a3e', logo: echlLogo('50'), shortName: 'Wings' },
-  'Kansas City Mavericks':    { color: '#ec5e21', logo: echlLogo('68'), shortName: 'Mavericks' },
-  'Maine Mariners':           { color: '#002654', logo: echlLogo('82'), shortName: 'Mariners' },
-  'Norfolk Admirals':         { color: '#002654', logo: echlLogo('76'), shortName: 'Admirals' },
-  'Orlando Solar Bears':      { color: '#f4791f', logo: echlLogo('61'), shortName: 'Solar Bears' },
-  'Rapid City Rush':          { color: '#e03a3e', logo: echlLogo('70'), shortName: 'Rush' },
-  'Reading Royals':           { color: '#5b3793', logo: echlLogo('17'), shortName: 'Royals' },
-  'Savannah Ghost Pirates':   { color: '#5db64a', logo: echlLogo('102'), shortName: 'Ghost Pirates' },
-  'South Carolina Stingrays': { color: '#002654', logo: echlLogo('18'), shortName: 'Stingrays' },
-  'Tahoe Knight Monsters':    { color: '#007282', logo: echlLogo('106'), shortName: 'Knight Monsters' },
-  'Toledo Walleye':           { color: '#0079c2', logo: echlLogo('21'), shortName: 'Walleye' },
-  'TROIS-RIVIERES LIONS':     { color: '#234586', logo: echlLogo('99'), shortName: 'Lions' },
-  'Tulsa Oilers':             { color: '#7b212d', logo: echlLogo('71'), shortName: 'Oilers' },
-  'Wheeling Nailers':         { color: '#f5b31b', logo: echlLogo('25_73'), shortName: 'Nailers' },
-  'Wichita Thunder':         { color: '#005da6', logo: echlLogo('72'), shortName: 'Thunder' },
-  'Worcester Railers':        { color: '#0f2c52', logo: echlLogo('77'), shortName: 'Railers' },
-}
-
-const AHL = {
-}
-
-const AAA = {
-  // Pacific Coast League (west)
-  'Salt Lake Bees':             { color: '#BA0C2F', logo: milbLogo('561'),  shortName: 'Bees' },
-  'Sacramento River Cats':      { color: '#FDB827', logo: milbLogo('sac'),  shortName: 'River Cats' },
-  'Las Vegas Aviators':         { color: '#003087', logo: milbLogo('lv'),   shortName: 'Aviators' },
-  'Reno Aces':                  { color: '#1C3F7A', logo: milbLogo('rno'),  shortName: 'Aces' },
-  'El Paso Chihuahuas':         { color: '#002654', logo: milbLogo('elp'),  shortName: 'Chihuahuas' },
-  'Albuquerque Isotopes':       { color: '#003087', logo: milbLogo('abq'),  shortName: 'Isotopes' },
-  'Round Rock Express':         { color: '#003087', logo: milbLogo('rr'),   shortName: 'Express' },
-  'Oklahoma City Baseball Club':{ color: '#005A9C', logo: milbLogo('okc'),  shortName: 'OKC' },
-  'Sugar Land Space Cowboys':   { color: '#FF6600', logo: milbLogo('slsc'), shortName: 'Space Cowboys' },
-  'Tacoma Rainiers':            { color: '#003087', logo: milbLogo('tac'),  shortName: 'Rainiers' },
-  'Iowa Cubs':                  { color: '#003087', logo: milbLogo('iob'),  shortName: 'I-Cubs' },
-  'Omaha Storm Chasers':        { color: '#003087', logo: milbLogo('oma'),  shortName: 'Storm Chasers' },
-  // International League (east)
-  'Durham Bulls':               { color: '#002B5C', logo: milbLogo('dur'),  shortName: 'Bulls' },
-  'Nashville Sounds':           { color: '#002B5C', logo: milbLogo('nas'),  shortName: 'Sounds' },
-  'Memphis Redbirds':           { color: '#C41E3A', logo: milbLogo('mem'),  shortName: 'Redbirds' },
-  'St. Paul Saints':            { color: '#002B5C', logo: milbLogo('stp'),  shortName: 'Saints' },
-  'Indianapolis Indians':       { color: '#000000', logo: milbLogo('ind'),  shortName: 'Indians' },
-  'Toledo Mud Hens':            { color: '#003087', logo: milbLogo('tol'),  shortName: 'Mud Hens' },
-  'Louisville Bats':            { color: '#C6011F', logo: milbLogo('lou'),  shortName: 'Bats' },
-  'Buffalo Bisons':             { color: '#003087', logo: milbLogo('buf'),  shortName: 'Bisons' },
-  'Syracuse Mets':              { color: '#002654', logo: milbLogo('syr'),  shortName: 'Mets' },
-  'Rochester Red Wings':        { color: '#AB0003', logo: milbLogo('roc'),  shortName: 'Red Wings' },
-  'Scranton/WB RailRiders':     { color: '#003087', logo: milbLogo('swb'),  shortName: 'RailRiders' },
-  'Lehigh Valley IronPigs':     { color: '#E81828', logo: milbLogo('lhv'),  shortName: 'IronPigs' },
-  'Norfolk Tides':              { color: '#DF4601', logo: milbLogo('nor'),  shortName: 'Tides' },
-  'Charlotte Knights':          { color: '#BD3039', logo: milbLogo('clt'),  shortName: 'Knights' },
-  'Gwinnett Stripers':          { color: '#13274F', logo: milbLogo('gwn'),  shortName: 'Stripers' },
-  'Jacksonville Jumbo Shrimp':  { color: '#00A3E0', logo: milbLogo('jax'),  shortName: 'Jumbo Shrimp' },
-  'Worcester Red Sox':          { color: '#BD3039', logo: milbLogo('wor'),  shortName: 'WooSox' },
-}
-
-
-
-
-// ============================================================
-//  COLLEGE (NCAA)
-//  One entry per school — shared across all sports and genders.
-//  tmNames lists known Ticketmaster name variations.
-//  Optional displayName forces one canonical label for all variants.
-// ============================================================
-
-const NCAA = {
-  // --- Utah schools ---
-  'Utah': {
-    color: '#CC0000',
-    logo: 'https://ssl.gstatic.com/onebox/media/sports/logos/4YPE-XPl_BOYwEen2dUq6A_96x96.png',
-    shortName: 'Utes',
-    tmNames: [
-      "Utah Men's Basketball", "Utah Women's Basketball",
-      'Utah Utes', 'Utah Utes Football',
-      "Utah Utes Men's Soccer", "Utah Utes Women's Soccer",
-      'Utah Gymnastics',
-    ],
-  },
-  'BYU': {
-    color: '#002654',
-    logo: espnLogo('ncaa', '252'),
-    shortName: 'Cougars',
-    tmNames: [
-      'BYU Cougars', 'BYU Cougars Football',
-      "BYU Cougars Men's Basketball", "BYU Cougars Women's Basketball", "BYU Cougars Baseball", "BYU Cougars Mens Volleyball",
-    ],
-  },
-  'Utah State': {
-    color: '#0F2439',
-    logo: espnLogo('ncaa', '328'),
-    shortName: 'Aggies',
-    tmNames: [
-      'Utah State Aggies', 'Utah State Aggies Football',
-      "Utah State Aggies Men's Basketball", "Utah State Aggies Women's Basketball",
-    ],
-  },
-  'Weber State': {
-    color: '#4B2882',
-    logo: espnLogo('ncaa', '2692'),
-    shortName: 'Wildcats',
-    tmNames: [
-      'Weber State Wildcats', 'Weber State Wildcats Football',
-      "Weber State Wildcats Men's Basketball", "Weber State Wildcats Women's Basketball",
-    ],
-  },
-  'Southern Utah': {
-    color: '#CC0000',
-    logo: espnLogo('ncaa', '2572'),
-    shortName: 'Thunderbirds',
-    tmNames: [
-      'Southern Utah Thunderbirds',
-      "Southern Utah Thunderbirds Men's Basketball", "Southern Utah Thunderbirds Women's Basketball",
-    ],
-  },
-  'Utah Tech': {
-    color: '#BA0C2F',
-    logo: espnLogo('ncaa', '3101'),
-    shortName: 'Trailblazers',
-    tmNames: [
-      'Utah Tech Trailblazers',
-      "Utah Tech Trailblazers Men's Basketball", "Utah Tech Trailblazers Women's Basketball",
-    ],
-  },
-  'Utah Valley': {
-    color: '#275D38',
-    logo: null, // not on ESPN CDN
-    shortName: 'Wolverines',
-    tmNames: [
-      'Utah Valley Wolverines',
-      "Utah Valley Wolverines Men's Basketball", "Utah Valley Wolverines Women's Basketball",
-    ],
-  },
-
-  // --- Big 12 opponents (Utah & BYU's conference) ---
-  'Arizona': {
-    color: '#CC0033',
-    logo: espnLogo('ncaa', '12'),
-    shortName: 'Wildcats',
-    tmNames: [
-      'Arizona Wildcats', 'Arizona Wildcats Football',
-      "Arizona Wildcats Men's Basketball", "Arizona Wildcats Women's Basketball",
-    ],
-  },
-  'Arizona State': {
-    color: '#8C1D40',
-    logo: espnLogo('ncaa', '9'),
-    shortName: 'Sun Devils',
-    tmNames: [
-      'Arizona State Sun Devils', 'Arizona State Sun Devils Football',
-      "Arizona State Sun Devils Men's Basketball", "Arizona State Sun Devils Women's Basketball",
-    ],
-  },
-  'Colorado': {
-    color: '#CFB87C',
-    logo: espnLogo('ncaa', '38'),
-    shortName: 'Buffaloes',
-    tmNames: [
-      'University of Colorado Buffaloes', 'Colorado Buffaloes Football',
-      "Colorado Buffaloes Men's Basketball", "Colorado Buffaloes Women's Basketball",
-    ],
-  },
-  'Iowa State': {
-    color: '#C8102E',
-    logo: espnLogo('ncaa', '66'),
-    shortName: 'Cyclones',
-    tmNames: [
-      'Iowa State Cyclones', 'Iowa State Cyclones Football',
-      "Iowa State Cyclones Men's Basketball", "Iowa State Cyclones Women's Basketball",
-    ],
-  },
-  'Kansas': {
-    color: '#0051BA',
-    logo: espnLogo('ncaa', '2305'),
-    shortName: 'Jayhawks',
-    tmNames: [
-      'Kansas Jayhawks', 'Kansas Jayhawks Football',
-      "Kansas Jayhawks Men's Basketball", "Kansas Jayhawks Women's Basketball",
-    ],
-  },
-  'Kansas State': {
-    color: '#512888',
-    logo: espnLogo('ncaa', '2306'),
-    shortName: 'Wildcats',
-    tmNames: [
-      'Kansas State Wildcats', 'Kansas State Wildcats Football',
-      "Kansas State Wildcats Men's Basketball", "Kansas State Wildcats Women's Basketball",
-    ],
-  },
-  'Baylor': {
-    color: '#154734',
-    logo: espnLogo('ncaa', '239'),
-    shortName: 'Bears',
-    tmNames: [
-      'Baylor Bears', 'Baylor Bears Football',
-      "Baylor Bears Men's Basketball", "Baylor Bears Women's Basketball",
-    ],
-  },
-  'UCF': {
-    color: '#000000',
-    logo: espnLogo('ncaa', '2116'),
-    shortName: 'Knights',
-    tmNames: [
-      'UCF Knights', 'UCF Knights Football',
-      "UCF Knights Mens Basketball", "UCF Knights Women's Basketball", "UCF Knights Baseball",
-    ],
-  },
-  'Cincinnati': {
-    color: '#E00122',
-    logo: espnLogo('ncaa', '2132'),
-    shortName: 'Bearcats',
-    tmNames: [
-      'Cincinnati Bearcats', 'Cincinnati Bearcats Football',
-      "Cincinnati Bearcats Mens", "Cincinnati Bearcats Women's Basketball",
-    ],
-  },
-  'Houston': {
-    color: '#C8102E',
-    logo: espnLogo('ncaa', '248'),
-    shortName: 'Cougars',
-    tmNames: [
-      'Houston Cougars', 'Houston Cougars Football',
-      "Houston Cougars Men's Basketball", "Houston Cougars Women's Basketball",
-    ],
-  },
-  'Oklahoma State': {
-    color: '#FF6600',
-    logo: espnLogo('ncaa', '197'),
-    shortName: 'Cowboys',
-    tmNames: [
-      'Oklahoma State Cowboys', 'Oklahoma State Cowboys Football',
-      "Oklahoma State Cowboys Men's Basketball", "Oklahoma State Cowgirls Women's Basketball",
-    ],
-  },
-  'TCU': {
-    color: '#4D1979',
-    logo: espnLogo('ncaa', '2628'),
-    shortName: 'Horned Frogs',
-    tmNames: [
-      'TCU Horned Frogs', 'TCU Horned Frogs Football',
-      "TCU Horned Frogs Men's Basketball", "TCU Horned Frogs Women's Basketball",
-    ],
-  },
-  'Texas Tech': {
-    color: '#CC0000',
-    logo: espnLogo('ncaa', '2641'),
-    shortName: 'Red Raiders',
-    tmNames: [
-      'Texas Tech Red Raiders', 'Texas Tech Red Raiders Football',
-      "Texas Tech Red Raiders Men's Basketball", "Texas Tech Lady Raiders Women's Basketball",
-    ],
-  },
-  'West Virginia': {
-    color: '#002855',
-    logo: espnLogo('ncaa', '277'),
-    shortName: 'Mountaineers',
-    tmNames: [
-      'West Virginia Mountaineers', 'West Virginia Mountaineers Football',
-      "West Virginia Mountaineers Men's Basketball", "West Virginia Mountaineers Women's Basketball",
-    ],
-  },
-
 
   // --- ASUN Conference ---
   'Austin Peay': {
@@ -529,8 +14,8 @@ const NCAA = {
     logo: espnLogo('ncaa', '91'),
     shortName: 'Knights',
     tmNames: [
-      'Bellarmine University Knights',
-      "Bellarmine University Knights Men's Basketball", "Bellarmine University Knights Women's Basketball",
+      'Bellarmine Knights',
+      "Bellarmine Knights Men's Basketball", "Bellarmine Knights Women's Basketball",
     ],
   },
   'C Arkansas': {
@@ -825,13 +310,13 @@ const NCAA = {
       "UTSA Roadrunners Men's Basketball", "UTSA Roadrunners Women's Basketball",
     ],
   },
-  'Wichita State': {
+  'Wichita St': {
     color: '#0d0a03',
     logo: espnLogo('ncaa', '2724'),
     shortName: 'Shockers',
     tmNames: [
-      'Wichita State Shockers',
-      "Wichita State Shockers Men's Basketball", "Wichita State Shockers Women's Basketball",
+      'Wichita St Shockers',
+      "Wichita St Shockers Men's Basketball", "Wichita St Shockers Women's Basketball",
     ],
   },
 
@@ -1000,13 +485,13 @@ const NCAA = {
       "Duke Blue Devils Men's Basketball", "Duke Blue Devils Women's Basketball",
     ],
   },
-  'Florida State': {
+  'Florida St': {
     color: '#782f40',
     logo: espnLogo('ncaa', '52'),
     shortName: 'Seminoles',
     tmNames: [
-      'Florida State Seminoles',
-      "Florida State Seminoles Men's Basketball", "Florida State Seminoles Women's Basketball",
+      'Florida St Seminoles',
+      "Florida St Seminoles Men's Basketball", "Florida St Seminoles Women's Basketball",
     ],
   },
   'Georgia Tech': {
@@ -1059,8 +544,8 @@ const NCAA = {
     logo: espnLogo('ncaa', '221'),
     shortName: 'Panthers',
     tmNames: [
-      'Pittsburgh Panthers',
-      "Pittsburgh Panthers Men's Basketball", "Pittsburgh Panthers Women's Basketball",
+      'Pitt Panthers',
+      "Pitt Panthers Men's Basketball", "Pitt Panthers Women's Basketball",
     ],
   },
   'SMU': {
@@ -1119,31 +604,31 @@ const NCAA = {
   },
 
   // --- Big 12 Conference ---
-  'Arizona State': {
+  'Arizona St': {
     color: '#ffc627',
     logo: espnLogo('ncaa', '9'),
     shortName: 'Sun Devils',
     tmNames: [
-      'Arizona State Sun Devils',
-      "Arizona State Sun Devils Men's Basketball", "Arizona State Sun Devils Women's Basketball",
+      'Arizona St Sun Devils',
+      "Arizona St Sun Devils Men's Basketball", "Arizona St Sun Devils Women's Basketball",
     ],
   },
-  'Kansas State': {
+  'Kansas St': {
     color: '#330a57',
     logo: espnLogo('ncaa', '2306'),
     shortName: 'Wildcats',
     tmNames: [
-      'Kansas State Wildcats',
-      "Kansas State Wildcats Men's Basketball", "Kansas State Wildcats Women's Basketball",
+      'Kansas St Wildcats',
+      "Kansas St Wildcats Men's Basketball", "Kansas St Wildcats Women's Basketball",
     ],
   },
-  'Oklahoma State': {
+  'Oklahoma St': {
     color: '#fe5c00',
     logo: espnLogo('ncaa', '197'),
     shortName: 'Cowboys',
     tmNames: [
-      'Oklahoma State Cowboys',
-      "Oklahoma State Cowboys Men's Basketball", "Oklahoma State Cowboys Women's Basketball",
+      'Oklahoma St Cowboys',
+      "Oklahoma St Cowboys Men's Basketball", "Oklahoma St Cowboys Women's Basketball",
     ],
   },
 
@@ -1258,13 +743,13 @@ const NCAA = {
       "Idaho Vandals Men's Basketball", "Idaho Vandals Women's Basketball",
     ],
   },
-  'Idaho State': {
+  'Idaho St': {
     color: '#ef8c00',
     logo: espnLogo('ncaa', '304'),
     shortName: 'Bengals',
     tmNames: [
-      'Idaho State Bengals',
-      "Idaho State Bengals Men's Basketball", "Idaho State Bengals Women's Basketball",
+      'Idaho St Bengals',
+      "Idaho St Bengals Men's Basketball", "Idaho St Bengals Women's Basketball",
     ],
   },
   'Montana': {
@@ -1276,13 +761,13 @@ const NCAA = {
       "Montana Grizzlies Men's Basketball", "Montana Grizzlies Women's Basketball",
     ],
   },
-  'Montana State': {
+  'Montana St': {
     color: '#00205c',
     logo: espnLogo('ncaa', '147'),
     shortName: 'Bobcats',
     tmNames: [
-      'Montana State Bobcats',
-      "Montana State Bobcats Men's Basketball", "Montana State Bobcats Women's Basketball",
+      'Montana St Bobcats',
+      "Montana St Bobcats Men's Basketball", "Montana St Bobcats Women's Basketball",
     ],
   },
   'N Arizona': {
@@ -1303,31 +788,31 @@ const NCAA = {
       "N Colorado Bears Men's Basketball", "N Colorado Bears Women's Basketball",
     ],
   },
-  'Portland State': {
+  'Portland St': {
     color: '#00311e',
     logo: espnLogo('ncaa', '2502'),
     shortName: 'Vikings',
     tmNames: [
-      'Portland State Vikings',
-      "Portland State Vikings Men's Basketball", "Portland State Vikings Women's Basketball",
+      'Portland St Vikings',
+      "Portland St Vikings Men's Basketball", "Portland St Vikings Women's Basketball",
     ],
   },
-  'Sacramento State': {
+  'Sacramento St': {
     color: '#00573C',
     logo: espnLogo('ncaa', '16'),
     shortName: 'Hornets',
     tmNames: [
-      'Sacramento State Hornets',
-      "Sacramento State Hornets Men's Basketball", "Sacramento State Hornets Women's Basketball",
+      'Sacramento St Hornets',
+      "Sacramento St Hornets Men's Basketball", "Sacramento St Hornets Women's Basketball",
     ],
   },
-  'Weber State': {
+  'Weber St': {
     color: '#18005a',
     logo: espnLogo('ncaa', '2692'),
     shortName: 'Wildcats',
     tmNames: [
-      'Weber State Wildcats',
-      "Weber State Wildcats Men's Basketball", "Weber State Wildcats Women's Basketball",
+      'Weber St Wildcats',
+      "Weber St Wildcats Men's Basketball", "Weber St Wildcats Women's Basketball",
     ],
   },
 
@@ -1460,13 +945,13 @@ const NCAA = {
       "Michigan Wolverines Men's Basketball", "Michigan Wolverines Women's Basketball",
     ],
   },
-  'Michigan State': {
+  'Michigan St': {
     color: '#173f35',
     logo: espnLogo('ncaa', '127'),
     shortName: 'Spartans',
     tmNames: [
-      'Michigan State Spartans',
-      "Michigan State Spartans Men's Basketball", "Michigan State Spartans Women's Basketball",
+      'Michigan St Spartans',
+      "Michigan St Spartans Men's Basketball", "Michigan St Spartans Women's Basketball",
     ],
   },
   'Minnesota': {
@@ -1615,13 +1100,13 @@ const NCAA = {
       "Fullerton Titans Men's Basketball", "Fullerton Titans Women's Basketball",
     ],
   },
-  'Long Beach State': {
+  'Long Beach St': {
     color: '#000000',
     logo: espnLogo('ncaa', '299'),
     shortName: 'Beach',
     tmNames: [
-      'Long Beach State Beach',
-      "Long Beach State Beach Men's Basketball", "Long Beach State Beach Women's Basketball",
+      'Long Beach St Beach',
+      "Long Beach St Beach Men's Basketball", "Long Beach St Beach Women's Basketball",
     ],
   },
   'Santa Barbara': {
@@ -1817,13 +1302,13 @@ const NCAA = {
       "Jax State Gamecocks Men's Basketball", "Jax State Gamecocks Women's Basketball",
     ],
   },
-  'Kennesaw State': {
+  'Kennesaw St': {
     color: '#fdbb30',
     logo: espnLogo('ncaa', '338'),
     shortName: 'Owls',
     tmNames: [
-      'Kennesaw State Owls',
-      "Kennesaw State Owls Men's Basketball", "Kennesaw State Owls Women's Basketball",
+      'Kennesaw St Owls',
+      "Kennesaw St Owls Men's Basketball", "Kennesaw St Owls Women's Basketball",
     ],
   },
   'Liberty': {
@@ -1844,13 +1329,13 @@ const NCAA = {
       "Louisiana Tech Bulldogs Men's Basketball", "Louisiana Tech Bulldogs Women's Basketball",
     ],
   },
-  'Missouri State': {
+  'Missouri St': {
     color: '#5e0009',
     logo: espnLogo('ncaa', '2623'),
     shortName: 'Bears',
     tmNames: [
-      'Missouri State Bears',
-      "Missouri State Bears Men's Basketball", "Missouri State Bears Women's Basketball",
+      'Missouri St Bears',
+      "Missouri St Bears Men's Basketball", "Missouri St Bears Women's Basketball",
     ],
   },
   'MTSU': {
@@ -1862,13 +1347,13 @@ const NCAA = {
       "MTSU Blue Raiders Men's Basketball", "MTSU Blue Raiders Women's Basketball",
     ],
   },
-  'New Mexico State': {
+  'New Mexico St': {
     color: '#7e141b',
     logo: espnLogo('ncaa', '166'),
     shortName: 'Aggies',
     tmNames: [
-      'New Mexico State Aggies',
-      "New Mexico State Aggies Men's Basketball", "New Mexico State Aggies Women's Basketball",
+      'New Mexico St Aggies',
+      "New Mexico St Aggies Men's Basketball", "New Mexico St Aggies Women's Basketball",
     ],
   },
   'Sam Houston': {
@@ -1905,8 +1390,8 @@ const NCAA = {
     logo: espnLogo('ncaa', '87'),
     shortName: 'Fighting Irish',
     tmNames: [
-      'Notre Dame University Fighting Irish',
-      "Notre Dame University Fighting Irish Men's Basketball", "Notre Dame University Fighting Irish Women's Basketball",
+      'Notre Dame Fighting Irish',
+      "Notre Dame Fighting Irish Men's Basketball", "Notre Dame Fighting Irish Women's Basketball",
     ],
   },
   'UConn': {
@@ -1920,13 +1405,13 @@ const NCAA = {
   },
 
   // --- Horizon League ---
-  'Cleveland State': {
+  'Cleveland St': {
     color: '#006633',
     logo: espnLogo('ncaa', '325'),
     shortName: 'Vikings',
     tmNames: [
-      'Cleveland State Vikings',
-      "Cleveland State Vikings Men's Basketball", "Cleveland State Vikings Women's Basketball",
+      'Cleveland St Vikings',
+      "Cleveland St Vikings Men's Basketball", "Cleveland St Vikings Women's Basketball",
     ],
   },
   'Detroit Mercy': {
@@ -2001,22 +1486,22 @@ const NCAA = {
       "Robert Morris Colonials Men's Basketball", "Robert Morris Colonials Women's Basketball",
     ],
   },
-  'Wright State': {
+  'Wright St': {
     color: '#cba052',
     logo: espnLogo('ncaa', '2750'),
     shortName: 'Raiders',
     tmNames: [
-      'Wright State Raiders',
-      "Wright State Raiders Men's Basketball", "Wright State Raiders Women's Basketball",
+      'Wright St Raiders',
+      "Wright St Raiders Men's Basketball", "Wright St Raiders Women's Basketball",
     ],
   },
-  'Youngstown State': {
+  'Youngstown St': {
     color: '#E51936',
     logo: espnLogo('ncaa', '2754'),
     shortName: 'Penguins',
     tmNames: [
-      'Youngstown State Penguins',
-      "Youngstown State Penguins Men's Basketball", "Youngstown State Penguins Women's Basketball",
+      'Youngstown St Penguins',
+      "Youngstown St Penguins Men's Basketball", "Youngstown St Penguins Women's Basketball",
     ],
   },
 
@@ -2149,13 +1634,13 @@ const NCAA = {
       "Merrimack Warriors Men's Basketball", "Merrimack Warriors Women's Basketball",
     ],
   },
-  'Mount State Marys': {
+  'Mount St Marys': {
     color: '#005596',
     logo: espnLogo('ncaa', '116'),
     shortName: 'Mountaineers',
     tmNames: [
-      'Mount State Marys Mountaineers',
-      "Mount State Marys Mountaineers Men's Basketball", "Mount State Marys Mountaineers Women's Basketball",
+      'Mount St Marys Mountaineers',
+      "Mount St Marys Mountaineers Men's Basketball", "Mount St Marys Mountaineers Women's Basketball",
     ],
   },
   'Niagara': {
@@ -2333,22 +1818,22 @@ const NCAA = {
   },
 
   // --- Mid-Eastern Athletic Conference ---
-  'Coppin State': {
+  'Coppin St': {
     color: '#2e3192',
     logo: espnLogo('ncaa', '2154'),
     shortName: 'Eagles',
     tmNames: [
-      'Coppin State Eagles',
-      "Coppin State Eagles Men's Basketball", "Coppin State Eagles Women's Basketball",
+      'Coppin St Eagles',
+      "Coppin St Eagles Men's Basketball", "Coppin St Eagles Women's Basketball",
     ],
   },
-  'Delaware State': {
+  'Delaware St': {
     color: '#009cdb',
     logo: espnLogo('ncaa', '2169'),
     shortName: 'Hornets',
     tmNames: [
-      'Delaware State Hornets',
-      "Delaware State Hornets Men's Basketball", "Delaware State Hornets Women's Basketball",
+      'Delaware St Hornets',
+      "Delaware St Hornets Men's Basketball", "Delaware St Hornets Women's Basketball",
     ],
   },
   'Howard': {
@@ -2369,13 +1854,13 @@ const NCAA = {
       "MD Eastern Hawks Men's Basketball", "MD Eastern Hawks Women's Basketball",
     ],
   },
-  'Morgan State': {
+  'Morgan St': {
     color: '#014786',
     logo: espnLogo('ncaa', '2415'),
     shortName: 'Bears',
     tmNames: [
-      'Morgan State Bears',
-      "Morgan State Bears Men's Basketball", "Morgan State Bears Women's Basketball",
+      'Morgan St Bears',
+      "Morgan St Bears Men's Basketball", "Morgan St Bears Women's Basketball",
     ],
   },
   'NC Central': {
@@ -2387,13 +1872,13 @@ const NCAA = {
       "NC Central Eagles Men's Basketball", "NC Central Eagles Women's Basketball",
     ],
   },
-  'Norfolk State': {
+  'Norfolk St': {
     color: '#0c8968',
     logo: espnLogo('ncaa', '2450'),
     shortName: 'Spartans',
     tmNames: [
-      'Norfolk State Spartans',
-      "Norfolk State Spartans Men's Basketball", "Norfolk State Spartans Women's Basketball",
+      'Norfolk St Spartans',
+      "Norfolk St Spartans Men's Basketball", "Norfolk St Spartans Women's Basketball",
     ],
   },
   'SC State': {
@@ -2443,31 +1928,31 @@ const NCAA = {
       "Evansville Purple Aces Men's Basketball", "Evansville Purple Aces Women's Basketball",
     ],
   },
-  'Illinois State': {
+  'Illinois St': {
     color: '#CE1126',
     logo: espnLogo('ncaa', '2287'),
     shortName: 'Redbirds',
     tmNames: [
-      'Illinois State Redbirds',
-      "Illinois State Redbirds Men's Basketball", "Illinois State Redbirds Women's Basketball",
+      'Illinois St Redbirds',
+      "Illinois St Redbirds Men's Basketball", "Illinois St Redbirds Women's Basketball",
     ],
   },
-  'Indiana State': {
+  'Indiana St': {
     color: '#00669a',
     logo: espnLogo('ncaa', '282'),
     shortName: 'Sycamores',
     tmNames: [
-      'Indiana State Sycamores',
-      "Indiana State Sycamores Men's Basketball", "Indiana State Sycamores Women's Basketball",
+      'Indiana St Sycamores',
+      "Indiana St Sycamores Men's Basketball", "Indiana St Sycamores Women's Basketball",
     ],
   },
-  'Murray State': {
+  'Murray St': {
     color: '#002148',
     logo: espnLogo('ncaa', '93'),
     shortName: 'Racers',
     tmNames: [
-      'Murray State Racers',
-      "Murray State Racers Men's Basketball", "Murray State Racers Women's Basketball",
+      'Murray St Racers',
+      "Murray St Racers Men's Basketball", "Murray St Racers Women's Basketball",
     ],
   },
   'Northern Iowa': {
@@ -2517,31 +2002,31 @@ const NCAA = {
       "Air Force Falcons Men's Basketball", "Air Force Falcons Women's Basketball",
     ],
   },
-  'Boise State': {
+  'Boise St': {
     color: '#0033a0',
     logo: espnLogo('ncaa', '68'),
     shortName: 'Broncos',
     tmNames: [
-      'Boise State Broncos',
-      "Boise State Broncos Men's Basketball", "Boise State Broncos Women's Basketball",
+      'Boise St Broncos',
+      "Boise St Broncos Men's Basketball", "Boise St Broncos Women's Basketball",
     ],
   },
-  'Colorado State': {
+  'Colorado St': {
     color: '#004c23',
     logo: espnLogo('ncaa', '36'),
     shortName: 'Rams',
     tmNames: [
-      'Colorado State Rams',
-      "Colorado State Rams Men's Basketball", "Colorado State Rams Women's Basketball",
+      'Colorado St Rams',
+      "Colorado St Rams Men's Basketball", "Colorado St Rams Women's Basketball",
     ],
   },
-  'Fresno State': {
+  'Fresno St': {
     color: '#b1102b',
     logo: espnLogo('ncaa', '278'),
     shortName: 'Bulldogs',
     tmNames: [
-      'Fresno State Bulldogs',
-      "Fresno State Bulldogs Men's Basketball", "Fresno State Bulldogs Women's Basketball",
+      'Fresno St Bulldogs',
+      "Fresno St Bulldogs Men's Basketball", "Fresno St Bulldogs Women's Basketball",
     ],
   },
   'Hawai\'i': {
@@ -2571,22 +2056,22 @@ const NCAA = {
       "New Mexico Lobos Men's Basketball", "New Mexico Lobos Women's Basketball",
     ],
   },
-  'San Diego State': {
+  'San Diego St': {
     color: '#a6192e',
     logo: espnLogo('ncaa', '21'),
     shortName: 'Aztecs',
     tmNames: [
-      'SDSU Aztec',
-      "San Diego State Aztecs Men's Basketball", "San Diego State Aztecs Women's Basketball",
+      'San Diego St Aztecs',
+      "San Diego St Aztecs Men's Basketball", "San Diego St Aztecs Women's Basketball",
     ],
   },
-  'San José State': {
+  'San José St': {
     color: '#0038a8',
     logo: espnLogo('ncaa', '23'),
     shortName: 'Spartans',
     tmNames: [
-      'San José State Spartans',
-      "San José State Spartans Men's Basketball", "San José State Spartans Women's Basketball",
+      'San José St Spartans',
+      "San José St Spartans Men's Basketball", "San José St Spartans Women's Basketball",
     ],
   },
   'UNLV': {
@@ -2618,13 +2103,13 @@ const NCAA = {
       "C Connecticut Blue Devils Men's Basketball", "C Connecticut Blue Devils Women's Basketball",
     ],
   },
-  'Chicago State': {
+  'Chicago St': {
     color: '#006700',
     logo: espnLogo('ncaa', '2130'),
     shortName: 'Cougars',
     tmNames: [
-      'Chicago State Cougars',
-      "Chicago State Cougars Men's Basketball", "Chicago State Cougars Women's Basketball",
+      'Chicago St Cougars',
+      "Chicago St Cougars Men's Basketball", "Chicago St Cougars Women's Basketball",
     ],
   },
   'FDU': {
@@ -2719,13 +2204,13 @@ const NCAA = {
       "Little Rock Trojans Men's Basketball", "Little Rock Trojans Women's Basketball",
     ],
   },
-  'Morehead State': {
+  'Morehead St': {
     color: '#094FA3',
     logo: espnLogo('ncaa', '2413'),
     shortName: 'Eagles',
     tmNames: [
-      'Morehead State Eagles',
-      "Morehead State Eagles Men's Basketball", "Morehead State Eagles Women's Basketball",
+      'Morehead St Eagles',
+      "Morehead St Eagles Men's Basketball", "Morehead St Eagles Women's Basketball",
     ],
   },
   'SE Missouri': {
@@ -2746,13 +2231,13 @@ const NCAA = {
       "SIUE Cougars Men's Basketball", "SIUE Cougars Women's Basketball",
     ],
   },
-  'Tennessee State': {
+  'Tennessee St': {
     color: '#171796',
     logo: espnLogo('ncaa', '2634'),
     shortName: 'Tigers',
     tmNames: [
-      'Tennessee State Tigers',
-      "Tennessee State Tigers Men's Basketball", "Tennessee State Tigers Women's Basketball",
+      'Tennessee St Tigers',
+      "Tennessee St Tigers Men's Basketball", "Tennessee St Tigers Women's Basketball",
     ],
   },
   'Tennessee Tech': {
@@ -2804,22 +2289,22 @@ const NCAA = {
   },
 
   // --- Pac-12 Conference ---
-  'Oregon State': {
+  'Oregon St': {
     color: '#dc4405',
     logo: espnLogo('ncaa', '204'),
     shortName: 'Beavers',
     tmNames: [
-      'Oregon State Beavers',
-      "Oregon State Beavers Men's Basketball", "Oregon State Beavers Women's Basketball", 'Oregon State University Beavers',
+      'Oregon St Beavers',
+      "Oregon St Beavers Men's Basketball", "Oregon St Beavers Women's Basketball",
     ],
   },
-  'Washington State': {
+  'Washington St': {
     color: '#a60f2d',
     logo: espnLogo('ncaa', '265'),
     shortName: 'Cougars',
     tmNames: [
-      'Washington State Cougars',
-      "Washington State Cougars Men's Basketball", "Washington State Cougars Women's Basketball",
+      'Washington St Cougars',
+      "Washington St Cougars Men's Basketball", "Washington St Cougars Women's Basketball",
     ],
   },
 
@@ -2961,13 +2446,13 @@ const NCAA = {
       "LSU Tigers Men's Basketball", "LSU Tigers Women's Basketball",
     ],
   },
-  'Mississippi State': {
+  'Mississippi St': {
     color: '#5d1725',
     logo: espnLogo('ncaa', '344'),
     shortName: 'Bulldogs',
     tmNames: [
-      'Mississippi State Bulldogs',
-      "Mississippi State Bulldogs Men's Basketball", "Mississippi State Bulldogs Women's Basketball",
+      'Mississippi St Bulldogs',
+      "Mississippi St Bulldogs Men's Basketball", "Mississippi St Bulldogs Women's Basketball",
     ],
   },
   'Missouri': {
@@ -3003,7 +2488,7 @@ const NCAA = {
     shortName: 'Gamecocks',
     tmNames: [
       'South Carolina Gamecocks',
-      "South Carolina Gamecocks Men's Basketball", "South Carolina Gamecocks Women's Basketball", 'Univ of South Carolina Gamecocks',
+      "South Carolina Gamecocks Men's Basketball", "South Carolina Gamecocks Women's Basketball",
     ],
   },
   'Tennessee': {
@@ -3089,13 +2574,13 @@ const NCAA = {
       "Samford Bulldogs Men's Basketball", "Samford Bulldogs Women's Basketball",
     ],
   },
-  'Citadel': {
+  'The Citadel': {
     color: '#7badd3',
     logo: espnLogo('ncaa', '2643'),
     shortName: 'Bulldogs',
     tmNames: [
       'The Citadel Bulldogs',
-      "The Citadel Bulldogs Men's Basketball", "The Citadel Bulldogs Women's Basketball", 'Citadel Bulldogs',
+      "The Citadel Bulldogs Men's Basketball", "The Citadel Bulldogs Women's Basketball",
     ],
   },
   'UNC Greensboro': {
@@ -3181,13 +2666,13 @@ const NCAA = {
       "McNeese Cowboys Men's Basketball", "McNeese Cowboys Women's Basketball",
     ],
   },
-  'N\'Western State': {
+  'N\'Western St': {
     color: '#492F91',
     logo: espnLogo('ncaa', '2466'),
     shortName: 'Demons',
     tmNames: [
-      'N\'Western State Demons',
-      "N'Western State Demons Men's Basketball", "N'Western State Demons Women's Basketball",
+      'N\'Western St Demons',
+      "N'Western St Demons Men's Basketball", "N'Western St Demons Women's Basketball",
     ],
   },
   'New Orleans': {
@@ -3255,22 +2740,22 @@ const NCAA = {
       "Alabama A&M Bulldogs Men's Basketball", "Alabama A&M Bulldogs Women's Basketball",
     ],
   },
-  'Alabama State': {
+  'Alabama St': {
     color: '#e9a900',
     logo: espnLogo('ncaa', '2011'),
     shortName: 'Hornets',
     tmNames: [
-      'Alabama State Hornets',
-      "Alabama State Hornets Men's Basketball", "Alabama State Hornets Women's Basketball",
+      'Alabama St Hornets',
+      "Alabama St Hornets Men's Basketball", "Alabama St Hornets Women's Basketball",
     ],
   },
-  'Alcorn State': {
+  'Alcorn St': {
     color: '#4b0058',
     logo: espnLogo('ncaa', '2016'),
     shortName: 'Braves',
     tmNames: [
-      'Alcorn State Braves',
-      "Alcorn State Braves Men's Basketball", "Alcorn State Braves Women's Basketball",
+      'Alcorn St Braves',
+      "Alcorn St Braves Men's Basketball", "Alcorn St Braves Women's Basketball",
     ],
   },
   'AR-Pine Bluff': {
@@ -3309,22 +2794,22 @@ const NCAA = {
       "Grambling Tigers Men's Basketball", "Grambling Tigers Women's Basketball",
     ],
   },
-  'Jackson State': {
+  'Jackson St': {
     color: '#123297',
     logo: espnLogo('ncaa', '2296'),
     shortName: 'Tigers',
     tmNames: [
-      'Jackson State Tigers',
-      "Jackson State Tigers Men's Basketball", "Jackson State Tigers Women's Basketball",
+      'Jackson St Tigers',
+      "Jackson St Tigers Men's Basketball", "Jackson St Tigers Women's Basketball",
     ],
   },
-  'Miss Valley State': {
+  'Miss Valley St': {
     color: '#005328',
     logo: espnLogo('ncaa', '2400'),
     shortName: 'Delta Devils',
     tmNames: [
-      'Miss Valley State Delta Devils',
-      "Miss Valley State Delta Devils Men's Basketball", "Miss Valley State Delta Devils Women's Basketball",
+      'Miss Valley St Delta Devils',
+      "Miss Valley St Delta Devils Men's Basketball", "Miss Valley St Delta Devils Women's Basketball",
     ],
   },
   'Prairie View': {
@@ -3374,13 +2859,13 @@ const NCAA = {
       "Kansas City Roos Men's Basketball", "Kansas City Roos Women's Basketball",
     ],
   },
-  'N Dakota State': {
+  'N Dakota St': {
     color: '#01402A',
     logo: espnLogo('ncaa', '2449'),
     shortName: 'Bison',
     tmNames: [
-      'N Dakota State Bison',
-      "N Dakota State Bison Men's Basketball", "N Dakota State Bison Women's Basketball",
+      'N Dakota St Bison',
+      "N Dakota St Bison Men's Basketball", "N Dakota St Bison Women's Basketball",
     ],
   },
   'North Dakota': {
@@ -3410,13 +2895,13 @@ const NCAA = {
       "Oral Roberts Golden Eagles Men's Basketball", "Oral Roberts Golden Eagles Women's Basketball",
     ],
   },
-  'S Dakota State': {
+  'S Dakota St': {
     color: '#0033a0',
     logo: espnLogo('ncaa', '2571'),
     shortName: 'Jackrabbits',
     tmNames: [
-      'S Dakota State Jackrabbits',
-      "S Dakota State Jackrabbits Men's Basketball", "S Dakota State Jackrabbits Women's Basketball",
+      'S Dakota St Jackrabbits',
+      "S Dakota St Jackrabbits Men's Basketball", "S Dakota St Jackrabbits Women's Basketball",
     ],
   },
   'South Dakota': {
@@ -3448,13 +2933,13 @@ const NCAA = {
       "App State Mountaineers Men's Basketball", "App State Mountaineers Women's Basketball",
     ],
   },
-  'Arkansas State': {
+  'Arkansas St': {
     color: '#cc092f',
     logo: espnLogo('ncaa', '2032'),
     shortName: 'Red Wolves',
     tmNames: [
-      'Arkansas State Red Wolves',
-      "Arkansas State Red Wolves Men's Basketball", "Arkansas State Red Wolves Women's Basketball",
+      'Arkansas St Red Wolves',
+      "Arkansas St Red Wolves Men's Basketball", "Arkansas St Red Wolves Women's Basketball",
     ],
   },
   'Coastal': {
@@ -3466,22 +2951,22 @@ const NCAA = {
       "Coastal Chanticleers Men's Basketball", "Coastal Chanticleers Women's Basketball",
     ],
   },
-  'Georgia Southern': {
+  'GA Southern': {
     color: '#041e42',
     logo: espnLogo('ncaa', '290'),
     shortName: 'Eagles',
     tmNames: [
-      'Georgia Southern Eagles',
-      "Georgia Southern Eagles Men's Basketball", "Georgia Southern Eagles Women's Basketball",
+      'GA Southern Eagles',
+      "GA Southern Eagles Men's Basketball", "GA Southern Eagles Women's Basketball",
     ],
   },
-  'Georgia State': {
+  'Georgia St': {
     color: '#0039a6',
     logo: espnLogo('ncaa', '2247'),
     shortName: 'Panthers',
     tmNames: [
-      'Georgia State Panthers',
-      "Georgia State Panthers Men's Basketball", "Georgia State Panthers Women's Basketball",
+      'Georgia St Panthers',
+      "Georgia St Panthers Men's Basketball", "Georgia St Panthers Women's Basketball",
     ],
   },
   'James Madison': {
@@ -3538,13 +3023,13 @@ const NCAA = {
       "Southern Miss Golden Eagles Men's Basketball", "Southern Miss Golden Eagles Women's Basketball",
     ],
   },
-  'Texas State': {
+  'Texas St': {
     color: '#501214',
     logo: espnLogo('ncaa', '326'),
     shortName: 'Bobcats',
     tmNames: [
-      'Texas State Bobcats',
-      "Texas State Bobcats Men's Basketball", "Texas State Bobcats Women's Basketball",
+      'Texas St Bobcats',
+      "Texas St Bobcats Men's Basketball", "Texas St Bobcats Women's Basketball",
     ],
   },
   'Troy': {
@@ -3686,13 +3171,13 @@ const NCAA = {
       "Seattle U Redhawks Men's Basketball", "Seattle U Redhawks Women's Basketball",
     ],
   },
-  'Tarleton State': {
+  'Tarleton St': {
     color: '#000000',
     logo: espnLogo('ncaa', '2627'),
     shortName: 'Texans',
     tmNames: [
-      'Tarleton State Texans',
-      "Tarleton State Texans Men's Basketball", "Tarleton State Texans Women's Basketball",
+      'Tarleton St Texans',
+      "Tarleton St Texans Men's Basketball", "Tarleton St Texans Women's Basketball",
     ],
   },
   'UT Arlington': {
@@ -3704,92 +3189,3 @@ const NCAA = {
       "UT Arlington Mavericks Men's Basketball", "UT Arlington Mavericks Women's Basketball",
     ],
   },
-
-}
-
-// ============================================================
-//  BUILD FLAT LOOKUP MAP
-//  EventCard uses TEAMS[teamName] — this map lets that work
-//  regardless of how the data is organized above.
-// ============================================================
-
-const TEAMS = {}
-
-// Pro teams: key is already the Ticketmaster name
-for (const league of [NBA, NHL, MLB, NFL, MLS, NWSL, PWHL, ECHL, AAA, PLL, LOVB_TEAMS]) {
-  for (const [name, data] of Object.entries(league)) {
-    TEAMS[name] = data
-    if (data?.displayName) TEAMS[data.displayName] = data
-  }
-}
-
-// College: expand tmNames so each variation maps to the school data
-for (const [schoolName, school] of Object.entries(NCAA)) {
-  const { tmNames, displayName, ...baseData } = school
-  const canonicalName = displayName || `${schoolName} ${school.shortName}`
-  const teamData = { ...baseData, displayName: canonicalName, canonicalKey: schoolName }
-
-  TEAMS[schoolName] = teamData
-  TEAMS[canonicalName] = teamData
-  for (const name of tmNames) {
-    TEAMS[name] = teamData
-  }
-}
-
-function normalizeLookupName(name) {
-  if (!name) return ''
-  return name
-    .replace(/^University of\s+/i, '')
-    .replace(/\s{2,}/g, ' ')
-    .trim()
-}
-
-export function getTeamData(name) {
-  if (!name) return null
-  return TEAMS[name] || TEAMS[normalizeLookupName(name)] || null
-}
-
-export function getCanonicalTeamName(name) {
-  if (!name) return ''
-  const data = getTeamData(name)
-  return data?.displayName || name
-}
-
-export { NCAA, NBA, NHL, MLB, NFL, MLS, NWSL, PWHL, ECHL, AAA, PLL, LOVB_TEAMS }
-
-export const SPORT_ICONS = {
-  Basketball: '\u{1F3C0}',
-  Soccer: '\u26BD',
-  Hockey: '\u{1F3D2}',
-  Football: '\u{1F3C8}',
-  Baseball: '\u26BE',
-  Softball: '\u{1F94E}',
-  Lacrosse: '\u{1F94D}',
-  Volleyball: '\u{1F3D0}',
-  Misc: '\u{1F3AF}',
-}
-
-export const LEAGUE_COLORS = {
-  NBA: 'bg-orange-600',
-  MLB: 'bg-blue-700',
-  MLS: 'bg-red-800',
-  NWSL: 'bg-pink-600',
-  "Women's Soccer": 'bg-pink-600',
-  "Men's Soccer": 'bg-cyan-700',
-  NHL: 'bg-black',
-  NFL: 'bg-blue-900',
-  NCAAM: 'bg-sky-600',
-  NCAAW: 'bg-indigo-700',
-  NCAAF: 'bg-emerald-700',
-  "NCAA Baseball": 'bg-lime-700',
-  "NCAA Softball": 'bg-teal-700',
-  "Men's VB": 'bg-amber-600',
-  "Women's VB": 'bg-fuchsia-700',
-  LOVB: 'bg-rose-600',
-  PWHL: 'bg-purple-700',
-  'Minor League': 'bg-slate-500',
-  PLL: 'bg-yellow-500',
-  Misc: 'bg-gray-500',
-}
-
-export default TEAMS

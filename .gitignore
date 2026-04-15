@@ -485,3 +485,8 @@ $RECYCLE.BIN/
 *.swp
 
 Api/.buildcheck/
+CLAUDE.md
+.claude/
+client/scripts/d1-log.txt
+.gitignore
+client/scripts/fbs-log.txt
