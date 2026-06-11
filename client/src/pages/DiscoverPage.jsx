@@ -85,7 +85,8 @@ function DiscoverPage() {
     setError(null)
     setSelectedSports([])
     setSelectedLeagues([])
-    fetch(`http://localhost:5068/api/events?stateCode=${location}`)
+    const apiBase = import.meta.env.VITE_API_URL || 'http://localhost:5068'
+    fetch(`${apiBase}/api/events?stateCode=${location}`)
       .then(res => {
         if (!res.ok) throw new Error('Failed to fetch events')
         return res.json()

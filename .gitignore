@@ -485,8 +485,12 @@ $RECYCLE.BIN/
 *.swp
 
 Api/.buildcheck/
+Api/publish/
+Api/deploy.zip
 CLAUDE.md
 .claude/
 client/scripts/d1-log.txt
 .gitignore
 client/scripts/fbs-log.txt
+RN_LEARNING_PLAN.md
+DEV_GUIDE.md
