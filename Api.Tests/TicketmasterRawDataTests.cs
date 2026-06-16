@@ -6,7 +6,9 @@ namespace Api.Tests;
 [TestClass]
 public class TicketmasterRawDataTests
 {
-    private const string ApiKey = "7D0obnTksI4MrAQxNosbV3tUiwjyuspr";
+    // Set the TICKETMASTER_API_KEY environment variable to run this inspector.
+    // Never hardcode the key here — this file is committed to a public repo.
+    private static readonly string? ApiKey = Environment.GetEnvironmentVariable("TICKETMASTER_API_KEY");
     private static readonly HttpClient Client = new();
 
     // ---- Change this to inspect a different event (0-49) ----
@@ -15,6 +17,9 @@ public class TicketmasterRawDataTests
     [TestMethod]
     public async Task DumpSingleEvent_RawJson()
     {
+        if (string.IsNullOrEmpty(ApiKey))
+            Assert.Inconclusive("Set TICKETMASTER_API_KEY env var to run this raw-data inspector.");
+
         var url = $"https://app.ticketmaster.com/discovery/v2/events.json?apikey={ApiKey}&stateCode=UT&classificationName=sports&size=50&sort=date,asc";
 
         var response = await Client.GetAsync(url);
