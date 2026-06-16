@@ -39,6 +39,22 @@ public class TicketmasterClient(HttpClient httpClient, IConfiguration config)
         return events;
     }
 
+    public async Task<SportEvent?> GetEventByIdAsync(string eventId)
+    {
+        var apiKey = config["Ticketmaster:ApiKey"];
+        if (string.IsNullOrEmpty(apiKey))
+            return null;
+
+        var url = $"https://app.ticketmaster.com/discovery/v2/events/{eventId}.json?apikey={apiKey}";
+
+        var response = await httpClient.GetAsync(url);
+        if (!response.IsSuccessStatusCode)
+            return null;
+
+        var json = await response.Content.ReadFromJsonAsync<JsonElement>();
+        return ParseEvent(json);
+    }
+
     /// <summary>
     /// Parses a single Ticketmaster event JSON object into a SportEvent.
     /// Returns null when no home team can be identified.
@@ -61,10 +77,12 @@ public class TicketmasterClient(HttpClient httpClient, IConfiguration config)
 
         var ticketUrl = GetString(ev, "url");
         var imageUrl = ExtractImageUrl(ev);
+        var (priceMin, priceMax, currency) = ExtractPriceRange(ev);
 
         return new SportEvent(
             tmId, eventName, normalized.HomeTeam, normalized.AwayTeam, dateTime, venue,
-            normalized.Sport, normalized.League, city, state, lat, lng, ticketUrl, imageUrl
+            normalized.Sport, normalized.League, city, state, lat, lng, ticketUrl, imageUrl,
+            priceMin, priceMax, currency
         );
     }
 
@@ -198,6 +216,32 @@ public class TicketmasterClient(HttpClient httpClient, IConfiguration config)
             }
         }
         return imageUrl;
+    }
+
+    private static (double? PriceMin, double? PriceMax, string Currency) ExtractPriceRange(JsonElement ev)
+    {
+        double? priceMin = null;
+        double? priceMax = null;
+        var currency = "";
+
+        if (ev.TryGetProperty("priceRanges", out var priceRanges))
+        {
+            var first = priceRanges.EnumerateArray().FirstOrDefault();
+            if (first.ValueKind != JsonValueKind.Undefined)
+            {
+                if (first.TryGetProperty("min", out var minProp))
+                    if (minProp.TryGetDouble(out var min))
+                        priceMin = min;
+
+                if (first.TryGetProperty("max", out var maxProp))
+                    if (maxProp.TryGetDouble(out var max))
+                        priceMax = max;
+
+                currency = GetString(first, "currency");
+            }
+        }
+
+        return (priceMin, priceMax, currency);
     }
 
     private static string GetString(JsonElement el, string prop)

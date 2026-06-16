@@ -147,4 +147,62 @@ public class TicketmasterClientParseTests
         Assert.AreEqual("Utah Utes", ev.HomeTeam);
         Assert.AreEqual("BYU Cougars", ev.AwayTeam);
     }
+
+    [TestMethod]
+    public void ParseEvent_WithPriceRanges_ExtractsPriceInfo()
+    {
+        var json = Parse("""
+        {
+          "id": "x5",
+          "name": "Utah Jazz vs. Denver Nuggets",
+          "priceRanges": [
+            {
+              "type": "standard",
+              "currency": "USD",
+              "min": 25.50,
+              "max": 150.00
+            }
+          ],
+          "_embedded": {
+            "attractions": [
+              { "name": "Utah Jazz" },
+              { "name": "Denver Nuggets" }
+            ]
+          }
+        }
+        """);
+
+        var ev = TicketmasterClient.ParseEvent(json);
+
+        Assert.IsNotNull(ev);
+        Assert.IsNotNull(ev.PriceMin);
+        Assert.IsNotNull(ev.PriceMax);
+        Assert.AreEqual(25.50, ev.PriceMin.Value, 0.01);
+        Assert.AreEqual(150.00, ev.PriceMax.Value, 0.01);
+        Assert.AreEqual("USD", ev.Currency);
+    }
+
+    [TestMethod]
+    public void ParseEvent_NoPriceRanges_PriceFieldsNull()
+    {
+        var json = Parse("""
+        {
+          "id": "x6",
+          "name": "Utah Jazz vs. Denver Nuggets",
+          "_embedded": {
+            "attractions": [
+              { "name": "Utah Jazz" },
+              { "name": "Denver Nuggets" }
+            ]
+          }
+        }
+        """);
+
+        var ev = TicketmasterClient.ParseEvent(json);
+
+        Assert.IsNotNull(ev);
+        Assert.IsNull(ev.PriceMin);
+        Assert.IsNull(ev.PriceMax);
+        Assert.AreEqual("", ev.Currency);
+    }
 }

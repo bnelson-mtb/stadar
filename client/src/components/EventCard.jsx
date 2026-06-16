@@ -1,38 +1,9 @@
-import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { SPORT_ICONS, LEAGUE_COLORS, getCanonicalTeamName, getTeamData } from '../data/teams'
-
-function TeamLogo({ name }) {
-  const [imgError, setImgError] = useState(false)
-  if (!name) return null
-
-  const team = getTeamData(name)
-  const bg = team?.color || '#6B7280'
-  const logoUrl = team?.logo
-
-  if (logoUrl && !imgError) {
-    return (
-      <img
-        src={logoUrl}
-        alt={name}
-        className="w-7 h-7 rounded-full object-cover shrink-0"
-        onError={() => setImgError(true)}
-      />
-    )
-  }
-
-  const initials = name.split(' ').map(w => w[0]).join('').slice(0, 3)
-  return (
-    <div
-      className="w-7 h-7 rounded-full flex items-center justify-center text-white text-[10px] font-bold shrink-0"
-      style={{ backgroundColor: bg }}
-      title={name}
-    >
-      {initials}
-    </div>
-  )
-}
+import TeamLogo from './TeamLogo'
 
 function EventCard({ event, isFavorite, onToggleFavorite }) {
+  const navigate = useNavigate()
   const date = new Date(event.dateTime)
   const homeTeamName = getCanonicalTeamName(event.homeTeam)
   const awayTeamName = getCanonicalTeamName(event.awayTeam)
@@ -45,9 +16,14 @@ function EventCard({ event, isFavorite, onToggleFavorite }) {
   const borderColor = getTeamData(event.homeTeam)?.color || '#6B7280'
   const icon = SPORT_ICONS[event.sport] || ''
 
+  const handleCardClick = () => {
+    navigate(`/event/${event.id}`, { state: { event } })
+  }
+
   return (
     <div
-      className="bg-white rounded-xl shadow-sm border border-gray-100 p-5 hover:shadow-md transition-shadow border-l-4"
+      onClick={handleCardClick}
+      className="bg-white rounded-xl shadow-sm border border-gray-100 p-5 hover:shadow-md transition-shadow border-l-4 cursor-pointer"
       style={{ borderLeftColor: borderColor }}
     >
       <div className="flex items-start justify-between gap-4">
@@ -91,17 +67,6 @@ function EventCard({ event, isFavorite, onToggleFavorite }) {
             <span className="text-gray-300">&middot;</span>
             <span>{event.city}, {event.state}</span>
           </div>
-
-          {event.ticketUrl && (
-            <a
-              href={event.ticketUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block mt-3 text-sm font-medium text-blue-600 hover:text-blue-800"
-            >
-              Get Tickets &rarr;
-            </a>
-          )}
         </div>
 
         <div className="text-right shrink-0">

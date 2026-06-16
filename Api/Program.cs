@@ -55,4 +55,18 @@ app.MapGet("/api/events", async (TicketmasterClient ticketmaster, IMemoryCache c
 })
 .WithName("GetEvents");
 
+app.MapGet("/api/events/{id}", async (string id, TicketmasterClient ticketmaster, IMemoryCache cache) =>
+{
+    var cacheKey = $"event:{id}";
+    if (!cache.TryGetValue(cacheKey, out SportEvent? ev))
+    {
+        ev = await ticketmaster.GetEventByIdAsync(id);
+        if (ev != null)
+            cache.Set(cacheKey, ev, TimeSpan.FromMinutes(5));
+    }
+
+    return ev == null ? Results.NotFound() : Results.Ok(ev);
+})
+.WithName("GetEventById");
+
 app.Run();
