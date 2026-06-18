@@ -11,8 +11,8 @@ function EventDetailPage() {
   const navigate = useNavigate()
   const [event, setEvent] = useState(location.state?.event ?? null)
   const [loading, setLoading] = useState(!event)
-  const [venueExpanded, setVenueExpanded] = useState(false)
-  const [leagueExpanded, setLeagueExpanded] = useState(false)
+  const [venueExpanded, setVenueExpanded] = useState(true)
+  const [leagueExpanded, setLeagueExpanded] = useState(true)
 
   useEffect(() => {
     if (event) return
@@ -137,12 +137,12 @@ function EventDetailPage() {
             onClick={() => setVenueExpanded(!venueExpanded)}
             className="w-full p-6 flex items-center justify-between hover:bg-gray-50 transition-colors"
           >
-            <div>
+            <div className="flex-1 min-w-0 pr-4 text-left">
               <p className="font-semibold text-gray-900">About the Venue</p>
               <p className="text-sm text-gray-500">{event.venue} · {event.city}, {event.state}</p>
             </div>
             <svg
-              className={`w-5 h-5 text-gray-400 transition-transform ${venueExpanded ? 'rotate-180' : ''}`}
+              className={`flex-shrink-0 w-5 h-5 text-gray-400 transition-transform ${venueExpanded ? 'rotate-180' : ''}`}
               fill="none"
               viewBox="0 0 24 24"
               strokeWidth={1.5}

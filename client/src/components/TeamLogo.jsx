@@ -24,7 +24,7 @@ function TeamLogo({ name, size = 'small' }) {
       <img
         src={logoUrl}
         alt={name}
-        className={`${logoClasses[size]} rounded-full object-cover shrink-0`}
+        className={`${logoClasses[size]} object-contain shrink-0`}
         onError={() => setImgError(true)}
       />
     )
