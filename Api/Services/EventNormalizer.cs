@@ -31,12 +31,16 @@ public static class EventNormalizer
         if (proMatch.Sport != null)
             return Result(proMatch.Sport, proMatch.League!);
 
-        // 2. Minor league — use genre to determine sport, default to hockey for ECHL/AHL
-        if (subGenre.Contains("echl", StringComparison.OrdinalIgnoreCase)
-            || subGenre.Contains("ahl", StringComparison.OrdinalIgnoreCase))
-            return Result("Hockey", "Minor League");
+        // 2. AHL/ECHL — team-name detection fires before generic minor-league fallback
+        if (IsAhlTeam(normalizedHome) || IsAhlTeam(normalizedAway))
+            return Result("Hockey", "AHL");
 
-        if (subGenre.Contains("minor league", StringComparison.OrdinalIgnoreCase))
+        if (IsEchlTeam(normalizedHome) || IsEchlTeam(normalizedAway))
+            return Result("Hockey", "ECHL");
+
+        if (subGenre.Contains("minor league", StringComparison.OrdinalIgnoreCase)
+            || subGenre.Contains("echl", StringComparison.OrdinalIgnoreCase)
+            || subGenre.Contains("ahl", StringComparison.OrdinalIgnoreCase))
         {
             var minorSport = MapSport(genre) ?? "Hockey";
             return Result(minorSport, "Minor League");
@@ -169,6 +173,43 @@ public static class EventNormalizer
             "Seattle Reign",
         ];
         return nwslTeams.Any(n => team.Contains(n, StringComparison.OrdinalIgnoreCase));
+    }
+
+    public static bool IsAhlTeam(string team)
+    {
+        string[] ahlTeams =
+        [
+            "Abbotsford Canucks", "Bakersfield Condors", "Belleville Senators",
+            "Bridgeport Islanders", "Calgary Wranglers", "Charlotte Checkers",
+            "Chicago Wolves", "Cleveland Monsters", "Coachella Valley Firebirds",
+            "Colorado Eagles", "Grand Rapids Griffins", "Hartford Wolf Pack",
+            "Henderson Silver Knights", "Hershey Bears", "Iowa Wild",
+            "Laval Rocket", "Lehigh Valley Phantoms", "Manitoba Moose",
+            "Milwaukee Admirals", "Ontario Reign", "Providence Bruins",
+            "Rochester Americans", "Rockford IceHogs", "San Diego Gulls",
+            "San Jose Barracuda", "Springfield Thunderbirds", "Syracuse Crunch",
+            "Texas Stars", "Toronto Marlies", "Tucson Roadrunners",
+            "Utica Comets", "Wilkes-Barre/Scranton Penguins",
+        ];
+        return ahlTeams.Any(n => team.Contains(n, StringComparison.OrdinalIgnoreCase));
+    }
+
+    public static bool IsEchlTeam(string team)
+    {
+        string[] echlTeams =
+        [
+            "Utah Grizzlies", "Adirondack Thunder", "Allen Americans",
+            "Atlanta Gladiators", "Bloomington Bison", "Cincinnati Cyclones",
+            "Florida Everblades", "Fort Wayne Komets", "Greensboro Gargoyles",
+            "Greenville Swamp Rabbits", "Idaho Steelheads", "Jacksonville Icemen",
+            "Indy Fuel", "Iowa Heartlanders", "Kalamazoo Wings",
+            "Kansas City Mavericks", "Maine Mariners", "Norfolk Admirals",
+            "Orlando Solar Bears", "Rapid City Rush", "Reading Royals",
+            "Savannah Ghost Pirates", "South Carolina Stingrays", "Tahoe Knight Monsters",
+            "Toledo Walleye", "Trois-Rivières Lions", "Tulsa Oilers",
+            "Wheeling Nailers", "Wichita Thunder", "Worcester Railers",
+        ];
+        return echlTeams.Any(n => team.Contains(n, StringComparison.OrdinalIgnoreCase));
     }
 
     public static string NormalizeTeamName(string teamName)

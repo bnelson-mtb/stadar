@@ -45,13 +45,32 @@ public class EventNormalizerTests
     // ---------- Minor league ----------
 
     [TestMethod]
-    [DataRow("ECHL")]
-    [DataRow("AHL")]
-    public void NormalizeEvent_HockeyMinorLeagues_DefaultToHockey(string subGenre)
+    public void NormalizeEvent_UnknownMinorLeagueSubgenre_ReturnsMinorLeague()
     {
-        var result = EventNormalizer.NormalizeEvent("Grizzlies vs Steelheads", "Utah Grizzlies", "Idaho Steelheads", "", subGenre);
+        // Generic "Minor League Hockey" with no known team names → falls back to Minor League
+        var result = EventNormalizer.NormalizeEvent("Some Game", "Team A", "Team B", "Hockey", "Minor League Hockey");
         Assert.AreEqual("Hockey", result.Sport);
         Assert.AreEqual("Minor League", result.League);
+    }
+
+    [TestMethod]
+    public void NormalizeEvent_AhlTeamByName_ReturnsAhlLeague()
+    {
+        // Milwaukee Admirals is an AHL team — detected by name even when TM says "Minor League Hockey"
+        var result = EventNormalizer.NormalizeEvent(
+            "Admirals vs Wolves", "Milwaukee Admirals", "Chicago Wolves", "Hockey", "Minor League Hockey");
+        Assert.AreEqual("Hockey", result.Sport);
+        Assert.AreEqual("AHL", result.League);
+    }
+
+    [TestMethod]
+    public void NormalizeEvent_EchlTeamByName_ReturnsEchlLeague()
+    {
+        // Utah Grizzlies is an ECHL team — detected by name
+        var result = EventNormalizer.NormalizeEvent(
+            "Grizzlies vs Steelheads", "Utah Grizzlies", "Idaho Steelheads", "Hockey", "Minor League Hockey");
+        Assert.AreEqual("Hockey", result.Sport);
+        Assert.AreEqual("ECHL", result.League);
     }
 
     [TestMethod]
