@@ -1,4 +1,5 @@
 using System.Text.Json;
+using System.Text.RegularExpressions;
 using Api.Models;
 
 namespace Api.Services;
@@ -91,12 +92,19 @@ public class TicketmasterClient(HttpClient httpClient, IConfiguration config)
         var homeTeam = "";
         var awayTeam = "";
 
+        // Ticketmaster tags non-matchup events (e.g. Monster Jam) with multiple
+        // series/sub-brand attractions that aren't opposing teams. Only trust a
+        // second attraction as an "away team" when the title actually reads like
+        // a matchup ("X vs Y" / "X @ Y").
+        var looksLikeMatchup = !string.IsNullOrEmpty(eventName) &&
+            (Regex.IsMatch(eventName, @"\bvs\.?\b", RegexOptions.IgnoreCase) || eventName.Contains('@'));
+
         if (ev.TryGetProperty("_embedded", out var embedded) &&
             embedded.TryGetProperty("attractions", out var attractions))
         {
             var teams = attractions.EnumerateArray().ToList();
             if (teams.Count >= 1) homeTeam = GetString(teams[0], "name");
-            if (teams.Count >= 2) awayTeam = GetString(teams[1], "name");
+            if (teams.Count >= 2 && looksLikeMatchup) awayTeam = GetString(teams[1], "name");
         }
 
         // Fallback: parse event name for "X vs Y" pattern when away team is missing

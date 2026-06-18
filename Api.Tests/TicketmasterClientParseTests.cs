@@ -80,6 +80,32 @@ public class TicketmasterClientParseTests
     }
 
     [TestMethod]
+    public void ParseEvent_MultipleAttractionsNoVsInTitle_DoesNotInventAwayTeam()
+    {
+        var json = Parse("""
+        {
+          "id": "mj1",
+          "name": "Monster Jam World Finals",
+          "classifications": [
+            { "genre": { "name": "Miscellaneous" }, "subGenre": { "name": "Miscellaneous" } }
+          ],
+          "_embedded": {
+            "attractions": [
+              { "name": "Monster Jam World Finals" },
+              { "name": "Monster Jam" }
+            ]
+          }
+        }
+        """);
+
+        var ev = TicketmasterClient.ParseEvent(json);
+
+        Assert.IsNotNull(ev);
+        Assert.AreEqual("Monster Jam World Finals", ev.HomeTeam);
+        Assert.AreEqual("", ev.AwayTeam);
+    }
+
+    [TestMethod]
     public void ParseEvent_NoIdentifiableTeams_ReturnsNull()
     {
         var json = Parse("""
