@@ -224,6 +224,21 @@ const LOVB_TEAMS = {
 }
 
 const WNBA = {
+  'Atlanta Dream':           { color: '#C8102E', logo: espnLogo('wnba', 'atl'), shortName: 'Dream' },
+  'Chicago Sky':             { color: '#418FDE', logo: espnLogo('wnba', 'chi'), shortName: 'Sky' },
+  'Connecticut Sun':         { color: '#F05023', logo: espnLogo('wnba', 'con'), shortName: 'Sun' },
+  'Dallas Wings':            { color: '#002B5C', logo: espnLogo('wnba', 'dal'), shortName: 'Wings' },
+  'Golden State Valkyries':  { color: '#006BB6', logo: espnLogo('wnba', 'gs'),  shortName: 'Valkyries' },
+  'Indiana Fever':           { color: '#041E42', logo: espnLogo('wnba', 'ind'), shortName: 'Fever' },
+  'Las Vegas Aces':          { color: '#000000', logo: espnLogo('wnba', 'lv'),  shortName: 'Aces' },
+  'Los Angeles Sparks':      { color: '#702F8A', logo: espnLogo('wnba', 'la'),  shortName: 'Sparks' },
+  'Minnesota Lynx':          { color: '#236192', logo: espnLogo('wnba', 'min'), shortName: 'Lynx' },
+  'New York Liberty':        { color: '#006241', logo: espnLogo('wnba', 'ny'),  shortName: 'Liberty' },
+  'Phoenix Mercury':         { color: '#CB6015', logo: espnLogo('wnba', 'phx'), shortName: 'Mercury' },
+  'Portland Fire':           { color: '#8B1A1A', logo: espnLogo('wnba', 'por'), shortName: 'Fire' },
+  'Seattle Storm':           { color: '#2C5234', logo: espnLogo('wnba', 'sea'), shortName: 'Storm' },
+  'Toronto Tempo':           { color: '#7B2D8B', logo: espnLogo('wnba', 'tor'), shortName: 'Tempo' },
+  'Washington Mystics':      { color: '#0C2340', logo: espnLogo('wnba', 'wsh'), shortName: 'Mystics' },
 }
 
 const PWHL = {
@@ -3718,7 +3733,7 @@ const NCAA = {
 const TEAMS = {}
 
 // Pro teams: key is already the Ticketmaster name
-for (const league of [NBA, NHL, MLB, NFL, MLS, NWSL, PWHL, ECHL, AAA, PLL, LOVB_TEAMS]) {
+for (const league of [NBA, WNBA, NHL, MLB, NFL, MLS, NWSL, PWHL, ECHL, AHL, AAA, PLL, LOVB_TEAMS]) {
   for (const [name, data] of Object.entries(league)) {
     TEAMS[name] = data
     if (data?.displayName) TEAMS[data.displayName] = data
