@@ -1,3 +1,5 @@
+import logoManifest from './logoManifest.json' with { type: 'json' }
+
 // Logo URL helpers
 const espnLogo = (sport, id) => `https://a.espncdn.com/i/teamlogos/${sport}/500/${id}.png`
 const espnScoreboard = (sport, id) => `https://a.espncdn.com/combiner/i?img=/i/teamlogos/${sport}/500/scoreboard/${id}.png`
@@ -161,7 +163,7 @@ const MLS = {
   'LA Galaxy':                { color: '#13294b', logo: espnCombiner('soccer', '3094'), shortName: 'LA Galaxy' },
   'Los Angeles FC':           { color: '#c19f6c', logo: espnCombiner('soccer', '3095'), shortName: 'LAFC' },
   'Inter Miami CF':           { color: '#ff7eb9', logo: espnCombiner('soccer', '3096'), shortName: 'Miami' },
-  'Minnesota United FC':      { color: '#58595B', logo: espnCombiner('soccer', '3097'), shortName: 'Minnesota' },
+  'Minnesota United FC':      { color: '#58595B', logo: espnCombiner('soccer', '17362'), shortName: 'Minnesota' },
   'CF Montréal':              { color: '#0A1E8B', logo: espnCombiner('soccer', '3098'), shortName: 'Montréal' },
   'Nashville SC':             { color: '#FFB81C', logo: espnCombiner('soccer', '3099'), shortName: 'Nashville' },
   'New England Revolution':   { color: '#002244', logo: espnCombiner('soccer', '3100'), shortName: 'New England' },
@@ -199,10 +201,10 @@ const NWSL = {
   'Seattle Reign':            { color: '#6dbbd1', logo: nwslLogo('v1710436107', 'seattle-reign'),     shortName: 'Reign' },
   'San Diego Wave FC':        { color: '#002654', logo: nwslLogo('v1710436109', 'san-diego-wave-fc'), shortName: 'Wave' },
   'Racing Louisville FC':     { color: '#000000', logo: nwslLogo('v1710436103', 'racing-louisville-fc'), shortName: 'Louisville' },
-  'Portland Thorns FC':       { color: '#ff0000', logo: nwslLogo('v1710436101', 'portland-thorns-fc'), shortName: 'Thorns' },
+  'Portland Thorns FC':       { color: '#ff0000', logo: nwslLogo('v1710436101', 'portland-thorns-fc'), shortName: 'Thorns', aliases: ['Portland Thorns'] },
   'Orlando Pride':            { color: '#660099', logo: nwslLogo('v1710436099', 'orlando-pride'), shortName: 'Pride' },
   'North Carolina Courage':   { color: '#002654', logo: nwslLogo('v1712866345', 'north-carolina-courage'), shortName: 'Courage' },
-  'Gotham FC':                { color: '#000000', logo: nwslLogoPng('v1768567024', 'nj-ny-gotham-fc'),  shortName: 'Gotham' },
+  'Gotham FC':                { color: '#000000', logo: nwslLogoPng('v1768567024', 'nj-ny-gotham-fc'),  shortName: 'Gotham', aliases: ['NJ/NY Gotham FC'] },
   'Kansas City Current':      { color: '#000000', logo: nwslLogo('v1710436094', 'kansas-city-current'), shortName: 'Current' },
   'Houston Dash':             { color: '#bf5408', logo: nwslLogo('v1710436093', 'houston-dash'), shortName: 'Dash' },
   'Denver Summit FC':         { color: '#fb4f14', logo: nwslLogoPng('v1757004382', 'denver-summit-fc'), shortName: 'Summit' },
@@ -3720,6 +3722,7 @@ for (const league of [NBA, NHL, MLB, NFL, MLS, NWSL, PWHL, ECHL, AAA, PLL, LOVB_
   for (const [name, data] of Object.entries(league)) {
     TEAMS[name] = data
     if (data?.displayName) TEAMS[data.displayName] = data
+    if (data?.aliases) for (const alias of data.aliases) TEAMS[alias] = data
   }
 }
 
@@ -3746,7 +3749,10 @@ function normalizeLookupName(name) {
 
 export function getTeamData(name) {
   if (!name) return null
-  return TEAMS[name] || TEAMS[normalizeLookupName(name)] || null
+  const data = TEAMS[name] || TEAMS[normalizeLookupName(name)] || null
+  if (!data) return null
+  const blobLogo = logoManifest[name] || logoManifest[normalizeLookupName(name)]
+  return blobLogo ? { ...data, logo: blobLogo } : data
 }
 
 export function getCanonicalTeamName(name) {
