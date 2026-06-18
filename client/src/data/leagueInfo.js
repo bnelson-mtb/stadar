@@ -77,6 +77,18 @@ export const LEAGUE_INFO = {
     description: 'Minor League Baseball encompasses dozens of affiliate leagues where players develop skills on their path to the major leagues.',
     website: 'milb.com',
   },
+  'Minor League Hockey': {
+    fullName: 'Minor League Hockey',
+    tier: 'Minor League',
+    description: 'Minor league professional hockey includes the AHL (American Hockey League) and ECHL, where players develop their game on the path to the NHL.',
+    website: 'theahl.com',
+  },
+  'Minor League Basketball': {
+    fullName: 'NBA G League',
+    tier: 'Minor League — NBA Affiliate',
+    description: "The NBA G League is the NBA's official minor league, providing a direct development path to the NBA for players, coaches, and officials.",
+    website: 'gleague.nba.com',
+  },
   NCAAM: {
     fullName: "NCAA Men's Basketball",
     tier: 'College',

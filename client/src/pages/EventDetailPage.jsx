@@ -58,7 +58,12 @@ function EventDetailPage() {
   const icon = SPORT_ICONS[event.sport] || ''
   const MINOR_BADGE_LEAGUES = new Set(['AHL', 'ECHL', 'Minor League'])
   const badgeLabel = MINOR_BADGE_LEAGUES.has(event.league) ? 'Minor League' : event.league
-  const leagueInfo = LEAGUE_INFO[event.league] ?? null
+  const leagueKey = event.league === 'Minor League'
+    ? (event.sport === 'Hockey' ? 'Minor League Hockey'
+       : event.sport === 'Basketball' ? 'Minor League Basketball'
+       : 'Minor League')
+    : event.league
+  const leagueInfo = LEAGUE_INFO[leagueKey] ?? null
 
   const dayOfWeek = date.toLocaleDateString('en-US', { weekday: 'long' })
   const monthDay = date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
@@ -133,8 +138,8 @@ function EventDetailPage() {
             className="w-full p-6 flex items-center justify-between hover:bg-gray-50 transition-colors"
           >
             <div>
-              <p className="font-semibold text-gray-900">{event.venue}</p>
-              <p className="text-sm text-gray-500">{event.city}, {event.state}</p>
+              <p className="font-semibold text-gray-900">About the Venue</p>
+              <p className="text-sm text-gray-500">{event.venue} · {event.city}, {event.state}</p>
             </div>
             <svg
               className={`w-5 h-5 text-gray-400 transition-transform ${venueExpanded ? 'rotate-180' : ''}`}
@@ -152,43 +157,6 @@ function EventDetailPage() {
               <VenueMap lat={event.latitude} lng={event.longitude} venue={event.venue} />
             </div>
           )}
-        </div>
-
-        {/* Tickets Section */}
-        <div className="bg-white rounded-xl shadow-sm p-6 mb-4">
-          <h2 className="font-semibold text-gray-900 mb-4">Tickets</h2>
-
-          <div className="mb-4">
-            {event.priceMin && event.priceMax ? (
-              <div className="mb-4">
-                <p className="text-sm text-gray-600 mb-2">Price Range</p>
-                <p className="text-2xl font-bold text-gray-900">
-                  ${event.priceMin.toFixed(2)} — ${event.priceMax.toFixed(2)}
-                </p>
-                {event.currency && (
-                  <p className="text-sm text-gray-500">{event.currency}</p>
-                )}
-              </div>
-            ) : (
-              <p className="text-sm text-gray-500 mb-4">Pricing unavailable</p>
-            )}
-
-            {event.ticketUrl && (
-              <a
-                href={event.ticketUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg text-center transition-colors"
-              >
-                Buy Tickets on Ticketmaster →
-              </a>
-            )}
-          </div>
-
-          <div className="border-t border-gray-200 pt-4 mt-4">
-            <p className="text-sm text-gray-600 font-semibold mb-2">Compare prices</p>
-            <p className="text-sm text-gray-400">Multi-site price comparison coming soon</p>
-          </div>
         </div>
 
         {/* About the League */}
@@ -229,6 +197,43 @@ function EventDetailPage() {
             )}
           </div>
         )}
+
+        {/* Tickets Section */}
+        <div className="bg-white rounded-xl shadow-sm p-6 mb-4">
+          <h2 className="font-semibold text-gray-900 mb-4">Tickets</h2>
+
+          <div className="mb-4">
+            {event.priceMin && event.priceMax ? (
+              <div className="mb-4">
+                <p className="text-sm text-gray-600 mb-2">Price Range</p>
+                <p className="text-2xl font-bold text-gray-900">
+                  ${event.priceMin.toFixed(2)} — ${event.priceMax.toFixed(2)}
+                </p>
+                {event.currency && (
+                  <p className="text-sm text-gray-500">{event.currency}</p>
+                )}
+              </div>
+            ) : (
+              <p className="text-sm text-gray-500 mb-4">Pricing unavailable</p>
+            )}
+
+            {event.ticketUrl && (
+              <a
+                href={event.ticketUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg text-center transition-colors"
+              >
+                Buy Tickets on Ticketmaster →
+              </a>
+            )}
+          </div>
+
+          <div className="border-t border-gray-200 pt-4 mt-4">
+            <p className="text-sm text-gray-600 font-semibold mb-2">Compare prices</p>
+            <p className="text-sm text-gray-400">Multi-site price comparison coming soon</p>
+          </div>
+        </div>
       </div>
     </div>
   )
