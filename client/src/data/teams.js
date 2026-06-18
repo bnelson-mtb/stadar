@@ -288,6 +288,42 @@ const ECHL = {
 }
 
 const AHL = {
+  // Eastern — Atlantic
+  'Bridgeport Islanders':           { color: '#00539B', logo: null, shortName: 'Islanders' },
+  'Charlotte Checkers':             { color: '#CC0000', logo: null, shortName: 'Checkers' },
+  'Hartford Wolf Pack':             { color: '#0038A8', logo: null, shortName: 'Wolf Pack' },
+  'Hershey Bears':                  { color: '#041E42', logo: null, shortName: 'Bears' },
+  'Lehigh Valley Phantoms':         { color: '#F74902', logo: null, shortName: 'Phantoms' },
+  'Providence Bruins':              { color: '#FCB514', logo: null, shortName: 'Bruins' },
+  'Springfield Thunderbirds':       { color: '#002F87', logo: null, shortName: 'Thunderbirds' },
+  'Utica Comets':                   { color: '#CE1126', logo: null, shortName: 'Comets' },
+  'Wilkes-Barre/Scranton Penguins': { color: '#000000', logo: null, shortName: 'Penguins' },
+  // Eastern — North
+  'Belleville Senators':            { color: '#C52032', logo: null, shortName: 'Senators' },
+  'Cleveland Monsters':             { color: '#002654', logo: null, shortName: 'Monsters' },
+  'Grand Rapids Griffins':          { color: '#CE1126', logo: null, shortName: 'Griffins' },
+  'Laval Rocket':                   { color: '#AF1E2D', logo: null, shortName: 'Rocket' },
+  'Manitoba Moose':                 { color: '#004C97', logo: null, shortName: 'Moose' },
+  'Milwaukee Admirals':             { color: '#FFB81C', logo: null, shortName: 'Admirals' },
+  'Rochester Americans':            { color: '#002654', logo: null, shortName: 'Americans' },
+  'Syracuse Crunch':                { color: '#002868', logo: null, shortName: 'Crunch' },
+  'Toronto Marlies':                { color: '#003E7E', logo: null, shortName: 'Marlies' },
+  // Western — Central
+  'Chicago Wolves':                 { color: '#CC0000', logo: null, shortName: 'Wolves' },
+  'Colorado Eagles':                { color: '#6F263D', logo: null, shortName: 'Eagles' },
+  'Iowa Wild':                      { color: '#154734', logo: null, shortName: 'Wild' },
+  'Rockford IceHogs':               { color: '#CF0A2C', logo: null, shortName: 'IceHogs' },
+  'Texas Stars':                    { color: '#006847', logo: null, shortName: 'Stars' },
+  // Western — Pacific
+  'Abbotsford Canucks':             { color: '#00843D', logo: null, shortName: 'Canucks' },
+  'Bakersfield Condors':            { color: '#041E42', logo: null, shortName: 'Condors' },
+  'Calgary Wranglers':              { color: '#C8102E', logo: null, shortName: 'Wranglers' },
+  'Coachella Valley Firebirds':     { color: '#355464', logo: null, shortName: 'Firebirds' },
+  'Henderson Silver Knights':       { color: '#B4975A', logo: null, shortName: 'Silver Knights' },
+  'Ontario Reign':                  { color: '#111111', logo: null, shortName: 'Reign' },
+  'San Diego Gulls':                { color: '#FC4C02', logo: null, shortName: 'Gulls' },
+  'San Jose Barracuda':             { color: '#006D75', logo: null, shortName: 'Barracuda' },
+  'Tucson Roadrunners':             { color: '#8C2633', logo: null, shortName: 'Roadrunners' },
 }
 
 const AAA = {
