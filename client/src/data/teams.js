@@ -33,20 +33,20 @@ const NBA = {
   'Memphis Grizzlies':        { color: '#5D76A9', logo: espnLogo('nba', 'mem'),  shortName: 'Grizzlies' },
   'Houston Rockets':          { color: '#CE1141', logo: espnLogo('nba', 'hou'),  shortName: 'Rockets' },
   'New Orleans Pelicans':     { color: '#0C2340', logo: espnLogo('nba', 'no'),   shortName: 'Pelicans' },
-  'New York Knicks':         { color: '#006BB6', logo: espnLogo('nba', 'ny'),   shortName: 'Knicks' },
-  'Miami Heat':              { color: '#98002E', logo: espnLogo('nba', 'mia'),  shortName: 'Heat' },
-  'Atlanta Hawks':           { color: '#E03A3E', logo: espnLogo('nba', 'atl'),  shortName: 'Hawks' },
-  'Chicago Bulls':           { color: '#CE1141', logo: espnLogo('nba', 'chi'),  shortName: 'Bulls' },
-  'Cleveland Cavaliers':     { color: '#6F263D', logo: espnLogo('nba', 'cle'),  shortName: 'Cavaliers' },
-  'Indiana Pacers':         { color: '#002D62', logo: espnLogo('nba', 'ind'),  shortName: 'Pacers' },
-  'Orlando Magic':          { color: '#0077C0', logo: espnLogo('nba', 'orl'),  shortName: 'Magic' },
-  'Toronto Raptors':        { color: '#CE1141', logo: espnLogo('nba', 'tor'),  shortName: 'Raptors' },
-  'Washington Wizards':     { color: '#002B5C', logo: espnLogo('nba', 'wsh'),  shortName: 'Wizards' },
-  'Boston Celtics':         { color: '#007A33', logo: espnLogo('nba', 'bos'),  shortName: 'Celtics' },
-  'Philadelphia 76ers':     { color: '#006BB6', logo: espnLogo('nba', 'phi'),  shortName: '76ers' },
-  'Milwaukee Bucks':        { color: '#00471B', logo: espnLogo('nba', 'mil'),  shortName: 'Bucks' },
-  'Charlotte Hornets':      { color: '#1D1160', logo: espnLogo('nba', 'cha'),  shortName: 'Hornets' },
-  'Detroit Pistons':        { color: '#C8102E', logo: espnLogo('nba', 'det'),  shortName: 'Pistons' },
+  'New York Knicks':          { color: '#006BB6', logo: espnLogo('nba', 'ny'),   shortName: 'Knicks' },
+  'Miami Heat':               { color: '#98002E', logo: espnLogo('nba', 'mia'),  shortName: 'Heat' },
+  'Atlanta Hawks':            { color: '#E03A3E', logo: espnLogo('nba', 'atl'),  shortName: 'Hawks' },
+  'Chicago Bulls':            { color: '#CE1141', logo: espnLogo('nba', 'chi'),  shortName: 'Bulls' },
+  'Cleveland Cavaliers':      { color: '#6F263D', logo: espnLogo('nba', 'cle'),  shortName: 'Cavaliers' },
+  'Indiana Pacers':           { color: '#002D62', logo: espnLogo('nba', 'ind'),  shortName: 'Pacers' },
+  'Orlando Magic':            { color: '#0077C0', logo: espnLogo('nba', 'orl'),  shortName: 'Magic' },
+  'Toronto Raptors':          { color: '#CE1141', logo: espnLogo('nba', 'tor'),  shortName: 'Raptors' },
+  'Washington Wizards':       { color: '#002B5C', logo: espnLogo('nba', 'wsh'),  shortName: 'Wizards' },
+  'Boston Celtics':           { color: '#007A33', logo: espnLogo('nba', 'bos'),  shortName: 'Celtics' },
+  'Philadelphia 76ers':       { color: '#006BB6', logo: espnLogo('nba', 'phi'),  shortName: '76ers' },
+  'Milwaukee Bucks':          { color: '#00471B', logo: espnLogo('nba', 'mil'),  shortName: 'Bucks' },
+  'Charlotte Hornets':        { color: '#1D1160', logo: espnLogo('nba', 'cha'),  shortName: 'Hornets' },
+  'Detroit Pistons':          { color: '#C8102E', logo: espnLogo('nba', 'det'),  shortName: 'Pistons' },
 }
 
 const NHL = {
@@ -250,6 +250,14 @@ const PWHL = {
   'Toronto Sceptres':         { color: '#002654', logo: pwhlLogo('tor'),  shortName: 'Sceptres' },
 }
 
+const IAL = {
+  'Arizona Juggernauts':      { color: '#E03A3E', logo: null, shortName: 'Juggernauts' },
+  'Cincinnati Slingers':      { color: '#CF102D', logo: null, shortName: 'Slingers' },
+  'Las Vegas Rockers':        { color: '#16C8FF', logo: null, shortName: 'Rockers' },
+  'Pennsylvania Benjamins':   { color: '#64B84F', logo: null, shortName: 'Benjamins' },
+  'Utah Great 8\'s':           { color: '#557FBE', logo: null, shortName: 'Great8s', aliases: ['Utah Great 8s', 'Utah Great8s', 'Utah Gr8s'] },
+}
+
 // ============================================================
 //  MINOR LEAGUES
 // ============================================================
@@ -335,7 +343,7 @@ const AAA = {
   'El Paso Chihuahuas':         { color: '#002654', logo: milbLogo('elp'),  shortName: 'Chihuahuas' },
   'Albuquerque Isotopes':       { color: '#003087', logo: milbLogo('abq'),  shortName: 'Isotopes' },
   'Round Rock Express':         { color: '#003087', logo: milbLogo('rr'),   shortName: 'Express' },
-  'Oklahoma City Baseball Club':{ color: '#005A9C', logo: milbLogo('okc'),  shortName: 'OKC' },
+  'Oklahoma City Comets':       { color: '#005A9C', logo: milbLogo('okc'),  shortName: 'OKC' },
   'Sugar Land Space Cowboys':   { color: '#FF6600', logo: milbLogo('slsc'), shortName: 'Space Cowboys' },
   'Tacoma Rainiers':            { color: '#003087', logo: milbLogo('tac'),  shortName: 'Rainiers' },
   'Iowa Cubs':                  { color: '#003087', logo: milbLogo('iob'),  shortName: 'I-Cubs' },
@@ -3769,11 +3777,12 @@ const NCAA = {
 const TEAMS = {}
 
 // Pro teams: key is already the Ticketmaster name
-for (const league of [NBA, WNBA, NHL, MLB, NFL, MLS, NWSL, PWHL, ECHL, AHL, AAA, PLL, LOVB_TEAMS]) {
+for (const league of [NBA, WNBA, NHL, MLB, NFL, MLS, NWSL, PWHL, IAL, ECHL, AHL, AAA, PLL, LOVB_TEAMS]) {
   for (const [name, data] of Object.entries(league)) {
-    TEAMS[name] = data
-    if (data?.displayName) TEAMS[data.displayName] = data
-    if (data?.aliases) for (const alias of data.aliases) TEAMS[alias] = data
+    const teamData = data?.canonicalKey ? data : { ...data, canonicalKey: name }
+    TEAMS[name] = teamData
+    if (teamData?.displayName) TEAMS[teamData.displayName] = teamData
+    if (teamData?.aliases) for (const alias of teamData.aliases) TEAMS[alias] = teamData
   }
 }
 
@@ -3802,7 +3811,10 @@ export function getTeamData(name) {
   if (!name) return null
   const data = TEAMS[name] || TEAMS[normalizeLookupName(name)] || null
   if (!data) return null
-  const blobLogo = logoManifest[name] || logoManifest[normalizeLookupName(name)]
+  const blobLogo = logoManifest[name]
+    || logoManifest[normalizeLookupName(name)]
+    || logoManifest[data.canonicalKey]
+    || logoManifest[data.displayName]
   return blobLogo ? { ...data, logo: blobLogo } : data
 }
 
@@ -3812,7 +3824,7 @@ export function getCanonicalTeamName(name) {
   return data?.displayName || name
 }
 
-export { NCAA, NBA, NHL, MLB, NFL, MLS, NWSL, PWHL, ECHL, AAA, PLL, LOVB_TEAMS }
+export { NCAA, NBA, NHL, MLB, NFL, MLS, NWSL, PWHL, IAL, ECHL, AAA, PLL, LOVB_TEAMS }
 
 export const SPORT_ICONS = {
   Basketball: '\u{1F3C0}',
@@ -3828,8 +3840,14 @@ export const SPORT_ICONS = {
 
 export const LEAGUE_COLORS = {
   NBA: 'bg-orange-600',
+  WNBA: 'bg-orange-500',
   MLB: 'bg-blue-700',
   MLS: 'bg-red-800',
+  IAL: 'bg-red-700',
+  USL: 'bg-indigo-700',
+  'Liga MX': 'bg-emerald-700',
+  'World Cup': 'bg-cyan-700',
+  International: 'bg-sky-700',
   NWSL: 'bg-pink-600',
   "Women's Soccer": 'bg-pink-600',
   "Men's Soccer": 'bg-cyan-700',
@@ -3844,7 +3862,13 @@ export const LEAGUE_COLORS = {
   "Women's VB": 'bg-fuchsia-700',
   LOVB: 'bg-rose-600',
   PWHL: 'bg-purple-700',
+  AHL: 'bg-slate-500',
+  ECHL: 'bg-slate-500',
   'Minor League': 'bg-slate-500',
+  'Triple-A': 'bg-slate-500',
+  'Double-A': 'bg-slate-500',
+  'High-A': 'bg-slate-500',
+  'Single-A': 'bg-slate-500',
   PLL: 'bg-yellow-500',
   Misc: 'bg-gray-500',
 }

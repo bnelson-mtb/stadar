@@ -43,6 +43,13 @@ public static class EventNormalizer
             || subGenre.Contains("ahl", StringComparison.OrdinalIgnoreCase))
         {
             var minorSport = MapSport(genre) ?? "Hockey";
+            if (minorSport == "Baseball")
+            {
+                var level = MinorLeagueBaseball.MatchLevel(normalizedHome)
+                         ?? MinorLeagueBaseball.MatchLevel(normalizedAway);
+                if (level != null)
+                    return Result("Baseball", level);
+            }
             return Result(minorSport, "Minor League");
         }
 
@@ -75,7 +82,14 @@ public static class EventNormalizer
             || genre.Equals("miscellaneous", StringComparison.OrdinalIgnoreCase))
         {
             var guessed = ResolveSport("", title);
-            if (guessed != "Misc") return Result(guessed, "");
+            if (guessed != "Misc")
+            {
+                // If we detected a sport from title, check if it's a college matchup
+                // (e.g., "Utah Tech Football" + "Montana State Football" suggests college)
+                if (guessed == "Football" && LooksLikeCollegeFootball(title, normalizedHome, normalizedAway))
+                    return Result("Football", "NCAAF");
+                return Result(guessed, "");
+            }
         }
 
         return Result("Misc", "");
@@ -97,6 +111,12 @@ public static class EventNormalizer
             "national women's soccer league"   => ("Soccer", "NWSL"),
             "premier lacrosse league"          => ("Lacrosse", "PLL"),
             "pll"                              => ("Lacrosse", "PLL"),
+            "international arena league"       => ("Football", "IAL"),
+            "ial"                              => ("Football", "IAL"),
+            "usl championship" or "usl league one" or "united soccer league" => ("Soccer", "USL"),
+            "liga mx"                          => ("Soccer", "Liga MX"),
+            "fifa world cup" or "world cup"    => ("Soccer", "World Cup"),
+            "international soccer"             => ("Soccer", "International"),
             _                                  => (null, null),
         };
     }
@@ -210,6 +230,50 @@ public static class EventNormalizer
             "Wheeling Nailers", "Wichita Thunder", "Worcester Railers",
         ];
         return echlTeams.Any(n => team.Contains(n, StringComparison.OrdinalIgnoreCase));
+    }
+
+    public static bool LooksLikeCollegeFootball(string title, string homeTeam, string awayTeam)
+    {
+        // When Ticketmaster miscategorizes college football as "Miscellaneous",
+        // we detect it from known college team names and patterns.
+        // Examples: "Utah Tech Trailblazers Football vs Montana State Bobcats Football"
+        
+        var knownCollegeTeams = new[]
+        {
+            // FBS (Power 5 + Group of 5)
+            "alabama", "arizona", "arizona state", "colorado", "oregon", "utah", "washington",
+            "usc", "byu", "stanford", "cal", "northwestern", "iowa", "illinois", "purdue",
+            "wisconsin", "minnesota", "nebraska", "kansas", "oklahoma", "texas", "lsu",
+            "florida", "georgia", "miami", "florida state", "clemson", "virginia tech",
+            "nc state", "wake forest", "boston college", "syracuse", "pitt", "penn state",
+            "michigan", "ohio state", "indiana", "maryland", "rutgers", "duke",
+            "uga", "tennessee", "kentucky", "vanderbilt", "mississippi", "mississippi state",
+            "louisiana", "ark state", "south carolina", "texas a&m", "missouri", "tulsa",
+            "smu", "houston", "ucf", "memphis", "navy", "air force", "army", "boise state",
+            "wyoming", "new mexico", "nevada", "san diego state", "unlv",
+            "fresno state", "san jose state", "hawaii", "unlv",
+            // FCS / other college football
+            "utah tech", "southern utah", "weber state", "montana", "montana state", "idaho",
+            "idaho state", "portland state", "eastern washington", "northern arizona",
+            "north dakota", "south dakota", "south dakota state", "north dakota state",
+            "missouri state", "eastern illinois", "western carolina", "furman", "samford",
+            "app state", "appalachian state", "eastern kentucky", "liberty", "jmu", "james madison",
+            "villanova", "yale", "harvard", "princeton", "penn", "cornell", "brown", "dartmouth",
+        };
+        
+        var titleLower = title.ToLowerInvariant();
+        var homeLower = homeTeam.ToLowerInvariant();
+        var awayLower = awayTeam.ToLowerInvariant();
+        
+        // Check if both teams are known college teams
+        var homeIsCollege = knownCollegeTeams.Any(t => homeLower.Contains(t));
+        var awayIsCollege = knownCollegeTeams.Any(t => awayLower.Contains(t));
+        
+        // If both are college teams, or if the title explicitly says "football" with college indicator
+        if ((homeIsCollege && awayIsCollege) || (homeIsCollege && titleLower.Contains("football")))
+            return true;
+            
+        return false;
     }
 
     public static string NormalizeTeamName(string teamName)
