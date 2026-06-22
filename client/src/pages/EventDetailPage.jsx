@@ -51,7 +51,6 @@ function EventDetailPage() {
     )
   }
 
-  const date = new Date(event.dateTime)
   const homeTeamName = getCanonicalTeamName(event.homeTeam)
   const awayTeamName = getCanonicalTeamName(event.awayTeam)
   const badgeColor = LEAGUE_COLORS[event.league] || 'bg-gray-500'
@@ -65,9 +64,13 @@ function EventDetailPage() {
     : event.league
   const leagueInfo = LEAGUE_INFO[leagueKey] ?? null
 
-  const dayOfWeek = date.toLocaleDateString('en-US', { weekday: 'long' })
-  const monthDay = date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
-  const time = date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })
+  const [year, month, day] = (event.localDate || '').split('-').map(Number)
+  const dateDisplay = event.localDate
+    ? new Date(year, month - 1, day).toLocaleDateString([], { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
+    : ''
+  const timeDisplay = event.localTime
+    ? new Date(`1970-01-01T${event.localTime}`).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', hour12: true })
+    : 'Time TBD'
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -125,9 +128,8 @@ function EventDetailPage() {
           </div>
 
           <div className="border-t border-gray-200 pt-4">
-            <p className="text-gray-600 text-sm mb-1">{dayOfWeek}</p>
-            <p className="text-xl font-bold text-gray-900">{monthDay}</p>
-            <p className="text-gray-500">{time}</p>
+            <p className="text-xl font-bold text-gray-900">{dateDisplay}</p>
+            <p className="text-gray-500">{timeDisplay}</p>
           </div>
         </div>
 
