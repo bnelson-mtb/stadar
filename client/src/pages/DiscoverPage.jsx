@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import EventCard from '../components/EventCard.jsx'
 import FilterBar from '../components/FilterBar.jsx'
 import useFavorites from '../hooks/useFavorites.js'
@@ -199,16 +199,16 @@ function DiscoverPage() {
       })
   }, [stateCode])
 
-  const filteredEvents = events.filter(event => {
+  const filteredEvents = useMemo(() => events.filter(event => {
     if (selectedSports.length > 0 && !selectedSports.includes(event.sport)) return false
     if (selectedLeagues.length > 0 && !selectedLeagues.includes(event.league)) return false
-    if (
-      showFavoritesOnly &&
+    if (showFavoritesOnly &&
       !isFavorite(getCanonicalTeamName(event.homeTeam)) &&
-      !isFavorite(getCanonicalTeamName(event.awayTeam))
-    ) return false
+      !isFavorite(getCanonicalTeamName(event.awayTeam))) return false
     return true
-  })
+  }), [events, selectedSports, selectedLeagues, showFavoritesOnly, isFavorite])
+
+  const groupedEvents = useMemo(() => groupEventsByDate(filteredEvents), [filteredEvents])
 
   const availableSports = [...new Set(events.map(e => e.sport).filter(Boolean))]
     .sort((a, b) => (SPORT_ORDER.indexOf(a) + 1 || 99) - (SPORT_ORDER.indexOf(b) + 1 || 99))
@@ -281,7 +281,7 @@ function DiscoverPage() {
                   No events match your filters
                 </div>
               ) : (
-                groupEventsByDate(filteredEvents).map(group => (
+                groupedEvents.map(group => (
                   <div key={group.label}>
                     <div className="sticky top-0 z-10 bg-gray-50 py-2">
                       <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide">
@@ -305,26 +305,7 @@ function DiscoverPage() {
           </>
         )}
 
-        {/* Hardcoded event cards for testing */}
-                {/* <div className="mt-4 space-y-3">
-          <EventCard
-            key="test1234"
-            event={{
-              id: 'den',
-              homeTeam: 'Denver Broncos',
-              awayTeam: 'Seattle Seahawks',
-              dateTime: '2026-06-01T01:00:00Z',
-              venue: 'Mile High Stadium',
-              sport: 'Football',
-              league: 'NFL',
-              city: 'Denver',
-              state: 'CO',
-              ticketUrl: '',
-            }}
-            isFavorite={isFavorite('Denver Broncos')}
-            onToggleFavorite={toggleFavorite}
-          />
-        </div> */}
+
       </main>
     </div>
   )
