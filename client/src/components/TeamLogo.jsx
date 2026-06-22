@@ -30,7 +30,10 @@ function TeamLogo({ name, size = 'small' }) {
     )
   }
 
-  const initials = name.split(' ').map(w => w[0]).join('').slice(0, 3)
+  const words = name.trim().split(/\s+/);
+  const initials = words.length === 1
+    ? words[0].slice(0, 3).toUpperCase()
+    : words.slice(0, 3).map(w => w[0]).join('').toUpperCase();
   return (
     <div
       className={`${sizeClasses[size]} rounded-full flex items-center justify-center text-white font-bold shrink-0`}
