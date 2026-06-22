@@ -3828,8 +3828,13 @@ export const SPORT_ICONS = {
 
 export const LEAGUE_COLORS = {
   NBA: 'bg-orange-600',
+  WNBA: 'bg-orange-500',
   MLB: 'bg-blue-700',
   MLS: 'bg-red-800',
+  USL: 'bg-indigo-700',
+  'Liga MX': 'bg-emerald-700',
+  'World Cup': 'bg-cyan-700',
+  International: 'bg-sky-700',
   NWSL: 'bg-pink-600',
   "Women's Soccer": 'bg-pink-600',
   "Men's Soccer": 'bg-cyan-700',
@@ -3844,6 +3849,8 @@ export const LEAGUE_COLORS = {
   "Women's VB": 'bg-fuchsia-700',
   LOVB: 'bg-rose-600',
   PWHL: 'bg-purple-700',
+  AHL: 'bg-slate-500',
+  ECHL: 'bg-slate-500',
   'Minor League': 'bg-slate-500',
   PLL: 'bg-yellow-500',
   Misc: 'bg-gray-500',

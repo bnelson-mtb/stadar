@@ -1,5 +1,6 @@
 using System.Text.Json;
 using System.Text.RegularExpressions;
+using System.Globalization;
 using Api.Models;
 
 namespace Api.Services;
@@ -147,12 +148,6 @@ public class TicketmasterClient(HttpClient httpClient, IConfiguration config)
         if (ev.TryGetProperty("dates", out var dates) &&
             dates.TryGetProperty("start", out var start))
         {
-            // Extract UTC DateTime
-            if (start.TryGetProperty("dateTime", out var dtProp))
-                DateTime.TryParse(dtProp.GetString(), out dateTime);
-            else if (start.TryGetProperty("localDate", out var localDate))
-                DateTime.TryParse(localDate.GetString(), out dateTime);
-
             // Extract localDate
             if (start.TryGetProperty("localDate", out var localDateProp))
                 localDateStr = localDateProp.GetString() ?? "";
@@ -163,6 +158,23 @@ public class TicketmasterClient(HttpClient httpClient, IConfiguration config)
 
             if (!timeTBA && !noSpecificTime && start.TryGetProperty("localTime", out var localTimeProp))
                 localTimeStr = localTimeProp.GetString();
+
+            // Prefer Ticketmaster UTC dateTime when present. If only a calendar
+            // date exists, use end-of-day so date-only events do not get dropped
+            // early by the past-event filter.
+            if (start.TryGetProperty("dateTime", out var dtProp) &&
+                DateTime.TryParse(dtProp.GetString(), null, DateTimeStyles.RoundtripKind, out var parsedUtc))
+            {
+                dateTime = parsedUtc;
+            }
+            else if (!string.IsNullOrWhiteSpace(localDateStr) &&
+                     DateTime.TryParse(localDateStr, out var localDateOnly))
+            {
+                dateTime = DateTime.SpecifyKind(
+                    localDateOnly.Date.AddDays(1).AddTicks(-1),
+                    DateTimeKind.Utc
+                );
+            }
         }
 
         return (dateTime, localDateStr, localTimeStr);

@@ -16,7 +16,13 @@ public class TicketmasterClientParseTests
           "id": "abc123",
           "name": "Utah Jazz vs. Denver Nuggets",
           "url": "https://www.ticketmaster.com/event/abc123",
-          "dates": { "start": { "dateTime": "2026-07-01T02:00:00Z" } },
+          "dates": {
+            "start": {
+              "dateTime": "2026-07-01T02:00:00Z",
+              "localDate": "2026-06-30",
+              "localTime": "20:00:00"
+            }
+          },
           "classifications": [
             { "genre": { "name": "Basketball" }, "subGenre": { "name": "NBA" } }
           ],
@@ -56,6 +62,8 @@ public class TicketmasterClientParseTests
         Assert.AreEqual(-111.9011, ev.Longitude, 0.0001);
         Assert.AreEqual("https://www.ticketmaster.com/event/abc123", ev.TicketUrl);
         Assert.AreEqual("https://img.example/16_9.jpg", ev.ImageUrl, "Should prefer the 16:9 image");
+        Assert.AreEqual("2026-06-30", ev.LocalDate);
+        Assert.AreEqual("20:00:00", ev.LocalTime);
     }
 
     [TestMethod]
@@ -174,8 +182,44 @@ public class TicketmasterClientParseTests
 
         Assert.IsNotNull(ev);
         Assert.AreEqual(new DateTime(2026, 9, 12), ev.DateTime.Date);
+        Assert.AreEqual("2026-09-12", ev.LocalDate);
+        Assert.IsNull(ev.LocalTime);
+        Assert.IsTrue(ev.DateTime.TimeOfDay > new TimeSpan(23, 59, 0));
         Assert.AreEqual("Utah Utes", ev.HomeTeam);
         Assert.AreEqual("BYU Cougars", ev.AwayTeam);
+    }
+
+    [TestMethod]
+    public void ParseEvent_TimeTba_SetsLocalTimeNull()
+    {
+        var json = Parse("""
+        {
+          "id": "x7",
+          "name": "Utah Jazz vs. Denver Nuggets",
+          "dates": {
+            "start": {
+              "localDate": "2026-10-01",
+              "localTime": "19:30:00",
+              "timeTBA": true
+            }
+          },
+          "classifications": [
+            { "genre": { "name": "Basketball" }, "subGenre": { "name": "NBA" } }
+          ],
+          "_embedded": {
+            "attractions": [
+              { "name": "Utah Jazz" },
+              { "name": "Denver Nuggets" }
+            ]
+          }
+        }
+        """);
+
+        var ev = TicketmasterClient.ParseEvent(json);
+
+        Assert.IsNotNull(ev);
+        Assert.AreEqual("2026-10-01", ev.LocalDate);
+        Assert.IsNull(ev.LocalTime);
     }
 
     [TestMethod]
