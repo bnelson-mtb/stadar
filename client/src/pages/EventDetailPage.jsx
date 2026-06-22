@@ -5,6 +5,52 @@ import { LEAGUE_INFO } from '../data/leagueInfo'
 import TeamLogo from '../components/TeamLogo'
 import VenueMap from '../components/VenueMap'
 
+function buildIcsContent(event) {
+  const dateStr = (event.localDate || '').replace(/-/g, '')
+  if (event.localTime) {
+    const timeStr = event.localTime.replace(/:/g, '').slice(0, 6)
+    const [hh, mm, ss] = event.localTime.split(':').map(Number)
+    const endH = String(hh + 2).padStart(2, '0')
+    const endStr = `${endH}${String(mm).padStart(2, '0')}${String(ss ?? 0).padStart(2, '0')}`
+    return [
+      'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Stadar//EN',
+      'BEGIN:VEVENT',
+      `UID:${event.id}@stadar`,
+      `DTSTART:${dateStr}T${timeStr}`,
+      `DTEND:${dateStr}T${endStr}`,
+      `SUMMARY:${event.name}`,
+      `LOCATION:${event.venue}, ${event.city}, ${event.state}`,
+      `URL:${event.ticketUrl || ''}`,
+      'END:VEVENT', 'END:VCALENDAR',
+    ].join('\r\n')
+  } else {
+    return [
+      'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Stadar//EN',
+      'BEGIN:VEVENT',
+      `UID:${event.id}@stadar`,
+      `DTSTART;VALUE=DATE:${dateStr}`,
+      `DTEND;VALUE=DATE:${dateStr}`,
+      `SUMMARY:${event.name}`,
+      `LOCATION:${event.venue}, ${event.city}, ${event.state}`,
+      `URL:${event.ticketUrl || ''}`,
+      'END:VEVENT', 'END:VCALENDAR',
+    ].join('\r\n')
+  }
+}
+
+function downloadIcs(event) {
+  const content = buildIcsContent(event)
+  const blob = new Blob([content], { type: 'text/calendar;charset=utf-8' })
+  const url = URL.createObjectURL(blob)
+  const a = document.createElement('a')
+  a.href = url
+  a.download = `${event.name.replace(/[^a-z0-9]/gi, '-').toLowerCase()}.ics`
+  document.body.appendChild(a)
+  a.click()
+  document.body.removeChild(a)
+  URL.revokeObjectURL(url)
+}
+
 function EventDetailPage() {
   const { id } = useParams()
   const location = useLocation()
@@ -13,6 +59,7 @@ function EventDetailPage() {
   const [loading, setLoading] = useState(!event)
   const [venueExpanded, setVenueExpanded] = useState(true)
   const [leagueExpanded, setLeagueExpanded] = useState(true)
+  const [copied, setCopied] = useState(false)
 
   useEffect(() => {
     if (event) return
@@ -65,6 +112,18 @@ function EventDetailPage() {
     : event.league
   const leagueInfo = LEAGUE_INFO[leagueKey] ?? null
 
+  function handleShare() {
+    const shareText = `${homeTeamName} vs ${awayTeamName} — ${dateDisplay} at ${event.venue}`
+    if (navigator.share) {
+      navigator.share({ title: event.name, text: shareText, url: window.location.href }).catch(() => {})
+    } else {
+      navigator.clipboard.writeText(window.location.href).then(() => {
+        setCopied(true)
+        setTimeout(() => setCopied(false), 2000)
+      })
+    }
+  }
+
   const [year, month, day] = (event.localDate || '').split('-').map(Number)
   const dateDisplay = event.localDate
     ? new Date(year, month - 1, day).toLocaleDateString([], { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
@@ -85,7 +144,22 @@ function EventDetailPage() {
             ← Back
           </button>
           <h1 className="text-lg font-bold text-gray-900">{event.name}</h1>
-          <div className="w-20"></div>
+          <div className="w-20 flex justify-end">
+            {copied ? (
+              <span className="text-xs font-medium text-green-600 pr-1">Copied!</span>
+            ) : (
+              <button
+                type="button"
+                onClick={handleShare}
+                className="p-2 text-gray-500 hover:text-gray-900 transition-colors"
+                aria-label="Share event"
+              >
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 8.25H7.5a2.25 2.25 0 0 0-2.25 2.25v9a2.25 2.25 0 0 0 2.25 2.25h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25H15m0-3-3-3m0 0-3 3m3-3V15" />
+                </svg>
+              </button>
+            )}
+          </div>
         </div>
       </div>
 
@@ -242,8 +316,16 @@ function EventDetailPage() {
           </div>
 
           <div className="border-t border-gray-200 pt-4 mt-4">
-            <p className="text-sm text-gray-600 font-semibold mb-2">Compare prices</p>
-            <p className="text-sm text-gray-400">Multi-site price comparison coming soon</p>
+            <button
+              type="button"
+              onClick={() => downloadIcs(event)}
+              className="flex items-center gap-2 text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors"
+            >
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
+              </svg>
+              Add to Calendar
+            </button>
           </div>
         </div>
       </div>
