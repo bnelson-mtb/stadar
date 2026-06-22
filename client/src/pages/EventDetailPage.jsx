@@ -69,8 +69,6 @@ function EventDetailPage() {
   const navigate = useNavigate()
   const [event, setEvent] = useState(location.state?.event ?? null)
   const [loading, setLoading] = useState(!event)
-  const [venueExpanded, setVenueExpanded] = useState(true)
-  const [leagueExpanded, setLeagueExpanded] = useState(true)
   const [copied, setCopied] = useState(false)
   const copiedTimerRef = useRef(null)
 
@@ -235,69 +233,37 @@ function EventDetailPage() {
         </div>
 
         {/* Venue Section */}
-        <div className="bg-white rounded-xl shadow-sm mb-4">
-          <button
-            onClick={() => setVenueExpanded(!venueExpanded)}
-            className="w-full p-6 flex items-center justify-between hover:bg-gray-50 transition-colors"
-          >
-            <div className="flex-1 min-w-0 pr-4 text-left">
-              <p className="font-semibold text-gray-900">About the Venue</p>
-              <p className="text-sm text-gray-500">{event.venue} · {event.city}, {event.state}</p>
-            </div>
-            <svg
-              className={`flex-shrink-0 w-5 h-5 text-gray-400 transition-transform ${venueExpanded ? 'rotate-180' : ''}`}
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-            </svg>
-          </button>
+        <div className="bg-white rounded-xl shadow-sm p-6 mb-4">
+          <div className="mb-4">
+            <p className="font-semibold text-gray-900">About the Venue</p>
+            <p className="text-sm text-gray-500">{event.venue} · {event.city}, {event.state}</p>
+          </div>
 
-          {venueExpanded && (
-            <div className="border-t border-gray-200 p-6 bg-gray-50">
-              <VenueMap lat={event.latitude} lng={event.longitude} venue={event.venue} />
-            </div>
-          )}
+          <div className="border-t border-gray-200 pt-6">
+            <VenueMap lat={event.latitude} lng={event.longitude} venue={event.venue} />
+          </div>
         </div>
 
         {/* About the League */}
         {leagueInfo && (
-          <div className="bg-white rounded-xl shadow-sm mb-4">
-            <button
-              onClick={() => setLeagueExpanded(!leagueExpanded)}
-              className="w-full p-6 flex items-center justify-between hover:bg-gray-50 transition-colors"
-            >
-              <span className="font-semibold text-gray-900">About the League</span>
-              <svg
-                className={`w-5 h-5 text-gray-400 transition-transform ${leagueExpanded ? 'rotate-180' : ''}`}
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-              </svg>
-            </button>
+          <div className="bg-white rounded-xl shadow-sm p-6 mb-4">
+            <h2 className="font-semibold text-gray-900 mb-4">About the League</h2>
 
-            {leagueExpanded && (
-              <div className="border-t border-gray-200 p-6 bg-gray-50">
-                <p className="text-xl font-bold text-gray-900 mb-2">{leagueInfo.fullName}</p>
-                <span className="inline-block text-xs font-semibold px-2 py-1 rounded-full bg-gray-200 text-gray-700 mb-3">
-                  {leagueInfo.tier}
-                </span>
-                <p className="text-gray-600 text-sm mb-4">{leagueInfo.description}</p>
-                <a
-                  href={`https://${leagueInfo.website}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm font-medium text-blue-600 hover:text-blue-800"
-                >
-                  {leagueInfo.website} →
-                </a>
-              </div>
-            )}
+            <div className="border-t border-gray-200 pt-6">
+              <p className="text-xl font-bold text-gray-900 mb-2">{leagueInfo.fullName}</p>
+              <span className="inline-block text-xs font-semibold px-2 py-1 rounded-full bg-gray-200 text-gray-700 mb-3">
+                {leagueInfo.tier}
+              </span>
+              <p className="text-gray-600 text-sm mb-4">{leagueInfo.description}</p>
+              <a
+                href={`https://${leagueInfo.website}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm font-medium text-blue-600 hover:text-blue-800"
+              >
+                {leagueInfo.website} →
+              </a>
+            </div>
           </div>
         )}
 
