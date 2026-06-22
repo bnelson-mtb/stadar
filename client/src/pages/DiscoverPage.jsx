@@ -141,7 +141,7 @@ function DiscoverPage() {
   const [events, setEvents] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
-  const [stateCode, setStateCode] = useState(null)
+  const [stateCode, setStateCode] = useState('UT')
 
   const [selectedSports, setSelectedSports] = useState([])
   const [selectedLeagues, setSelectedLeagues] = useState([])

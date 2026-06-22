@@ -8,7 +8,7 @@ import VenueMap from '../components/VenueMap'
 function buildIcsContent(event) {
   const dateStr = (event.localDate || '').replace(/-/g, '')
   if (event.localTime) {
-    const timeStr = event.localTime.replace(/:/g, '').slice(0, 6)
+    const timeStr = event.localTime.replace(/:/g, '').padEnd(6, '0').slice(0, 6)
     const [hh, mm, ss] = event.localTime.split(':').map(Number)
     const totalMinutes = hh * 60 + mm + 120  // add 2 hours
     const endH = Math.floor(totalMinutes / 60) % 24
