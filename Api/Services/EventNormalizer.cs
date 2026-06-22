@@ -50,7 +50,7 @@ public static class EventNormalizer
                 if (level != null)
                     return Result("Baseball", level);
             }
-            return Result(minorSport, "Minor League");
+            return Result(minorSport, "Other");
         }
 
         // 3. NWSL by team name (TM doesn't always tag these correctly)
@@ -75,24 +75,22 @@ public static class EventNormalizer
         // 6. Resolve sport from TM genre
         var mappedSport = MapSport(genre);
         if (mappedSport != null)
-            return Result(mappedSport, "");
+            return Result(mappedSport, "Other");
 
         // 7. Miscellaneous / missing genre — try to parse from event title
         if (string.IsNullOrWhiteSpace(genre)
             || genre.Equals("miscellaneous", StringComparison.OrdinalIgnoreCase))
         {
             var guessed = ResolveSport("", title);
-            if (guessed != "Misc")
+            if (guessed != "Other")
             {
-                // If we detected a sport from title, check if it's a college matchup
-                // (e.g., "Utah Tech Football" + "Montana State Football" suggests college)
                 if (guessed == "Football" && LooksLikeCollegeFootball(title, normalizedHome, normalizedAway))
                     return Result("Football", "NCAAF");
-                return Result(guessed, "");
+                return Result(guessed, "Other");
             }
         }
 
-        return Result("Misc", "");
+        return Result("Other", "Other");
     }
 
     public static (string? Sport, string? League) MatchProLeague(string subGenre)
@@ -152,7 +150,7 @@ public static class EventNormalizer
         if (title.Contains("soccer") || title.Contains(" fc")) return "Soccer";
         if (title.Contains("volleyball")) return "Volleyball";
         if (title.Contains("lacrosse"))   return "Lacrosse";
-        return "Misc";
+        return "Other";
     }
 
     public static string ResolveCollegeLeague(string sport, string title)

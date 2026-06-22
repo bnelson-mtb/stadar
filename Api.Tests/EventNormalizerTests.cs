@@ -45,12 +45,12 @@ public class EventNormalizerTests
     // ---------- Minor league ----------
 
     [TestMethod]
-    public void NormalizeEvent_UnknownMinorLeagueSubgenre_ReturnsMinorLeague()
+    public void NormalizeEvent_UnknownMinorLeagueSubgenre_ReturnsOther()
     {
-        // Generic "Minor League Hockey" with no known team names → falls back to Minor League
+        // Generic "Minor League Hockey" with no known team names → falls back to Other
         var result = EventNormalizer.NormalizeEvent("Some Game", "Team A", "Team B", "Hockey", "Minor League Hockey");
         Assert.AreEqual("Hockey", result.Sport);
-        Assert.AreEqual("Minor League", result.League);
+        Assert.AreEqual("Other", result.League);
     }
 
     [TestMethod]
@@ -91,12 +91,12 @@ public class EventNormalizerTests
     }
 
     [TestMethod]
-    public void NormalizeEvent_MinorLeagueBaseball_UnknownTeam_FallsBackToMinorLeague()
+    public void NormalizeEvent_MinorLeagueBaseball_UnknownTeam_FallsBackToOther()
     {
-        // No recognized team → generic fallback preserved
+        // No recognized team → falls back to Other (unaffiliated/indie baseball)
         var result = EventNormalizer.NormalizeEvent("Foo vs Bar", "Foo Sluggers", "Bar Batters", "Baseball", "Minor League Baseball");
         Assert.AreEqual("Baseball", result.Sport);
-        Assert.AreEqual("Minor League", result.League);
+        Assert.AreEqual("Other", result.League);
     }
 
     // ---------- NWSL by team name ----------
@@ -162,9 +162,10 @@ public class EventNormalizerTests
     [TestMethod]
     public void NormalizeEvent_KnownGenre_NoLeague()
     {
+        // Recognized sport, no TM subGenre → Other league (unclassified/exhibition)
         var result = EventNormalizer.NormalizeEvent("Some Hockey Game", "Team A", "Team B", "Ice Hockey", "");
         Assert.AreEqual("Hockey", result.Sport);
-        Assert.AreEqual("", result.League);
+        Assert.AreEqual("Other", result.League);
     }
 
     [TestMethod]
@@ -190,10 +191,11 @@ public class EventNormalizerTests
     }
 
     [TestMethod]
-    public void NormalizeEvent_NothingRecognizable_ReturnsMisc()
+    public void NormalizeEvent_NothingRecognizable_ReturnsOther()
     {
+        // Unrecognized genre/sport → Other/Other so it surfaces under discovery
         var result = EventNormalizer.NormalizeEvent("Monster Truck Rally", "Truck A", "Truck B", "Motorsports", "");
-        Assert.AreEqual("Misc", result.Sport);
-        Assert.AreEqual("", result.League);
+        Assert.AreEqual("Other", result.Sport);
+        Assert.AreEqual("Other", result.League);
     }
 }

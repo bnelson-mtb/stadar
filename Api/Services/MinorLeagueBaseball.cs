@@ -149,6 +149,7 @@ public static class MinorLeagueBaseball
         ["Palm Beach Cardinals"] = "Single-A",
         ["St. Lucie Mets"] = "Single-A",
         ["Tampa Tarpons"] = "Single-A",
+        ["Delmarva Shorebirds"] = "Single-A",
     };
 
     /// <summary>Returns the level for a team, or null if not recognized.</summary>

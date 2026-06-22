@@ -336,36 +336,74 @@ const AHL = {
 
 const AAA = {
   // Pacific Coast League (west)
-  'Salt Lake Bees':             { color: '#BA0C2F', logo: milbLogo('561'),  shortName: 'Bees' },
-  'Sacramento River Cats':      { color: '#FDB827', logo: milbLogo('sac'),  shortName: 'River Cats' },
-  'Las Vegas Aviators':         { color: '#003087', logo: milbLogo('lv'),   shortName: 'Aviators' },
-  'Reno Aces':                  { color: '#1C3F7A', logo: milbLogo('rno'),  shortName: 'Aces' },
-  'El Paso Chihuahuas':         { color: '#002654', logo: milbLogo('elp'),  shortName: 'Chihuahuas' },
-  'Albuquerque Isotopes':       { color: '#003087', logo: milbLogo('abq'),  shortName: 'Isotopes' },
-  'Round Rock Express':         { color: '#003087', logo: milbLogo('rr'),   shortName: 'Express' },
-  'Oklahoma City Comets':       { color: '#005A9C', logo: milbLogo('okc'),  shortName: 'OKC' },
-  'Sugar Land Space Cowboys':   { color: '#FF6600', logo: milbLogo('slsc'), shortName: 'Space Cowboys' },
-  'Tacoma Rainiers':            { color: '#003087', logo: milbLogo('tac'),  shortName: 'Rainiers' },
-  'Iowa Cubs':                  { color: '#003087', logo: milbLogo('iob'),  shortName: 'I-Cubs' },
-  'Omaha Storm Chasers':        { color: '#003087', logo: milbLogo('oma'),  shortName: 'Storm Chasers' },
+  'Salt Lake Bees':                    { color: '#BA0C2F', logo: milbLogo('561'),  shortName: 'Bees' },
+  'Sacramento River Cats':             { color: '#FDB827', logo: milbLogo('105'),  shortName: 'River Cats' },
+  'Las Vegas Aviators':                { color: '#003087', logo: milbLogo('400'),  shortName: 'Aviators' },
+  'Reno Aces':                         { color: '#1C3F7A', logo: milbLogo('2310'), shortName: 'Aces' },
+  'El Paso Chihuahuas':                { color: '#002654', logo: milbLogo('4904'), shortName: 'Chihuahuas' },
+  'Albuquerque Isotopes':              { color: '#003087', logo: milbLogo('342'),  shortName: 'Isotopes' },
+  'Round Rock Express':                { color: '#003087', logo: milbLogo('102'),  shortName: 'Express' },
+  'Oklahoma City Comets':              { color: '#005A9C', logo: milbLogo('238'),  shortName: 'OKC' },
+  'Sugar Land Space Cowboys':          { color: '#FF6600', logo: milbLogo('5434'), shortName: 'Space Cowboys' },
+  'Tacoma Rainiers':                   { color: '#003087', logo: milbLogo('529'),  shortName: 'Rainiers' },
+  'Iowa Cubs':                         { color: '#003087', logo: milbLogo('451'),  shortName: 'I-Cubs' },
+  'Omaha Storm Chasers':               { color: '#003087', logo: milbLogo('541'),  shortName: 'Storm Chasers' },
   // International League (east)
-  'Durham Bulls':               { color: '#002B5C', logo: milbLogo('dur'),  shortName: 'Bulls' },
-  'Nashville Sounds':           { color: '#002B5C', logo: milbLogo('nas'),  shortName: 'Sounds' },
-  'Memphis Redbirds':           { color: '#C41E3A', logo: milbLogo('mem'),  shortName: 'Redbirds' },
-  'St. Paul Saints':            { color: '#002B5C', logo: milbLogo('stp'),  shortName: 'Saints' },
-  'Indianapolis Indians':       { color: '#000000', logo: milbLogo('ind'),  shortName: 'Indians' },
-  'Toledo Mud Hens':            { color: '#003087', logo: milbLogo('tol'),  shortName: 'Mud Hens' },
-  'Louisville Bats':            { color: '#C6011F', logo: milbLogo('lou'),  shortName: 'Bats' },
-  'Buffalo Bisons':             { color: '#003087', logo: milbLogo('buf'),  shortName: 'Bisons' },
-  'Syracuse Mets':              { color: '#002654', logo: milbLogo('syr'),  shortName: 'Mets' },
-  'Rochester Red Wings':        { color: '#AB0003', logo: milbLogo('roc'),  shortName: 'Red Wings' },
-  'Scranton/WB RailRiders':     { color: '#003087', logo: milbLogo('swb'),  shortName: 'RailRiders' },
-  'Lehigh Valley IronPigs':     { color: '#E81828', logo: milbLogo('lhv'),  shortName: 'IronPigs' },
-  'Norfolk Tides':              { color: '#DF4601', logo: milbLogo('nor'),  shortName: 'Tides' },
-  'Charlotte Knights':          { color: '#BD3039', logo: milbLogo('clt'),  shortName: 'Knights' },
-  'Gwinnett Stripers':          { color: '#13274F', logo: milbLogo('gwn'),  shortName: 'Stripers' },
-  'Jacksonville Jumbo Shrimp':  { color: '#00A3E0', logo: milbLogo('jax'),  shortName: 'Jumbo Shrimp' },
-  'Worcester Red Sox':          { color: '#BD3039', logo: milbLogo('wor'),  shortName: 'WooSox' },
+  'Columbus Clippers':                 { color: '#003087', logo: milbLogo('445'),  shortName: 'Clippers' },
+  'Durham Bulls':                      { color: '#002B5C', logo: milbLogo('234'),  shortName: 'Bulls' },
+  'Nashville Sounds':                  { color: '#002B5C', logo: milbLogo('556'),  shortName: 'Sounds' },
+  'Memphis Redbirds':                  { color: '#C41E3A', logo: milbLogo('235'),  shortName: 'Redbirds' },
+  'St. Paul Saints':                   { color: '#002B5C', logo: milbLogo('1960'), shortName: 'Saints' },
+  'Indianapolis Indians':              { color: '#000000', logo: milbLogo('484'),  shortName: 'Indians' },
+  'Toledo Mud Hens':                   { color: '#003087', logo: milbLogo('512'),  shortName: 'Mud Hens' },
+  'Louisville Bats':                   { color: '#C6011F', logo: milbLogo('416'),  shortName: 'Bats' },
+  'Buffalo Bisons':                    { color: '#003087', logo: milbLogo('422'),  shortName: 'Bisons' },
+  'Syracuse Mets':                     { color: '#002654', logo: milbLogo('552'),  shortName: 'Mets' },
+  'Rochester Red Wings':               { color: '#AB0003', logo: milbLogo('534'),  shortName: 'Red Wings' },
+  'Scranton/WB RailRiders':            { color: '#003087', logo: milbLogo('531'),  shortName: 'RailRiders' },
+  'Scranton/Wilkes-Barre RailRiders':  { color: '#003087', logo: milbLogo('531'),  shortName: 'RailRiders', canonicalKey: 'Scranton/WB RailRiders' },
+  'Lehigh Valley IronPigs':            { color: '#E81828', logo: milbLogo('1410'), shortName: 'IronPigs' },
+  'Norfolk Tides':                     { color: '#DF4601', logo: milbLogo('568'),  shortName: 'Tides' },
+  'Charlotte Knights':                 { color: '#BD3039', logo: milbLogo('494'),  shortName: 'Knights' },
+  'Gwinnett Stripers':                 { color: '#13274F', logo: milbLogo('431'),  shortName: 'Stripers' },
+  'Jacksonville Jumbo Shrimp':         { color: '#00A3E0', logo: milbLogo('564'),  shortName: 'Jumbo Shrimp' },
+  'Worcester Red Sox':                 { color: '#BD3039', logo: milbLogo('533'),  shortName: 'WooSox' },
+}
+
+const AA = {
+  // Eastern League
+  'Akron RubberDucks':          { color: '#E31937', logo: milbLogo('402'),  shortName: 'RubberDucks' },
+  'Altoona Curve':              { color: '#27251F', logo: milbLogo('452'),  shortName: 'Curve' },
+  'Binghamton Rumble Ponies':   { color: '#002D72', logo: milbLogo('505'),  shortName: 'Rumble Ponies' },
+  'Chesapeake Baysox':          { color: '#DF4601', logo: milbLogo('418'),  shortName: 'Baysox' },
+  'Erie SeaWolves':             { color: '#0C2340', logo: milbLogo('106'),  shortName: 'SeaWolves' },
+  'Harrisburg Senators':        { color: '#AB0003', logo: milbLogo('547'),  shortName: 'Senators' },
+  'Hartford Yard Goats':        { color: '#33006F', logo: milbLogo('538'),  shortName: 'Yard Goats' },
+  'New Hampshire Fisher Cats':  { color: '#134A8E', logo: milbLogo('463'),  shortName: 'Fisher Cats' },
+  'Portland Sea Dogs':          { color: '#BD3039', logo: milbLogo('546'),  shortName: 'Sea Dogs' },
+  'Reading Fightin Phils':      { color: '#E81828', logo: milbLogo('522'),  shortName: 'Fightins' },
+  'Richmond Flying Squirrels':  { color: '#FD5A1E', logo: milbLogo('3410'), shortName: 'Flying Squirrels' },
+  'Somerset Patriots':          { color: '#003087', logo: milbLogo('1956'), shortName: 'Patriots' },
+  // Southern League
+  'Biloxi Shuckers':            { color: '#12284B', logo: milbLogo('5015'), shortName: 'Shuckers' },
+  'Birmingham Barons':          { color: '#27251F', logo: milbLogo('247'),  shortName: 'Barons' },
+  'Chattanooga Lookouts':       { color: '#C6011F', logo: milbLogo('498'),  shortName: 'Lookouts' },
+  'Columbus Clingstones':       { color: '#CE1141', logo: milbLogo('6325'), shortName: 'Clingstones' },
+  'Knoxville Smokies':          { color: '#0E3386', logo: milbLogo('553'),  shortName: 'Smokies' },
+  'Montgomery Biscuits':        { color: '#092C5C', logo: milbLogo('421'),  shortName: 'Biscuits' },
+  'Pensacola Blue Wahoos':      { color: '#00A3E0', logo: milbLogo('4124'), shortName: 'Blue Wahoos' },
+  'Rocket City Trash Pandas':   { color: '#BA0021', logo: milbLogo('559'),  shortName: 'Trash Pandas' },
+  // Texas League
+  'Amarillo Sod Poodles':       { color: '#A71930', logo: milbLogo('5368'), shortName: 'Sod Poodles' },
+  'Arkansas Travelers':         { color: '#005C5C', logo: milbLogo('574'),  shortName: 'Travelers' },
+  'Corpus Christi Hooks':       { color: '#002D62', logo: milbLogo('482'),  shortName: 'Hooks' },
+  'Frisco RoughRiders':         { color: '#003278', logo: milbLogo('540'),  shortName: 'RoughRiders' },
+  'Midland RockHounds':         { color: '#003831', logo: milbLogo('237'),  shortName: 'RockHounds' },
+  'Northwest Arkansas Naturals':{ color: '#004687', logo: milbLogo('1350'), shortName: 'Naturals' },
+  'San Antonio Missions':       { color: '#2F241D', logo: milbLogo('510'),  shortName: 'Missions' },
+  'Springfield Cardinals':      { color: '#C41E3A', logo: milbLogo('440'),  shortName: 'Cardinals' },
+  'Tulsa Drillers':             { color: '#005A9C', logo: milbLogo('260'),  shortName: 'Drillers' },
+  'Wichita Wind Surge':         { color: '#002B5C', logo: milbLogo('3898'), shortName: 'Wind Surge' },
 }
 
 
@@ -3777,7 +3815,7 @@ const NCAA = {
 const TEAMS = {}
 
 // Pro teams: key is already the Ticketmaster name
-for (const league of [NBA, WNBA, NHL, MLB, NFL, MLS, NWSL, PWHL, IAL, ECHL, AHL, AAA, PLL, LOVB_TEAMS]) {
+for (const league of [NBA, WNBA, NHL, MLB, NFL, MLS, NWSL, PWHL, IAL, ECHL, AHL, AAA, AA, PLL, LOVB_TEAMS]) {
   for (const [name, data] of Object.entries(league)) {
     const teamData = data?.canonicalKey ? data : { ...data, canonicalKey: name }
     TEAMS[name] = teamData
@@ -3807,12 +3845,22 @@ function normalizeLookupName(name) {
     .trim()
 }
 
+const TEAMS_LOWER = {}
+for (const [key, value] of Object.entries(TEAMS)) {
+  TEAMS_LOWER[key.toLowerCase()] = value
+}
+
 export function getTeamData(name) {
   if (!name) return null
-  const data = TEAMS[name] || TEAMS[normalizeLookupName(name)] || null
+  const normalized = normalizeLookupName(name)
+  const data = TEAMS[name]
+    || TEAMS[normalized]
+    || TEAMS_LOWER[name.toLowerCase()]
+    || TEAMS_LOWER[normalized.toLowerCase()]
+    || null
   if (!data) return null
   const blobLogo = logoManifest[name]
-    || logoManifest[normalizeLookupName(name)]
+    || logoManifest[normalized]
     || logoManifest[data.canonicalKey]
     || logoManifest[data.displayName]
   return blobLogo ? { ...data, logo: blobLogo } : data
@@ -3824,7 +3872,7 @@ export function getCanonicalTeamName(name) {
   return data?.displayName || name
 }
 
-export { NCAA, NBA, NHL, MLB, NFL, MLS, NWSL, PWHL, IAL, ECHL, AAA, PLL, LOVB_TEAMS }
+export { NCAA, NBA, NHL, MLB, NFL, MLS, NWSL, PWHL, IAL, ECHL, AAA, AA, PLL, LOVB_TEAMS }
 
 export const SPORT_ICONS = {
   Basketball: '\u{1F3C0}',
@@ -3835,7 +3883,7 @@ export const SPORT_ICONS = {
   Softball: '\u{1F94E}',
   Lacrosse: '\u{1F94D}',
   Volleyball: '\u{1F3D0}',
-  Misc: '\u{1F3AF}',
+  Other: '\u{1F3AF}',
 }
 
 export const LEAGUE_COLORS = {
@@ -3864,13 +3912,12 @@ export const LEAGUE_COLORS = {
   PWHL: 'bg-purple-700',
   AHL: 'bg-slate-500',
   ECHL: 'bg-slate-500',
-  'Minor League': 'bg-slate-500',
   'Triple-A': 'bg-slate-500',
   'Double-A': 'bg-slate-500',
   'High-A': 'bg-slate-500',
   'Single-A': 'bg-slate-500',
   PLL: 'bg-yellow-500',
-  Misc: 'bg-gray-500',
+  Other: 'bg-gray-500',
 }
 
 export default TEAMS
