@@ -1363,6 +1363,7 @@ const NCAA = {
     shortName: 'Bengals',
     tmNames: [
       'Idaho State Bengals',
+      'Idaho State University Bengals',
       "Idaho State Bengals Men's Basketball", "Idaho State Bengals Women's Basketball",
     ],
   },

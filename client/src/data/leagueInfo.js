@@ -140,7 +140,7 @@ export const LEAGUE_INFO = {
   NCAAM: {
     fullName: "NCAA Men's Basketball",
     tier: 'College',
-    description: 'NCAA Men\'s Basketball features hundreds of college programs competing for the national championship every March — one of the most watched sporting events in the US.',
+    description: 'NCAA Men\'s Basketball features hundreds of college programs competing for the national championship every March, which is one of the most watched sporting events in the US.',
     website: 'ncaa.com',
   },
   NCAAW: {
