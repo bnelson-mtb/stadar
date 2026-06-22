@@ -76,6 +76,63 @@ const US_STATES = [
 ]
 const US_STATE_CODES = US_STATES.map(([code]) => code)
 
+function toDateStr(date) {
+  return date.toISOString().slice(0, 10)
+}
+
+function groupEventsByDate(events) {
+  const today = new Date()
+  today.setHours(0, 0, 0, 0)
+  const todayStr = toDateStr(today)
+
+  // Compute this ISO week's Saturday and Sunday
+  // JS getDay(): 0=Sun, 1=Mon, ..., 6=Sat
+  const dayOfWeek = today.getDay()
+  // Days since Monday (ISO week start): Mon=0, Tue=1, ..., Sun=6
+  const daysSinceMonday = dayOfWeek === 0 ? 6 : dayOfWeek - 1
+  const thisMonday = new Date(today)
+  thisMonday.setDate(today.getDate() - daysSinceMonday)
+  const thisSaturday = new Date(thisMonday)
+  thisSaturday.setDate(thisMonday.getDate() + 5)
+  const thisSunday = new Date(thisMonday)
+  thisSunday.setDate(thisMonday.getDate() + 6)
+  const thisSaturdayStr = toDateStr(thisSaturday)
+  const thisSundayStr = toDateStr(thisSunday)
+
+  // Mon–Fri of this ISO week
+  const weekdayStrs = new Set()
+  for (let i = 0; i < 5; i++) {
+    const d = new Date(thisMonday)
+    d.setDate(thisMonday.getDate() + i)
+    weekdayStrs.add(toDateStr(d))
+  }
+  // End of this ISO week (Sunday)
+  const endOfWeekStr = thisSundayStr
+
+  const groups = [
+    { label: 'Today', events: [] },
+    { label: 'This Weekend', events: [] },
+    { label: 'This Week', events: [] },
+    { label: 'Later', events: [] },
+  ]
+
+  for (const event of events) {
+    const d = event.localDate
+    if (!d) { groups[3].events.push(event); continue }
+    if (d === todayStr) {
+      groups[0].events.push(event)
+    } else if (d === thisSaturdayStr || d === thisSundayStr) {
+      groups[1].events.push(event)
+    } else if (weekdayStrs.has(d)) {
+      groups[2].events.push(event)
+    } else {
+      groups[3].events.push(event)
+    }
+  }
+
+  return groups.filter(g => g.events.length > 0)
+}
+
 function DiscoverPage() {
   const [events, setEvents] = useState([])
   const [loading, setLoading] = useState(true)
@@ -216,18 +273,30 @@ function DiscoverPage() {
                   ? `${events.length} upcoming events`
                   : `${filteredEvents.length} of ${events.length} events`}
               </p>
-              {filteredEvents.map(event => (
-                <EventCard
-                  key={event.id}
-                  event={event}
-                  isFavorite={isFavorite(getCanonicalTeamName(event.homeTeam))}
-                  onToggleFavorite={toggleFavorite}
-                />
-              ))}
-              {filteredEvents.length === 0 && (
+              {filteredEvents.length === 0 ? (
                 <div className="text-center py-8 text-gray-400">
                   No events match your filters
                 </div>
+              ) : (
+                groupEventsByDate(filteredEvents).map(group => (
+                  <div key={group.label}>
+                    <div className="sticky top-0 z-10 bg-gray-50 py-2">
+                      <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide">
+                        {group.label}
+                      </p>
+                    </div>
+                    <div className="space-y-3">
+                      {group.events.map(event => (
+                        <EventCard
+                          key={event.id}
+                          event={event}
+                          isFavorite={isFavorite(getCanonicalTeamName(event.homeTeam))}
+                          onToggleFavorite={toggleFavorite}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                ))
               )}
             </div>
           </>
