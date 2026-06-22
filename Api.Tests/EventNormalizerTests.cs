@@ -157,6 +157,21 @@ public class EventNormalizerTests
     }
 
     [TestMethod]
+    public void NormalizeEvent_MiscategorizedCollegeFootball_UtahTechVsMontanaState()
+    {
+        // Ticketmaster sometimes miscategorizes college football as "Miscellaneous"
+        // This tests the fallback detection using team names
+        var result = EventNormalizer.NormalizeEvent(
+            "Utah Tech Trailblazers Football vs. Montana State Bobcats Football",
+            "Utah Tech Trailblazers Football",
+            "Montana State Bobcats Football",
+            "Miscellaneous",
+            "Miscellaneous");
+        Assert.AreEqual("Football", result.Sport);
+        Assert.AreEqual("NCAAF", result.League);
+    }
+
+    [TestMethod]
     public void NormalizeEvent_NothingRecognizable_ReturnsMisc()
     {
         var result = EventNormalizer.NormalizeEvent("Monster Truck Rally", "Truck A", "Truck B", "Motorsports", "");
