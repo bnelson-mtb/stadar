@@ -139,7 +139,8 @@ public class TicketmasterClient(HttpClient httpClient, IConfiguration config)
 
     private static (DateTime utcDateTime, string localDate, string? localTime) ExtractDateTime(JsonElement ev)
     {
-        var dateTime = DateTime.UtcNow;
+        // Default to MaxValue so events with no date info are not dropped by the past-event filter
+        var dateTime = DateTime.MaxValue;
         var localDateStr = "";
         string? localTimeStr = null;
 

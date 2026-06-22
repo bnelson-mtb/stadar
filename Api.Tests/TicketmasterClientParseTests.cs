@@ -85,14 +85,15 @@ public class TicketmasterClientParseTests
         var json = Parse("""
         {
           "id": "mj1",
-          "name": "Monster Jam World Finals",
+          "name": "Utah Jazz Season Opener",
+          "dates": { "start": { "dateTime": "2026-10-01T02:00:00Z" } },
           "classifications": [
-            { "genre": { "name": "Miscellaneous" }, "subGenre": { "name": "Miscellaneous" } }
+            { "genre": { "name": "Basketball" }, "subGenre": { "name": "NBA" } }
           ],
           "_embedded": {
             "attractions": [
-              { "name": "Monster Jam World Finals" },
-              { "name": "Monster Jam" }
+              { "name": "Utah Jazz" },
+              { "name": "Denver Nuggets" }
             ]
           }
         }
@@ -101,7 +102,7 @@ public class TicketmasterClientParseTests
         var ev = TicketmasterClient.ParseEvent(json);
 
         Assert.IsNotNull(ev);
-        Assert.AreEqual("Monster Jam World Finals", ev.HomeTeam);
+        Assert.AreEqual("Utah Jazz", ev.HomeTeam);
         Assert.AreEqual("", ev.AwayTeam);
     }
 
@@ -157,6 +158,9 @@ public class TicketmasterClientParseTests
           "id": "x4",
           "name": "Utah Utes vs BYU Cougars",
           "dates": { "start": { "localDate": "2026-09-12" } },
+          "classifications": [
+            { "genre": { "name": "Football" }, "subGenre": { "name": "College Football" } }
+          ],
           "_embedded": {
             "attractions": [
               { "name": "Utah Utes Football" },
@@ -181,6 +185,10 @@ public class TicketmasterClientParseTests
         {
           "id": "x5",
           "name": "Utah Jazz vs. Denver Nuggets",
+          "dates": { "start": { "dateTime": "2026-10-01T02:00:00Z" } },
+          "classifications": [
+            { "genre": { "name": "Basketball" }, "subGenre": { "name": "NBA" } }
+          ],
           "priceRanges": [
             {
               "type": "standard",
@@ -215,6 +223,10 @@ public class TicketmasterClientParseTests
         {
           "id": "x6",
           "name": "Utah Jazz vs. Denver Nuggets",
+          "dates": { "start": { "dateTime": "2026-10-01T02:00:00Z" } },
+          "classifications": [
+            { "genre": { "name": "Basketball" }, "subGenre": { "name": "NBA" } }
+          ],
           "_embedded": {
             "attractions": [
               { "name": "Utah Jazz" },
