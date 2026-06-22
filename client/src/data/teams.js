@@ -250,6 +250,14 @@ const PWHL = {
   'Toronto Sceptres':         { color: '#002654', logo: pwhlLogo('tor'),  shortName: 'Sceptres' },
 }
 
+const IAL = {
+  'Arizona Juggernauts':      { color: '#E03A3E', logo: null, shortName: 'Juggernauts' },
+  'Cincinnati Slingers':      { color: '#CF102D', logo: null, shortName: 'Slingers' },
+  'Las Vegas Rockers':        { color: '#16C8FF', logo: null, shortName: 'Rockers' },
+  'Pennsylvania Benjamins':   { color: '#64B84F', logo: null, shortName: 'Benjamins' },
+  'Utah Great 8\'s':           { color: '#557FBE', logo: null, shortName: 'Great8s', aliases: ['Utah Great 8s', 'Utah Great8s', 'Utah Gr8s'] },
+}
+
 // ============================================================
 //  MINOR LEAGUES
 // ============================================================
@@ -3769,11 +3777,12 @@ const NCAA = {
 const TEAMS = {}
 
 // Pro teams: key is already the Ticketmaster name
-for (const league of [NBA, WNBA, NHL, MLB, NFL, MLS, NWSL, PWHL, ECHL, AHL, AAA, PLL, LOVB_TEAMS]) {
+for (const league of [NBA, WNBA, NHL, MLB, NFL, MLS, NWSL, PWHL, IAL, ECHL, AHL, AAA, PLL, LOVB_TEAMS]) {
   for (const [name, data] of Object.entries(league)) {
-    TEAMS[name] = data
-    if (data?.displayName) TEAMS[data.displayName] = data
-    if (data?.aliases) for (const alias of data.aliases) TEAMS[alias] = data
+    const teamData = data?.canonicalKey ? data : { ...data, canonicalKey: name }
+    TEAMS[name] = teamData
+    if (teamData?.displayName) TEAMS[teamData.displayName] = teamData
+    if (teamData?.aliases) for (const alias of teamData.aliases) TEAMS[alias] = teamData
   }
 }
 
@@ -3802,7 +3811,10 @@ export function getTeamData(name) {
   if (!name) return null
   const data = TEAMS[name] || TEAMS[normalizeLookupName(name)] || null
   if (!data) return null
-  const blobLogo = logoManifest[name] || logoManifest[normalizeLookupName(name)]
+  const blobLogo = logoManifest[name]
+    || logoManifest[normalizeLookupName(name)]
+    || logoManifest[data.canonicalKey]
+    || logoManifest[data.displayName]
   return blobLogo ? { ...data, logo: blobLogo } : data
 }
 
@@ -3812,7 +3824,7 @@ export function getCanonicalTeamName(name) {
   return data?.displayName || name
 }
 
-export { NCAA, NBA, NHL, MLB, NFL, MLS, NWSL, PWHL, ECHL, AAA, PLL, LOVB_TEAMS }
+export { NCAA, NBA, NHL, MLB, NFL, MLS, NWSL, PWHL, IAL, ECHL, AAA, PLL, LOVB_TEAMS }
 
 export const SPORT_ICONS = {
   Basketball: '\u{1F3C0}',
@@ -3831,6 +3843,7 @@ export const LEAGUE_COLORS = {
   WNBA: 'bg-orange-500',
   MLB: 'bg-blue-700',
   MLS: 'bg-red-800',
+  IAL: 'bg-red-700',
   USL: 'bg-indigo-700',
   'Liga MX': 'bg-emerald-700',
   'World Cup': 'bg-cyan-700',

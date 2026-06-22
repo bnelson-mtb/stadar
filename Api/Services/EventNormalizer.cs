@@ -97,6 +97,8 @@ public static class EventNormalizer
             "national women's soccer league"   => ("Soccer", "NWSL"),
             "premier lacrosse league"          => ("Lacrosse", "PLL"),
             "pll"                              => ("Lacrosse", "PLL"),
+            "international arena league"       => ("Football", "IAL"),
+            "ial"                              => ("Football", "IAL"),
             "usl championship" or "usl league one" or "united soccer league" => ("Soccer", "USL"),
             "liga mx"                          => ("Soccer", "Liga MX"),
             "fifa world cup" or "world cup"    => ("Soccer", "World Cup"),
