@@ -58,7 +58,7 @@ public class TicketmasterClient(HttpClient httpClient, IConfiguration config)
 
     /// <summary>
     /// Parses a single Ticketmaster event JSON object into a SportEvent.
-    /// Returns null when no home team can be identified.
+    /// Returns null when no home team can be identified, or when EventFilter rejects the event.
     /// Public + static so it can be unit-tested with fixture JSON.
     /// </summary>
     public static SportEvent? ParseEvent(JsonElement ev)
@@ -70,7 +70,7 @@ public class TicketmasterClient(HttpClient httpClient, IConfiguration config)
         if (string.IsNullOrEmpty(homeTeam))
             return null;
 
-        var dateTime = ExtractDateTime(ev);
+        var (dateTime, localDate, localTime) = ExtractDateTime(ev);
         var (venue, city, state, lat, lng) = ExtractVenue(ev);
         var (rawSport, rawLeague) = ExtractClassification(ev);
 
@@ -80,11 +80,22 @@ public class TicketmasterClient(HttpClient httpClient, IConfiguration config)
         var imageUrl = ExtractImageUrl(ev);
         var (priceMin, priceMax, currency) = ExtractPriceRange(ev);
 
-        return new SportEvent(
+        var sportEvent = new SportEvent(
             tmId, eventName, normalized.HomeTeam, normalized.AwayTeam, dateTime, venue,
             normalized.Sport, normalized.League, city, state, lat, lng, ticketUrl, imageUrl,
-            priceMin, priceMax, currency
+            priceMin, priceMax, currency, localDate, localTime
         );
+
+        var statusCode = ev.TryGetProperty("dates", out var dates) &&
+                         dates.TryGetProperty("status", out var status) &&
+                         status.TryGetProperty("code", out var codeProp)
+            ? codeProp.GetString() ?? ""
+            : "";
+
+        if (!EventFilter.IsSpectatorEvent(sportEvent, statusCode))
+            return null;
+
+        return sportEvent;
     }
 
     private static (string HomeTeam, string AwayTeam) ExtractTeams(JsonElement ev, string eventName)
@@ -126,18 +137,34 @@ public class TicketmasterClient(HttpClient httpClient, IConfiguration config)
         return (homeTeam, awayTeam);
     }
 
-    private static DateTime ExtractDateTime(JsonElement ev)
+    private static (DateTime utcDateTime, string localDate, string? localTime) ExtractDateTime(JsonElement ev)
     {
         var dateTime = DateTime.UtcNow;
+        var localDateStr = "";
+        string? localTimeStr = null;
+
         if (ev.TryGetProperty("dates", out var dates) &&
             dates.TryGetProperty("start", out var start))
         {
+            // Extract UTC DateTime
             if (start.TryGetProperty("dateTime", out var dtProp))
                 DateTime.TryParse(dtProp.GetString(), out dateTime);
             else if (start.TryGetProperty("localDate", out var localDate))
                 DateTime.TryParse(localDate.GetString(), out dateTime);
+
+            // Extract localDate
+            if (start.TryGetProperty("localDate", out var localDateProp))
+                localDateStr = localDateProp.GetString() ?? "";
+
+            // Extract localTime (only if timeTBA and noSpecificTime are both false)
+            var timeTBA = start.TryGetProperty("timeTBA", out var timeTBAVal) && timeTBAVal.GetBoolean();
+            var noSpecificTime = start.TryGetProperty("noSpecificTime", out var noSpecificTimeVal) && noSpecificTimeVal.GetBoolean();
+
+            if (!timeTBA && !noSpecificTime && start.TryGetProperty("localTime", out var localTimeProp))
+                localTimeStr = localTimeProp.GetString();
         }
-        return dateTime;
+
+        return (dateTime, localDateStr, localTimeStr);
     }
 
     private static (string Venue, string City, string State, double Lat, double Lng) ExtractVenue(JsonElement ev)
