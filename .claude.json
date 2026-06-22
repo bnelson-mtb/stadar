@@ -1,0 +1,13 @@
+{
+  "toolRestrictions": [
+    {
+      "tool": "run_in_terminal",
+      "blockedPatterns": [
+        "git commit",
+        "git push",
+        "git rebase",
+        "git add"
+      ]
+    }
+  ]
+}

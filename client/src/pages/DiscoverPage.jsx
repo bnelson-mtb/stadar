@@ -19,6 +19,7 @@ const SPORT_ORDER = [
   'Soccer',
   'Hockey',
   'Lacrosse',
+  'Other',
 ]
 const LEAGUE_ORDER = [
   'NBA',
@@ -46,11 +47,14 @@ const LEAGUE_ORDER = [
   'NCAA Soccer',
   'NWSL',
   'LOVB',
-  'Minor League',
+  'AHL',
+  'ECHL',
+  'Triple-A',
+  'Double-A',
+  'High-A',
+  'Single-A',
+  'Other',
 ]
-
-const MINOR_FILTER_LEAGUES = new Set(['AHL', 'ECHL', 'Minor League', 'Triple-A', 'Double-A', 'High-A', 'Single-A'])
-const getLeagueLabel = league => MINOR_FILTER_LEAGUES.has(league) ? 'Minor League' : league
 
 function orderedUnique(values, order) {
   const unique = [...new Set(values.filter(Boolean))]
@@ -220,7 +224,7 @@ function DiscoverPage() {
 
   const filteredEvents = useMemo(() => events.filter(event => {
     if (selectedSports.length > 0 && !selectedSports.includes(event.sport)) return false
-    if (selectedLeagues.length > 0 && !selectedLeagues.includes(getLeagueLabel(event.league))) return false
+    if (selectedLeagues.length > 0 && !selectedLeagues.includes(event.league)) return false
     const home = getCanonicalTeamName(event.homeTeam)
     const away = getCanonicalTeamName(event.awayTeam)
     if (showFavoritesOnly &&
@@ -244,7 +248,7 @@ function DiscoverPage() {
   )
 
   const availableLeagues = useMemo(() =>
-    [...new Set(events.map(e => e.league).filter(Boolean).map(getLeagueLabel))]
+    [...new Set(events.map(e => e.league).filter(Boolean))]
       .sort((a, b) => (LEAGUE_ORDER.indexOf(a) + 1 || 99) - (LEAGUE_ORDER.indexOf(b) + 1 || 99)),
     [events]
   )

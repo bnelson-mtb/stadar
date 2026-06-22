@@ -18,8 +18,7 @@ function EventCard({ event, isFavorite, onToggleFavorite, stateCode }) {
     ? new Date(`1970-01-01T${event.localTime}`).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', hour12: true })
     : 'Time TBD'
 
-  const MINOR_BADGE_LEAGUES = new Set(['AHL', 'ECHL', 'Minor League', 'Triple-A', 'Double-A', 'High-A', 'Single-A'])
-  const badgeLabel = MINOR_BADGE_LEAGUES.has(event.league) ? 'Minor League' : event.league
+  const badgeLabel = event.league
   const badgeColor = LEAGUE_COLORS[event.league] || 'bg-gray-500'
   const borderColor = getTeamData(event.homeTeam)?.color || '#6B7280'
   const icon = SPORT_ICONS[event.sport] || ''

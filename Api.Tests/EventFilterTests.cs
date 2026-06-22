@@ -130,15 +130,15 @@ public class EventFilterTests
     }
 
     [TestMethod]
-    public void IsSpectatorEvent_MinorLeagueBaseballGame_ReturnsTrue()
+    public void IsSpectatorEvent_SingleABaseballGame_ReturnsTrue()
     {
-        // CA snapshot fixture 9: Minor League — recognized league
+        // Single-A affiliated game — level-specific league passes
         var evt = MakeEvent(
             name: "Stockton Ports vs Visalia Rawhide",
             homeTeam: "Stockton Ports",
             awayTeam: "Visalia Rawhide",
             sport: "Baseball",
-            league: "Minor League");
+            league: "Single-A");
 
         Assert.IsTrue(EventFilter.IsSpectatorEvent(evt, statusCode: "onsale"));
     }

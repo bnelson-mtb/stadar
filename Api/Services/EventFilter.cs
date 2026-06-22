@@ -12,6 +12,7 @@ public static class EventFilter
 {
     private static readonly string[] NameDenylist =
     [
+        // ancillary / non-game experiences
         "watch party",
         "viewing party",
         "fan fest",
@@ -26,6 +27,25 @@ public static class EventFilter
         "combine",
         "clinic",
         "tour:",
+        "season ticket",
+        "hospitality",
+        "day party",
+        // combat sports (excluded for now)
+        "wwe",
+        "aew",
+        "pro wrestling",
+        "boxing",
+        "mma",
+        "ufc",
+        "bellator",
+        "pfl mma",
+        "lfa",
+        "bkfc",
+        "bare knuckle",
+        "fight night",
+        "kickboxing",
+        "muay thai",
+        "wrestling"
     ];
 
     /// <summary>
@@ -49,8 +69,8 @@ public static class EventFilter
         if (IsOnDenylist(evt.Name))
             return false;
 
-        // Rule 4: Check if sport is unrecognized (Misc or empty)
-        if (string.IsNullOrWhiteSpace(evt.Sport) || evt.Sport == "Misc")
+        // Rule 4: Check if sport is completely unrecognized (empty)
+        if (string.IsNullOrWhiteSpace(evt.Sport))
             return false;
 
         // Rule 5: Check if home team is a placeholder with no league
