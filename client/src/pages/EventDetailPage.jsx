@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useParams, useLocation, useNavigate } from 'react-router-dom'
-import { SPORT_ICONS, LEAGUE_COLORS, getCanonicalTeamName, getTeamData } from '../data/teams'
+import { SPORT_ICONS, LEAGUE_COLORS, getCanonicalTeamName } from '../data/teams'
 import { LEAGUE_INFO } from '../data/leagueInfo'
 import TeamLogo from '../components/TeamLogo'
 import VenueMap from '../components/VenueMap'
@@ -53,6 +53,7 @@ function EventDetailPage() {
 
   const homeTeamName = getCanonicalTeamName(event.homeTeam)
   const awayTeamName = getCanonicalTeamName(event.awayTeam)
+  const hasAwayTeam = Boolean(awayTeamName)
   const badgeColor = LEAGUE_COLORS[event.league] || 'bg-gray-500'
   const icon = SPORT_ICONS[event.sport] || ''
   const MINOR_BADGE_LEAGUES = new Set(['AHL', 'ECHL', 'Minor League'])
@@ -109,23 +110,32 @@ function EventDetailPage() {
             <span className="text-gray-400 text-sm">{icon} {event.sport}</span>
           </div>
 
-          <div className="flex items-center justify-between gap-4 mb-6">
-            <div className="flex-1 text-center">
-              <div className="flex justify-center mb-2">
+          {hasAwayTeam ? (
+            <div className="flex items-center justify-between gap-4 mb-6">
+              <div className="flex-1 text-center">
+                <div className="flex justify-center mb-2">
+                  <TeamLogo name={homeTeamName} size="large" />
+                </div>
+                <p className="text-lg font-bold text-gray-900">{homeTeamName}</p>
+              </div>
+
+              <div className="text-2xl font-bold text-gray-300">vs</div>
+
+              <div className="flex-1 text-center">
+                <div className="flex justify-center mb-2">
+                  <TeamLogo name={awayTeamName} size="large" />
+                </div>
+                <p className="text-lg font-bold text-gray-900">{awayTeamName}</p>
+              </div>
+            </div>
+          ) : (
+            <div className="mb-6 flex flex-col items-center text-center">
+              <div className="mb-2 flex justify-center">
                 <TeamLogo name={homeTeamName} size="large" />
               </div>
-              <p className="text-lg font-bold text-gray-900">{homeTeamName}</p>
+              <p className="text-lg font-bold text-gray-900">{homeTeamName || event.name}</p>
             </div>
-
-            <div className="text-2xl font-bold text-gray-300">vs</div>
-
-            <div className="flex-1 text-center">
-              <div className="flex justify-center mb-2">
-                <TeamLogo name={awayTeamName} size="large" />
-              </div>
-              <p className="text-lg font-bold text-gray-900">{awayTeamName}</p>
-            </div>
-          </div>
+          )}
 
           <div className="border-t border-gray-200 pt-4">
             <p className="text-xl font-bold text-gray-900">{dateDisplay}</p>

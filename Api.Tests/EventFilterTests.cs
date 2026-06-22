@@ -87,7 +87,7 @@ public class EventFilterTests
     [TestMethod]
     public void IsSpectatorEvent_PastEvent_ReturnsFalse()
     {
-        // CA snapshot fixture 5: DateTime in the past
+        // CA snapshot fixture 6: DateTime in the past
         var evt = MakeEvent(
             name: "Past NBA Game",
             homeTeam: "Utah Jazz",
@@ -104,7 +104,7 @@ public class EventFilterTests
     [TestMethod]
     public void IsSpectatorEvent_WnbaGame_ReturnsTrue()
     {
-        // CA snapshot fixture 6: WNBA — recognized league
+        // CA snapshot fixture 7: WNBA — recognized league
         var evt = MakeEvent(
             name: "Golden State Valkyries vs Dallas Wings",
             homeTeam: "Golden State Valkyries",
@@ -118,7 +118,7 @@ public class EventFilterTests
     [TestMethod]
     public void IsSpectatorEvent_NhlGame_ReturnsTrue()
     {
-        // CA snapshot fixture 7: NHL — recognized league
+        // CA snapshot fixture 8: NHL — recognized league
         var evt = MakeEvent(
             name: "Anaheim Ducks vs Opposing Team",
             homeTeam: "Anaheim Ducks",
@@ -132,7 +132,7 @@ public class EventFilterTests
     [TestMethod]
     public void IsSpectatorEvent_MinorLeagueBaseballGame_ReturnsTrue()
     {
-        // CA snapshot fixture 8: Minor League — recognized league
+        // CA snapshot fixture 9: Minor League — recognized league
         var evt = MakeEvent(
             name: "Stockton Ports vs Visalia Rawhide",
             homeTeam: "Stockton Ports",
@@ -146,9 +146,22 @@ public class EventFilterTests
     [TestMethod]
     public void IsSpectatorEvent_ClubVsClubSoccerNoLeague_ReturnsTrue()
     {
-        // CA snapshot fixture 9: No league, but clear club-vs-club matchup with "vs" in name
+        // CA snapshot fixture 10: No league, but clear club-vs-club matchup with "vs" in name
         var evt = MakeEvent(
             name: "Oakland Roots vs Birmingham Legion FC",
+            homeTeam: "Oakland Roots",
+            awayTeam: "Birmingham Legion FC",
+            sport: "Soccer",
+            league: "");
+
+        Assert.IsTrue(EventFilter.IsSpectatorEvent(evt, statusCode: "onsale"));
+    }
+
+    [TestMethod]
+    public void IsSpectatorEvent_ClubVClubSoccerNoLeague_ReturnsTrue()
+    {
+        var evt = MakeEvent(
+            name: "Oakland Roots v Birmingham Legion FC",
             homeTeam: "Oakland Roots",
             awayTeam: "Birmingham Legion FC",
             sport: "Soccer",

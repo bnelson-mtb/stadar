@@ -111,11 +111,6 @@ public static class EventFilter
         if (IsPlaceholderTeam(evt.HomeTeam) || IsPlaceholderTeam(evt.AwayTeam))
             return false;
 
-        // Event name must contain "vs" or "@"
-        if (string.IsNullOrWhiteSpace(evt.Name))
-            return false;
-
-        var lowerName = evt.Name.ToLowerInvariant();
-        return lowerName.Contains("vs") || lowerName.Contains("@");
+        return MatchupTitleParser.LooksLikeMatchup(evt.Name);
     }
 }
