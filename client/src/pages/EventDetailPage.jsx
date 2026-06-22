@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useParams, useLocation, useNavigate } from 'react-router-dom'
 import { SPORT_ICONS, LEAGUE_COLORS, getCanonicalTeamName } from '../data/teams'
 import { LEAGUE_INFO } from '../data/leagueInfo'
@@ -10,29 +10,41 @@ function buildIcsContent(event) {
   if (event.localTime) {
     const timeStr = event.localTime.replace(/:/g, '').slice(0, 6)
     const [hh, mm, ss] = event.localTime.split(':').map(Number)
-    const endH = String(hh + 2).padStart(2, '0')
-    const endStr = `${endH}${String(mm).padStart(2, '0')}${String(ss ?? 0).padStart(2, '0')}`
+    const totalMinutes = hh * 60 + mm + 120  // add 2 hours
+    const endH = Math.floor(totalMinutes / 60) % 24
+    const endM = totalMinutes % 60
+    const rollover = totalMinutes >= 1440  // crossed midnight
+    let endDateStr = dateStr
+    if (rollover) {
+      const [y, mo, d] = (event.localDate || '').split('-').map(Number)
+      const next = new Date(y, mo - 1, d + 1)
+      endDateStr = `${next.getFullYear()}${String(next.getMonth()+1).padStart(2,'0')}${String(next.getDate()).padStart(2,'0')}`
+    }
+    const endStr = `${String(endH).padStart(2,'0')}${String(endM).padStart(2,'0')}${String(ss ?? 0).padStart(2,'0')}`
     return [
       'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Stadar//EN',
       'BEGIN:VEVENT',
       `UID:${event.id}@stadar`,
       `DTSTART:${dateStr}T${timeStr}`,
-      `DTEND:${dateStr}T${endStr}`,
+      `DTEND:${endDateStr}T${endStr}`,
       `SUMMARY:${event.name}`,
       `LOCATION:${event.venue}, ${event.city}, ${event.state}`,
-      `URL:${event.ticketUrl || ''}`,
+      ...(event.ticketUrl ? [`URL:${event.ticketUrl}`] : []),
       'END:VEVENT', 'END:VCALENDAR',
     ].join('\r\n')
   } else {
+    const [y, mo, d] = (event.localDate || '').split('-').map(Number)
+    const next = new Date(y, mo - 1, d + 1)
+    const nextDateStr = `${next.getFullYear()}${String(next.getMonth()+1).padStart(2,'0')}${String(next.getDate()).padStart(2,'0')}`
     return [
       'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Stadar//EN',
       'BEGIN:VEVENT',
       `UID:${event.id}@stadar`,
       `DTSTART;VALUE=DATE:${dateStr}`,
-      `DTEND;VALUE=DATE:${dateStr}`,
+      `DTEND;VALUE=DATE:${nextDateStr}`,
       `SUMMARY:${event.name}`,
       `LOCATION:${event.venue}, ${event.city}, ${event.state}`,
-      `URL:${event.ticketUrl || ''}`,
+      ...(event.ticketUrl ? [`URL:${event.ticketUrl}`] : []),
       'END:VEVENT', 'END:VCALENDAR',
     ].join('\r\n')
   }
@@ -60,6 +72,9 @@ function EventDetailPage() {
   const [venueExpanded, setVenueExpanded] = useState(true)
   const [leagueExpanded, setLeagueExpanded] = useState(true)
   const [copied, setCopied] = useState(false)
+  const copiedTimerRef = useRef(null)
+
+  useEffect(() => () => clearTimeout(copiedTimerRef.current), [])
 
   useEffect(() => {
     if (event) return
@@ -113,13 +128,15 @@ function EventDetailPage() {
   const leagueInfo = LEAGUE_INFO[leagueKey] ?? null
 
   function handleShare() {
-    const shareText = `${homeTeamName} vs ${awayTeamName} — ${dateDisplay} at ${event.venue}`
+    const shareText = hasAwayTeam
+      ? `${homeTeamName} vs ${awayTeamName} — ${dateDisplay} at ${event.venue}`
+      : `${homeTeamName} — ${dateDisplay} at ${event.venue}`
     if (navigator.share) {
       navigator.share({ title: event.name, text: shareText, url: window.location.href }).catch(() => {})
     } else {
       navigator.clipboard.writeText(window.location.href).then(() => {
         setCopied(true)
-        setTimeout(() => setCopied(false), 2000)
+        copiedTimerRef.current = setTimeout(() => setCopied(false), 2000)
       })
     }
   }
