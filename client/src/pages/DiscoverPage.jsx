@@ -204,13 +204,14 @@ function DiscoverPage() {
   const filteredEvents = useMemo(() => events.filter(event => {
     if (selectedSports.length > 0 && !selectedSports.includes(event.sport)) return false
     if (selectedLeagues.length > 0 && !selectedLeagues.includes(event.league)) return false
+    const home = getCanonicalTeamName(event.homeTeam)
+    const away = getCanonicalTeamName(event.awayTeam)
     if (showFavoritesOnly &&
-      !isFavorite(getCanonicalTeamName(event.homeTeam)) &&
-      !isFavorite(getCanonicalTeamName(event.awayTeam))) return false
+      !isFavorite(home) &&
+      !isFavorite(away)) return false
     if (searchQuery.trim()) {
       const q = searchQuery.toLowerCase()
-      const matchesTeam = getCanonicalTeamName(event.homeTeam).toLowerCase().includes(q) ||
-        getCanonicalTeamName(event.awayTeam).toLowerCase().includes(q)
+      const matchesTeam = home.toLowerCase().includes(q) || away.toLowerCase().includes(q)
       const matchesPlace = event.city.toLowerCase().includes(q) || event.venue.toLowerCase().includes(q)
       if (!matchesTeam && !matchesPlace) return false
     }
@@ -219,11 +220,17 @@ function DiscoverPage() {
 
   const groupedEvents = useMemo(() => groupEventsByDate(filteredEvents), [filteredEvents])
 
-  const availableSports = [...new Set(events.map(e => e.sport).filter(Boolean))]
-    .sort((a, b) => (SPORT_ORDER.indexOf(a) + 1 || 99) - (SPORT_ORDER.indexOf(b) + 1 || 99))
+  const availableSports = useMemo(() =>
+    [...new Set(events.map(e => e.sport).filter(Boolean))]
+      .sort((a, b) => (SPORT_ORDER.indexOf(a) + 1 || 99) - (SPORT_ORDER.indexOf(b) + 1 || 99)),
+    [events]
+  )
 
-  const availableLeagues = [...new Set(events.map(e => e.league).filter(Boolean))]
-    .sort((a, b) => (LEAGUE_ORDER.indexOf(a) + 1 || 99) - (LEAGUE_ORDER.indexOf(b) + 1 || 99))
+  const availableLeagues = useMemo(() =>
+    [...new Set(events.map(e => e.league).filter(Boolean))]
+      .sort((a, b) => (LEAGUE_ORDER.indexOf(a) + 1 || 99) - (LEAGUE_ORDER.indexOf(b) + 1 || 99)),
+    [events]
+  )
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -274,12 +281,14 @@ function DiscoverPage() {
               <input
                 type="text"
                 placeholder="Search teams, cities, venues..."
+                aria-label="Search teams, cities, or venues"
                 value={searchQuery}
                 onChange={e => setSearchQuery(e.target.value)}
                 className="w-full pl-9 pr-8 py-2 border border-gray-300 rounded-lg text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
               />
               {searchQuery && (
                 <button
+                  type="button"
                   onClick={() => setSearchQuery('')}
                   className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
                   aria-label="Clear search"
