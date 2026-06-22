@@ -17,7 +17,6 @@ const SPORT_ORDER = [
   'Soccer',
   'Hockey',
   'Lacrosse',
-  'Misc',
 ]
 const LEAGUE_ORDER = [
   'NBA',
@@ -36,11 +35,7 @@ const LEAGUE_ORDER = [
   "Men's Soccer",
   'LOVB',
   'Minor League',
-  'Misc',
 ]
-
-const DEFAULT_SPORTS = ['Football', 'Baseball', 'Softball', 'Volleyball']
-const DEFAULT_LEAGUES = ['NCAAF', 'MLB', 'NCAA Baseball', 'NCAA Softball']
 
 function orderedUnique(values, order) {
   const unique = [...new Set(values.filter(Boolean))]
@@ -67,12 +62,13 @@ const US_STATES = [
   ['VT','Vermont'],['VA','Virginia'],['WA','Washington'],['WV','West Virginia'],['WI','Wisconsin'],
   ['WY','Wyoming'],
 ]
+const US_STATE_CODES = US_STATES.map(([code]) => code)
 
 function DiscoverPage() {
   const [events, setEvents] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
-  const [location, setLocation] = useState('UT')
+  const [stateCode, setStateCode] = useState(null)
 
   const [selectedSports, setSelectedSports] = useState([])
   const [selectedLeagues, setSelectedLeagues] = useState([])
@@ -80,13 +76,43 @@ function DiscoverPage() {
 
   const { favorites, toggleFavorite, isFavorite } = useFavorites()
 
+  // Auto-detect location on first load; restore from localStorage if available
   useEffect(() => {
+    const saved = localStorage.getItem('stadar-location')
+    if (saved && US_STATE_CODES.includes(saved)) {
+      setStateCode(saved)
+      return
+    }
+    const detect = async () => {
+      try {
+        const controller = new AbortController()
+        const id = setTimeout(() => controller.abort(), 5000)
+        const res = await fetch('https://ipapi.co/json/', { signal: controller.signal })
+        clearTimeout(id)
+        if (res.ok) {
+          const data = await res.json()
+          const state = data.region_code?.toUpperCase()
+          if (state && US_STATE_CODES.includes(state)) { setStateCode(state); return }
+        }
+      } catch { /* silent fail */ }
+      setStateCode('UT')
+    }
+    detect()
+  }, [])
+
+  const handleStateChange = (newState) => {
+    setStateCode(newState)
+    localStorage.setItem('stadar-location', newState)
+  }
+
+  useEffect(() => {
+    if (!stateCode) return
     setLoading(true)
     setError(null)
     setSelectedSports([])
     setSelectedLeagues([])
     const apiBase = import.meta.env.VITE_API_URL || 'http://localhost:5068'
-    fetch(`${apiBase}/api/events?stateCode=${location}`)
+    fetch(`${apiBase}/api/events?stateCode=${stateCode}`)
       .then(res => {
         if (!res.ok) throw new Error('Failed to fetch events')
         return res.json()
@@ -99,7 +125,7 @@ function DiscoverPage() {
         setError(err.message)
         setLoading(false)
       })
-  }, [location])
+  }, [stateCode])
 
   const filteredEvents = events.filter(event => {
     if (selectedSports.length > 0 && !selectedSports.includes(event.sport)) return false
@@ -112,8 +138,11 @@ function DiscoverPage() {
     return true
   })
 
-  const sports = orderedUnique([...events.map(e => e.sport), ...DEFAULT_SPORTS], SPORT_ORDER)
-  const leagues = orderedUnique([...events.map(e => e.league), ...DEFAULT_LEAGUES], LEAGUE_ORDER)
+  const availableSports = [...new Set(events.map(e => e.sport).filter(Boolean))]
+    .sort((a, b) => (SPORT_ORDER.indexOf(a) + 1 || 99) - (SPORT_ORDER.indexOf(b) + 1 || 99))
+
+  const availableLeagues = [...new Set(events.map(e => e.league).filter(Boolean))]
+    .sort((a, b) => (LEAGUE_ORDER.indexOf(a) + 1 || 99) - (LEAGUE_ORDER.indexOf(b) + 1 || 99))
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -127,8 +156,8 @@ function DiscoverPage() {
               <p className="text-gray-500 mt-1">Live sports near you</p>
             </div>
             <select
-              value={location}
-              onChange={e => setLocation(e.target.value)}
+              value={stateCode ?? ''}
+              onChange={e => handleStateChange(e.target.value)}
               className="border border-gray-300 rounded-lg px-3 py-2 text-sm font-medium text-gray-700 bg-white hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
               {US_STATES.map(([code, name]) => (
@@ -158,8 +187,8 @@ function DiscoverPage() {
         {!loading && !error && events.length > 0 && (
           <>
             <FilterBar
-              sports={sports}
-              leagues={leagues}
+              sports={availableSports}
+              leagues={availableLeagues}
               selectedSports={selectedSports}
               onToggleSport={s => setSelectedSports(prev => toggleArrayItem(prev, s))}
               selectedLeagues={selectedLeagues}
