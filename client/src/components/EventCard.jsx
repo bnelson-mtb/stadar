@@ -4,13 +4,19 @@ import TeamLogo from './TeamLogo'
 
 function EventCard({ event, isFavorite, onToggleFavorite }) {
   const navigate = useNavigate()
-  const date = new Date(event.dateTime)
   const homeTeamName = getCanonicalTeamName(event.homeTeam)
   const awayTeamName = getCanonicalTeamName(event.awayTeam)
 
-  const dayOfWeek = date.toLocaleDateString('en-US', { weekday: 'short' })
-  const monthDay = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
-  const time = date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })
+  // Parse localDate as a plain calendar date (no timezone conversion)
+  const [year, month, day] = (event.localDate || '').split('-').map(Number)
+  const localDateObj = event.localDate ? new Date(year, month - 1, day) : null
+  const dayOfWeek = localDateObj ? localDateObj.toLocaleDateString('en-US', { weekday: 'short' }) : ''
+  const monthDay = localDateObj ? localDateObj.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : ''
+
+  // Format localTime or show "Time TBD"
+  const time = event.localTime
+    ? new Date(`1970-01-01T${event.localTime}`).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', hour12: true })
+    : 'Time TBD'
 
   const badgeColor = LEAGUE_COLORS[event.league] || 'bg-gray-500'
   const borderColor = getTeamData(event.homeTeam)?.color || '#6B7280'
