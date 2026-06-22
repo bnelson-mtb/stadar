@@ -116,8 +116,6 @@ function EventDetailPage() {
   const hasAwayTeam = Boolean(awayTeamName)
   const badgeColor = LEAGUE_COLORS[event.league] || 'bg-gray-500'
   const icon = SPORT_ICONS[event.sport] || ''
-  const MINOR_BADGE_LEAGUES = new Set(['AHL', 'ECHL', 'Minor League', 'Triple-A', 'Double-A', 'High-A', 'Single-A'])
-  const badgeLabel = MINOR_BADGE_LEAGUES.has(event.league) ? 'Minor League' : event.league
   const leagueKey = event.league === 'Minor League'
     ? (event.sport === 'Hockey' ? 'Minor League Hockey'
        : event.sport === 'Basketball' ? 'Minor League Basketball'
@@ -194,7 +192,7 @@ function EventDetailPage() {
         <div className="bg-white rounded-xl shadow-sm p-6 mb-4">
           <div className="flex items-center justify-between mb-4">
             <span className={`${badgeColor} text-white text-xs font-semibold px-3 py-1 rounded-full`}>
-              {badgeLabel}
+              {event.league}
             </span>
             <span className="text-gray-400 text-sm">{icon} {event.sport}</span>
           </div>
