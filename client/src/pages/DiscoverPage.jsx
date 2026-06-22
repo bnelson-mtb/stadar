@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo } from 'react'
 import EventCard from '../components/EventCard.jsx'
 import FilterBar from '../components/FilterBar.jsx'
+import SkeletonCard from '../components/SkeletonCard.jsx'
 import useFavorites from '../hooks/useFavorites.js'
 import { getCanonicalTeamName } from '../data/teams'
 
@@ -258,7 +259,9 @@ function DiscoverPage() {
 
       <main className="max-w-2xl mx-auto px-4 py-6">
         {loading && (
-          <div className="text-center py-12 text-gray-400">Loading events...</div>
+          <div className="space-y-3">
+            {Array.from({ length: 5 }).map((_, i) => <SkeletonCard key={i} />)}
+          </div>
         )}
 
         {error && (
