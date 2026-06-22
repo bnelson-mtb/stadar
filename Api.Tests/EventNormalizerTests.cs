@@ -13,6 +13,7 @@ public class EventNormalizerTests
     [DataRow("BYU Cougars Football", "BYU Cougars")]
     [DataRow("Utah Utes Womens Soccer", "Utah Utes")]
     [DataRow("LOVB Salt Lake Volleyball", "LOVB Salt Lake")]
+    [DataRow("Idaho State University Bengals", "Idaho State Bengals")]
     [DataRow("Utah Jazz", "Utah Jazz")]
     [DataRow("  Real Salt Lake  ", "Real Salt Lake")]
     [DataRow("", "")]

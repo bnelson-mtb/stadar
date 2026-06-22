@@ -45,7 +45,8 @@ public static class EventFilter
         "fight night",
         "kickboxing",
         "muay thai",
-        "wrestling"
+        "wrestling",
+        "world cup"
     ];
 
     /// <summary>

@@ -280,8 +280,10 @@ public static class EventNormalizer
 
         var normalized = teamName.Trim();
         normalized = Regex.Replace(normalized, @"^LOVB\s+(.+?)\s+Volleyball$", "LOVB $1", RegexOptions.IgnoreCase);
+        normalized = Regex.Replace(normalized, @"\bUniversity\b", "", RegexOptions.IgnoreCase);
         normalized = Regex.Replace(normalized, @"\s+(Men'?s|Women'?s|Mens|Womens)\s+(Basketball|Volleyball|Soccer|Softball|Baseball|Football)\s*$", "", RegexOptions.IgnoreCase);
         normalized = Regex.Replace(normalized, @"\s+(Football|Baseball|Softball|Gymnastics)\s*$", "", RegexOptions.IgnoreCase);
+        normalized = Regex.Replace(normalized, @"\s{2,}", " ");
         return normalized.Trim();
     }
 }

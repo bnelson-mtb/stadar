@@ -249,7 +249,13 @@ function EventDetailPage() {
           </div>
 
           <div className="border-t border-gray-200 pt-6">
-            <VenueMap lat={event.latitude} lng={event.longitude} venue={event.venue} />
+            <VenueMap
+              lat={event.latitude}
+              lng={event.longitude}
+              venue={event.venue}
+              city={event.city}
+              state={event.state}
+            />
           </div>
         </div>
 
