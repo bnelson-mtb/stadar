@@ -1,4 +1,5 @@
 import { useState, useEffect, useMemo } from 'react'
+import { useLocation } from 'react-router-dom'
 import EventCard from '../components/EventCard.jsx'
 import FilterBar from '../components/FilterBar.jsx'
 import SkeletonCard from '../components/SkeletonCard.jsx'
@@ -139,10 +140,17 @@ function groupEventsByDate(events) {
 }
 
 function DiscoverPage() {
+  const location = useLocation()
   const [events, setEvents] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
-  const [stateCode, setStateCode] = useState('UT')
+  const [stateCode, setStateCode] = useState(() => {
+    const navigationStateCode = location.state?.stateCode
+    if (navigationStateCode && US_STATE_CODES.includes(navigationStateCode)) {
+      return navigationStateCode
+    }
+    return 'UT'
+  })
 
   const [selectedSports, setSelectedSports] = useState([])
   const [selectedLeagues, setSelectedLeagues] = useState([])
@@ -153,6 +161,13 @@ function DiscoverPage() {
 
   // Auto-detect location on first load; restore from localStorage if available
   useEffect(() => {
+    const navigationStateCode = location.state?.stateCode
+    if (navigationStateCode && US_STATE_CODES.includes(navigationStateCode)) {
+      setStateCode(navigationStateCode)
+      localStorage.setItem('stadar-location', navigationStateCode)
+      return
+    }
+
     const saved = localStorage.getItem('stadar-location')
     if (saved && US_STATE_CODES.includes(saved)) {
       setStateCode(saved)
@@ -339,6 +354,7 @@ function DiscoverPage() {
                           event={event}
                           isFavorite={isFavorite(getCanonicalTeamName(event.homeTeam))}
                           onToggleFavorite={toggleFavorite}
+                          stateCode={stateCode}
                         />
                       ))}
                     </div>

@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom'
 import { SPORT_ICONS, LEAGUE_COLORS, getCanonicalTeamName, getTeamData } from '../data/teams'
 import TeamLogo from './TeamLogo'
 
-function EventCard({ event, isFavorite, onToggleFavorite }) {
+function EventCard({ event, isFavorite, onToggleFavorite, stateCode }) {
   const navigate = useNavigate()
   const homeTeamName = getCanonicalTeamName(event.homeTeam)
   const awayTeamName = getCanonicalTeamName(event.awayTeam)
@@ -25,7 +25,7 @@ function EventCard({ event, isFavorite, onToggleFavorite }) {
   const icon = SPORT_ICONS[event.sport] || ''
 
   const handleCardClick = () => {
-    navigate(`/event/${event.id}`, { state: { event } })
+    navigate(`/event/${event.id}`, { state: { event, fromStateCode: stateCode } })
   }
 
   return (
