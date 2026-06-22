@@ -3865,6 +3865,10 @@ export const LEAGUE_COLORS = {
   AHL: 'bg-slate-500',
   ECHL: 'bg-slate-500',
   'Minor League': 'bg-slate-500',
+  'Triple-A': 'bg-slate-500',
+  'Double-A': 'bg-slate-500',
+  'High-A': 'bg-slate-500',
+  'Single-A': 'bg-slate-500',
   PLL: 'bg-yellow-500',
   Misc: 'bg-gray-500',
 }
