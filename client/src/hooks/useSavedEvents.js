@@ -38,6 +38,7 @@ export default function useSavedEvents() {
   }
 
   function updateSnapshot(freshEvent) {
+    if (!freshEvent) return
     setSavedEvents(prev => {
       const next = prev.map(r =>
         r.event.id === freshEvent.id ? { ...r, event: freshEvent } : r
