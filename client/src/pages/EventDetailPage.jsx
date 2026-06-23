@@ -4,6 +4,7 @@ import { SPORT_ICONS, LEAGUE_COLORS, getCanonicalTeamName } from '../data/teams'
 import { LEAGUE_INFO } from '../data/leagueInfo'
 import TeamLogo from '../components/TeamLogo'
 import VenueMap from '../components/VenueMap'
+import useSavedEvents from '../hooks/useSavedEvents.js'
 
 function buildIcsContent(event) {
   const dateStr = (event.localDate || '').replace(/-/g, '')
@@ -67,7 +68,11 @@ function EventDetailPage() {
   const { id } = useParams()
   const location = useLocation()
   const navigate = useNavigate()
-  const [event, setEvent] = useState(location.state?.event ?? null)
+  const { isSaved, toggleSave, updateSnapshot, savedEvents } = useSavedEvents()
+  const savedRecord = savedEvents.find(r => r.event.id === id)
+  const [event, setEvent] = useState(
+    () => location.state?.event ?? savedRecord?.event ?? null
+  )
   const [loading, setLoading] = useState(!event)
   const [copied, setCopied] = useState(false)
   const copiedTimerRef = useRef(null)
@@ -75,7 +80,12 @@ function EventDetailPage() {
   useEffect(() => () => clearTimeout(copiedTimerRef.current), [])
 
   function handleBack() {
-    const fromStateCode = location.state?.fromStateCode
+    const { backTo, fromStateCode } = location.state ?? {}
+    // backTo is set by SavedPage / TeamSavedPage; fromStateCode is set by DiscoverPage
+    if (backTo) {
+      navigate(backTo)
+      return
+    }
     if (fromStateCode) {
       navigate('/', { state: { stateCode: fromStateCode } })
       return
@@ -84,15 +94,26 @@ function EventDetailPage() {
   }
 
   useEffect(() => {
-    if (event) return
+    const isEventSaved = isSaved(id)
+    const isPast = event ? new Date(event.dateTime) <= new Date() : false
+
+    // Skip fetch for non-saved events that already have router state,
+    // and for past saved events (always use snapshot).
+    if (event && (!isEventSaved || isPast)) return
 
     const apiBase = import.meta.env.VITE_API_URL || 'http://localhost:5068'
     fetch(`${apiBase}/api/events/${id}`)
       .then(r => r.ok ? r.json() : Promise.reject(new Error('Not found')))
-      .then(setEvent)
-      .catch(() => setEvent(null))
+      .then(fresh => {
+        setEvent(fresh)
+        if (isEventSaved) updateSnapshot(fresh)
+      })
+      .catch(() => {
+        // Only clear event if there is no snapshot fallback
+        if (!event) setEvent(null)
+      })
       .finally(() => setLoading(false))
-  }, [id, event])
+  }, [id]) // eslint-disable-line react-hooks/exhaustive-deps
 
   if (loading) {
     return (
@@ -168,7 +189,17 @@ function EventDetailPage() {
             ← Back
           </button>
           <h1 className="text-lg font-bold text-gray-900">{event.name}</h1>
-          <div className="w-20 flex justify-end">
+          <div className="flex items-center gap-1">
+            <button
+              type="button"
+              onClick={() => toggleSave(event)}
+              className={`p-2 transition-colors ${isSaved(event.id) ? 'text-blue-500' : 'text-gray-400 hover:text-gray-700'}`}
+              aria-label={isSaved(event.id) ? 'Remove from saved' : 'Save event'}
+            >
+              <svg className="w-5 h-5" viewBox="0 0 24 24" fill={isSaved(event.id) ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth={1.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0 1 11.186 0Z" />
+              </svg>
+            </button>
             {copied ? (
               <span className="text-xs font-medium text-green-600 pr-1">Copied!</span>
             ) : (
