@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom'
 import { SPORT_ICONS, LEAGUE_COLORS, getCanonicalTeamName, getTeamData } from '../data/teams'
 import TeamLogo from './TeamLogo'
 
-function EventCard({ event, isFavorite, onToggleFavorite, stateCode }) {
+function EventCard({ event, isFavorite, onToggleFavorite, stateCode, isSavedEvent = false, onToggleSave = () => {}, backTo = undefined }) {
   const navigate = useNavigate()
   const homeTeamName = getCanonicalTeamName(event.homeTeam)
   const awayTeamName = getCanonicalTeamName(event.awayTeam)
@@ -24,7 +24,7 @@ function EventCard({ event, isFavorite, onToggleFavorite, stateCode }) {
   const icon = SPORT_ICONS[event.sport] || ''
 
   const handleCardClick = () => {
-    navigate(`/event/${event.id}`, { state: { event, fromStateCode: stateCode } })
+    navigate(`/event/${event.id}`, { state: { event, fromStateCode: stateCode, backTo } })
   }
 
   return (
@@ -76,7 +76,16 @@ function EventCard({ event, isFavorite, onToggleFavorite, stateCode }) {
           </div>
         </div>
 
-        <div className="text-right shrink-0">
+        <div className="text-right shrink-0 flex flex-col items-end gap-1">
+          <button
+            onClick={(e) => { e.stopPropagation(); onToggleSave(event) }}
+            className={`transition-colors ${isSavedEvent ? 'text-blue-500' : 'text-gray-300 hover:text-blue-300'}`}
+            title={isSavedEvent ? 'Remove from saved' : 'Save event'}
+          >
+            <svg className="w-4 h-4" viewBox="0 0 24 24" fill={isSavedEvent ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0 1 11.186 0Z" />
+            </svg>
+          </button>
           <div className="text-xs font-medium text-gray-400 uppercase">{dayOfWeek}</div>
           <div className="text-lg font-bold text-gray-900">{monthDay}</div>
           <div className="text-sm text-gray-500">{time}</div>

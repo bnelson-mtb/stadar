@@ -4,6 +4,7 @@ import EventCard from '../components/EventCard.jsx'
 import FilterBar from '../components/FilterBar.jsx'
 import SkeletonCard from '../components/SkeletonCard.jsx'
 import useFavorites from '../hooks/useFavorites.js'
+import useSavedEvents from '../hooks/useSavedEvents.js'
 import { getCanonicalTeamName } from '../data/teams'
 
 function toggleArrayItem(arr, item) {
@@ -162,6 +163,7 @@ function DiscoverPage() {
   const [searchQuery, setSearchQuery] = useState('')
 
   const { favorites, toggleFavorite, isFavorite } = useFavorites()
+  const { toggleSave, isSaved } = useSavedEvents()
 
   // Auto-detect location on first load; restore from localStorage if available
   useEffect(() => {
@@ -359,6 +361,8 @@ function DiscoverPage() {
                           isFavorite={isFavorite(getCanonicalTeamName(event.homeTeam))}
                           onToggleFavorite={toggleFavorite}
                           stateCode={stateCode}
+                          isSavedEvent={isSaved(event.id)}
+                          onToggleSave={toggleSave}
                         />
                       ))}
                     </div>
