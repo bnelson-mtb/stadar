@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import EventCard from '../components/EventCard.jsx'
 import FilterBar from '../components/FilterBar.jsx'
+import SkeletonCard from '../components/SkeletonCard.jsx'
 import useFavorites from '../hooks/useFavorites.js'
 import { getCanonicalTeamName } from '../data/teams'
 
@@ -17,30 +18,38 @@ const SPORT_ORDER = [
   'Soccer',
   'Hockey',
   'Lacrosse',
-  'Misc',
 ]
 const LEAGUE_ORDER = [
   'NBA',
+  'WNBA',
   'NFL',
   'MLB',
   'NHL',
   'MLS',
+  'USL',
+  'Liga MX',
+  'World Cup',
+  'International',
+  'PWHL',
   'PLL',
   'NCAAM',
   'NCAAW',
   'NCAAF',
   'NCAA Baseball',
   'NCAA Softball',
-  'NWSL',
+  'NCAA WVB',
+  'NCAA MVB',
+  'NCAA VB',
   "Women's Soccer",
   "Men's Soccer",
+  'NCAA Soccer',
+  'NWSL',
   'LOVB',
   'Minor League',
-  'Misc',
 ]
 
-const DEFAULT_SPORTS = ['Football', 'Baseball', 'Softball', 'Volleyball']
-const DEFAULT_LEAGUES = ['NCAAF', 'MLB', 'NCAA Baseball', 'NCAA Softball']
+const MINOR_FILTER_LEAGUES = new Set(['AHL', 'ECHL', 'Minor League', 'Triple-A', 'Double-A', 'High-A', 'Single-A'])
+const getLeagueLabel = league => MINOR_FILTER_LEAGUES.has(league) ? 'Minor League' : league
 
 function orderedUnique(values, order) {
   const unique = [...new Set(values.filter(Boolean))]
@@ -67,26 +76,119 @@ const US_STATES = [
   ['VT','Vermont'],['VA','Virginia'],['WA','Washington'],['WV','West Virginia'],['WI','Wisconsin'],
   ['WY','Wyoming'],
 ]
+const US_STATE_CODES = US_STATES.map(([code]) => code)
+
+function toDateStr(date) {
+  const y = date.getFullYear()
+  const m = String(date.getMonth() + 1).padStart(2, '0')
+  const d = String(date.getDate()).padStart(2, '0')
+  return `${y}-${m}-${d}`
+}
+
+function groupEventsByDate(events) {
+  const today = new Date()
+  today.setHours(0, 0, 0, 0)
+  const todayStr = toDateStr(today)
+
+  // Compute this ISO week's Saturday and Sunday
+  // JS getDay(): 0=Sun, 1=Mon, ..., 6=Sat
+  const dayOfWeek = today.getDay()
+  // Days since Monday (ISO week start): Mon=0, Tue=1, ..., Sun=6
+  const daysSinceMonday = dayOfWeek === 0 ? 6 : dayOfWeek - 1
+  const thisMonday = new Date(today)
+  thisMonday.setDate(today.getDate() - daysSinceMonday)
+  const thisSaturday = new Date(thisMonday)
+  thisSaturday.setDate(thisMonday.getDate() + 5)
+  const thisSunday = new Date(thisMonday)
+  thisSunday.setDate(thisMonday.getDate() + 6)
+  const thisSaturdayStr = toDateStr(thisSaturday)
+  const thisSundayStr = toDateStr(thisSunday)
+
+  // Mon–Fri of this ISO week
+  const weekdayStrs = new Set()
+  for (let i = 0; i < 5; i++) {
+    const d = new Date(thisMonday)
+    d.setDate(thisMonday.getDate() + i)
+    weekdayStrs.add(toDateStr(d))
+  }
+  // End of this ISO week (Sunday)
+  const endOfWeekStr = thisSundayStr
+
+  const groups = [
+    { label: 'Today', events: [] },
+    { label: 'This Weekend', events: [] },
+    { label: 'This Week', events: [] },
+    { label: 'Later', events: [] },
+  ]
+
+  for (const event of events) {
+    const d = event.localDate
+    if (!d) { groups[3].events.push(event); continue }
+    if (d === todayStr) {
+      groups[0].events.push(event)
+    } else if (d === thisSaturdayStr || d === thisSundayStr) {
+      groups[1].events.push(event)
+    } else if (weekdayStrs.has(d)) {
+      groups[2].events.push(event)
+    } else {
+      groups[3].events.push(event)
+    }
+  }
+
+  return groups.filter(g => g.events.length > 0)
+}
 
 function DiscoverPage() {
   const [events, setEvents] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
-  const [location, setLocation] = useState('UT')
+  const [stateCode, setStateCode] = useState('UT')
 
   const [selectedSports, setSelectedSports] = useState([])
   const [selectedLeagues, setSelectedLeagues] = useState([])
   const [showFavoritesOnly, setShowFavoritesOnly] = useState(false)
+  const [searchQuery, setSearchQuery] = useState('')
 
   const { favorites, toggleFavorite, isFavorite } = useFavorites()
 
+  // Auto-detect location on first load; restore from localStorage if available
   useEffect(() => {
+    const saved = localStorage.getItem('stadar-location')
+    if (saved && US_STATE_CODES.includes(saved)) {
+      setStateCode(saved)
+      return
+    }
+    const detect = async () => {
+      try {
+        const controller = new AbortController()
+        const id = setTimeout(() => controller.abort(), 5000)
+        const res = await fetch('https://ipapi.co/json/', { signal: controller.signal })
+        clearTimeout(id)
+        if (res.ok) {
+          const data = await res.json()
+          const state = data.region_code?.toUpperCase()
+          if (state && US_STATE_CODES.includes(state)) { setStateCode(state); return }
+        }
+      } catch { /* silent fail */ }
+      setStateCode('UT')
+    }
+    detect()
+  }, [])
+
+  const handleStateChange = (newState) => {
+    setStateCode(newState)
+    localStorage.setItem('stadar-location', newState)
+  }
+
+  useEffect(() => {
+    if (!stateCode) return
     setLoading(true)
     setError(null)
     setSelectedSports([])
     setSelectedLeagues([])
+    setSearchQuery('')
     const apiBase = import.meta.env.VITE_API_URL || 'http://localhost:5068'
-    fetch(`${apiBase}/api/events?stateCode=${location}`)
+    fetch(`${apiBase}/api/events?stateCode=${stateCode}`)
       .then(res => {
         if (!res.ok) throw new Error('Failed to fetch events')
         return res.json()
@@ -99,21 +201,38 @@ function DiscoverPage() {
         setError(err.message)
         setLoading(false)
       })
-  }, [location])
+  }, [stateCode])
 
-  const filteredEvents = events.filter(event => {
+  const filteredEvents = useMemo(() => events.filter(event => {
     if (selectedSports.length > 0 && !selectedSports.includes(event.sport)) return false
-    if (selectedLeagues.length > 0 && !selectedLeagues.includes(event.league)) return false
-    if (
-      showFavoritesOnly &&
-      !isFavorite(getCanonicalTeamName(event.homeTeam)) &&
-      !isFavorite(getCanonicalTeamName(event.awayTeam))
-    ) return false
+    if (selectedLeagues.length > 0 && !selectedLeagues.includes(getLeagueLabel(event.league))) return false
+    const home = getCanonicalTeamName(event.homeTeam)
+    const away = getCanonicalTeamName(event.awayTeam)
+    if (showFavoritesOnly &&
+      !isFavorite(home) &&
+      !isFavorite(away)) return false
+    if (searchQuery.trim()) {
+      const q = searchQuery.toLowerCase()
+      const matchesTeam = home.toLowerCase().includes(q) || away.toLowerCase().includes(q)
+      const matchesPlace = event.city.toLowerCase().includes(q) || event.venue.toLowerCase().includes(q)
+      if (!matchesTeam && !matchesPlace) return false
+    }
     return true
-  })
+  }), [events, selectedSports, selectedLeagues, showFavoritesOnly, isFavorite, searchQuery])
 
-  const sports = orderedUnique([...events.map(e => e.sport), ...DEFAULT_SPORTS], SPORT_ORDER)
-  const leagues = orderedUnique([...events.map(e => e.league), ...DEFAULT_LEAGUES], LEAGUE_ORDER)
+  const groupedEvents = useMemo(() => groupEventsByDate(filteredEvents), [filteredEvents])
+
+  const availableSports = useMemo(() =>
+    [...new Set(events.map(e => e.sport).filter(Boolean))]
+      .sort((a, b) => (SPORT_ORDER.indexOf(a) + 1 || 99) - (SPORT_ORDER.indexOf(b) + 1 || 99)),
+    [events]
+  )
+
+  const availableLeagues = useMemo(() =>
+    [...new Set(events.map(e => e.league).filter(Boolean).map(getLeagueLabel))]
+      .sort((a, b) => (LEAGUE_ORDER.indexOf(a) + 1 || 99) - (LEAGUE_ORDER.indexOf(b) + 1 || 99)),
+    [events]
+  )
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -127,8 +246,8 @@ function DiscoverPage() {
               <p className="text-gray-500 mt-1">Live sports near you</p>
             </div>
             <select
-              value={location}
-              onChange={e => setLocation(e.target.value)}
+              value={stateCode ?? ''}
+              onChange={e => handleStateChange(e.target.value)}
               className="border border-gray-300 rounded-lg px-3 py-2 text-sm font-medium text-gray-700 bg-white hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
               {US_STATES.map(([code, name]) => (
@@ -141,7 +260,9 @@ function DiscoverPage() {
 
       <main className="max-w-2xl mx-auto px-4 py-6">
         {loading && (
-          <div className="text-center py-12 text-gray-400">Loading events...</div>
+          <div className="space-y-3">
+            {Array.from({ length: 5 }).map((_, i) => <SkeletonCard key={i} />)}
+          </div>
         )}
 
         {error && (
@@ -157,9 +278,33 @@ function DiscoverPage() {
 
         {!loading && !error && events.length > 0 && (
           <>
+            <div className="relative mb-4">
+              <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+              </svg>
+              <input
+                type="text"
+                placeholder="Search teams, cities, venues..."
+                aria-label="Search teams, cities, or venues"
+                value={searchQuery}
+                onChange={e => setSearchQuery(e.target.value)}
+                className="w-full pl-9 pr-8 py-2 border border-gray-300 rounded-lg text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+              />
+              {searchQuery && (
+                <button
+                  type="button"
+                  onClick={() => setSearchQuery('')}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                  aria-label="Clear search"
+                >
+                  ×
+                </button>
+              )}
+            </div>
+
             <FilterBar
-              sports={sports}
-              leagues={leagues}
+              sports={availableSports}
+              leagues={availableLeagues}
               selectedSports={selectedSports}
               onToggleSport={s => setSelectedSports(prev => toggleArrayItem(prev, s))}
               selectedLeagues={selectedLeagues}
@@ -175,43 +320,36 @@ function DiscoverPage() {
                   ? `${events.length} upcoming events`
                   : `${filteredEvents.length} of ${events.length} events`}
               </p>
-              {filteredEvents.map(event => (
-                <EventCard
-                  key={event.id}
-                  event={event}
-                  isFavorite={isFavorite(getCanonicalTeamName(event.homeTeam))}
-                  onToggleFavorite={toggleFavorite}
-                />
-              ))}
-              {filteredEvents.length === 0 && (
+              {filteredEvents.length === 0 ? (
                 <div className="text-center py-8 text-gray-400">
                   No events match your filters
                 </div>
+              ) : (
+                groupedEvents.map(group => (
+                  <div key={group.label}>
+                    <div className="sticky top-0 z-10 bg-gray-50 py-2">
+                      <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide">
+                        {group.label}
+                      </p>
+                    </div>
+                    <div className="space-y-3">
+                      {group.events.map(event => (
+                        <EventCard
+                          key={event.id}
+                          event={event}
+                          isFavorite={isFavorite(getCanonicalTeamName(event.homeTeam))}
+                          onToggleFavorite={toggleFavorite}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                ))
               )}
             </div>
           </>
         )}
 
-        {/* Hardcoded event cards for testing */}
-                {/* <div className="mt-4 space-y-3">
-          <EventCard
-            key="test1234"
-            event={{
-              id: 'den',
-              homeTeam: 'Denver Broncos',
-              awayTeam: 'Seattle Seahawks',
-              dateTime: '2026-06-01T01:00:00Z',
-              venue: 'Mile High Stadium',
-              sport: 'Football',
-              league: 'NFL',
-              city: 'Denver',
-              state: 'CO',
-              ticketUrl: '',
-            }}
-            isFavorite={isFavorite('Denver Broncos')}
-            onToggleFavorite={toggleFavorite}
-          />
-        </div> */}
+
       </main>
     </div>
   )

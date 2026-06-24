@@ -17,5 +17,7 @@ public record SportEvent(
     string ImageUrl,
     double? PriceMin = null,
     double? PriceMax = null,
-    string Currency = ""
+    string Currency = "",
+    string LocalDate = "",
+    string? LocalTime = null
 );

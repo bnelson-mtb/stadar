@@ -74,9 +74,27 @@ public class EventNormalizerTests
     }
 
     [TestMethod]
-    public void NormalizeEvent_MinorLeagueBaseball_UsesGenreForSport()
+    public void NormalizeEvent_MinorLeagueBaseball_KnownTeam_ReturnsLevel()
     {
+        // Salt Lake Bees + Reno Aces are both Triple-A — detected by team name
         var result = EventNormalizer.NormalizeEvent("Bees vs Aces", "Salt Lake Bees", "Reno Aces", "Baseball", "Minor League Baseball");
+        Assert.AreEqual("Baseball", result.Sport);
+        Assert.AreEqual("Triple-A", result.League);
+    }
+
+    [TestMethod]
+    public void NormalizeEvent_MinorLeagueBaseball_DoubleATeam_ReturnsDoubleA()
+    {
+        var result = EventNormalizer.NormalizeEvent("Drillers vs Travelers", "Tulsa Drillers", "Arkansas Travelers", "Baseball", "Minor League Baseball");
+        Assert.AreEqual("Baseball", result.Sport);
+        Assert.AreEqual("Double-A", result.League);
+    }
+
+    [TestMethod]
+    public void NormalizeEvent_MinorLeagueBaseball_UnknownTeam_FallsBackToMinorLeague()
+    {
+        // No recognized team → generic fallback preserved
+        var result = EventNormalizer.NormalizeEvent("Foo vs Bar", "Foo Sluggers", "Bar Batters", "Baseball", "Minor League Baseball");
         Assert.AreEqual("Baseball", result.Sport);
         Assert.AreEqual("Minor League", result.League);
     }
@@ -154,6 +172,21 @@ public class EventNormalizerTests
     {
         var result = EventNormalizer.NormalizeEvent("Champions Volleyball Classic", "Team A", "Team B", "Miscellaneous", "");
         Assert.AreEqual("Volleyball", result.Sport);
+    }
+
+    [TestMethod]
+    public void NormalizeEvent_MiscategorizedCollegeFootball_UtahTechVsMontanaState()
+    {
+        // Ticketmaster sometimes miscategorizes college football as "Miscellaneous"
+        // This tests the fallback detection using team names
+        var result = EventNormalizer.NormalizeEvent(
+            "Utah Tech Trailblazers Football vs. Montana State Bobcats Football",
+            "Utah Tech Trailblazers Football",
+            "Montana State Bobcats Football",
+            "Miscellaneous",
+            "Miscellaneous");
+        Assert.AreEqual("Football", result.Sport);
+        Assert.AreEqual("NCAAF", result.League);
     }
 
     [TestMethod]

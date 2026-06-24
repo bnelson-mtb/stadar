@@ -13,6 +13,26 @@ const LOGOS_DIR = join(__dirname, 'logos')
 mkdirSync(LOGOS_DIR, { recursive: true })
 
 const sleep = (ms) => new Promise(r => setTimeout(r, ms))
+const REQUEST_DELAY_MS = 3000
+const RETRY_BASE_DELAY_MS = 5000
+
+async function fetchWithRetry(url, options = {}, label = 'request') {
+  let lastError = null
+
+  for (let attempt = 1; attempt <= 4; attempt++) {
+    const res = await fetch(url, options)
+    if (res.ok) return res
+
+    lastError = new Error(`${label} HTTP ${res.status}`)
+    if (res.status !== 429 || attempt === 4) {
+      throw lastError
+    }
+
+    await sleep(RETRY_BASE_DELAY_MS * attempt)
+  }
+
+  throw lastError ?? new Error(`${label} failed`)
+}
 
 // [output-filename, Wikipedia article slug]
 const AHL_TEAMS = [
@@ -25,7 +45,7 @@ const AHL_TEAMS = [
   ['chicago-wolves.png',                 'Chicago_Wolves'],
   ['cleveland-monsters.png',             'Cleveland_Monsters'],
   ['coachella-valley-firebirds.png',     'Coachella_Valley_Firebirds'],
-  ['colorado-eagles.png',                'Colorado_Eagles_(AHL)'],
+  ['colorado-eagles.png',                'Colorado_Eagles'],
   ['grand-rapids-griffins.png',          'Grand_Rapids_Griffins'],
   ['hartford-wolf-pack.png',             'Hartford_Wolf_Pack'],
   ['henderson-silver-knights.png',       'Henderson_Silver_Knights'],
@@ -43,10 +63,10 @@ const AHL_TEAMS = [
   ['san-jose-barracuda.png',             'San_Jose_Barracuda'],
   ['springfield-thunderbirds.png',       'Springfield_Thunderbirds'],
   ['syracuse-crunch.png',                'Syracuse_Crunch'],
-  ['texas-stars.png',                    'Texas_Stars_(AHL)'],
+  ['texas-stars.png',                    'Texas_Stars'],
   ['toronto-marlies.png',                'Toronto_Marlies'],
   ['tucson-roadrunners.png',             'Tucson_Roadrunners'],
-  ['utica-comets.png',                   'Utica_Comets_(2021)'],
+  ['utica-comets.png',                   'Utica_Comets'],
   ['wilkes-barrescranton-penguins.png',  'Wilkes-Barre/Scranton_Penguins'],
 ]
 
@@ -62,16 +82,14 @@ for (const [filename, wikiSlug] of AHL_TEAMS) {
 
   const apiUrl = `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(wikiSlug)}`
   try {
-    const meta = await fetch(apiUrl, {
+    const meta = await fetchWithRetry(apiUrl, {
       headers: { 'User-Agent': 'stadar-logo-seeder/1.0 (bradyscottnelson@gmail.com)' },
-    })
-    if (!meta.ok) throw new Error(`summary HTTP ${meta.status}`)
+    }, 'summary')
     const json = await meta.json()
     const imgUrl = json?.thumbnail?.source
     if (!imgUrl) throw new Error('no thumbnail in API response')
 
-    const img = await fetch(imgUrl)
-    if (!img.ok) throw new Error(`image HTTP ${img.status}`)
+    const img = await fetchWithRetry(imgUrl, {}, 'image')
     await pipeline(img.body, createWriteStream(destPath))
     console.log(`✓ downloaded ${filename}  (${wikiSlug})`)
     ok++
@@ -80,7 +98,7 @@ for (const [filename, wikiSlug] of AHL_TEAMS) {
     failed++
   }
 
-  await sleep(2000)
+  await sleep(REQUEST_DELAY_MS)
 }
 
 console.log(`\nDone: ${ok} downloaded, ${skipped} skipped, ${failed} failed`)

@@ -16,7 +16,13 @@ public class TicketmasterClientParseTests
           "id": "abc123",
           "name": "Utah Jazz vs. Denver Nuggets",
           "url": "https://www.ticketmaster.com/event/abc123",
-          "dates": { "start": { "dateTime": "2026-07-01T02:00:00Z" } },
+          "dates": {
+            "start": {
+              "dateTime": "2026-07-01T02:00:00Z",
+              "localDate": "2026-06-30",
+              "localTime": "20:00:00"
+            }
+          },
           "classifications": [
             { "genre": { "name": "Basketball" }, "subGenre": { "name": "NBA" } }
           ],
@@ -56,6 +62,8 @@ public class TicketmasterClientParseTests
         Assert.AreEqual(-111.9011, ev.Longitude, 0.0001);
         Assert.AreEqual("https://www.ticketmaster.com/event/abc123", ev.TicketUrl);
         Assert.AreEqual("https://img.example/16_9.jpg", ev.ImageUrl, "Should prefer the 16:9 image");
+        Assert.AreEqual("2026-06-30", ev.LocalDate);
+        Assert.AreEqual("20:00:00", ev.LocalTime);
     }
 
     [TestMethod]
@@ -76,7 +84,28 @@ public class TicketmasterClientParseTests
         Assert.IsNotNull(ev);
         Assert.AreEqual("Salt Lake Bees", ev.HomeTeam);
         Assert.AreEqual("Reno Aces", ev.AwayTeam);
-        Assert.AreEqual("Minor League", ev.League);
+        Assert.AreEqual("Triple-A", ev.League);
+    }
+
+    [TestMethod]
+    public void ParseEvent_NoAttractions_FallsBackToSingleVParsing()
+    {
+        var json = Parse("""
+        {
+          "id": "x1b",
+          "name": "Utah Utes v BYU Cougars",
+          "classifications": [
+            { "genre": { "name": "Football" }, "subGenre": { "name": "College Football" } }
+          ]
+        }
+        """);
+
+        var ev = TicketmasterClient.ParseEvent(json);
+
+        Assert.IsNotNull(ev);
+        Assert.AreEqual("Utah Utes", ev.HomeTeam);
+        Assert.AreEqual("BYU Cougars", ev.AwayTeam);
+        Assert.AreEqual("NCAAF", ev.League);
     }
 
     [TestMethod]
@@ -85,14 +114,15 @@ public class TicketmasterClientParseTests
         var json = Parse("""
         {
           "id": "mj1",
-          "name": "Monster Jam World Finals",
+          "name": "Utah Jazz Season Opener",
+          "dates": { "start": { "dateTime": "2026-10-01T02:00:00Z" } },
           "classifications": [
-            { "genre": { "name": "Miscellaneous" }, "subGenre": { "name": "Miscellaneous" } }
+            { "genre": { "name": "Basketball" }, "subGenre": { "name": "NBA" } }
           ],
           "_embedded": {
             "attractions": [
-              { "name": "Monster Jam World Finals" },
-              { "name": "Monster Jam" }
+              { "name": "Utah Jazz" },
+              { "name": "Denver Nuggets" }
             ]
           }
         }
@@ -101,8 +131,35 @@ public class TicketmasterClientParseTests
         var ev = TicketmasterClient.ParseEvent(json);
 
         Assert.IsNotNull(ev);
-        Assert.AreEqual("Monster Jam World Finals", ev.HomeTeam);
+        Assert.AreEqual("Utah Jazz", ev.HomeTeam);
         Assert.AreEqual("", ev.AwayTeam);
+    }
+
+    [TestMethod]
+    public void ParseEvent_MultipleAttractionsSingleVTitle_UsesSecondAttractionAsAwayTeam()
+    {
+        var json = Parse("""
+        {
+          "id": "mj2",
+          "name": "Utah Utes v BYU Cougars",
+          "dates": { "start": { "dateTime": "2026-10-01T02:00:00Z" } },
+          "classifications": [
+            { "genre": { "name": "Football" }, "subGenre": { "name": "College Football" } }
+          ],
+          "_embedded": {
+            "attractions": [
+              { "name": "Utah Utes Football" },
+              { "name": "BYU Cougars Football" }
+            ]
+          }
+        }
+        """);
+
+        var ev = TicketmasterClient.ParseEvent(json);
+
+        Assert.IsNotNull(ev);
+        Assert.AreEqual("Utah Utes", ev.HomeTeam);
+        Assert.AreEqual("BYU Cougars", ev.AwayTeam);
     }
 
     [TestMethod]
@@ -157,6 +214,9 @@ public class TicketmasterClientParseTests
           "id": "x4",
           "name": "Utah Utes vs BYU Cougars",
           "dates": { "start": { "localDate": "2026-09-12" } },
+          "classifications": [
+            { "genre": { "name": "Football" }, "subGenre": { "name": "College Football" } }
+          ],
           "_embedded": {
             "attractions": [
               { "name": "Utah Utes Football" },
@@ -170,8 +230,44 @@ public class TicketmasterClientParseTests
 
         Assert.IsNotNull(ev);
         Assert.AreEqual(new DateTime(2026, 9, 12), ev.DateTime.Date);
+        Assert.AreEqual("2026-09-12", ev.LocalDate);
+        Assert.IsNull(ev.LocalTime);
+        Assert.IsTrue(ev.DateTime.TimeOfDay > new TimeSpan(23, 59, 0));
         Assert.AreEqual("Utah Utes", ev.HomeTeam);
         Assert.AreEqual("BYU Cougars", ev.AwayTeam);
+    }
+
+    [TestMethod]
+    public void ParseEvent_TimeTba_SetsLocalTimeNull()
+    {
+        var json = Parse("""
+        {
+          "id": "x7",
+          "name": "Utah Jazz vs. Denver Nuggets",
+          "dates": {
+            "start": {
+              "localDate": "2026-10-01",
+              "localTime": "19:30:00",
+              "timeTBA": true
+            }
+          },
+          "classifications": [
+            { "genre": { "name": "Basketball" }, "subGenre": { "name": "NBA" } }
+          ],
+          "_embedded": {
+            "attractions": [
+              { "name": "Utah Jazz" },
+              { "name": "Denver Nuggets" }
+            ]
+          }
+        }
+        """);
+
+        var ev = TicketmasterClient.ParseEvent(json);
+
+        Assert.IsNotNull(ev);
+        Assert.AreEqual("2026-10-01", ev.LocalDate);
+        Assert.IsNull(ev.LocalTime);
     }
 
     [TestMethod]
@@ -181,6 +277,10 @@ public class TicketmasterClientParseTests
         {
           "id": "x5",
           "name": "Utah Jazz vs. Denver Nuggets",
+          "dates": { "start": { "dateTime": "2026-10-01T02:00:00Z" } },
+          "classifications": [
+            { "genre": { "name": "Basketball" }, "subGenre": { "name": "NBA" } }
+          ],
           "priceRanges": [
             {
               "type": "standard",
@@ -215,6 +315,10 @@ public class TicketmasterClientParseTests
         {
           "id": "x6",
           "name": "Utah Jazz vs. Denver Nuggets",
+          "dates": { "start": { "dateTime": "2026-10-01T02:00:00Z" } },
+          "classifications": [
+            { "genre": { "name": "Basketball" }, "subGenre": { "name": "NBA" } }
+          ],
           "_embedded": {
             "attractions": [
               { "name": "Utah Jazz" },
