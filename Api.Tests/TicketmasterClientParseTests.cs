@@ -84,7 +84,7 @@ public class TicketmasterClientParseTests
         Assert.IsNotNull(ev);
         Assert.AreEqual("Salt Lake Bees", ev.HomeTeam);
         Assert.AreEqual("Reno Aces", ev.AwayTeam);
-        Assert.AreEqual("Minor League", ev.League);
+        Assert.AreEqual("Triple-A", ev.League);
     }
 
     [TestMethod]

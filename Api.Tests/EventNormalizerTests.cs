@@ -74,9 +74,27 @@ public class EventNormalizerTests
     }
 
     [TestMethod]
-    public void NormalizeEvent_MinorLeagueBaseball_UsesGenreForSport()
+    public void NormalizeEvent_MinorLeagueBaseball_KnownTeam_ReturnsLevel()
     {
+        // Salt Lake Bees + Reno Aces are both Triple-A — detected by team name
         var result = EventNormalizer.NormalizeEvent("Bees vs Aces", "Salt Lake Bees", "Reno Aces", "Baseball", "Minor League Baseball");
+        Assert.AreEqual("Baseball", result.Sport);
+        Assert.AreEqual("Triple-A", result.League);
+    }
+
+    [TestMethod]
+    public void NormalizeEvent_MinorLeagueBaseball_DoubleATeam_ReturnsDoubleA()
+    {
+        var result = EventNormalizer.NormalizeEvent("Drillers vs Travelers", "Tulsa Drillers", "Arkansas Travelers", "Baseball", "Minor League Baseball");
+        Assert.AreEqual("Baseball", result.Sport);
+        Assert.AreEqual("Double-A", result.League);
+    }
+
+    [TestMethod]
+    public void NormalizeEvent_MinorLeagueBaseball_UnknownTeam_FallsBackToMinorLeague()
+    {
+        // No recognized team → generic fallback preserved
+        var result = EventNormalizer.NormalizeEvent("Foo vs Bar", "Foo Sluggers", "Bar Batters", "Baseball", "Minor League Baseball");
         Assert.AreEqual("Baseball", result.Sport);
         Assert.AreEqual("Minor League", result.League);
     }

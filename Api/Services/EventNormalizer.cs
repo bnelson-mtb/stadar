@@ -43,6 +43,13 @@ public static class EventNormalizer
             || subGenre.Contains("ahl", StringComparison.OrdinalIgnoreCase))
         {
             var minorSport = MapSport(genre) ?? "Hockey";
+            if (minorSport == "Baseball")
+            {
+                var level = MinorLeagueBaseball.MatchLevel(normalizedHome)
+                         ?? MinorLeagueBaseball.MatchLevel(normalizedAway);
+                if (level != null)
+                    return Result("Baseball", level);
+            }
             return Result(minorSport, "Minor League");
         }
 

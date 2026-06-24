@@ -101,6 +101,30 @@ export const LEAGUE_INFO = {
     description: 'Minor League Baseball encompasses dozens of affiliate leagues where players develop skills on their path to the major leagues.',
     website: 'milb.com',
   },
+  'Triple-A': {
+    fullName: 'Triple-A (AAA)',
+    tier: 'Minor League — MLB Affiliate',
+    description: 'Triple-A is the highest level of Minor League Baseball, one step below MLB — rosters are stocked with prospects on the cusp of the majors and veterans on rehab or call-up.',
+    website: 'milb.com',
+  },
+  'Double-A': {
+    fullName: 'Double-A (AA)',
+    tier: 'Minor League — MLB Affiliate',
+    description: 'Double-A is widely regarded as the level where the best prospects separate themselves, featuring many of the top young players in each MLB organization.',
+    website: 'milb.com',
+  },
+  'High-A': {
+    fullName: 'High-A (A+)',
+    tier: 'Minor League — MLB Affiliate',
+    description: 'High-A is an advanced level of Class A baseball where developing prospects face stronger competition on their way up the affiliate ladder.',
+    website: 'milb.com',
+  },
+  'Single-A': {
+    fullName: 'Single-A (A)',
+    tier: 'Minor League — MLB Affiliate',
+    description: 'Single-A is an entry level of full-season Minor League Baseball, where many recently drafted and signed players begin their professional development.',
+    website: 'milb.com',
+  },
   'Minor League Hockey': {
     fullName: 'Minor League Hockey',
     tier: 'Minor League',
