@@ -48,7 +48,7 @@ function EventCard({ event, isFavorite, onToggleFavorite, stateCode, isSavedEven
             <span className="text-lg font-bold text-gray-900">{homeTeamName}</span>
             <button
               onClick={(e) => { e.stopPropagation(); onToggleFavorite(homeTeamName) }}
-              className={`transition-colors ${isFavorite ? 'text-red-500' : 'text-gray-300 hover:text-red-300'}`}
+              className={`cursor-pointer transition-colors ${isFavorite ? 'text-red-500' : 'text-gray-300 hover:text-red-300'}`}
               title={isFavorite ? `Unfollow ${homeTeamName}` : `Follow ${homeTeamName}`}
             >
               <svg className="w-4 h-4" viewBox="0 0 24 24" fill={isFavorite ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth={2}>
