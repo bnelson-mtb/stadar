@@ -2,6 +2,7 @@ import { useParams, useNavigate } from 'react-router-dom'
 import EventCard from '../components/EventCard.jsx'
 import TeamLogo from '../components/TeamLogo.jsx'
 import useSavedEvents from '../hooks/useSavedEvents.js'
+import useFavorites from '../hooks/useFavorites.js'
 import { getCanonicalTeamName } from '../data/teams.js'
 
 export default function TeamSavedPage() {
@@ -9,6 +10,7 @@ export default function TeamSavedPage() {
   const decodedTeam = decodeURIComponent(teamName)
   const navigate = useNavigate()
   const { savedEvents, removeSaved } = useSavedEvents()
+  const { toggleFavorite, isFavorite } = useFavorites()
 
   const teamEvents = savedEvents
     .filter(r => {
@@ -44,8 +46,8 @@ export default function TeamSavedPage() {
               <EventCard
                 key={r.event.id}
                 event={r.event}
-                isFavorite={false}
-                onToggleFavorite={() => {}}
+                isFavorite={isFavorite(getCanonicalTeamName(r.event.homeTeam))}
+                onToggleFavorite={toggleFavorite}
                 stateCode={r.event.state}
                 isSavedEvent={true}
                 onToggleSave={() => removeSaved(r.event.id)}

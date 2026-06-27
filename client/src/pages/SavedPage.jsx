@@ -5,10 +5,11 @@ import TeamLogo from '../components/TeamLogo.jsx'
 import useSavedEvents from '../hooks/useSavedEvents.js'
 import useFavorites from '../hooks/useFavorites.js'
 import { partitionByTime, groupSavedByTeam } from '../utils/savedHelpers.js'
+import { getCanonicalTeamName } from '../data/teams.js'
 
 export default function SavedPage() {
   const { savedEvents, removeSaved } = useSavedEvents()
-  const { favorites } = useFavorites()
+  const { favorites, toggleFavorite, isFavorite } = useFavorites()
   const navigate = useNavigate()
   const [pastExpanded, setPastExpanded] = useState(false)
 
@@ -35,8 +36,8 @@ export default function SavedPage() {
                 <EventCard
                   key={r.event.id}
                   event={r.event}
-                  isFavorite={false}
-                  onToggleFavorite={() => {}}
+                  isFavorite={isFavorite(getCanonicalTeamName(r.event.homeTeam))}
+                  onToggleFavorite={toggleFavorite}
                   stateCode={r.event.state}
                   isSavedEvent={true}
                   onToggleSave={() => removeSaved(r.event.id)}
@@ -68,8 +69,8 @@ export default function SavedPage() {
                   <EventCard
                     key={r.event.id}
                     event={r.event}
-                    isFavorite={false}
-                    onToggleFavorite={() => {}}
+                    isFavorite={isFavorite(getCanonicalTeamName(r.event.homeTeam))}
+                    onToggleFavorite={toggleFavorite}
                     stateCode={r.event.state}
                     isSavedEvent={true}
                     onToggleSave={() => removeSaved(r.event.id)}
