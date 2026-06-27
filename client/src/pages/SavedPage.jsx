@@ -93,7 +93,7 @@ export default function SavedPage() {
                 <button
                   key={team}
                   onClick={() => navigate(`/saved/team/${encodeURIComponent(team)}`)}
-                  className="flex items-center gap-2 bg-white border border-gray-200 rounded-xl px-4 py-3 hover:shadow-md transition-shadow"
+                  className="flex items-center gap-2 bg-white border border-gray-200 rounded-xl px-4 py-3 cursor-pointer hover:shadow-md transition-shadow"
                 >
                   <TeamLogo name={team} />
                   <span className="font-medium text-gray-800">{team}</span>
