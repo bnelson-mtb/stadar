@@ -1,0 +1,65 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  id-token: write # OIDC token for azure/login
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Run API tests
+        run: dotnet test Api.Tests/Api.Tests.csproj
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: client/package-lock.json
+
+      - name: Build client
+        working-directory: client
+        run: |
+          npm ci
+          npm run build
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    concurrency: deploy-production
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Deploy to Azure Container Apps
+        run: |
+          az extension add --name containerapp --upgrade
+          az containerapp up \
+            --name stadar \
+            --resource-group stadar-rg \
+            --location westus3 \
+            --source . \
+            --ingress external \
+            --target-port 8080 \
+            --env-vars Ticketmaster__ApiKey=${{ secrets.TICKETMASTER_API_KEY }}
+
+      - name: Show app URL
+        run: |
+          az containerapp show --name stadar --resource-group stadar-rg \
+            --query properties.configuration.ingress.fqdn -o tsv

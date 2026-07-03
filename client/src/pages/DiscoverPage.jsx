@@ -6,6 +6,7 @@ import SkeletonCard from '../components/SkeletonCard.jsx'
 import useFavorites from '../hooks/useFavorites.js'
 import useSavedEvents from '../hooks/useSavedEvents.js'
 import { getCanonicalTeamName } from '../data/teams'
+import { API_BASE } from '../utils/api.js'
 
 function toggleArrayItem(arr, item) {
   return arr.includes(item) ? arr.filter(x => x !== item) : [...arr, item]
@@ -208,8 +209,7 @@ function DiscoverPage() {
     setSelectedSports([])
     setSelectedLeagues([])
     setSearchQuery('')
-    const apiBase = import.meta.env.VITE_API_URL || 'http://localhost:5068'
-    fetch(`${apiBase}/api/events?stateCode=${stateCode}`)
+    fetch(`${API_BASE}/api/events?stateCode=${stateCode}`)
       .then(res => {
         if (!res.ok) throw new Error('Failed to fetch events')
         return res.json()

@@ -1,0 +1,11 @@
+.git
+.gitignore
+**/bin
+**/obj
+**/node_modules
+**/dist
+docs
+scripts
+Api.Tests
+*.md
+.claude.json
