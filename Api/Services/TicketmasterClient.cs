@@ -18,8 +18,8 @@ public class TicketmasterClient(HttpClient httpClient, IConfiguration config)
 
         var url = $"https://app.ticketmaster.com/discovery/v2/events.json?apikey={apiKey}&stateCode={stateCode}&classificationName=sports&size=50&sort=date,asc";
 
-        var response = await httpClient.GetAsync(url);
-        if (!response.IsSuccessStatusCode)
+        var response = await GetOrDefaultAsync(url);
+        if (response == null || !response.IsSuccessStatusCode)
             return null;
 
         var json = await response.Content.ReadFromJsonAsync<JsonElement>();
@@ -48,12 +48,28 @@ public class TicketmasterClient(HttpClient httpClient, IConfiguration config)
 
         var url = $"https://app.ticketmaster.com/discovery/v2/events/{eventId}.json?apikey={apiKey}";
 
-        var response = await httpClient.GetAsync(url);
-        if (!response.IsSuccessStatusCode)
+        var response = await GetOrDefaultAsync(url);
+        if (response == null || !response.IsSuccessStatusCode)
             return null;
 
         var json = await response.Content.ReadFromJsonAsync<JsonElement>();
         return ParseEvent(json);
+    }
+
+    // Network failures and timeouts surface the same as a non-success status:
+    // callers return null and the endpoint responds with a Problem result
+    // instead of an unhandled 500.
+    private async Task<HttpResponseMessage?> GetOrDefaultAsync(string url)
+    {
+        try
+        {
+            return await httpClient.GetAsync(url);
+        }
+        catch (Exception e) when (e is HttpRequestException or TaskCanceledException)
+        {
+            Console.WriteLine($"Ticketmaster request failed: {e.Message}");
+            return null;
+        }
     }
 
     /// <summary>

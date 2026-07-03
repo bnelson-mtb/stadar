@@ -5,6 +5,7 @@ import { LEAGUE_INFO } from '../data/leagueInfo'
 import TeamLogo from '../components/TeamLogo'
 import VenueMap from '../components/VenueMap'
 import useSavedEvents from '../hooks/useSavedEvents.js'
+import { API_BASE } from '../utils/api.js'
 
 function buildIcsContent(event) {
   const dateStr = (event.localDate || '').replace(/-/g, '')
@@ -101,8 +102,7 @@ function EventDetailPage() {
     // and for past saved events (always use snapshot).
     if (event && (!isEventSaved || isPast)) return
 
-    const apiBase = import.meta.env.VITE_API_URL || 'http://localhost:5068'
-    fetch(`${apiBase}/api/events/${id}`)
+    fetch(`${API_BASE}/api/events/${id}`)
       .then(r => r.ok ? r.json() : Promise.reject(new Error('Not found')))
       .then(fresh => {
         setEvent(fresh)

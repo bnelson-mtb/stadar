@@ -8,14 +8,17 @@ builder.Services.AddOpenApi();
 builder.Services.AddHttpClient<TicketmasterClient>();
 builder.Services.AddMemoryCache();
 
+// Extra origins (e.g. a separately hosted client) via Cors:AllowedOrigins
+// (env: Cors__AllowedOrigins__0, Cors__AllowedOrigins__1, ...).
+// Not needed when the API serves the client from wwwroot (same origin).
+var allowedOrigins = builder.Configuration.GetSection("Cors:AllowedOrigins").Get<string[]>()
+    ?? ["http://localhost:5173", "https://localhost:5173"];
+
 builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(policy =>
     {
-        policy.WithOrigins(
-            "http://localhost:5173",
-            "https://localhost:5173"
-        ).AllowAnyHeader().AllowAnyMethod();
+        policy.WithOrigins(allowedOrigins).AllowAnyHeader().AllowAnyMethod();
     });
 });
 
@@ -24,10 +27,19 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+    // In production the container sits behind the host's TLS-terminating
+    // proxy, which enforces HTTPS; the app itself only listens on HTTP.
+    app.UseHttpsRedirection();
 }
 
 app.UseCors();
-app.UseHttpsRedirection();
+
+// Serve the built client (copied into wwwroot by the Dockerfile).
+app.UseDefaultFiles();
+app.UseStaticFiles();
+
+// Liveness probe for hosting platforms.
+app.MapGet("/healthz", () => Results.Ok("ok"));
 
 app.MapGet("/api/events", async (TicketmasterClient ticketmaster, IMemoryCache cache, HttpContext ctx) =>
 {
@@ -68,5 +80,8 @@ app.MapGet("/api/events/{id}", async (string id, TicketmasterClient ticketmaster
     return ev == null ? Results.NotFound() : Results.Ok(ev);
 })
 .WithName("GetEventById");
+
+// Client-side routing: send unmatched non-API paths to the SPA.
+app.MapFallbackToFile("index.html");
 
 app.Run();

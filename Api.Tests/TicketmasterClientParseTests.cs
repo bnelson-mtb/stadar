@@ -11,15 +11,18 @@ public class TicketmasterClientParseTests
     [TestMethod]
     public void ParseEvent_FullEvent_MapsAllFields()
     {
-        var json = Parse("""
+        // Keep the event in the future so the past-event gate doesn't drop it.
+        var start = DateTime.UtcNow.AddDays(30);
+        var localDate = start.ToString("yyyy-MM-dd");
+        var json = Parse($$"""
         {
           "id": "abc123",
           "name": "Utah Jazz vs. Denver Nuggets",
           "url": "https://www.ticketmaster.com/event/abc123",
           "dates": {
             "start": {
-              "dateTime": "2026-07-01T02:00:00Z",
-              "localDate": "2026-06-30",
+              "dateTime": "{{localDate}}T02:00:00Z",
+              "localDate": "{{localDate}}",
               "localTime": "20:00:00"
             }
           },
@@ -62,7 +65,7 @@ public class TicketmasterClientParseTests
         Assert.AreEqual(-111.9011, ev.Longitude, 0.0001);
         Assert.AreEqual("https://www.ticketmaster.com/event/abc123", ev.TicketUrl);
         Assert.AreEqual("https://img.example/16_9.jpg", ev.ImageUrl, "Should prefer the 16:9 image");
-        Assert.AreEqual("2026-06-30", ev.LocalDate);
+        Assert.AreEqual(localDate, ev.LocalDate);
         Assert.AreEqual("20:00:00", ev.LocalTime);
     }
 
