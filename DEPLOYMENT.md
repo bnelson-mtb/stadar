@@ -24,29 +24,47 @@ The container listens on port **8080** (HTTP; the platform's edge terminates TLS
 
 ### Azure Container Apps (recommended — logos already live in Azure)
 
-One command builds from source (via ACR) and deploys with a public HTTPS URL:
+> **Student-subscription note:** ACR Tasks (Azure's server-side image builds,
+> what `az containerapp up --source .` uses) are disabled on Azure for
+> Students. Images must be built locally (or on the GitHub Actions runner)
+> with Docker and pushed to the registry. The subscription's region policy
+> also restricts new resources to specific regions — `westus3` is allowed.
+
+Current resources (resource group `stadar-rg`):
+
+| Resource | Name |
+|---|---|
+| Container App | `stadar` (env `stadar-env`, westus3) |
+| Container Registry | `ca759b5dd5aeacr.azurecr.io` (Basic) |
+
+First deploy / manual deploy with local Docker:
 
 ```bash
 az login
+az acr login --name ca759b5dd5aeacr
+docker build -t ca759b5dd5aeacr.azurecr.io/stadar:latest .
+docker push ca759b5dd5aeacr.azurecr.io/stadar:latest
 az containerapp up \
   --name stadar \
   --resource-group stadar-rg \
   --location westus3 \
-  --source . \
+  --image ca759b5dd5aeacr.azurecr.io/stadar:latest \
   --ingress external \
   --target-port 8080 \
   --env-vars Ticketmaster__ApiKey=<your-key>
 ```
 
 The command prints the public URL (`https://stadar.<hash>.westus3.azurecontainerapps.io`).
-Scale-to-zero keeps cost near-free at user-testing traffic levels. Re-run the
-same command to deploy updates — or let CI do it (next section).
+Scale-to-zero keeps cost near-free at user-testing traffic levels. Day to day
+you shouldn't need this — CI deploys on every push to `main` (next section).
 
 ## Continuous deployment (GitHub Actions)
 
 `.github/workflows/deploy.yml` runs on every push to `main`: it runs the API
-tests, builds the client, then deploys to the Container App above with
-`az containerapp up`. One-time setup:
+tests and client build, then builds the Docker image **on the runner**,
+pushes it to the registry, and points the Container App at the new image
+(tagged with the commit SHA, so rollback = redeploy an older tag). One-time
+setup:
 
 **1. Create the Entra app that GitHub Actions logs in as** (OIDC federated
 credential — no stored password, nothing to rotate):
@@ -66,9 +84,10 @@ az ad app federated-credential create --id $APP_ID --parameters '{
 echo "AZURE_CLIENT_ID=$APP_ID"; echo "AZURE_TENANT_ID=$(az account show --query tenantId -o tsv)"; echo "AZURE_SUBSCRIPTION_ID=$SUB_ID"
 ```
 
-Run this **after** the first manual `az containerapp up`, so the resource
-group already exists (the first run also registers the `Microsoft.App`
-resource provider, which needs subscription-level rights CI doesn't have).
+Run this **after** the first manual deploy, so the resource group and
+registry already exist (the first deploy also registers the `Microsoft.App`,
+`Microsoft.OperationalInsights`, and `Microsoft.ContainerRegistry` resource
+providers, which needs subscription-level rights CI doesn't have).
 
 **2. Add four GitHub repo secrets** (Settings → Secrets and variables →
 Actions):
@@ -91,7 +110,7 @@ the Azure pricing page for current rates):
 | Item | Monthly cost |
 |---|---|
 | Container Apps compute | **~$0** with scale-to-zero — the free grant (180K vCPU-s, 360K GiB-s, 2M requests/mo) covers light traffic. Roughly **$5–8** if you set `--min-replicas 1` to avoid cold starts. |
-| Azure Container Registry (Basic) | **~$5** — created automatically by `containerapp up` to store images; this is the main fixed cost. |
+| Azure Container Registry (Basic) | **~$5** — `ca759b5dd5aeacr`, stores the images; this is the main fixed cost. |
 | Log Analytics | ~$0 (first 5 GB/mo free) |
 | Blob storage (logos) | pennies — already running |
 | Ticketmaster Discovery API | $0 (free tier, 5,000 calls/day) |

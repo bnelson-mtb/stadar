@@ -38,6 +38,9 @@ jobs:
     needs: test
     runs-on: ubuntu-latest
     concurrency: deploy-production
+    env:
+      REGISTRY: ca759b5dd5aeacr.azurecr.io
+      IMAGE: ca759b5dd5aeacr.azurecr.io/stadar
     steps:
       - uses: actions/checkout@v4
 
@@ -47,17 +50,22 @@ jobs:
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
+      # ACR Tasks (server-side builds) are disabled on student subscriptions,
+      # so the image is built here on the runner and pushed to the registry.
+      - name: Build and push image
+        run: |
+          az acr login --name ca759b5dd5aeacr
+          docker build -t $IMAGE:${{ github.sha }} -t $IMAGE:latest .
+          docker push $IMAGE:${{ github.sha }}
+          docker push $IMAGE:latest
+
       - name: Deploy to Azure Container Apps
         run: |
-          az extension add --name containerapp --upgrade
-          az containerapp up \
+          az containerapp update \
             --name stadar \
             --resource-group stadar-rg \
-            --location westus3 \
-            --source . \
-            --ingress external \
-            --target-port 8080 \
-            --env-vars Ticketmaster__ApiKey=${{ secrets.TICKETMASTER_API_KEY }}
+            --image $IMAGE:${{ github.sha }} \
+            --set-env-vars Ticketmaster__ApiKey=${{ secrets.TICKETMASTER_API_KEY }}
 
       - name: Show app URL
         run: |
