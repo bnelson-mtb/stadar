@@ -102,7 +102,7 @@ function EventDetailPage() {
     // and for past saved events (always use snapshot).
     if (event && (!isEventSaved || isPast)) return
 
-    fetch(`${API_BASE}/api/events/${id}`)
+    fetch(`${API_BASE}/api/games/${id}`)
       .then(r => r.ok ? r.json() : Promise.reject(new Error('Not found')))
       .then(fresh => {
         setEvent(fresh)

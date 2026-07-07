@@ -41,7 +41,9 @@ app.UseStaticFiles();
 // Liveness probe for hosting platforms.
 app.MapGet("/healthz", () => Results.Ok("ok"));
 
-app.MapGet("/api/events", async (TicketmasterClient ticketmaster, IMemoryCache cache, HttpContext ctx) =>
+// Path says "games", not "events": ad-block filter lists (EasyPrivacy,
+// AdGuard) match "/api/event" URL fragments and kill the fetch client-side.
+app.MapGet("/api/games", async (TicketmasterClient ticketmaster, IMemoryCache cache, HttpContext ctx) =>
 {
     // Validate state code, default to "UT"
     var stateCode = ctx.Request.Query["stateCode"].FirstOrDefault() ?? "UT";
@@ -67,7 +69,7 @@ app.MapGet("/api/events", async (TicketmasterClient ticketmaster, IMemoryCache c
 })
 .WithName("GetEvents");
 
-app.MapGet("/api/events/{id}", async (string id, TicketmasterClient ticketmaster, IMemoryCache cache) =>
+app.MapGet("/api/games/{id}", async (string id, TicketmasterClient ticketmaster, IMemoryCache cache) =>
 {
     var cacheKey = $"event:{id}";
     if (!cache.TryGetValue(cacheKey, out SportEvent? ev))

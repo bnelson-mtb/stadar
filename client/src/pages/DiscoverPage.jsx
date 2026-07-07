@@ -202,6 +202,8 @@ function DiscoverPage() {
     localStorage.setItem('stadar-location', newState)
   }
 
+  const [retryToken, setRetryToken] = useState(0)
+
   useEffect(() => {
     if (!stateCode) return
     setLoading(true)
@@ -209,9 +211,9 @@ function DiscoverPage() {
     setSelectedSports([])
     setSelectedLeagues([])
     setSearchQuery('')
-    fetch(`${API_BASE}/api/events?stateCode=${stateCode}`)
+    fetch(`${API_BASE}/api/games?stateCode=${stateCode}`)
       .then(res => {
-        if (!res.ok) throw new Error('Failed to fetch events')
+        if (!res.ok) throw new Error('server')
         return res.json()
       })
       .then(data => {
@@ -219,10 +221,11 @@ function DiscoverPage() {
         setLoading(false)
       })
       .catch(err => {
-        setError(err.message)
+        // TypeError = fetch never got a response (offline, blocked, dropped)
+        setError(err instanceof TypeError ? 'network' : 'server')
         setLoading(false)
       })
-  }, [stateCode])
+  }, [stateCode, retryToken])
 
   const filteredEvents = useMemo(() => events.filter(event => {
     if (selectedSports.length > 0 && !selectedSports.includes(event.sport)) return false
@@ -287,9 +290,19 @@ function DiscoverPage() {
         )}
 
         {error && (
-          <div className="text-center py-12 text-red-500">
-            <p className="font-medium">Something went wrong</p>
-            <p className="text-sm mt-1">{error}</p>
+          <div className="text-center py-12">
+            <p className="font-medium text-red-500">Couldn't load games</p>
+            <p className="text-sm mt-1 text-gray-500">
+              {error === 'network'
+                ? 'Check your connection and try again.'
+                : 'Our event source is having a moment. Try again shortly.'}
+            </p>
+            <button
+              onClick={() => setRetryToken(t => t + 1)}
+              className="mt-4 px-4 py-2 rounded-lg bg-blue-600 text-white text-sm font-medium hover:bg-blue-700 cursor-pointer"
+            >
+              Retry
+            </button>
           </div>
         )}
 
