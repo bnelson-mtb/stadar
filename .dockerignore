@@ -4,6 +4,10 @@
 **/obj
 **/node_modules
 **/dist
+# Never bake local env files into images: a stale client/.env.production
+# once hardcoded a dead API URL into the deployed bundle.
+**/.env
+**/.env.*
 docs
 scripts
 Api.Tests

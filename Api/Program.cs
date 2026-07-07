@@ -51,6 +51,17 @@ var staticFiles = new StaticFileOptions
 app.UseDefaultFiles();
 app.UseStaticFiles(staticFiles);
 
+// Log every API request so failures can be traced to "reached the app or
+// not" from container logs. Static/SPA traffic is excluded to keep noise down.
+app.Use(async (ctx, next) =>
+{
+    await next();
+    if (ctx.Request.Path.StartsWithSegments("/api"))
+        Console.WriteLine(
+            $"{ctx.Request.Method} {ctx.Request.Path}{ctx.Request.QueryString} " +
+            $"-> {ctx.Response.StatusCode} [{ctx.Request.Protocol}, ua: {ctx.Request.Headers.UserAgent.ToString()[..Math.Min(40, ctx.Request.Headers.UserAgent.ToString().Length)]}]");
+});
+
 // Liveness probe for hosting platforms.
 app.MapGet("/healthz", () => Results.Ok("ok"));
 
