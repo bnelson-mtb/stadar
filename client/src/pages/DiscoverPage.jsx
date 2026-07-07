@@ -6,7 +6,7 @@ import SkeletonCard from '../components/SkeletonCard.jsx'
 import useFavorites from '../hooks/useFavorites.js'
 import useSavedEvents from '../hooks/useSavedEvents.js'
 import { getCanonicalTeamName } from '../data/teams'
-import { API_BASE } from '../utils/api.js'
+import { API_BASE, fetchJsonWithRetry } from '../utils/api.js'
 
 function toggleArrayItem(arr, item) {
   return arr.includes(item) ? arr.filter(x => x !== item) : [...arr, item]
@@ -211,21 +211,28 @@ function DiscoverPage() {
     setSelectedSports([])
     setSelectedLeagues([])
     setSearchQuery('')
-    fetch(`${API_BASE}/api/games?stateCode=${stateCode}`)
-      .then(res => {
-        if (!res.ok) throw new Error('server')
-        return res.json()
-      })
+    fetchJsonWithRetry(`${API_BASE}/api/games?stateCode=${stateCode}`)
       .then(data => {
         setEvents(data)
         setLoading(false)
       })
       .catch(err => {
-        // TypeError = fetch never got a response (offline, blocked, dropped)
-        setError(err instanceof TypeError ? 'network' : 'server')
+        // .status = HTTP error from the API; no .status = never got a response
+        setError(err.status ? 'server' : 'network')
         setLoading(false)
       })
   }, [stateCode, retryToken])
+
+  // Surface a hint when the first load drags (server waking from idle)
+  const [slowLoad, setSlowLoad] = useState(false)
+  useEffect(() => {
+    if (!loading) return
+    const id = setTimeout(() => setSlowLoad(true), 3000)
+    return () => {
+      clearTimeout(id)
+      setSlowLoad(false)
+    }
+  }, [loading])
 
   const filteredEvents = useMemo(() => events.filter(event => {
     if (selectedSports.length > 0 && !selectedSports.includes(event.sport)) return false
@@ -285,6 +292,11 @@ function DiscoverPage() {
       <main className="max-w-2xl mx-auto px-4 py-6">
         {loading && (
           <div className="space-y-3">
+            {slowLoad && (
+              <p className="text-center text-sm text-gray-400">
+                Waking up the server — first load can take a few seconds…
+              </p>
+            )}
             {Array.from({ length: 5 }).map((_, i) => <SkeletonCard key={i} />)}
           </div>
         )}

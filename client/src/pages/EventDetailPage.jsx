@@ -5,7 +5,7 @@ import { LEAGUE_INFO } from '../data/leagueInfo'
 import TeamLogo from '../components/TeamLogo'
 import VenueMap from '../components/VenueMap'
 import useSavedEvents from '../hooks/useSavedEvents.js'
-import { API_BASE } from '../utils/api.js'
+import { API_BASE, fetchJsonWithRetry } from '../utils/api.js'
 
 function buildIcsContent(event) {
   const dateStr = (event.localDate || '').replace(/-/g, '')
@@ -102,8 +102,7 @@ function EventDetailPage() {
     // and for past saved events (always use snapshot).
     if (event && (!isEventSaved || isPast)) return
 
-    fetch(`${API_BASE}/api/games/${id}`)
-      .then(r => r.ok ? r.json() : Promise.reject(new Error('Not found')))
+    fetchJsonWithRetry(`${API_BASE}/api/games/${id}`)
       .then(fresh => {
         setEvent(fresh)
         if (isEventSaved) updateSnapshot(fresh)
