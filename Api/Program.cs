@@ -35,8 +35,21 @@ if (app.Environment.IsDevelopment())
 app.UseCors();
 
 // Serve the built client (copied into wwwroot by the Dockerfile).
+// index.html must revalidate on every load (no-cache) or browsers cache it
+// heuristically and returning visitors keep the previous deploy's bundle.
+// Hashed /assets/ files never change content, so they cache forever.
+var staticFiles = new StaticFileOptions
+{
+    OnPrepareResponse = ctx =>
+    {
+        ctx.Context.Response.Headers.CacheControl =
+            ctx.Context.Request.Path.StartsWithSegments("/assets")
+                ? "public, max-age=31536000, immutable"
+                : "no-cache";
+    }
+};
 app.UseDefaultFiles();
-app.UseStaticFiles();
+app.UseStaticFiles(staticFiles);
 
 // Liveness probe for hosting platforms.
 app.MapGet("/healthz", () => Results.Ok("ok"));
@@ -84,6 +97,6 @@ app.MapGet("/api/games/{id}", async (string id, TicketmasterClient ticketmaster,
 .WithName("GetEventById");
 
 // Client-side routing: send unmatched non-API paths to the SPA.
-app.MapFallbackToFile("index.html");
+app.MapFallbackToFile("index.html", staticFiles);
 
 app.Run();
