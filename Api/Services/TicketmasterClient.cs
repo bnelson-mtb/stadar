@@ -8,8 +8,16 @@ namespace Api.Services;
 /// Fetches sports events from the Ticketmaster Discovery API and parses
 /// the raw JSON into clean SportEvent records.
 /// </summary>
-public class TicketmasterClient(HttpClient httpClient, IConfiguration config)
+public class TicketmasterClient(
+    HttpClient httpClient,
+    IConfiguration config,
+    IEventClassifier classifier,
+    IVerdictStore verdictStore,
+    IReadOnlySet<string>? knownTeams = null)
 {
+    // Tests inject a fixed set; production falls back to the generated file.
+    private readonly IReadOnlySet<string> _knownTeams = knownTeams ?? KnownTeams.Names;
+
     public async Task<List<SportEvent>?> GetEventsAsync(string stateCode)
     {
         var apiKey = config["Ticketmaster:ApiKey"];
@@ -30,14 +38,14 @@ public class TicketmasterClient(HttpClient httpClient, IConfiguration config)
             return [];
         }
 
-        var events = new List<SportEvent>();
+        var parsed = new List<ParsedEvent>();
         foreach (var ev in eventsArray.EnumerateArray())
         {
-            var parsed = ParseEvent(ev);
-            if (parsed != null)
-                events.Add(parsed);
+            var p = ParseRawEvent(ev);
+            if (p != null)
+                parsed.Add(p);
         }
-        return events;
+        return await ApplyVerdictsAsync(parsed);
     }
 
     public async Task<SportEvent?> GetEventByIdAsync(string eventId)
@@ -53,7 +61,11 @@ public class TicketmasterClient(HttpClient httpClient, IConfiguration config)
             return null;
 
         var json = await response.Content.ReadFromJsonAsync<JsonElement>();
-        return ParseEvent(json);
+        var single = ParseRawEvent(json);
+        if (single == null)
+            return null;
+        var enriched = await ApplyVerdictsAsync([single]);
+        return enriched.FirstOrDefault();
     }
 
     // Network failures and timeouts surface the same as a non-success status:
@@ -73,11 +85,24 @@ public class TicketmasterClient(HttpClient httpClient, IConfiguration config)
     }
 
     /// <summary>
-    /// Parses a single Ticketmaster event JSON object into a SportEvent.
-    /// Returns null when no home team can be identified, or when EventFilter rejects the event.
-    /// Public + static so it can be unit-tested with fixture JSON.
+    /// Rules-only parse + filter (no LLM). Kept for tests and as the shape of
+    /// the fallback path; the async pipeline goes through ParseRawEvent +
+    /// ApplyVerdictsAsync instead.
     /// </summary>
     public static SportEvent? ParseEvent(JsonElement ev)
+    {
+        var parsed = ParseRawEvent(ev);
+        if (parsed == null)
+            return null;
+        return EventFilter.IsSpectatorEvent(parsed.Draft, parsed.StatusCode) ? parsed.Draft : null;
+    }
+
+    /// <summary>
+    /// Parses one raw Ticketmaster event and applies the deterministic hard
+    /// rules. Returns null when no home team is found or the event is
+    /// hard-dropped (cancelled/postponed, past, denylisted name).
+    /// </summary>
+    public static ParsedEvent? ParseRawEvent(JsonElement ev)
     {
         var tmId = GetString(ev, "id");
         var eventName = GetString(ev, "name");
@@ -96,11 +121,10 @@ public class TicketmasterClient(HttpClient httpClient, IConfiguration config)
         var imageUrl = ExtractImageUrl(ev);
         var (priceMin, priceMax, currency) = ExtractPriceRange(ev);
 
-        var sportEvent = new SportEvent(
+        var draft = new SportEvent(
             tmId, eventName, normalized.HomeTeam, normalized.AwayTeam, dateTime, venue,
             normalized.Sport, normalized.League, city, state, lat, lng, ticketUrl, imageUrl,
-            priceMin, priceMax, currency, localDate, localTime
-        );
+            priceMin, priceMax, currency, localDate, localTime);
 
         var statusCode = ev.TryGetProperty("dates", out var dates) &&
                          dates.TryGetProperty("status", out var status) &&
@@ -108,11 +132,108 @@ public class TicketmasterClient(HttpClient httpClient, IConfiguration config)
             ? codeProp.GetString() ?? ""
             : "";
 
-        if (!EventFilter.IsSpectatorEvent(sportEvent, statusCode))
+        if (EventFilter.IsHardDropped(draft, statusCode))
             return null;
 
-        return sportEvent;
+        var input = new ClassificationInput(
+            EventId: tmId, EventName: eventName,
+            RawHomeTeam: homeTeam, RawAwayTeam: awayTeam,
+            RawSport: rawSport, RawLeague: rawLeague,
+            DraftHomeTeam: normalized.HomeTeam, DraftAwayTeam: normalized.AwayTeam,
+            DraftSport: normalized.Sport, DraftLeague: normalized.League,
+            Venue: venue, City: city, State: state, LocalDate: localDate);
+
+        return new ParsedEvent(draft, input, statusCode);
     }
+
+    /// <summary>
+    /// Applies stored verdicts, classifies triggered unseen events (bounded
+    /// parallelism, overall time budget), and falls back to the rules filter
+    /// for everything else. With the classifier disabled this is exactly the
+    /// pre-LLM pipeline.
+    /// </summary>
+    private async Task<List<SportEvent>> ApplyVerdictsAsync(List<ParsedEvent> parsed)
+    {
+        var results = new List<SportEvent>();
+
+        if (!classifier.IsEnabled)
+        {
+            foreach (var p in parsed)
+                if (EventFilter.IsSpectatorEvent(p.Draft, p.StatusCode))
+                    results.Add(p.Draft);
+            return results;
+        }
+
+        await verdictStore.EnsureLoadedAsync(CancellationToken.None);
+
+        var toClassify = parsed
+            .Where(p => !verdictStore.TryGet(p.Input.EventId, out _))
+            .Select(p => (Parsed: p, Triggers: ClassificationTriggers.Evaluate(p.Input, _knownTeams)))
+            .Where(x => x.Triggers.Count > 0)
+            .ToList();
+
+        if (toClassify.Count > 0)
+        {
+            // Free-tier friendly: <=4 in flight, 15s total budget. Stragglers
+            // serve the rules draft this fetch and are classified next time.
+            using var budget = new CancellationTokenSource(TimeSpan.FromSeconds(15));
+            using var gate = new SemaphoreSlim(4);
+            var newVerdicts = 0;
+
+            var tasks = toClassify.Select(async x =>
+            {
+                await gate.WaitAsync(budget.Token);
+                try
+                {
+                    Console.WriteLine(
+                        $"Classifying {x.Parsed.Input.EventId} \"{x.Parsed.Input.EventName}\" (triggers: {string.Join(",", x.Triggers)})");
+                    var verdict = await classifier.ClassifyAsync(x.Parsed.Input, budget.Token);
+                    if (verdict != null)
+                    {
+                        verdictStore.Add(x.Parsed.Input.EventId, verdict);
+                        Interlocked.Increment(ref newVerdicts);
+                    }
+                }
+                finally { gate.Release(); }
+            }).ToList();
+
+            try { await Task.WhenAll(tasks); }
+            catch (OperationCanceledException)
+            {
+                Console.WriteLine("Classification budget exhausted - remaining events keep the rules draft this fetch");
+            }
+
+            if (newVerdicts > 0)
+                await verdictStore.SaveAsync(CancellationToken.None);
+        }
+
+        foreach (var p in parsed)
+        {
+            if (verdictStore.TryGet(p.Input.EventId, out var verdict))
+            {
+                if (!verdict.IsSpectatorGame)
+                {
+                    Console.WriteLine($"Verdict drop {p.Input.EventId} \"{p.Input.EventName}\": {verdict.Reason}");
+                    continue;
+                }
+                results.Add(ApplyVerdict(p.Draft, verdict));
+            }
+            else if (EventFilter.IsSpectatorEvent(p.Draft, p.StatusCode))
+            {
+                results.Add(p.Draft);
+            }
+        }
+        return results;
+    }
+
+    private static SportEvent ApplyVerdict(SportEvent draft, EventVerdict verdict) =>
+        draft with
+        {
+            HomeTeam = EventNormalizer.NormalizeTeamName(verdict.HomeTeam),
+            AwayTeam = EventNormalizer.NormalizeTeamName(verdict.AwayTeam),
+            Sport = verdict.Sport,
+            League = verdict.League == ClassificationSchema.UnknownLeague ? "Other" : verdict.League,
+        };
 
     private static (string HomeTeam, string AwayTeam) ExtractTeams(JsonElement ev, string eventName)
     {
@@ -239,6 +360,7 @@ public class TicketmasterClient(HttpClient httpClient, IConfiguration config)
                 {
                     if (!attr.TryGetProperty("classifications", out var attrClass)) continue;
                     var first = attrClass.EnumerateArray().FirstOrDefault();
+                    if (first.ValueKind != JsonValueKind.Object) continue;
                     var attrGenre = first.TryGetProperty("genre", out var g) ? GetString(g, "name") : "";
                     var attrSubGenre = first.TryGetProperty("subGenre", out var sg) ? GetString(sg, "name") : "";
                     if (!string.IsNullOrEmpty(attrGenre) && !attrGenre.Equals("Miscellaneous", StringComparison.OrdinalIgnoreCase))

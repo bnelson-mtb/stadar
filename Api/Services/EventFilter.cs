@@ -50,6 +50,15 @@ public static class EventFilter
     ];
 
     /// <summary>
+    /// Deterministic drops that apply before any LLM verdict: cancelled or
+    /// postponed status, past events, and the ancillary/junk name denylist.
+    /// </summary>
+    public static bool IsHardDropped(SportEvent evt, string statusCode) =>
+        IsCancelledOrPostponed(statusCode)
+        || evt.DateTime < DateTime.UtcNow
+        || IsOnDenylist(evt.Name);
+
+    /// <summary>
     /// Determines if an event qualifies as a spectator event after normalization.
     /// Applies strict rules to filter out low-quality events.
     /// </summary>
@@ -58,16 +67,8 @@ public static class EventFilter
     /// <returns>true if the event is a valid spectator event; false if it should be dropped</returns>
     public static bool IsSpectatorEvent(SportEvent evt, string statusCode)
     {
-        // Rule 1: Check status code for cancelled/postponed
-        if (IsCancelledOrPostponed(statusCode))
-            return false;
-
-        // Rule 2: Check if event is in the past
-        if (evt.DateTime < DateTime.UtcNow)
-            return false;
-
-        // Rule 3: Check if event name is on the denylist
-        if (IsOnDenylist(evt.Name))
+        // Rules 1-3: status, past-date, and denylist (shared with the LLM pipeline)
+        if (IsHardDropped(evt, statusCode))
             return false;
 
         // Rule 4: Check if sport is completely unrecognized (empty)

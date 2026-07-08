@@ -8,6 +8,23 @@ builder.Services.AddOpenApi();
 builder.Services.AddHttpClient<TicketmasterClient>();
 builder.Services.AddMemoryCache();
 
+// LLM verdict layer: without a Gemini key the classifier reports disabled and
+// the whole layer (including blob reads) is inert — exact pre-LLM behavior.
+builder.Services.AddHttpClient<IEventClassifier, GeminiEventClassifier>();
+builder.Services.AddSingleton<IVerdictStore>(_ =>
+{
+    var geminiEnabled = !string.IsNullOrWhiteSpace(builder.Configuration["Gemini:ApiKey"]);
+    var storageConn = builder.Configuration["Storage:ConnectionString"];
+    if (!geminiEnabled)
+        return new BlobVerdictStore(null);
+    if (string.IsNullOrWhiteSpace(storageConn))
+    {
+        Console.WriteLine("Gemini enabled but Storage:ConnectionString missing - verdicts kept in memory only");
+        return new BlobVerdictStore(null);
+    }
+    return new BlobVerdictStore(new AzureBlobStorage(storageConn));
+});
+
 // Extra origins (e.g. a separately hosted client) via Cors:AllowedOrigins
 // (env: Cors__AllowedOrigins__0, Cors__AllowedOrigins__1, ...).
 // Not needed when the API serves the client from wwwroot (same origin).
