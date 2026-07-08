@@ -16,9 +16,26 @@ docker run -p 8080:8080 -e Ticketmaster__ApiKey=<your-key> stadar
 | `Ticketmaster__ApiKey` | Yes | Ticketmaster Discovery API key. Set as a **secret** env var on the host — never commit it. |
 | `Cors__AllowedOrigins__0`, `__1`, … | No | Only needed if the client is hosted on a different origin than the API. |
 | `VITE_API_URL` | No | Client **build-time** var. Leave unset for the single-container setup (client uses same-origin requests). |
+| `Gemini__ApiKey` | No | Enables the AI event-classification layer. Unset → the layer is fully inert (pre-LLM behavior). |
+| `Storage__ConnectionString` | No | Persists classifier verdicts to blob `verdicts/verdicts.json` in `stadarstorage`. Without it (but with a Gemini key) verdicts are memory-only. |
 
 Health probe endpoint: `GET /healthz` (returns 200).
 The container listens on port **8080** (HTTP; the platform's edge terminates TLS).
+
+### Classifier secrets
+
+Set once on the Container App when deploying the AI classification layer:
+
+```bash
+az containerapp secret set -n stadar -g stadar-rg --secrets gemini-api-key=<KEY> storage-conn="<CONNSTRING>"
+az containerapp update -n stadar -g stadar-rg --set-env-vars Gemini__ApiKey=secretref:gemini-api-key Storage__ConnectionString=secretref:storage-conn
+```
+
+Get the storage connection string with:
+
+```bash
+az storage account show-connection-string --name stadarstorage --resource-group stadar-rg --query connectionString -o tsv
+```
 
 ## Hosting options
 
