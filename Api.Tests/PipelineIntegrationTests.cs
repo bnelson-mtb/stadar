@@ -15,15 +15,25 @@ public class PipelineIntegrationTests
     private sealed class FakeClassifier : IEventClassifier
     {
         public bool Enabled { get; set; } = true;
+        public bool RateLimited { get; set; }
         public Dictionary<string, EventVerdict> Verdicts { get; } = [];
         public List<string> ClassifiedIds { get; } = [];
+        public int BatchCalls { get; private set; }
 
         public bool IsEnabled => Enabled;
 
-        public Task<EventVerdict?> ClassifyAsync(ClassificationInput input, CancellationToken ct)
+        public Task<BatchClassificationResult?> ClassifyBatchAsync(IReadOnlyList<ClassificationInput> inputs, CancellationToken ct)
         {
-            lock (ClassifiedIds) ClassifiedIds.Add(input.EventId); // classify calls run in parallel
-            return Task.FromResult(Verdicts.TryGetValue(input.EventId, out var v) ? v : null);
+            BatchCalls++;
+            if (RateLimited)
+                return Task.FromResult<BatchClassificationResult?>(
+                    new(new Dictionary<string, EventVerdict>(), RateLimited: true));
+
+            ClassifiedIds.AddRange(inputs.Select(i => i.EventId));
+            var found = inputs
+                .Where(i => Verdicts.ContainsKey(i.EventId))
+                .ToDictionary(i => i.EventId, i => Verdicts[i.EventId]);
+            return Task.FromResult<BatchClassificationResult?>(new(found, RateLimited: false));
         }
     }
 
@@ -156,6 +166,32 @@ public class PipelineIntegrationTests
 
         Assert.AreEqual(3, events!.Count); // same as today's behavior
         Assert.IsFalse(store.TryGet("block-party", out _));
+    }
+
+    [TestMethod]
+    public async Task BorderlineEvents_ShareOneBatchCall()
+    {
+        var classifier = new FakeClassifier();
+        await MakeClient(classifier).GetEventsAsync("UT");
+
+        Assert.AreEqual(1, classifier.BatchCalls); // block-party + weird ride together
+    }
+
+    [TestMethod]
+    public async Task RateLimit_FallsBackToRulesAndStoresNothing()
+    {
+        var classifier = new FakeClassifier { RateLimited = true };
+        var store = new BlobVerdictStore(null);
+        var events = await MakeClient(classifier, store).GetEventsAsync("UT");
+
+        Assert.AreEqual(3, events!.Count); // rules-only feed, same as today
+        Assert.IsFalse(store.TryGet("block-party", out _));
+
+        // Quota recovers -> next fetch classifies and the verdicts stick.
+        classifier.RateLimited = false;
+        classifier.Verdicts["block-party"] = Verdict(isGame: false);
+        var retried = await MakeClient(classifier, store).GetEventsAsync("UT");
+        Assert.IsFalse(retried!.Any(e => e.Id == "block-party"));
     }
 
     [TestMethod]

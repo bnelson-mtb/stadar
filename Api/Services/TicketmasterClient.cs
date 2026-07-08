@@ -15,6 +15,9 @@ public class TicketmasterClient(
     IVerdictStore verdictStore,
     IReadOnlySet<string>? knownTeams = null)
 {
+    // Keeps one Gemini request's output comfortably inside its token cap.
+    private const int ClassificationBatchSize = 10;
+
     // Tests inject a fixed set; production falls back to the generated file.
     private readonly IReadOnlySet<string> _knownTeams = knownTeams ?? KnownTeams.Names;
 
@@ -174,33 +177,41 @@ public class TicketmasterClient(
 
         if (toClassify.Count > 0)
         {
-            // Free-tier friendly: <=4 in flight, 15s total budget. Stragglers
-            // serve the rules draft this fetch and are classified next time.
-            using var budget = new CancellationTokenSource(TimeSpan.FromSeconds(15));
-            using var gate = new SemaphoreSlim(4);
+            // One request classifies a whole chunk (free-tier friendly: a
+            // state fetch costs 1-3 requests instead of one per event). A 429
+            // means every further call this minute is doomed, so stop and let
+            // the affected events keep the rules draft; they retry next fetch.
+            using var budget = new CancellationTokenSource(TimeSpan.FromSeconds(20));
             var newVerdicts = 0;
 
-            var tasks = toClassify.Select(async x =>
+            foreach (var chunk in toClassify.Chunk(ClassificationBatchSize))
             {
-                await gate.WaitAsync(budget.Token);
-                try
+                if (budget.IsCancellationRequested)
                 {
+                    Console.WriteLine("Classification budget exhausted - remaining events keep the rules draft this fetch");
+                    break;
+                }
+
+                foreach (var x in chunk)
                     Console.WriteLine(
                         $"Classifying {x.Parsed.Input.EventId} \"{x.Parsed.Input.EventName}\" (triggers: {string.Join(",", x.Triggers)})");
-                    var verdict = await classifier.ClassifyAsync(x.Parsed.Input, budget.Token);
-                    if (verdict != null)
-                    {
-                        verdictStore.Add(x.Parsed.Input.EventId, verdict);
-                        Interlocked.Increment(ref newVerdicts);
-                    }
-                }
-                finally { gate.Release(); }
-            }).ToList();
 
-            try { await Task.WhenAll(tasks); }
-            catch (OperationCanceledException)
-            {
-                Console.WriteLine("Classification budget exhausted - remaining events keep the rules draft this fetch");
+                var result = await classifier.ClassifyBatchAsync(
+                    chunk.Select(x => x.Parsed.Input).ToList(), budget.Token);
+                if (result == null)
+                    continue; // isolated failure - the next chunk may still succeed
+
+                foreach (var (eventId, verdict) in result.Verdicts)
+                {
+                    verdictStore.Add(eventId, verdict);
+                    newVerdicts++;
+                }
+
+                if (result.RateLimited)
+                {
+                    Console.WriteLine("Gemini rate limited - stopping classification for this fetch");
+                    break;
+                }
             }
 
             if (newVerdicts > 0)
