@@ -6,7 +6,7 @@ import TeamLogo from '../components/TeamLogo'
 import VenueMap from '../components/VenueMap'
 import useSavedEvents from '../hooks/useSavedEvents.js'
 import { API_BASE, fetchJsonWithRetry } from '../utils/api.js'
-import { TICKET_SEARCH_PROVIDERS, buildTicketSearchUrl } from '../utils/ticketLinks.js'
+import { TICKETMASTER_PROVIDER, TICKET_SEARCH_PROVIDERS, buildTicketSearchUrl } from '../utils/ticketLinks.js'
 
 function buildIcsContent(event) {
   const dateStr = (event.localDate || '').replace(/-/g, '')
@@ -64,6 +64,46 @@ function downloadIcs(event) {
   a.click()
   document.body.removeChild(a)
   URL.revokeObjectURL(url)
+}
+
+function TicketProviderLogo({ provider }) {
+  const [logoFailed, setLogoFailed] = useState(false)
+
+  return (
+    <span className="inline-flex h-5 w-5 shrink-0 items-center justify-center overflow-hidden rounded-md bg-white text-[0.55rem] font-black text-night-950 ring-1 ring-black/5">
+      {provider.logoUrl && !logoFailed ? (
+        <img
+          src={provider.logoUrl}
+          alt=""
+          loading="lazy"
+          className="h-full w-full object-contain"
+          onError={() => setLogoFailed(true)}
+        />
+      ) : (
+        <span>{provider.logoLabel}</span>
+      )}
+    </span>
+  )
+}
+
+function TicketProviderButton({ provider, primary = false }) {
+  const className = primary
+    ? 'inline-flex max-w-full items-center gap-2 rounded-full bg-radar-400 px-3.5 py-2 text-xs font-bold text-night-950 transition-colors hover:bg-radar-300'
+    : 'inline-flex max-w-full items-center gap-2 rounded-full border border-white/10 bg-night-700/60 px-3 py-2 text-xs font-semibold text-slate-200 transition-colors hover:border-radar-400/40 hover:text-white'
+
+  return (
+    <a
+      href={provider.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={className}
+      aria-label={`Open ${provider.name} tickets`}
+    >
+      <TicketProviderLogo provider={provider} />
+      <span className="truncate">{provider.name}</span>
+      <span aria-hidden="true">&rarr;</span>
+    </a>
+  )
 }
 
 function EventDetailPage() {
@@ -179,6 +219,9 @@ function EventDetailPage() {
     ...provider,
     url: buildTicketSearchUrl(event, provider.domain),
   }))
+  const ticketmasterLink = event.ticketUrl
+    ? { ...TICKETMASTER_PROVIDER, url: event.ticketUrl }
+    : null
 
   return (
     <div className="min-h-screen bg-night-950 text-slate-200">
@@ -276,6 +319,34 @@ function EventDetailPage() {
           </div>
         </div>
 
+        {/* Tickets Section */}
+        <div className="bg-night-800 rounded-xl border border-white/5 p-6 mb-4">
+          <h2 className="font-display font-semibold uppercase tracking-[0.15em] text-white mb-4">Tickets</h2>
+
+          <div className="mb-4 flex flex-wrap gap-2">
+            {ticketmasterLink && (
+              <TicketProviderButton provider={ticketmasterLink} primary />
+            )}
+
+            {ticketSearchLinks.map(provider => (
+              <TicketProviderButton key={provider.domain} provider={provider} />
+            ))}
+          </div>
+
+          <div className="border-t border-white/10 pt-4 mt-4">
+            <button
+              type="button"
+              onClick={() => downloadIcs(event)}
+              className="flex items-center gap-2 cursor-pointer text-sm font-medium text-slate-400 hover:text-white transition-colors"
+            >
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
+              </svg>
+              Add to Calendar
+            </button>
+          </div>
+        </div>
+
         {/* Venue Section */}
         <div className="bg-night-800 rounded-xl border border-white/5 p-6 mb-4">
           <div className="mb-4">
@@ -317,50 +388,6 @@ function EventDetailPage() {
           </div>
         )}
 
-        {/* Tickets Section */}
-        <div className="bg-night-800 rounded-xl border border-white/5 p-6 mb-4">
-          <h2 className="font-display font-semibold uppercase tracking-[0.15em] text-white mb-4">Tickets</h2>
-
-          <div className="mb-4 space-y-3">
-            {event.ticketUrl && (
-              <a
-                href={event.ticketUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block w-full bg-radar-400 hover:bg-radar-300 text-night-950 font-bold py-3 rounded-lg text-center transition-colors"
-              >
-                Buy Tickets on Ticketmaster &rarr;
-              </a>
-            )}
-
-            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-              {ticketSearchLinks.map(provider => (
-                <a
-                  key={provider.domain}
-                  href={provider.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block rounded-lg border border-white/10 bg-night-700/60 px-4 py-3 text-center text-sm font-semibold text-slate-200 transition-colors hover:border-radar-400/40 hover:text-white"
-                >
-                  Search {provider.name} &rarr;
-                </a>
-              ))}
-            </div>
-          </div>
-
-          <div className="border-t border-white/10 pt-4 mt-4">
-            <button
-              type="button"
-              onClick={() => downloadIcs(event)}
-              className="flex items-center gap-2 cursor-pointer text-sm font-medium text-slate-400 hover:text-white transition-colors"
-            >
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
-              </svg>
-              Add to Calendar
-            </button>
-          </div>
-        </div>
       </div>
     </div>
   )
