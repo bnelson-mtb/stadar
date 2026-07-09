@@ -106,6 +106,181 @@ function TicketProviderButton({ provider, primary = false }) {
   )
 }
 
+function compactItems(items) {
+  return items.filter(Boolean)
+}
+
+function DetailList({ items }) {
+  const visibleItems = compactItems(items)
+    .map(item => typeof item === 'string' ? { value: item } : item)
+    .filter(item => item?.value)
+  if (visibleItems.length === 0) return null
+
+  return (
+    <ul className="space-y-1.5">
+      {visibleItems.map((item) => (
+        <li key={`${item.label ?? 'detail'}-${item.value}`} className="flex gap-2 text-sm leading-relaxed text-slate-400">
+          <span className="text-radar-400 shrink-0">&middot;</span>
+          <span>
+            {item.label && (
+              <span className="font-semibold text-slate-300">{item.label}: </span>
+            )}
+            {item.value}
+          </span>
+        </li>
+      ))}
+    </ul>
+  )
+}
+
+function KnowledgeBlock({ title, items }) {
+  const visibleItems = compactItems(items)
+  if (visibleItems.length === 0) return null
+
+  return (
+    <div className="rounded-lg border border-white/5 bg-night-900/60 p-4">
+      <p className="mb-2 text-xs font-semibold uppercase tracking-[0.15em] text-slate-500">{title}</p>
+      <DetailList items={visibleItems} />
+    </div>
+  )
+}
+
+function linkLabel(key) {
+  const labels = {
+    website: 'Official Site',
+    parking: 'Parking',
+    bagPolicy: 'Bag Policy',
+    accessibility: 'Accessibility',
+  }
+  return labels[key] ?? key.replace(/([A-Z])/g, ' $1').replace(/^./, c => c.toUpperCase())
+}
+
+function venueReviewStamp(confidence) {
+  if (!confidence?.lastReviewed) return null
+
+  const prefix = confidence.source === 'generated' ? 'Auto-generated' : 'Fan-reviewed'
+  return `${prefix} on ${confidence.lastReviewed}`
+}
+
+function VenueKnowledgeCard({ venue }) {
+  if (!venue) return null
+
+  const bestFor = venue.bestFor ?? []
+  const atmosphere = venue.atmosphere ?? {}
+  const arrival = venue.arrival ?? {}
+  const seating = venue.seating ?? {}
+  const foodAndDrink = venue.foodAndDrink ?? {}
+  const officialLinks = Object.entries(venue.officialLinks ?? {}).filter(([, url]) => Boolean(url))
+  const atmosphereChips = compactItems([
+    atmosphere.indoorOutdoor,
+    atmosphere.noiseLevel ? `${atmosphere.noiseLevel} noise` : null,
+    atmosphere.familyFriendly ? 'Family friendly' : null,
+  ])
+  const reviewStamp = venueReviewStamp(venue.confidence)
+  const sourceTag = venue.confidence?.source
+
+  return (
+    <div className="border-t border-white/10 pt-5 mt-5 space-y-5">
+      <div>
+        <div className="mb-3 flex flex-wrap items-center gap-2">
+          <h3 className="font-display text-lg font-semibold uppercase tracking-[0.12em] text-white">
+            Stadar Deep Dive
+          </h3>
+          {/* {sourceTag && (
+            <span className="rounded-full border border-white/10 bg-white/5 px-2 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.12em] text-slate-400">
+              {sourceTag}
+            </span>
+          )} */}
+        </div>
+
+        {venue.summary && (
+          <p className="text-sm leading-relaxed text-slate-300">{venue.summary}</p>
+        )}
+      </div>
+
+      {(bestFor.length > 0 || atmosphereChips.length > 0 || atmosphere.vibe) && (
+        <div className="space-y-3">
+          {atmosphere.vibe && (
+            <p className="rounded-lg border border-radar-400/15 bg-radar-400/5 p-3 text-sm leading-relaxed text-slate-300">
+              {atmosphere.vibe}
+            </p>
+          )}
+
+          <div className="flex flex-wrap gap-2">
+            {bestFor.map((item) => (
+              <span key={item} className="rounded-full bg-white/10 px-2.5 py-1 text-xs font-semibold text-slate-300">
+                Best for {item}
+              </span>
+            ))}
+            {atmosphereChips.map((item) => (
+              <span key={item} className="rounded-full bg-night-700 px-2.5 py-1 text-xs font-semibold text-slate-400">
+                {item}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
+
+      <div className="grid gap-3 md:grid-cols-2">
+        <KnowledgeBlock
+          title="🧭 Getting There"
+          items={[
+            { label: 'Transit', value: arrival.transit },
+            { label: 'Parking', value: arrival.parking },
+            { label: 'Rideshare', value: arrival.rideshare },
+          ]}
+        />
+
+        <KnowledgeBlock
+          title="🎟️ Seats"
+          items={[
+            { label: 'Best value', value: seating.bestValueSections?.length ? seating.bestValueSections.join(', ') : null },
+            { label: 'Watch out for', value: seating.avoidIfPossible?.length ? seating.avoidIfPossible.join(', ') : null },
+            { label: 'Accessibility', value: seating.accessibilityNote },
+          ]}
+        />
+
+        <KnowledgeBlock
+          title="🍔 Food & Pregame"
+          items={[
+            { label: 'Inside', value: foodAndDrink.summary },
+            { label: 'Nearby', value: foodAndDrink.nearbyPregame?.length ? foodAndDrink.nearbyPregame.join(', ') : null },
+          ]}
+        />
+
+        <KnowledgeBlock
+          title="💡 Fan Tips"
+          items={(venue.fanTips ?? []).slice(0, 4).map((tip) => ({
+            value: tip,
+          }))}
+        />
+      </div>
+
+      {(officialLinks.length > 0 || reviewStamp) && (
+        <div className="flex flex-wrap items-center gap-3 border-t border-white/10 pt-4">
+          {officialLinks.map(([key, url]) => (
+            <a
+              key={key}
+              href={url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm font-medium text-radar-400 hover:text-radar-300"
+            >
+              {linkLabel(key)} &rarr;
+            </a>
+          ))}
+
+          {reviewStamp && (
+            <span className="text-xs text-slate-600">
+              {reviewStamp}
+            </span>
+          )}
+        </div>
+      )}
+    </div>
+  )
+}
+
 function EventDetailPage() {
   const { id } = useParams()
   const location = useLocation()
@@ -117,9 +292,35 @@ function EventDetailPage() {
   )
   const [loading, setLoading] = useState(!event)
   const [copied, setCopied] = useState(false)
+  const [venueKnowledge, setVenueKnowledge] = useState(null)
   const copiedTimerRef = useRef(null)
 
   useEffect(() => () => clearTimeout(copiedTimerRef.current), [])
+
+  useEffect(() => {
+    let cancelled = false
+
+    if (!event?.venue) {
+      setVenueKnowledge(null)
+      return () => {
+        cancelled = true
+      }
+    }
+
+    import('../data/venues/index.js')
+      .then(({ getVenueKnowledge }) => {
+        if (!cancelled) {
+          setVenueKnowledge(getVenueKnowledge(event.venue, { city: event.city, state: event.state }))
+        }
+      })
+      .catch(() => {
+        if (!cancelled) setVenueKnowledge(null)
+      })
+
+    return () => {
+      cancelled = true
+    }
+  }, [event?.venue, event?.city, event?.state])
 
   function handleBack() {
     const { backTo, fromStateCode } = location.state ?? {}
@@ -363,6 +564,8 @@ function EventDetailPage() {
               state={event.state}
             />
           </div>
+
+          <VenueKnowledgeCard venue={venueKnowledge} />
         </div>
 
         {/* About the League */}
