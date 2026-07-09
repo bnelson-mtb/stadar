@@ -21,7 +21,7 @@ public class GeminiEventClassifier : IEventClassifier
         listing's event_id into the matching verdict.
 
         Set is_spectator_game=true ONLY for a competitive spectator sporting
-        event (team vs team).
+        event where one identifiable team faces another identifiable team.
         Set it false for: fan fests, watch/viewing parties, block parties,
         draft parties, "An Evening With..." shows, camps, clinics, tryouts,
         autograph or meet-and-greet sessions, parking or hospitality passes,

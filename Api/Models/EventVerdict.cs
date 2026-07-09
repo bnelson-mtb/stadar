@@ -22,7 +22,7 @@ public record EventVerdict(
 /// </summary>
 public static class ClassificationSchema
 {
-    public const int Version = 2;
+    public const int Version = 3;
     public const string UnknownLeague = "Unknown";
 
     public static readonly string[] Sports =
