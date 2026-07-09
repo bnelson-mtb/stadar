@@ -484,6 +484,7 @@ $RECYCLE.BIN/
 # Vim temporary swap files
 *.swp
 
+docs/superpowers
 Api/.buildcheck/
 Api/publish/
 Api/deploy.zip

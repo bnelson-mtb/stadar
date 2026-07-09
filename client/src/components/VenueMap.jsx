@@ -13,14 +13,18 @@ function VenueMap({ venue, city, state, lat, lng }) {
 
   return (
     <div className="space-y-3">
-      <iframe
-        title="Venue map"
-        width="100%"
-        height="200"
-        style={{ border: 0, borderRadius: 12 }}
-        loading="lazy"
-        src={embedUrl}
-      />
+      <div className="overflow-hidden rounded-xl border border-white/10 bg-night-900 shadow-inner shadow-black/30">
+        <iframe
+          title="Venue map"
+          className="block h-52 w-full bg-night-900"
+          style={{
+            border: 0,
+            filter: 'invert(0.9) hue-rotate(180deg) saturate(0.65) brightness(0.82) contrast(1.12)',
+          }}
+          loading="lazy"
+          src={embedUrl}
+        />
+      </div>
       <a
         href={directionsUrl}
         target="_blank"

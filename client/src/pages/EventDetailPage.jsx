@@ -88,7 +88,7 @@ function TicketProviderLogo({ provider }) {
 
 function TicketProviderButton({ provider, primary = false }) {
   const className = primary
-    ? 'inline-flex max-w-full items-center gap-2 rounded-full bg-radar-400 px-3.5 py-2 text-xs font-bold text-night-950 transition-colors hover:bg-radar-300'
+    ? 'inline-flex max-w-full items-center gap-2 rounded-full border-1 border-white bg-night-700/60 px-3.5 py-2 text-xs font-bold text-white transition-colors hover:bg-night-600'
     : 'inline-flex max-w-full items-center gap-2 rounded-full border border-white/10 bg-night-700/60 px-3 py-2 text-xs font-semibold text-slate-200 transition-colors hover:border-radar-400/40 hover:text-white'
 
   return (
@@ -321,7 +321,7 @@ function EventDetailPage() {
 
         {/* Tickets Section */}
         <div className="bg-night-800 rounded-xl border border-white/5 p-6 mb-4">
-          <h2 className="font-display font-semibold uppercase tracking-[0.15em] text-white mb-4">Tickets</h2>
+          <h2 className="font-display font-semibold uppercase tracking-[0.15em] text-white mb-4">Get Tickets</h2>
 
           <div className="mb-4 flex flex-wrap gap-2">
             {ticketmasterLink && (
@@ -350,7 +350,7 @@ function EventDetailPage() {
         {/* Venue Section */}
         <div className="bg-night-800 rounded-xl border border-white/5 p-6 mb-4">
           <div className="mb-4">
-            <p className="font-display font-semibold uppercase tracking-[0.15em] text-white">About the Venue</p>
+            <p className="font-display font-semibold uppercase tracking-[0.15em] text-white">Venue</p>
             <p className="text-sm text-slate-400">{event.venue} &middot; {event.city}, {event.state}</p>
           </div>
 
@@ -368,7 +368,7 @@ function EventDetailPage() {
         {/* About the League */}
         {leagueInfo && (
           <div className="bg-night-800 rounded-xl border border-white/5 p-6 mb-4">
-            <h2 className="font-display font-semibold uppercase tracking-[0.15em] text-white mb-4">About the League</h2>
+            <h2 className="font-display font-semibold uppercase tracking-[0.15em] text-white mb-4">League Overview</h2>
 
             <div className="border-t border-white/10 pt-6">
               <p className="text-xl font-bold text-white mb-2">{leagueInfo.fullName}</p>
