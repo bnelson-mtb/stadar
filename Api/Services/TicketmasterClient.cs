@@ -122,12 +122,11 @@ public class TicketmasterClient(
 
         var ticketUrl = GetString(ev, "url");
         var imageUrl = ExtractImageUrl(ev);
-        var (priceMin, priceMax, currency) = ExtractPriceRange(ev);
 
         var draft = new SportEvent(
             tmId, eventName, normalized.HomeTeam, normalized.AwayTeam, dateTime, venue,
             normalized.Sport, normalized.League, city, state, lat, lng, ticketUrl, imageUrl,
-            priceMin, priceMax, currency, localDate, localTime);
+            localDate, localTime);
 
         var statusCode = ev.TryGetProperty("dates", out var dates) &&
                          dates.TryGetProperty("status", out var status) &&
@@ -404,32 +403,6 @@ public class TicketmasterClient(
             }
         }
         return imageUrl;
-    }
-
-    private static (double? PriceMin, double? PriceMax, string Currency) ExtractPriceRange(JsonElement ev)
-    {
-        double? priceMin = null;
-        double? priceMax = null;
-        var currency = "";
-
-        if (ev.TryGetProperty("priceRanges", out var priceRanges))
-        {
-            var first = priceRanges.EnumerateArray().FirstOrDefault();
-            if (first.ValueKind != JsonValueKind.Undefined)
-            {
-                if (first.TryGetProperty("min", out var minProp))
-                    if (minProp.TryGetDouble(out var min))
-                        priceMin = min;
-
-                if (first.TryGetProperty("max", out var maxProp))
-                    if (maxProp.TryGetDouble(out var max))
-                        priceMax = max;
-
-                currency = GetString(first, "currency");
-            }
-        }
-
-        return (priceMin, priceMax, currency);
     }
 
     private static string GetString(JsonElement el, string prop)

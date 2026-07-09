@@ -36,7 +36,7 @@ function TeamLogo({ name, size = 'small' }) {
     : words.slice(0, 3).map(w => w[0]).join('').toUpperCase();
   return (
     <div
-      className={`${sizeClasses[size]} rounded-full flex items-center justify-center text-white font-bold shrink-0`}
+      className={`${sizeClasses[size]} rounded-full ring-1 ring-white/15 flex items-center justify-center text-white font-bold shrink-0`}
       style={{ backgroundColor: bg }}
       title={name}
     >

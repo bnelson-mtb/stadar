@@ -15,9 +15,6 @@ public record SportEvent(
     double Longitude,
     string TicketUrl,
     string ImageUrl,
-    double? PriceMin = null,
-    double? PriceMax = null,
-    string Currency = "",
     string LocalDate = "",
     string? LocalTime = null
 );

@@ -30,7 +30,7 @@ function EventCard({ event, isFavorite, onToggleFavorite, stateCode, isSavedEven
   return (
     <div
       onClick={handleCardClick}
-      className="bg-white rounded-xl shadow-sm border border-gray-100 p-5 hover:shadow-md transition-shadow border-l-4 cursor-pointer"
+      className="bg-night-800 rounded-xl border border-white/5 p-5 transition-all hover:border-radar-400/30 hover:bg-night-700/70 hover:shadow-[0_0_24px_rgba(163,230,53,0.08)] border-l-4 cursor-pointer"
       style={{ borderLeftColor: borderColor }}
     >
       <div className="flex items-start justify-between gap-4">
@@ -40,15 +40,15 @@ function EventCard({ event, isFavorite, onToggleFavorite, stateCode, isSavedEven
               {badgeLabel}
             </span>
             <span className="text-sm">{icon}</span>
-            <span className="text-xs text-gray-400">{event.sport}</span>
+            <span className="text-xs text-slate-500">{event.sport}</span>
           </div>
 
           <div className="flex items-center gap-2 mb-1">
             <TeamLogo name={homeTeamName} />
-            <span className="text-lg font-bold text-gray-900">{homeTeamName}</span>
+            <span className="text-lg font-bold text-white">{homeTeamName}</span>
             <button
               onClick={(e) => { e.stopPropagation(); onToggleFavorite(homeTeamName) }}
-              className={`cursor-pointer transition-colors ${isFavorite ? 'text-red-500' : 'text-gray-300 hover:text-red-300'}`}
+              className={`cursor-pointer transition-colors ${isFavorite ? 'text-rose-500' : 'text-slate-600 hover:text-rose-400'}`}
               title={isFavorite ? `Unfollow ${homeTeamName}` : `Follow ${homeTeamName}`}
             >
               <svg className="w-4 h-4" viewBox="0 0 24 24" fill={isFavorite ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth={2}>
@@ -59,11 +59,11 @@ function EventCard({ event, isFavorite, onToggleFavorite, stateCode, isSavedEven
           {awayTeamName && (
             <div className="flex items-center gap-2">
               <TeamLogo name={awayTeamName} />
-              <span className="text-base text-gray-600">{awayTeamName}</span>
+              <span className="text-base text-slate-300">{awayTeamName}</span>
             </div>
           )}
 
-          <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-gray-500">
+          <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-slate-400">
             <span className="flex items-center gap-1">
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
@@ -71,7 +71,7 @@ function EventCard({ event, isFavorite, onToggleFavorite, stateCode, isSavedEven
               </svg>
               {event.venue}
             </span>
-            <span className="text-gray-300">&middot;</span>
+            <span className="text-slate-600">&middot;</span>
             <span>{event.city}, {event.state}</span>
           </div>
         </div>
@@ -79,16 +79,16 @@ function EventCard({ event, isFavorite, onToggleFavorite, stateCode, isSavedEven
         <div className="text-right shrink-0 flex flex-col items-end gap-1">
           <button
             onClick={(e) => { e.stopPropagation(); onToggleSave(event) }}
-            className={`transition-colors ${isSavedEvent ? 'text-blue-500' : 'text-gray-300 hover:text-blue-300'}`}
+            className={`cursor-pointer transition-colors ${isSavedEvent ? 'text-radar-400' : 'text-slate-600 hover:text-radar-300'}`}
             title={isSavedEvent ? 'Remove from saved' : 'Save event'}
           >
             <svg className="w-4 h-4" viewBox="0 0 24 24" fill={isSavedEvent ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0 1 11.186 0Z" />
             </svg>
           </button>
-          <div className="text-xs font-medium text-gray-400 uppercase">{dayOfWeek}</div>
-          <div className="text-lg font-bold text-gray-900">{monthDay}</div>
-          <div className="text-sm text-gray-500">{time}</div>
+          <div className="font-display text-xs font-semibold text-radar-400 uppercase tracking-widest">{dayOfWeek}</div>
+          <div className="font-display text-xl font-bold text-white leading-none">{monthDay}</div>
+          <div className="text-sm text-slate-400">{time}</div>
         </div>
       </div>
     </div>

@@ -17,19 +17,23 @@ export default function SavedPage() {
   const teamMap = groupSavedByTeam(savedEvents, favorites)
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <header className="bg-white border-b border-gray-200">
-        <div className="max-w-2xl mx-auto px-4 py-6">
-          <h1 className="text-3xl font-extrabold text-gray-900 tracking-tight">Saved</h1>
+    <div className="min-h-screen bg-night-950 text-slate-200">
+      <header className="relative overflow-hidden bg-night-900 border-b border-white/10">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_140%_at_50%_-20%,rgba(163,230,53,0.12),transparent)]" />
+        <div className="relative max-w-2xl mx-auto px-4 py-6">
+          <h1 className="font-display text-3xl font-bold uppercase tracking-[0.18em] text-white leading-none">Saved</h1>
         </div>
       </header>
 
       <main className="max-w-2xl mx-auto px-4 py-6 space-y-8">
         {/* Upcoming */}
         <section>
-          <h2 className="text-lg font-semibold text-gray-700 mb-3">Upcoming</h2>
+          <h2 className="flex items-center gap-2 font-display text-sm font-semibold text-radar-400 uppercase tracking-[0.2em] mb-3">
+            Upcoming
+            <span className="flex-1 h-px bg-white/10" />
+          </h2>
           {upcoming.length === 0 ? (
-            <p className="text-gray-400 text-sm">No upcoming saved events.</p>
+            <p className="text-slate-500 text-sm">No upcoming saved events.</p>
           ) : (
             <div className="flex flex-col gap-3">
               {upcoming.map(r => (
@@ -53,7 +57,7 @@ export default function SavedPage() {
           <section>
             <button
               onClick={() => setPastExpanded(prev => !prev)}
-              className="flex items-center gap-2 text-lg font-semibold text-gray-700 mb-3 w-full text-left"
+              className="flex items-center gap-2 font-display text-sm font-semibold text-radar-400 uppercase tracking-[0.2em] mb-3 w-full text-left cursor-pointer"
             >
               <span>Past</span>
               <svg
@@ -62,6 +66,7 @@ export default function SavedPage() {
               >
                 <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
               </svg>
+              <span className="flex-1 h-px bg-white/10" />
             </button>
             {pastExpanded && (
               <div className="flex flex-col gap-3">
@@ -84,21 +89,24 @@ export default function SavedPage() {
 
         {/* Your Teams */}
         <section>
-          <h2 className="text-lg font-semibold text-gray-700 mb-3">Your Teams</h2>
+          <h2 className="flex items-center gap-2 font-display text-sm font-semibold text-radar-400 uppercase tracking-[0.2em] mb-3">
+            Your Teams
+            <span className="flex-1 h-px bg-white/10" />
+          </h2>
           {favorites.length === 0 ? (
-            <p className="text-gray-400 text-sm">Follow teams on the Discover page to see them here.</p>
+            <p className="text-slate-500 text-sm">Follow teams on the Discover page to see them here.</p>
           ) : (
             <div className="flex flex-wrap gap-3">
               {favorites.map(team => (
                 <button
                   key={team}
                   onClick={() => navigate(`/saved/team/${encodeURIComponent(team)}`)}
-                  className="flex items-center gap-2 bg-white border border-gray-200 rounded-xl px-4 py-3 cursor-pointer hover:shadow-md transition-shadow"
+                  className="flex items-center gap-2 bg-night-800 border border-white/10 rounded-xl px-4 py-3 cursor-pointer hover:border-radar-400/30 hover:bg-night-700/70 transition-colors"
                 >
                   <TeamLogo name={team} />
-                  <span className="font-medium text-gray-800">{team}</span>
+                  <span className="font-medium text-slate-200">{team}</span>
                   {teamMap[team]?.length > 0 && (
-                    <span className="ml-1 text-xs bg-blue-100 text-blue-700 rounded-full px-2 py-0.5">
+                    <span className="ml-1 text-xs bg-radar-400/15 text-radar-300 rounded-full px-2 py-0.5">
                       {teamMap[team].length}
                     </span>
                   )}

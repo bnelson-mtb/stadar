@@ -153,19 +153,6 @@ public class TicketmasterRawDataTests
                     Console.WriteLine($"    ... and {imageList.Count - 3} more");
             }
 
-            // Price ranges
-            if (ev.TryGetProperty("priceRanges", out var prices))
-            {
-                Console.WriteLine($"\n  PRICE RANGES:");
-                foreach (var p in prices.EnumerateArray())
-                {
-                    var min = p.TryGetProperty("min", out var minP) ? minP.ToString() : "?";
-                    var max = p.TryGetProperty("max", out var maxP) ? maxP.ToString() : "?";
-                    var currency = GetString(p, "currency");
-                    Console.WriteLine($"    ${min} - ${max} {currency}");
-                }
-            }
-
             Console.WriteLine();
     }
 

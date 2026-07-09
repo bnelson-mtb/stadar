@@ -2,6 +2,7 @@ import { useState, useEffect, useMemo } from 'react'
 import { useLocation } from 'react-router-dom'
 import EventCard from '../components/EventCard.jsx'
 import FilterBar from '../components/FilterBar.jsx'
+import RadarLogo from '../components/RadarLogo.jsx'
 import SkeletonCard from '../components/SkeletonCard.jsx'
 import useFavorites from '../hooks/useFavorites.js'
 import useSavedEvents from '../hooks/useSavedEvents.js'
@@ -266,20 +267,24 @@ function DiscoverPage() {
   )
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <header className="bg-white border-b border-gray-200">
-        <div className="max-w-2xl mx-auto px-4 py-6">
+    <div className="min-h-screen bg-night-950 text-slate-200">
+      <header className="relative overflow-hidden bg-night-900 border-b border-white/10">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_140%_at_50%_-20%,rgba(163,230,53,0.12),transparent)]" />
+        <div className="relative max-w-2xl mx-auto px-4 py-6">
           <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-3xl font-extrabold text-gray-900 tracking-tight">
-                stadar
-              </h1>
-              <p className="text-gray-500 mt-1">Live sports near you</p>
+            <div className="flex items-center gap-3">
+              <RadarLogo className="w-10 h-10 shrink-0" />
+              <div>
+                <h1 className="font-display text-3xl font-bold uppercase tracking-[0.18em] text-white leading-none">
+                  Stadar
+                </h1>
+                <p className="text-sm text-slate-400 mt-1">Live sports on your radar</p>
+              </div>
             </div>
             <select
               value={stateCode ?? ''}
               onChange={e => handleStateChange(e.target.value)}
-              className="border border-gray-300 rounded-lg px-3 py-2 text-sm font-medium text-gray-700 bg-white hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="border border-white/10 rounded-lg px-3 py-2 text-sm font-medium text-slate-200 bg-night-800 hover:border-white/25 focus:outline-none focus:ring-2 focus:ring-radar-400/60"
             >
               {US_STATES.map(([code, name]) => (
                 <option key={code} value={code}>{code} — {name}</option>
@@ -293,7 +298,7 @@ function DiscoverPage() {
         {loading && (
           <div className="space-y-3">
             {slowLoad && (
-              <p className="text-center text-sm text-gray-400">
+              <p className="text-center text-sm text-slate-500">
                 Waking up the server — the first load can take up to half a minute…
               </p>
             )}
@@ -303,15 +308,15 @@ function DiscoverPage() {
 
         {error && (
           <div className="text-center py-12">
-            <p className="font-medium text-red-500">Couldn't load games</p>
-            <p className="text-sm mt-1 text-gray-500">
+            <p className="font-medium text-red-400">Couldn't load games</p>
+            <p className="text-sm mt-1 text-slate-400">
               {error === 'network'
                 ? 'Check your connection and try again.'
                 : 'Our event source is having a moment. Try again shortly.'}
             </p>
             <button
               onClick={() => setRetryToken(t => t + 1)}
-              className="mt-4 px-4 py-2 rounded-lg bg-blue-600 text-white text-sm font-medium hover:bg-blue-700 cursor-pointer"
+              className="mt-4 px-4 py-2 rounded-lg bg-radar-400 text-night-950 text-sm font-semibold hover:bg-radar-300 cursor-pointer"
             >
               Retry
             </button>
@@ -319,13 +324,13 @@ function DiscoverPage() {
         )}
 
         {!loading && !error && events.length === 0 && (
-          <div className="text-center py-12 text-gray-400">No upcoming events found</div>
+          <div className="text-center py-12 text-slate-500">No upcoming events found</div>
         )}
 
         {!loading && !error && events.length > 0 && (
           <>
             <div className="relative mb-4">
-              <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+              <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
               </svg>
               <input
@@ -334,13 +339,13 @@ function DiscoverPage() {
                 aria-label="Search teams, cities, or venues"
                 value={searchQuery}
                 onChange={e => setSearchQuery(e.target.value)}
-                className="w-full pl-9 pr-8 py-2 border border-gray-300 rounded-lg text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+                className="w-full pl-9 pr-8 py-2 border border-white/10 rounded-lg text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-radar-400/60 bg-night-800"
               />
               {searchQuery && (
                 <button
                   type="button"
                   onClick={() => setSearchQuery('')}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-300"
                   aria-label="Clear search"
                 >
                   ×
@@ -361,21 +366,22 @@ function DiscoverPage() {
             />
 
             <div className="space-y-3">
-              <p className="text-sm text-gray-400 font-medium">
+              <p className="text-sm text-slate-500 font-medium">
                 {filteredEvents.length === events.length
                   ? `${events.length} upcoming events`
                   : `${filteredEvents.length} of ${events.length} events`}
               </p>
               {filteredEvents.length === 0 ? (
-                <div className="text-center py-8 text-gray-400">
+                <div className="text-center py-8 text-slate-500">
                   No events match your filters
                 </div>
               ) : (
                 groupedEvents.map(group => (
                   <div key={group.label}>
-                    <div className="sticky top-0 z-10 bg-gray-50 py-2">
-                      <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide">
+                    <div className="sticky top-0 z-10 bg-night-950 py-2">
+                      <p className="flex items-center gap-2 font-display text-sm font-semibold text-radar-400 uppercase tracking-[0.2em]">
                         {group.label}
+                        <span className="flex-1 h-px bg-white/10" />
                       </p>
                     </div>
                     <div className="space-y-3">

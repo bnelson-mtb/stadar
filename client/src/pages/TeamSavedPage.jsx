@@ -21,22 +21,22 @@ export default function TeamSavedPage() {
     .sort((a, b) => new Date(a.event.dateTime) - new Date(b.event.dateTime))
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="bg-white border-b border-gray-200 p-4 sticky top-0 z-10">
+    <div className="min-h-screen bg-night-950 text-slate-200">
+      <div className="bg-night-900/90 backdrop-blur border-b border-white/10 p-4 sticky top-0 z-10">
         <div className="max-w-2xl mx-auto flex items-center gap-4">
           <button
             onClick={() => navigate('/saved')}
-            className="inline-flex cursor-pointer items-center rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm transition-colors hover:bg-gray-50 hover:text-gray-900"
+            className="inline-flex cursor-pointer items-center rounded-lg border border-white/10 bg-night-800 px-4 py-2 text-sm font-medium text-slate-200 transition-colors hover:bg-night-700 hover:text-white"
           >
             ← Saved
           </button>
           <div className="flex items-center gap-2">
             <TeamLogo name={decodedTeam} size="large" />
-            <h1 className="text-xl font-bold text-gray-900">{decodedTeam}</h1>
+            <h1 className="text-xl font-bold text-white">{decodedTeam}</h1>
           </div>
           <button
             onClick={() => toggleFavorite(decodedTeam)}
-            className={`ml-auto cursor-pointer transition-colors ${isFavorite(decodedTeam) ? 'text-red-500' : 'text-gray-300 hover:text-red-300'}`}
+            className={`ml-auto cursor-pointer transition-colors ${isFavorite(decodedTeam) ? 'text-rose-500' : 'text-slate-600 hover:text-rose-400'}`}
             title={isFavorite(decodedTeam) ? `Unfollow ${decodedTeam}` : `Follow ${decodedTeam}`}
             aria-label={isFavorite(decodedTeam) ? `Unfollow ${decodedTeam}` : `Follow ${decodedTeam}`}
           >
@@ -49,7 +49,7 @@ export default function TeamSavedPage() {
 
       <main className="max-w-2xl mx-auto px-4 py-6">
         {teamEvents.length === 0 ? (
-          <p className="text-gray-400 text-sm">No saved events for {decodedTeam} yet.</p>
+          <p className="text-slate-500 text-sm">No saved events for {decodedTeam} yet.</p>
         ) : (
           <div className="flex flex-col gap-3">
             {teamEvents.map(r => (

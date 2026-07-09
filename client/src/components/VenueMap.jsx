@@ -25,7 +25,7 @@ function VenueMap({ venue, city, state, lat, lng }) {
         href={directionsUrl}
         target="_blank"
         rel="noopener noreferrer"
-        className="inline-block text-sm font-medium text-blue-600 hover:text-blue-800"
+        className="inline-block text-sm font-medium text-radar-400 hover:text-radar-300"
       >
         Get Directions &rarr;
       </a>

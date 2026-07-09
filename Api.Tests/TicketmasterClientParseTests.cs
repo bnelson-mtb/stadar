@@ -9,6 +9,16 @@ public class TicketmasterClientParseTests
     private static JsonElement Parse(string json) => JsonDocument.Parse(json).RootElement;
 
     [TestMethod]
+    public void SportEventContract_DoesNotExposeTicketPriceFields()
+    {
+        var fields = typeof(Api.Models.SportEvent).GetProperties().Select(p => p.Name).ToList();
+
+        CollectionAssert.DoesNotContain(fields, "PriceMin");
+        CollectionAssert.DoesNotContain(fields, "PriceMax");
+        CollectionAssert.DoesNotContain(fields, "Currency");
+    }
+
+    [TestMethod]
     public void ParseEvent_FullEvent_MapsAllFields()
     {
         // Keep the event in the future so the past-event gate doesn't drop it.
@@ -273,69 +283,4 @@ public class TicketmasterClientParseTests
         Assert.IsNull(ev.LocalTime);
     }
 
-    [TestMethod]
-    public void ParseEvent_WithPriceRanges_ExtractsPriceInfo()
-    {
-        var json = Parse("""
-        {
-          "id": "x5",
-          "name": "Utah Jazz vs. Denver Nuggets",
-          "dates": { "start": { "dateTime": "2026-10-01T02:00:00Z" } },
-          "classifications": [
-            { "genre": { "name": "Basketball" }, "subGenre": { "name": "NBA" } }
-          ],
-          "priceRanges": [
-            {
-              "type": "standard",
-              "currency": "USD",
-              "min": 25.50,
-              "max": 150.00
-            }
-          ],
-          "_embedded": {
-            "attractions": [
-              { "name": "Utah Jazz" },
-              { "name": "Denver Nuggets" }
-            ]
-          }
-        }
-        """);
-
-        var ev = TicketmasterClient.ParseEvent(json);
-
-        Assert.IsNotNull(ev);
-        Assert.IsNotNull(ev.PriceMin);
-        Assert.IsNotNull(ev.PriceMax);
-        Assert.AreEqual(25.50, ev.PriceMin.Value, 0.01);
-        Assert.AreEqual(150.00, ev.PriceMax.Value, 0.01);
-        Assert.AreEqual("USD", ev.Currency);
-    }
-
-    [TestMethod]
-    public void ParseEvent_NoPriceRanges_PriceFieldsNull()
-    {
-        var json = Parse("""
-        {
-          "id": "x6",
-          "name": "Utah Jazz vs. Denver Nuggets",
-          "dates": { "start": { "dateTime": "2026-10-01T02:00:00Z" } },
-          "classifications": [
-            { "genre": { "name": "Basketball" }, "subGenre": { "name": "NBA" } }
-          ],
-          "_embedded": {
-            "attractions": [
-              { "name": "Utah Jazz" },
-              { "name": "Denver Nuggets" }
-            ]
-          }
-        }
-        """);
-
-        var ev = TicketmasterClient.ParseEvent(json);
-
-        Assert.IsNotNull(ev);
-        Assert.IsNull(ev.PriceMin);
-        Assert.IsNull(ev.PriceMax);
-        Assert.AreEqual("", ev.Currency);
-    }
 }

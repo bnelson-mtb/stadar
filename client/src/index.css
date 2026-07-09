@@ -1,1 +1,56 @@
 @import "tailwindcss";
+
+@theme {
+  --color-night-950: #060b16;
+  --color-night-900: #0a1120;
+  --color-night-800: #111a2e;
+  --color-night-700: #1a2740;
+  --color-radar-300: #bef264;
+  --color-radar-400: #a3e635;
+  --color-radar-500: #84cc16;
+  --font-display: "Rajdhani", "Segoe UI", system-ui, sans-serif;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+body {
+  background-color: var(--color-night-950);
+}
+
+@keyframes radar-sweep {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes radar-blip {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.15;
+  }
+}
+
+.radar-sweep {
+  animation: radar-sweep 4s linear infinite;
+  transform-origin: 50% 50%;
+  transform-box: view-box;
+}
+
+.radar-blip {
+  animation: radar-blip 2s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .radar-sweep,
+  .radar-blip {
+    animation: none;
+  }
+}

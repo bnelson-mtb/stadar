@@ -7,7 +7,7 @@ import TeamSavedPage from './pages/TeamSavedPage.jsx'
 
 function AppLayout() {
   return (
-    <div className="pb-16">
+    <div className="min-h-screen bg-night-950 pb-16">
       <Outlet />
       <BottomNav />
     </div>

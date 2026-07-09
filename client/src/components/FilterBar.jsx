@@ -1,5 +1,8 @@
 import { SPORT_ICONS, LEAGUE_COLORS } from '../data/teams'
 
+const idleChip =
+  'bg-night-800 text-slate-400 border-white/10 hover:border-white/25 hover:text-slate-200'
+
 export default function FilterBar({
   sports = [],
   leagues = [],
@@ -16,13 +19,13 @@ export default function FilterBar({
       {hasFavorites && (
         <button
           onClick={onToggleFavoritesOnly}
-          className={`px-3 py-1.5 rounded-full text-sm font-medium transition-colors border ${
+          className={`px-3 py-1.5 rounded-full text-sm font-medium transition-colors border cursor-pointer ${
             showFavoritesOnly
-              ? 'bg-red-500 text-white border-transparent'
-              : 'bg-white text-gray-600 border-gray-300'
+              ? 'bg-rose-500 text-white border-transparent'
+              : 'bg-night-800 text-slate-300 border-white/10 hover:border-white/25'
           }`}
         >
-          {showFavoritesOnly ? '\u2665' : '\u2661'} My Teams
+          {showFavoritesOnly ? '♥' : '♡'} My Teams
         </button>
       )}
 
@@ -31,10 +34,10 @@ export default function FilterBar({
           <button
             key={sport}
             onClick={() => onToggleSport(sport)}
-            className={`px-3 py-1 rounded-full text-xs font-medium transition-colors border ${
+            className={`px-3 py-1 rounded-full text-xs font-medium transition-colors border cursor-pointer ${
               selectedSports.includes(sport)
-                ? 'bg-gray-800 text-white border-transparent'
-                : 'bg-white text-gray-500 border-gray-200'
+                ? 'bg-radar-400 text-night-950 border-transparent font-semibold'
+                : idleChip
             }`}
           >
             {SPORT_ICONS[sport]} {sport}
@@ -49,10 +52,10 @@ export default function FilterBar({
             <button
               key={league}
               onClick={() => onToggleLeague(league)}
-              className={`px-3 py-1 rounded-full text-xs font-medium transition-colors border ${
+              className={`px-3 py-1 rounded-full text-xs font-medium transition-colors border cursor-pointer ${
                 isSelected
                   ? `${LEAGUE_COLORS[league] || 'bg-gray-500'} text-white border-transparent`
-                  : 'bg-white text-gray-500 border-gray-200'
+                  : idleChip
               }`}
             >
               {league}

@@ -6,23 +6,24 @@ import TeamLogo from '../components/TeamLogo'
 import VenueMap from '../components/VenueMap'
 import useSavedEvents from '../hooks/useSavedEvents.js'
 import { API_BASE, fetchJsonWithRetry } from '../utils/api.js'
+import { TICKET_SEARCH_PROVIDERS, buildTicketSearchUrl } from '../utils/ticketLinks.js'
 
 function buildIcsContent(event) {
   const dateStr = (event.localDate || '').replace(/-/g, '')
   if (event.localTime) {
     const timeStr = event.localTime.replace(/:/g, '').padEnd(6, '0').slice(0, 6)
     const [hh, mm, ss] = event.localTime.split(':').map(Number)
-    const totalMinutes = hh * 60 + mm + 120  // add 2 hours
+    const totalMinutes = hh * 60 + mm + 120 // add 2 hours
     const endH = Math.floor(totalMinutes / 60) % 24
     const endM = totalMinutes % 60
-    const rollover = totalMinutes >= 1440  // crossed midnight
+    const rollover = totalMinutes >= 1440 // crossed midnight
     let endDateStr = dateStr
     if (rollover) {
       const [y, mo, d] = (event.localDate || '').split('-').map(Number)
       const next = new Date(y, mo - 1, d + 1)
-      endDateStr = `${next.getFullYear()}${String(next.getMonth()+1).padStart(2,'0')}${String(next.getDate()).padStart(2,'0')}`
+      endDateStr = `${next.getFullYear()}${String(next.getMonth() + 1).padStart(2, '0')}${String(next.getDate()).padStart(2, '0')}`
     }
-    const endStr = `${String(endH).padStart(2,'0')}${String(endM).padStart(2,'0')}${String(ss ?? 0).padStart(2,'0')}`
+    const endStr = `${String(endH).padStart(2, '0')}${String(endM).padStart(2, '0')}${String(ss ?? 0).padStart(2, '0')}`
     return [
       'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Stadar//EN',
       'BEGIN:VEVENT',
@@ -37,7 +38,7 @@ function buildIcsContent(event) {
   } else {
     const [y, mo, d] = (event.localDate || '').split('-').map(Number)
     const next = new Date(y, mo - 1, d + 1)
-    const nextDateStr = `${next.getFullYear()}${String(next.getMonth()+1).padStart(2,'0')}${String(next.getDate()).padStart(2,'0')}`
+    const nextDateStr = `${next.getFullYear()}${String(next.getMonth() + 1).padStart(2, '0')}${String(next.getDate()).padStart(2, '0')}`
     return [
       'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Stadar//EN',
       'BEGIN:VEVENT',
@@ -82,7 +83,7 @@ function EventDetailPage() {
 
   function handleBack() {
     const { backTo, fromStateCode } = location.state ?? {}
-    // backTo is set by SavedPage / TeamSavedPage; fromStateCode is set by DiscoverPage
+    // backTo is set by SavedPage / TeamSavedPage; fromStateCode is set by DiscoverPage.
     if (backTo) {
       navigate(backTo)
       return
@@ -108,7 +109,7 @@ function EventDetailPage() {
         if (isEventSaved) updateSnapshot(fresh)
       })
       .catch(() => {
-        // Only clear event if there is no snapshot fallback
+        // Only clear event if there is no snapshot fallback.
         if (!event) setEvent(null)
       })
       .finally(() => setLoading(false))
@@ -116,25 +117,25 @@ function EventDetailPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-gray-500">Loading...</div>
+      <div className="min-h-screen bg-night-950 flex items-center justify-center">
+        <div className="text-slate-400">Loading...</div>
       </div>
     )
   }
 
   if (!event) {
     return (
-      <div className="min-h-screen bg-gray-50 p-4">
+      <div className="min-h-screen bg-night-950 p-4">
         <div className="max-w-2xl mx-auto">
           <button
             type="button"
             onClick={handleBack}
-            className="inline-flex cursor-pointer items-center rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm transition-colors hover:bg-gray-50 hover:text-gray-900 mb-6"
+            className="inline-flex cursor-pointer items-center rounded-lg border border-white/10 bg-night-800 px-4 py-2 text-sm font-medium text-slate-200 transition-colors hover:bg-night-700 hover:text-white mb-6"
           >
-            ← Back
+            &larr; Back
           </button>
-          <div className="bg-white rounded-xl p-8 text-center">
-            <p className="text-gray-500">Event not found</p>
+          <div className="bg-night-800 rounded-xl border border-white/5 p-8 text-center">
+            <p className="text-slate-400">Event not found</p>
           </div>
         </div>
       </div>
@@ -155,8 +156,8 @@ function EventDetailPage() {
 
   function handleShare() {
     const shareText = hasAwayTeam
-      ? `${homeTeamName} vs ${awayTeamName} — ${dateDisplay} at ${event.venue}`
-      : `${homeTeamName} — ${dateDisplay} at ${event.venue}`
+      ? `${homeTeamName} vs ${awayTeamName} - ${dateDisplay} at ${event.venue}`
+      : `${homeTeamName} - ${dateDisplay} at ${event.venue}`
     if (navigator.share) {
       navigator.share({ title: event.name, text: shareText, url: window.location.href }).catch(() => {})
     } else {
@@ -174,25 +175,29 @@ function EventDetailPage() {
   const timeDisplay = event.localTime
     ? new Date(`1970-01-01T${event.localTime}`).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', hour12: true })
     : 'Time TBD'
+  const ticketSearchLinks = TICKET_SEARCH_PROVIDERS.map(provider => ({
+    ...provider,
+    url: buildTicketSearchUrl(event, provider.domain),
+  }))
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-night-950 text-slate-200">
       {/* Header */}
-      <div className="bg-white border-b border-gray-200 p-4 sticky top-0 z-10">
+      <div className="bg-night-900/90 backdrop-blur border-b border-white/10 p-4 sticky top-0 z-10">
         <div className="max-w-4xl mx-auto flex items-center justify-between">
           <button
             type="button"
             onClick={handleBack}
-            className="inline-flex cursor-pointer items-center rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm transition-colors hover:bg-gray-50 hover:text-gray-900"
+            className="inline-flex cursor-pointer items-center rounded-lg border border-white/10 bg-night-800 px-4 py-2 text-sm font-medium text-slate-200 transition-colors hover:bg-night-700 hover:text-white"
           >
-            ← Back
+            &larr; Back
           </button>
-          <h1 className="text-lg font-bold text-gray-900">{event.name}</h1>
+          <h1 className="text-lg font-bold text-white">{event.name}</h1>
           <div className="flex items-center gap-1">
             <button
               type="button"
               onClick={() => toggleSave(event)}
-              className={`p-2 transition-colors ${isSaved(event.id) ? 'text-blue-500' : 'text-gray-400 hover:text-gray-700'}`}
+              className={`p-2 cursor-pointer transition-colors ${isSaved(event.id) ? 'text-radar-400' : 'text-slate-400 hover:text-slate-200'}`}
               aria-label={isSaved(event.id) ? 'Remove from saved' : 'Save event'}
             >
               <svg className="w-5 h-5" viewBox="0 0 24 24" fill={isSaved(event.id) ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth={1.5}>
@@ -200,12 +205,12 @@ function EventDetailPage() {
               </svg>
             </button>
             {copied ? (
-              <span className="text-xs font-medium text-green-600 pr-1">Copied!</span>
+              <span className="text-xs font-medium text-radar-400 pr-1">Copied!</span>
             ) : (
               <button
                 type="button"
                 onClick={handleShare}
-                className="p-2 text-gray-500 hover:text-gray-900 transition-colors"
+                className="p-2 cursor-pointer text-slate-400 hover:text-white transition-colors"
                 aria-label="Share event"
               >
                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
@@ -220,7 +225,7 @@ function EventDetailPage() {
       <div className="max-w-4xl mx-auto p-4">
         {/* Banner Image */}
         {event.imageUrl && (
-          <div className="mb-6 rounded-xl overflow-hidden shadow-sm">
+          <div className="mb-6 rounded-xl overflow-hidden border border-white/10">
             <img
               src={event.imageUrl}
               alt={event.name}
@@ -230,12 +235,12 @@ function EventDetailPage() {
         )}
 
         {/* Matchup */}
-        <div className="bg-white rounded-xl shadow-sm p-6 mb-4">
+        <div className="bg-night-800 rounded-xl border border-white/5 p-6 mb-4">
           <div className="flex items-center justify-between mb-4">
             <span className={`${badgeColor} text-white text-xs font-semibold px-3 py-1 rounded-full`}>
               {event.league}
             </span>
-            <span className="text-gray-400 text-sm">{icon} {event.sport}</span>
+            <span className="text-slate-500 text-sm">{icon} {event.sport}</span>
           </div>
 
           {hasAwayTeam ? (
@@ -244,16 +249,16 @@ function EventDetailPage() {
                 <div className="flex justify-center mb-2">
                   <TeamLogo name={homeTeamName} size="large" />
                 </div>
-                <p className="text-lg font-bold text-gray-900">{homeTeamName}</p>
+                <p className="text-lg font-bold text-white">{homeTeamName}</p>
               </div>
 
-              <div className="text-2xl font-bold text-gray-300">vs</div>
+              <div className="font-display text-2xl font-bold uppercase text-slate-600">vs</div>
 
               <div className="flex-1 text-center">
                 <div className="flex justify-center mb-2">
                   <TeamLogo name={awayTeamName} size="large" />
                 </div>
-                <p className="text-lg font-bold text-gray-900">{awayTeamName}</p>
+                <p className="text-lg font-bold text-white">{awayTeamName}</p>
               </div>
             </div>
           ) : (
@@ -261,24 +266,24 @@ function EventDetailPage() {
               <div className="mb-2 flex justify-center">
                 <TeamLogo name={homeTeamName} size="large" />
               </div>
-              <p className="text-lg font-bold text-gray-900">{homeTeamName || event.name}</p>
+              <p className="text-lg font-bold text-white">{homeTeamName || event.name}</p>
             </div>
           )}
 
-          <div className="border-t border-gray-200 pt-4">
-            <p className="text-xl font-bold text-gray-900">{dateDisplay}</p>
-            <p className="text-gray-500">{timeDisplay}</p>
+          <div className="border-t border-white/10 pt-4">
+            <p className="text-xl font-bold text-white">{dateDisplay}</p>
+            <p className="text-slate-400">{timeDisplay}</p>
           </div>
         </div>
 
         {/* Venue Section */}
-        <div className="bg-white rounded-xl shadow-sm p-6 mb-4">
+        <div className="bg-night-800 rounded-xl border border-white/5 p-6 mb-4">
           <div className="mb-4">
-            <p className="font-semibold text-gray-900">About the Venue</p>
-            <p className="text-sm text-gray-500">{event.venue} · {event.city}, {event.state}</p>
+            <p className="font-display font-semibold uppercase tracking-[0.15em] text-white">About the Venue</p>
+            <p className="text-sm text-slate-400">{event.venue} &middot; {event.city}, {event.state}</p>
           </div>
 
-          <div className="border-t border-gray-200 pt-6">
+          <div className="border-t border-white/10 pt-6">
             <VenueMap
               lat={event.latitude}
               lng={event.longitude}
@@ -291,63 +296,63 @@ function EventDetailPage() {
 
         {/* About the League */}
         {leagueInfo && (
-          <div className="bg-white rounded-xl shadow-sm p-6 mb-4">
-            <h2 className="font-semibold text-gray-900 mb-4">About the League</h2>
+          <div className="bg-night-800 rounded-xl border border-white/5 p-6 mb-4">
+            <h2 className="font-display font-semibold uppercase tracking-[0.15em] text-white mb-4">About the League</h2>
 
-            <div className="border-t border-gray-200 pt-6">
-              <p className="text-xl font-bold text-gray-900 mb-2">{leagueInfo.fullName}</p>
-              <span className="inline-block text-xs font-semibold px-2 py-1 rounded-full bg-gray-200 text-gray-700 mb-3">
+            <div className="border-t border-white/10 pt-6">
+              <p className="text-xl font-bold text-white mb-2">{leagueInfo.fullName}</p>
+              <span className="inline-block text-xs font-semibold px-2 py-1 rounded-full bg-white/10 text-slate-300 mb-3">
                 {leagueInfo.tier}
               </span>
-              <p className="text-gray-600 text-sm mb-4">{leagueInfo.description}</p>
+              <p className="text-slate-400 text-sm mb-4">{leagueInfo.description}</p>
               <a
                 href={`https://${leagueInfo.website}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-sm font-medium text-blue-600 hover:text-blue-800"
+                className="text-sm font-medium text-radar-400 hover:text-radar-300"
               >
-                {leagueInfo.website} →
+                {leagueInfo.website} &rarr;
               </a>
             </div>
           </div>
         )}
 
         {/* Tickets Section */}
-        <div className="bg-white rounded-xl shadow-sm p-6 mb-4">
-          <h2 className="font-semibold text-gray-900 mb-4">Tickets</h2>
+        <div className="bg-night-800 rounded-xl border border-white/5 p-6 mb-4">
+          <h2 className="font-display font-semibold uppercase tracking-[0.15em] text-white mb-4">Tickets</h2>
 
-          <div className="mb-4">
-            {event.priceMin && event.priceMax ? (
-              <div className="mb-4">
-                <p className="text-sm text-gray-600 mb-2">Price Range</p>
-                <p className="text-2xl font-bold text-gray-900">
-                  ${event.priceMin.toFixed(2)} — ${event.priceMax.toFixed(2)}
-                </p>
-                {event.currency && (
-                  <p className="text-sm text-gray-500">{event.currency}</p>
-                )}
-              </div>
-            ) : (
-              <p className="text-sm text-gray-500 mb-4">Pricing unavailable</p>
-            )}
-
+          <div className="mb-4 space-y-3">
             {event.ticketUrl && (
               <a
                 href={event.ticketUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg text-center transition-colors"
+                className="block w-full bg-radar-400 hover:bg-radar-300 text-night-950 font-bold py-3 rounded-lg text-center transition-colors"
               >
-                Buy Tickets on Ticketmaster →
+                Buy Tickets on Ticketmaster &rarr;
               </a>
             )}
+
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+              {ticketSearchLinks.map(provider => (
+                <a
+                  key={provider.domain}
+                  href={provider.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block rounded-lg border border-white/10 bg-night-700/60 px-4 py-3 text-center text-sm font-semibold text-slate-200 transition-colors hover:border-radar-400/40 hover:text-white"
+                >
+                  Search {provider.name} &rarr;
+                </a>
+              ))}
+            </div>
           </div>
 
-          <div className="border-t border-gray-200 pt-4 mt-4">
+          <div className="border-t border-white/10 pt-4 mt-4">
             <button
               type="button"
               onClick={() => downloadIcs(event)}
-              className="flex items-center gap-2 text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors"
+              className="flex items-center gap-2 cursor-pointer text-sm font-medium text-slate-400 hover:text-white transition-colors"
             >
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
