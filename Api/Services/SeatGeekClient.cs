@@ -17,16 +17,18 @@ public class SeatGeekClient(HttpClient httpClient, IConfiguration config)
     public async Task<string?> FindEventUrlAsync(SportEvent ev)
     {
         var clientId = config["SeatGeek:ClientId"];
-        if (string.IsNullOrWhiteSpace(clientId) || string.IsNullOrWhiteSpace(ev.LocalDate))
+        if (string.IsNullOrWhiteSpace(clientId) ||
+            string.IsNullOrWhiteSpace(ev.LocalDate) ||
+            string.IsNullOrWhiteSpace(ev.HomeTeam))
             return null;
 
-        var query = string.IsNullOrWhiteSpace(ev.AwayTeam)
-            ? ev.HomeTeam
-            : $"{ev.HomeTeam} {ev.AwayTeam}";
-
+        // Home team only: SeatGeek's q= full-text search returns zero results
+        // when both team names are present (verified live 2026-07-13). The
+        // matcher still requires the home team + exact date, so precision is
+        // unaffected.
         var url = "https://api.seatgeek.com/2/events" +
                   $"?client_id={Uri.EscapeDataString(clientId)}" +
-                  $"&q={Uri.EscapeDataString(query)}" +
+                  $"&q={Uri.EscapeDataString(ev.HomeTeam)}" +
                   $"&venue.state={Uri.EscapeDataString(ev.State)}" +
                   $"&datetime_local.gte={ev.LocalDate}T00:00:00" +
                   $"&datetime_local.lte={ev.LocalDate}T23:59:59" +

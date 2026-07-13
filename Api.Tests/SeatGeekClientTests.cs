@@ -147,22 +147,13 @@ public class SeatGeekClientTests
         Assert.AreEqual("api.seatgeek.com", uri.Host);
         Assert.AreEqual("/2/events", uri.AbsolutePath);
         StringAssert.Contains(uri.Query, "client_id=test-client-id");
-        StringAssert.Contains(uri.Query, "q=Utah%20Jazz%20Denver%20Nuggets");
+        // Home team only: SeatGeek's q= search returns zero results when the
+        // away team is included (verified live 2026-07-13).
+        StringAssert.Contains(uri.Query, "q=Utah%20Jazz&");
         StringAssert.Contains(uri.Query, "venue.state=UT");
         StringAssert.Contains(uri.Query, "datetime_local.gte=2026-10-01T00:00:00");
         StringAssert.Contains(uri.Query, "datetime_local.lte=2026-10-01T23:59:59");
         StringAssert.Contains(uri.Query, "per_page=10");
-    }
-
-    [TestMethod]
-    public async Task Lookup_NoAwayTeam_QueriesHomeTeamOnly()
-    {
-        var handler = new FakeHttpMessageHandler(_ => Ok(new { events = Array.Empty<object>() }));
-        var client = new SeatGeekClient(new HttpClient(handler), Config());
-
-        await client.FindEventUrlAsync(MakeEvent(away: ""));
-
-        StringAssert.Contains(handler.Requests.Single().RequestUri!.Query, "q=Utah%20Jazz&");
     }
 
     [TestMethod]
