@@ -9,7 +9,7 @@ export const CFB_BIG_12_VENUES = {
     city: "Salt Lake City",
     state: "UT",
     summary: "Utah's 51,000-seat home on the hill above downtown SLC — stunning Wasatch views over the east rim, the home of the 2002 (and 2034) Olympic cauldron, and the MUSS student section driving one of the West's best atmospheres.",
-    bestFor: ["college football", "Olympics ceremonies"],
+    bestFor: ["college football", "national outside events"],
     atmosphere: {
       vibe: "Feels bigger and louder than 51k — third-down jumps and sustained noise make for a classic college football experience",
       noiseLevel: "High",
@@ -17,7 +17,7 @@ export const CFB_BIG_12_VENUES = {
       indoorOutdoor: "Outdoor"
     },
     arrival: {
-      parking: "Campus lots are permit-heavy; free street parking is avaliable further from the stadium.",
+      parking: "Campus lots are permit-heavy; free street parking is avaliable further from the stadium along 1200 East and westward.",
       rideshare: "South campus drops; expect post-game waits on 500 South.",
       transit: "TRAX Red Line to Stadium station, drops you right in front of the main lot and entrance.",
     },
@@ -31,7 +31,7 @@ export const CFB_BIG_12_VENUES = {
       nearbyPregame: ["Guardsman Way tailgates", "9th & 9th neighborhood", "downtown SLC (TRAX ride)"],
     },
     fanTips: [
-      "Evening kicks with alpenglow on the Wasatch behind the east stands are the signature Utah football image.",
+      "Evening kicks with the Wasatch behind the east stands are the signature Utah football image.",
       "Altitude + dry heat: hydrate for September day games.",
       "Utah-BYU (the Holy War) reprices everything — buy at schedule release."
     ],
@@ -69,7 +69,7 @@ export const CFB_BIG_12_VENUES = {
     },
     foodAndDrink: {
       summary: "Famously good concessions program with various food options. Spacious hallways make for a seamless experience.",
-      nearbyPregame: ["Cane's", "Provo's Center Street", "Brick Oven"],
+      nearbyPregame: ["Cane's", "Provo's Center Street", "Brick Oven", "Pregame activites outside the main entrance."],
     },
     fanTips: [
       "Try a Cougar Tail. It's a foot-long maple bar and the best-known concession in the conference.",

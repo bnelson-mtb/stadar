@@ -31,12 +31,12 @@ export const MLS_VENUES = {
     },
     foodAndDrink: {
       summary: "Standard stadium fare with local touches; Sandy's chain corridor is nearby for pregame.",
-      nearbyPregame: ["Bout Time Pub (Sandy)", "Lucky 13 (downtown, pre-TRAX)", "State Street spots"],
+      nearbyPregame: ["Bout Time Pub (Sandy)", "Lucky 13 (downtown, pre-TRAX)", "State Street spots."],
     },
     fanTips: [
-      "Summer evening games with alpenglow on the Wasatch are the signature RSL experience.",
-      "The supporters' south end is standing-and-drumming all match — sit near it for energy, away for calm.",
-      "July/August afternoon games are hot and high-altitude — hydrate more than usual."
+      "Check out America First Square just before entering the stadium for lots of pregame family-friendly fun.",
+      "The supporters' south end is standing and drumming all match. Sit near it for more energy, away for more calm.",
+      "July/August afternoon games are hot and high-altitude, so hydrate more than usual."
     ],
     officialLinks: {
       website: "https://www.rsl.com/americafirstfield",
