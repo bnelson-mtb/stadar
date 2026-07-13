@@ -6,6 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddOpenApi();
 builder.Services.AddHttpClient<TicketmasterClient>();
+builder.Services.AddHttpClient<SeatGeekClient>();
 builder.Services.AddMemoryCache();
 
 // LLM verdict layer: without a Gemini key the classifier reports disabled and
@@ -123,6 +124,39 @@ app.MapGet("/api/games/{id}", async (string id, TicketmasterClient ticketmaster,
     return ev == null ? Results.NotFound() : Results.Ok(ev);
 })
 .WithName("GetEventById");
+
+// Lazy per-event SeatGeek lookup. Lives under /api/games and avoids the
+// words "event"/"ticket" in the path for the same ad-block reasons as the
+// games route. 404 covers all "no link" cases: unconfigured, unknown id,
+// or no confident match — the client keeps its search-link fallback.
+app.MapGet("/api/games/{id}/seatgeek", async (string id, TicketmasterClient ticketmaster, SeatGeekClient seatGeek, IMemoryCache cache) =>
+{
+    if (!seatGeek.IsEnabled)
+        return Results.NotFound();
+
+    // Same cached source-event path as GetEventById.
+    var eventKey = $"event:{id}";
+    if (!cache.TryGetValue(eventKey, out SportEvent? ev))
+    {
+        ev = await ticketmaster.GetEventByIdAsync(id);
+        if (ev != null)
+            cache.Set(eventKey, ev, TimeSpan.FromMinutes(5));
+    }
+    if (ev == null)
+        return Results.NotFound();
+
+    // Cache the lookup — including "no match" — so repeat visits don't
+    // re-hit SeatGeek. The URL for an event is stable, hence the long TTL.
+    var linkKey = $"seatgeek:{id}";
+    if (!cache.TryGetValue(linkKey, out string? url))
+    {
+        url = await seatGeek.FindEventUrlAsync(ev);
+        cache.Set(linkKey, url, TimeSpan.FromHours(6));
+    }
+
+    return url == null ? Results.NotFound() : Results.Ok(new { url });
+})
+.WithName("GetSeatGeekLink");
 
 // Client-side routing: send unmatched non-API paths to the SPA.
 app.MapFallbackToFile("index.html", staticFiles);
