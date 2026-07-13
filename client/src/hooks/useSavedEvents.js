@@ -1,11 +1,19 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import {
+  createSavedRecord,
+  normalizeSavedRecords,
+  persistSavedRecords,
+  removeSavedRecord,
+  updateSavedMetadata,
+  updateSavedSnapshot as replaceSavedSnapshot,
+} from '../utils/savedEventRecords.js'
 
 const STORAGE_KEY = 'stadar-saved-events'
 
 function loadSaved() {
   try {
     const stored = localStorage.getItem(STORAGE_KEY)
-    return stored ? JSON.parse(stored) : []
+    return stored ? normalizeSavedRecords(JSON.parse(stored)) : []
   } catch {
     return []
   }
@@ -13,40 +21,81 @@ function loadSaved() {
 
 export default function useSavedEvents() {
   const [savedEvents, setSavedEvents] = useState(loadSaved)
+  const savedEventsRef = useRef(savedEvents)
+  const [persistenceStatus, setPersistenceStatus] = useState('saving')
+  const [pendingRemoval, setPendingRemoval] = useState(null)
+
+  useEffect(() => {
+    const result = persistSavedRecords(localStorage, STORAGE_KEY, savedEvents)
+    let cancelled = false
+
+    queueMicrotask(() => {
+      if (!cancelled) setPersistenceStatus(result.ok ? 'saved' : 'error')
+    })
+
+    return () => {
+      cancelled = true
+    }
+  }, [savedEvents])
+
+  function commitSavedEvents(transform) {
+    const current = savedEventsRef.current
+    const next = transform(current)
+    if (next === current) return
+
+    setPersistenceStatus('saving')
+    savedEventsRef.current = next
+    setSavedEvents(next)
+  }
 
   function toggleSave(event) {
-    setSavedEvents(prev => {
-      const exists = prev.some(r => r.event.id === event.id)
-      const next = exists
-        ? prev.filter(r => r.event.id !== event.id)
-        : [...prev, { event, savedAt: new Date().toISOString() }]
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(next))
-      return next
-    })
+    if (isSaved(event.id)) {
+      setPendingRemoval(event)
+      return
+    }
+
+    commitSavedEvents(records => [...records, createSavedRecord(event)])
   }
 
   function isSaved(id) {
     return savedEvents.some(r => r.event.id === id)
   }
 
-  function removeSaved(id) {
-    setSavedEvents(prev => {
-      const next = prev.filter(r => r.event.id !== id)
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(next))
-      return next
-    })
+  function requestRemove(event) {
+    setPendingRemoval(event)
+  }
+
+  function cancelRemove() {
+    setPendingRemoval(null)
+  }
+
+  function confirmRemove() {
+    if (!pendingRemoval) return
+
+    commitSavedEvents(records => removeSavedRecord(records, pendingRemoval.id))
+    setPendingRemoval(null)
+  }
+
+  function updateMetadata(eventId, patch) {
+    commitSavedEvents(records => updateSavedMetadata(records, eventId, patch))
   }
 
   function updateSnapshot(freshEvent) {
     if (!freshEvent) return
-    setSavedEvents(prev => {
-      const next = prev.map(r =>
-        r.event.id === freshEvent.id ? { ...r, event: freshEvent } : r
-      )
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(next))
-      return next
-    })
+
+    commitSavedEvents(records => replaceSavedSnapshot(records, freshEvent))
   }
 
-  return { savedEvents, toggleSave, isSaved, removeSaved, updateSnapshot }
+  return {
+    savedEvents,
+    toggleSave,
+    isSaved,
+    requestRemove,
+    pendingRemoval,
+    cancelRemove,
+    confirmRemove,
+    updateMetadata,
+    updateSnapshot,
+    persistenceStatus,
+  }
 }

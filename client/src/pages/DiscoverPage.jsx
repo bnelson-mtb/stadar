@@ -4,6 +4,7 @@ import EventCard from '../components/EventCard.jsx'
 import FilterBar from '../components/FilterBar.jsx'
 import RadarLogo from '../components/RadarLogo.jsx'
 import SkeletonCard from '../components/SkeletonCard.jsx'
+import UnsaveConfirmDialog from '../components/UnsaveConfirmDialog.jsx'
 import useFavorites from '../hooks/useFavorites.js'
 import useSavedEvents from '../hooks/useSavedEvents.js'
 import { getCanonicalTeamName } from '../data/teams'
@@ -59,18 +60,6 @@ const LEAGUE_ORDER = [
   'Other',
 ]
 
-function orderedUnique(values, order) {
-  const unique = [...new Set(values.filter(Boolean))]
-  return unique.sort((a, b) => {
-    const ia = order.indexOf(a)
-    const ib = order.indexOf(b)
-    if (ia === -1 && ib === -1) return a.localeCompare(b)
-    if (ia === -1) return 1
-    if (ib === -1) return -1
-    return ia - ib
-  })
-}
-
 const US_STATES = [
   ['AL','Alabama'],['AK','Alaska'],['AZ','Arizona'],['AR','Arkansas'],['CA','California'],
   ['CO','Colorado'],['CT','Connecticut'],['DE','Delaware'],['DC','Washington DC'],['FL','Florida'],
@@ -119,9 +108,6 @@ function groupEventsByDate(events) {
     d.setDate(thisMonday.getDate() + i)
     weekdayStrs.add(toDateStr(d))
   }
-  // End of this ISO week (Sunday)
-  const endOfWeekStr = thisSundayStr
-
   const groups = [
     { label: 'Today', events: [] },
     { label: 'This Weekend', events: [] },
@@ -156,6 +142,8 @@ function DiscoverPage() {
     if (navigationStateCode && US_STATE_CODES.includes(navigationStateCode)) {
       return navigationStateCode
     }
+    const saved = localStorage.getItem('stadar-location')
+    if (saved && US_STATE_CODES.includes(saved)) return saved
     return 'UT'
   })
 
@@ -165,22 +153,24 @@ function DiscoverPage() {
   const [searchQuery, setSearchQuery] = useState('')
 
   const { favorites, toggleFavorite, isFavorite } = useFavorites()
-  const { toggleSave, isSaved } = useSavedEvents()
+  const {
+    toggleSave,
+    isSaved,
+    pendingRemoval,
+    cancelRemove,
+    confirmRemove,
+  } = useSavedEvents()
 
   // Auto-detect location on first load; restore from localStorage if available
   useEffect(() => {
     const navigationStateCode = location.state?.stateCode
     if (navigationStateCode && US_STATE_CODES.includes(navigationStateCode)) {
-      setStateCode(navigationStateCode)
       localStorage.setItem('stadar-location', navigationStateCode)
       return
     }
 
     const saved = localStorage.getItem('stadar-location')
-    if (saved && US_STATE_CODES.includes(saved)) {
-      setStateCode(saved)
-      return
-    }
+    if (saved && US_STATE_CODES.includes(saved)) return
     const detect = async () => {
       try {
         const controller = new AbortController()
@@ -196,9 +186,14 @@ function DiscoverPage() {
       setStateCode('UT')
     }
     detect()
-  }, [])
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleStateChange = (newState) => {
+    setLoading(true)
+    setError(null)
+    setSelectedSports([])
+    setSelectedLeagues([])
+    setSearchQuery('')
     setStateCode(newState)
     localStorage.setItem('stadar-location', newState)
   }
@@ -207,11 +202,6 @@ function DiscoverPage() {
 
   useEffect(() => {
     if (!stateCode) return
-    setLoading(true)
-    setError(null)
-    setSelectedSports([])
-    setSelectedLeagues([])
-    setSearchQuery('')
     fetchJsonWithRetry(`${API_BASE}/api/games?stateCode=${stateCode}`)
       .then(data => {
         setEvents(data)
@@ -223,6 +213,12 @@ function DiscoverPage() {
         setLoading(false)
       })
   }, [stateCode, retryToken])
+
+  const handleRetry = () => {
+    setLoading(true)
+    setError(null)
+    setRetryToken(token => token + 1)
+  }
 
   // Surface a hint when the first load drags (server waking from idle)
   const [slowLoad, setSlowLoad] = useState(false)
@@ -315,7 +311,7 @@ function DiscoverPage() {
                 : 'Our event source is having a moment. Try again shortly.'}
             </p>
             <button
-              onClick={() => setRetryToken(t => t + 1)}
+              onClick={handleRetry}
               className="mt-4 px-4 py-2 rounded-lg bg-radar-400 text-night-950 text-sm font-semibold hover:bg-radar-300 cursor-pointer"
             >
               Retry
@@ -406,6 +402,11 @@ function DiscoverPage() {
 
 
       </main>
+      <UnsaveConfirmDialog
+        event={pendingRemoval}
+        onCancel={cancelRemove}
+        onConfirm={confirmRemove}
+      />
     </div>
   )
 }

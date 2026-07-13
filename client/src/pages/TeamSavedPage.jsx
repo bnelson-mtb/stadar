@@ -1,6 +1,8 @@
+import { useRef } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import EventCard from '../components/EventCard.jsx'
 import TeamLogo from '../components/TeamLogo.jsx'
+import UnsaveConfirmDialog from '../components/UnsaveConfirmDialog.jsx'
 import useSavedEvents from '../hooks/useSavedEvents.js'
 import useFavorites from '../hooks/useFavorites.js'
 import { getCanonicalTeamName } from '../data/teams.js'
@@ -9,8 +11,15 @@ export default function TeamSavedPage() {
   const { teamName } = useParams()
   const decodedTeam = decodeURIComponent(teamName)
   const navigate = useNavigate()
-  const { savedEvents, removeSaved } = useSavedEvents()
+  const {
+    savedEvents,
+    requestRemove,
+    pendingRemoval,
+    cancelRemove,
+    confirmRemove,
+  } = useSavedEvents()
   const { toggleFavorite, isFavorite } = useFavorites()
+  const mainRef = useRef(null)
 
   const teamEvents = savedEvents
     .filter(r => {
@@ -47,7 +56,7 @@ export default function TeamSavedPage() {
         </div>
       </div>
 
-      <main className="max-w-2xl mx-auto px-4 py-6">
+      <main ref={mainRef} tabIndex={-1} className="max-w-2xl mx-auto px-4 py-6">
         {teamEvents.length === 0 ? (
           <p className="text-slate-500 text-sm">No saved events for {decodedTeam} yet.</p>
         ) : (
@@ -60,13 +69,19 @@ export default function TeamSavedPage() {
                 onToggleFavorite={toggleFavorite}
                 stateCode={r.event.state}
                 isSavedEvent={true}
-                onToggleSave={() => removeSaved(r.event.id)}
+                onToggleSave={() => requestRemove(r.event)}
                 backTo={`/saved/team/${encodeURIComponent(decodedTeam)}`}
               />
             ))}
           </div>
         )}
       </main>
+      <UnsaveConfirmDialog
+        event={pendingRemoval}
+        focusFallbackRef={mainRef}
+        onCancel={cancelRemove}
+        onConfirm={confirmRemove}
+      />
     </div>
   )
 }

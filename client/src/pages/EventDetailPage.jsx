@@ -4,8 +4,17 @@ import { SPORT_ICONS, LEAGUE_COLORS, getCanonicalTeamName } from '../data/teams'
 import { LEAGUE_INFO } from '../data/leagueInfo'
 import TeamLogo from '../components/TeamLogo'
 import VenueMap from '../components/VenueMap'
+import CollapsibleSection from '../components/CollapsibleSection.jsx'
+import GameNotesSection from '../components/GameNotesSection.jsx'
+import UnsaveConfirmDialog from '../components/UnsaveConfirmDialog.jsx'
 import useSavedEvents from '../hooks/useSavedEvents.js'
 import { API_BASE, fetchJsonWithRetry } from '../utils/api.js'
+import {
+  getDetailSectionOrder,
+  getEventBoundaryDelay,
+  isPastEvent,
+  shouldShowFinalScore,
+} from '../utils/eventDetailState.js'
 import { TICKETMASTER_PROVIDER, TICKET_SEARCH_PROVIDERS, buildTicketSearchUrl } from '../utils/ticketLinks.js'
 
 function buildIcsContent(event) {
@@ -177,7 +186,6 @@ function VenueKnowledgeCard({ venue }) {
     atmosphere.familyFriendly ? 'Family friendly' : null,
   ])
   const reviewStamp = venueReviewStamp(venue.confidence)
-  const sourceTag = venue.confidence?.source
 
   return (
     <div className="border-t border-white/10 pt-5 mt-5 space-y-5">
@@ -186,11 +194,6 @@ function VenueKnowledgeCard({ venue }) {
           <h3 className="font-display text-lg font-semibold uppercase tracking-[0.12em] text-white">
             Stadar Deep Dive
           </h3>
-          {/* {sourceTag && (
-            <span className="rounded-full border border-white/10 bg-white/5 px-2 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.12em] text-slate-400">
-              {sourceTag}
-            </span>
-          )} */}
         </div>
 
         {venue.summary && (
@@ -285,7 +288,17 @@ function EventDetailPage() {
   const { id } = useParams()
   const location = useLocation()
   const navigate = useNavigate()
-  const { isSaved, toggleSave, updateSnapshot, savedEvents } = useSavedEvents()
+  const {
+    isSaved,
+    toggleSave,
+    pendingRemoval,
+    cancelRemove,
+    confirmRemove,
+    updateMetadata,
+    updateSnapshot,
+    persistenceStatus,
+    savedEvents,
+  } = useSavedEvents()
   const savedRecord = savedEvents.find(r => r.event.id === id)
   const [event, setEvent] = useState(
     () => location.state?.event ?? savedRecord?.event ?? null
@@ -294,9 +307,42 @@ function EventDetailPage() {
   const [copied, setCopied] = useState(false)
   const [venueKnowledge, setVenueKnowledge] = useState(null)
   const [seatGeekUrl, setSeatGeekUrl] = useState(null)
+  const [reachedEventBoundary, setReachedEventBoundary] = useState(null)
   const copiedTimerRef = useRef(null)
+  const eventDateTime = event?.dateTime
 
   useEffect(() => () => clearTimeout(copiedTimerRef.current), [])
+
+  useEffect(() => {
+    if (!eventDateTime) return undefined
+
+    let cancelled = false
+    let boundaryTimer
+    const timedEvent = { dateTime: eventDateTime }
+
+    function scheduleBoundaryCheck() {
+      const delay = getEventBoundaryDelay(timedEvent)
+      if (delay === null) return
+
+      boundaryTimer = setTimeout(() => {
+        if (cancelled) return
+
+        if (isPastEvent(timedEvent)) {
+          setReachedEventBoundary(eventDateTime)
+          return
+        }
+
+        scheduleBoundaryCheck()
+      }, delay)
+    }
+
+    scheduleBoundaryCheck()
+
+    return () => {
+      cancelled = true
+      clearTimeout(boundaryTimer)
+    }
+  }, [eventDateTime])
 
   useEffect(() => {
     let cancelled = false
@@ -339,7 +385,7 @@ function EventDetailPage() {
 
   useEffect(() => {
     const isEventSaved = isSaved(id)
-    const isPast = event ? new Date(event.dateTime) <= new Date() : false
+    const isPast = event ? isPastEvent(event) : false
 
     // Skip fetch for non-saved events that already have router state,
     // and for past saved events (always use snapshot).
@@ -413,6 +459,18 @@ function EventDetailPage() {
        : 'Minor League')
     : event.league
   const leagueInfo = LEAGUE_INFO[leagueKey] ?? null
+  const eventSaved = isSaved(event.id)
+  const pastEvent = reachedEventBoundary === event.dateTime || isPastEvent(event)
+  const sectionOrder = getDetailSectionOrder({
+    isPast: pastEvent,
+    isSaved: eventSaved,
+    hasLeagueInfo: Boolean(leagueInfo),
+  })
+  const showFinalScore = shouldShowFinalScore({
+    isPast: pastEvent,
+    isSaved: eventSaved,
+    hasAwayTeam,
+  })
 
   function handleShare() {
     const shareText = hasAwayTeam
@@ -462,10 +520,10 @@ function EventDetailPage() {
             <button
               type="button"
               onClick={() => toggleSave(event)}
-              className={`p-2 cursor-pointer transition-colors ${isSaved(event.id) ? 'text-radar-400' : 'text-slate-400 hover:text-slate-200'}`}
-              aria-label={isSaved(event.id) ? 'Remove from saved' : 'Save event'}
+              className={`p-2 cursor-pointer transition-colors ${eventSaved ? 'text-radar-400' : 'text-slate-400 hover:text-slate-200'}`}
+              aria-label={eventSaved ? 'Remove from saved' : 'Save event'}
             >
-              <svg className="w-5 h-5" viewBox="0 0 24 24" fill={isSaved(event.id) ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth={1.5}>
+              <svg className="w-5 h-5" viewBox="0 0 24 24" fill={eventSaved ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth={1.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0 1 11.186 0Z" />
               </svg>
             </button>
@@ -541,78 +599,99 @@ function EventDetailPage() {
           </div>
         </div>
 
-        {/* Tickets Section */}
-        <div className="bg-night-800 rounded-xl border border-white/5 p-6 mb-4">
-          <h2 className="font-display font-semibold uppercase tracking-[0.15em] text-white mb-4">Get Tickets</h2>
+        {sectionOrder.map(section => {
+          if (section === 'tickets') {
+            return (
+              <CollapsibleSection key={section} title="Get Tickets">
+                <div className="mb-4 flex flex-wrap gap-2">
+                  {ticketmasterLink && (
+                    <TicketProviderButton provider={ticketmasterLink} primary />
+                  )}
 
-          <div className="mb-4 flex flex-wrap gap-2">
-            {ticketmasterLink && (
-              <TicketProviderButton provider={ticketmasterLink} primary />
-            )}
+                  {ticketSearchLinks.map(provider => (
+                    <TicketProviderButton key={provider.domain} provider={provider} />
+                  ))}
+                </div>
 
-            {ticketSearchLinks.map(provider => (
-              <TicketProviderButton key={provider.domain} provider={provider} />
-            ))}
-          </div>
+                <div className="border-t border-white/10 pt-4 mt-4">
+                  <button
+                    type="button"
+                    onClick={() => downloadIcs(event)}
+                    className="flex items-center gap-2 cursor-pointer text-sm font-medium text-slate-400 hover:text-white transition-colors"
+                  >
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
+                    </svg>
+                    Add to Calendar
+                  </button>
+                </div>
+              </CollapsibleSection>
+            )
+          }
 
-          <div className="border-t border-white/10 pt-4 mt-4">
-            <button
-              type="button"
-              onClick={() => downloadIcs(event)}
-              className="flex items-center gap-2 cursor-pointer text-sm font-medium text-slate-400 hover:text-white transition-colors"
-            >
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
-              </svg>
-              Add to Calendar
-            </button>
-          </div>
-        </div>
-
-        {/* Venue Section */}
-        <div className="bg-night-800 rounded-xl border border-white/5 p-6 mb-4">
-          <div className="mb-4">
-            <p className="font-display font-semibold uppercase tracking-[0.15em] text-white">Venue</p>
-            <p className="text-sm text-slate-400">{event.venue} &middot; {event.city}, {event.state}</p>
-          </div>
-
-          <div className="border-t border-white/10 pt-6">
-            <VenueMap
-              lat={event.latitude}
-              lng={event.longitude}
-              venue={event.venue}
-              city={event.city}
-              state={event.state}
-            />
-          </div>
-
-          <VenueKnowledgeCard venue={venueKnowledge} />
-        </div>
-
-        {/* About the League */}
-        {leagueInfo && (
-          <div className="bg-night-800 rounded-xl border border-white/5 p-6 mb-4">
-            <h2 className="font-display font-semibold uppercase tracking-[0.15em] text-white mb-4">League Overview</h2>
-
-            <div className="border-t border-white/10 pt-6">
-              <p className="text-xl font-bold text-white mb-2">{leagueInfo.fullName}</p>
-              <span className="inline-block text-xs font-semibold px-2 py-1 rounded-full bg-white/10 text-slate-300 mb-3">
-                {leagueInfo.tier}
-              </span>
-              <p className="text-slate-400 text-sm mb-4">{leagueInfo.description}</p>
-              <a
-                href={`https://${leagueInfo.website}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-sm font-medium text-radar-400 hover:text-radar-300"
+          if (section === 'venue') {
+            return (
+              <CollapsibleSection
+                key={section}
+                title="Venue"
+                subtitle={`${event.venue} · ${event.city}, ${event.state}`}
               >
-                {leagueInfo.website} &rarr;
-              </a>
-            </div>
-          </div>
-        )}
+                <VenueMap
+                  lat={event.latitude}
+                  lng={event.longitude}
+                  venue={event.venue}
+                  city={event.city}
+                  state={event.state}
+                />
+                <VenueKnowledgeCard venue={venueKnowledge} />
+              </CollapsibleSection>
+            )
+          }
+
+          if (section === 'notes') {
+            return (
+              <CollapsibleSection key={section} title="Game Notes">
+                <GameNotesSection
+                  record={savedRecord}
+                  homeTeamName={homeTeamName}
+                  awayTeamName={awayTeamName}
+                  showScore={showFinalScore}
+                  persistenceStatus={persistenceStatus}
+                  onUpdate={patch => updateMetadata(event.id, patch)}
+                />
+              </CollapsibleSection>
+            )
+          }
+
+          if (section === 'league' && leagueInfo) {
+            return (
+              <CollapsibleSection key={section} title="League Overview">
+                <p className="text-xl font-bold text-white mb-2">{leagueInfo.fullName}</p>
+                <span className="inline-block text-xs font-semibold px-2 py-1 rounded-full bg-white/10 text-slate-300 mb-3">
+                  {leagueInfo.tier}
+                </span>
+                <p className="text-slate-400 text-sm mb-4">{leagueInfo.description}</p>
+                <a
+                  href={`https://${leagueInfo.website}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm font-medium text-radar-400 hover:text-radar-300"
+                >
+                  {leagueInfo.website} &rarr;
+                </a>
+              </CollapsibleSection>
+            )
+          }
+
+          return null
+        })}
 
       </div>
+      <UnsaveConfirmDialog
+        event={pendingRemoval}
+        onCancel={cancelRemove}
+        onConfirm={confirmRemove}
+      />
     </div>
   )
 }

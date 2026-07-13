@@ -1,17 +1,25 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import EventCard from '../components/EventCard.jsx'
 import TeamLogo from '../components/TeamLogo.jsx'
+import UnsaveConfirmDialog from '../components/UnsaveConfirmDialog.jsx'
 import useSavedEvents from '../hooks/useSavedEvents.js'
 import useFavorites from '../hooks/useFavorites.js'
 import { partitionByTime, groupSavedByTeam } from '../utils/savedHelpers.js'
 import { getCanonicalTeamName } from '../data/teams.js'
 
 export default function SavedPage() {
-  const { savedEvents, removeSaved } = useSavedEvents()
+  const {
+    savedEvents,
+    requestRemove,
+    pendingRemoval,
+    cancelRemove,
+    confirmRemove,
+  } = useSavedEvents()
   const { favorites, toggleFavorite, isFavorite } = useFavorites()
   const navigate = useNavigate()
   const [pastExpanded, setPastExpanded] = useState(false)
+  const mainRef = useRef(null)
 
   const { upcoming, past } = partitionByTime(savedEvents)
   const teamMap = groupSavedByTeam(savedEvents, favorites)
@@ -25,7 +33,7 @@ export default function SavedPage() {
         </div>
       </header>
 
-      <main className="max-w-2xl mx-auto px-4 py-6 space-y-8">
+      <main ref={mainRef} tabIndex={-1} className="max-w-2xl mx-auto px-4 py-6 space-y-8">
         {/* Upcoming */}
         <section>
           <h2 className="flex items-center gap-2 font-display text-sm font-semibold text-radar-400 uppercase tracking-[0.2em] mb-3">
@@ -44,7 +52,7 @@ export default function SavedPage() {
                   onToggleFavorite={toggleFavorite}
                   stateCode={r.event.state}
                   isSavedEvent={true}
-                  onToggleSave={() => removeSaved(r.event.id)}
+                  onToggleSave={() => requestRemove(r.event)}
                   backTo="/saved"
                 />
               ))}
@@ -78,7 +86,7 @@ export default function SavedPage() {
                     onToggleFavorite={toggleFavorite}
                     stateCode={r.event.state}
                     isSavedEvent={true}
-                    onToggleSave={() => removeSaved(r.event.id)}
+                    onToggleSave={() => requestRemove(r.event)}
                     backTo="/saved"
                   />
                 ))}
@@ -116,6 +124,12 @@ export default function SavedPage() {
           )}
         </section>
       </main>
+      <UnsaveConfirmDialog
+        event={pendingRemoval}
+        focusFallbackRef={mainRef}
+        onCancel={cancelRemove}
+        onConfirm={confirmRemove}
+      />
     </div>
   )
 }
