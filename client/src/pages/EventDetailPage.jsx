@@ -293,6 +293,7 @@ function EventDetailPage() {
   const [loading, setLoading] = useState(!event)
   const [copied, setCopied] = useState(false)
   const [venueKnowledge, setVenueKnowledge] = useState(null)
+  const [seatGeekUrl, setSeatGeekUrl] = useState(null)
   const copiedTimerRef = useRef(null)
 
   useEffect(() => () => clearTimeout(copiedTimerRef.current), [])
@@ -356,6 +357,24 @@ function EventDetailPage() {
       .finally(() => setLoading(false))
   }, [id]) // eslint-disable-line react-hooks/exhaustive-deps
 
+  // Background lookup for a direct SeatGeek event link. 404 (no match /
+  // not configured) fails fast in fetchJsonWithRetry and is swallowed, so
+  // the Google-search fallback link simply stays.
+  useEffect(() => {
+    let cancelled = false
+    setSeatGeekUrl(null)
+
+    fetchJsonWithRetry(`${API_BASE}/api/games/${id}/seatgeek`)
+      .then(data => {
+        if (!cancelled && data?.url) setSeatGeekUrl(data.url)
+      })
+      .catch(() => {})
+
+    return () => {
+      cancelled = true
+    }
+  }, [id])
+
   if (loading) {
     return (
       <div className="min-h-screen bg-night-950 flex items-center justify-center">
@@ -418,7 +437,9 @@ function EventDetailPage() {
     : 'Time TBD'
   const ticketSearchLinks = TICKET_SEARCH_PROVIDERS.map(provider => ({
     ...provider,
-    url: buildTicketSearchUrl(event, provider.domain),
+    url: provider.name === 'SeatGeek' && seatGeekUrl
+      ? seatGeekUrl
+      : buildTicketSearchUrl(event, provider.domain),
   }))
   const ticketmasterLink = event.ticketUrl
     ? { ...TICKETMASTER_PROVIDER, url: event.ticketUrl }
