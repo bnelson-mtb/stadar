@@ -202,7 +202,7 @@ function VenueKnowledgeCard({ venue }) {
         <div className="space-y-3">
           {atmosphere.vibe && (
             <p className="rounded-lg border border-radar-400/15 bg-radar-400/5 p-3 text-sm leading-relaxed text-slate-300">
-              {atmosphere.vibe}
+              <b>Overall Vibe:</b> {atmosphere.vibe}
             </p>
           )}
 

@@ -11,7 +11,7 @@ export const CFB_BIG_12_VENUES = {
     summary: "Utah's 51,000-seat home on the hill above downtown SLC — stunning Wasatch views over the east rim, the home of the 2002 (and 2034) Olympic cauldron, and the MUSS student section driving one of the West's best atmospheres.",
     bestFor: ["college football", "Olympics ceremonies"],
     atmosphere: {
-      vibe: "Feels bigger and louder than 51k — third-down jumps and sustained noise",
+      vibe: "Feels bigger and louder than 51k — third-down jumps and sustained noise make for a classic college football experience",
       noiseLevel: "High",
       familyFriendly: true,
       indoorOutdoor: "Outdoor"
@@ -27,13 +27,13 @@ export const CFB_BIG_12_VENUES = {
       accessibilityNote: "Accessible seating available; verify sections with the ticket office."
     },
     foodAndDrink: {
-      summary: "Standard fare with local vendors; the pregame scene lives in the surrounding lots and downtown.",
+      summary: "Standard fare with local vendors and basic concessions.",
       nearbyPregame: ["Guardsman Way tailgates", "9th & 9th neighborhood", "downtown SLC (TRAX ride)"],
     },
     fanTips: [
       "Evening kicks with alpenglow on the Wasatch behind the east stands are the signature Utah football image.",
-      "Utah-BYU (the Holy War) reprices everything — buy at schedule release.",
-      "Altitude + dry heat: hydrate for September day games."
+      "Altitude + dry heat: hydrate for September day games.",
+      "Utah-BYU (the Holy War) reprices everything — buy at schedule release."
     ],
     officialLinks: {
       website: "https://utahutes.com/facilities/rice-eccles-stadium",
@@ -52,7 +52,7 @@ export const CFB_BIG_12_VENUES = {
     summary: "BYU's 63,000-seat home framed by the Wasatch's steepest faces — of one the best mountain backdrops in college football, with a notably family-heavy crowd.",
     bestFor: ["college football"],
     atmosphere: {
-      vibe: "Huge, clean-cut, and loud — the Cougar crowd travels from the whole Mormon corridor",
+      vibe: "Tall, spacious, and loud — the Cougar crowd travels from the whole Mormon corridor",
       noiseLevel: "High",
       familyFriendly: true,
       indoorOutdoor: "Outdoor"
@@ -64,17 +64,17 @@ export const CFB_BIG_12_VENUES = {
     },
     seating: {
       bestValueSections: ["East uppers (mountain view)", "Corners"],
-      avoidIfPossible: ["West lowers for afternoon sun in September"],
+      avoidIfPossible: ["West side is fairly cramped, especially near the top and middle."],
       accessibilityNote: "Accessible seating available; verify sections with the ticket office."
     },
     foodAndDrink: {
-      summary: "Famously good concessions program (Cougar Tails — the giant maple bars) in a dry-campus environment.",
-      nearbyPregame: ["Cougar Tail lines inside", "Provo's Center Street", "Brick Oven"],
+      summary: "Famously good concessions program with various food options. Spacious hallways make for a seamless experience.",
+      nearbyPregame: ["Cane's", "Provo's Center Street", "Brick Oven"],
     },
     fanTips: [
       "Try a Cougar Tail. It's a foot-long maple bar and the best-known concession in the conference.",
       "No alcohol is sold — plan accordingly; the crowd energy is loud anyway.",
-      "Mountain sunsets behind the east rim make evening kicks the aesthetic pick."
+      "Utah-BYU (the Holy War) reprices everything — buy at schedule release."
     ],
     officialLinks: {
       website: "https://byucougars.com/facilities/lavell-edwards-stadium",

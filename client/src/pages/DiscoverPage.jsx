@@ -299,7 +299,7 @@ function DiscoverPage() {
           <div className="space-y-3">
             {slowLoad && (
               <p className="text-center text-sm text-slate-500">
-                Waking up the server — the first load can take up to half a minute…
+                Fetching events... this can take up to half a minute.
               </p>
             )}
             {Array.from({ length: 5 }).map((_, i) => <SkeletonCard key={i} />)}
