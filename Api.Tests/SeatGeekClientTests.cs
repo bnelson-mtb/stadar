@@ -210,4 +210,14 @@ public class SeatGeekClientTests
         Assert.IsNull(await client.FindEventUrlAsync(MakeEvent(localDate: "")));
         Assert.AreEqual(0, handler.Requests.Count);
     }
+
+    [TestMethod]
+    public async Task Lookup_MissingHomeTeam_NoRequestSent()
+    {
+        var handler = new FakeHttpMessageHandler(_ => Ok(new { events = Array.Empty<object>() }));
+        var client = new SeatGeekClient(new HttpClient(handler), Config());
+
+        Assert.IsNull(await client.FindEventUrlAsync(MakeEvent(home: "")));
+        Assert.AreEqual(0, handler.Requests.Count);
+    }
 }

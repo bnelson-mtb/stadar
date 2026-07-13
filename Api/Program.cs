@@ -134,22 +134,24 @@ app.MapGet("/api/games/{id}/seatgeek", async (string id, TicketmasterClient tick
     if (!seatGeek.IsEnabled)
         return Results.NotFound();
 
-    // Same cached source-event path as GetEventById.
-    var eventKey = $"event:{id}";
-    if (!cache.TryGetValue(eventKey, out SportEvent? ev))
-    {
-        ev = await ticketmaster.GetEventByIdAsync(id);
-        if (ev != null)
-            cache.Set(eventKey, ev, TimeSpan.FromMinutes(5));
-    }
-    if (ev == null)
-        return Results.NotFound();
-
     // Cache the lookup — including "no match" — so repeat visits don't
-    // re-hit SeatGeek. The URL for an event is stable, hence the long TTL.
+    // re-hit SeatGeek or Ticketmaster. The URL for an event is stable,
+    // hence the long TTL; it outlives event:{id}, so it must be checked
+    // first or warm links would still cost a Ticketmaster fetch.
     var linkKey = $"seatgeek:{id}";
     if (!cache.TryGetValue(linkKey, out string? url))
     {
+        // Same cached source-event path as GetEventById.
+        var eventKey = $"event:{id}";
+        if (!cache.TryGetValue(eventKey, out SportEvent? ev))
+        {
+            ev = await ticketmaster.GetEventByIdAsync(id);
+            if (ev != null)
+                cache.Set(eventKey, ev, TimeSpan.FromMinutes(5));
+        }
+        if (ev == null)
+            return Results.NotFound();
+
         url = await seatGeek.FindEventUrlAsync(ev);
         cache.Set(linkKey, url, TimeSpan.FromHours(6));
     }
