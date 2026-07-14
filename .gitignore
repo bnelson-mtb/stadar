@@ -485,7 +485,6 @@ $RECYCLE.BIN/
 *.swp
 
 # Misc. AI & Dev tools
-docs/
 Api/.buildcheck/
 Api/publish/
 Api/deploy.zip
@@ -494,5 +493,4 @@ CLAUDE.md
 .claude/
 .claude.json
 client/scripts/d1-log.txt
-.gitignore
 client/scripts/fbs-log.txt
