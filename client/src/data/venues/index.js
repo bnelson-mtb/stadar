@@ -100,23 +100,25 @@ for (const entry of Object.values(VENUE_KNOWLEDGE)) {
   for (const alias of entry.aliases || []) registerName(alias, entry)
 }
 
-// Pick the best entry from a collision list using city/state hints.
+// Pick the best entry from a candidate list using city/state hints.
+//
+// The state hint is a hard verifier, not just a tie-breaker: Ticketmaster's
+// stateCode is reliable, so a candidate in a different state is a different
+// building that happens to share the name — it is rejected even when it is
+// the only candidate. The city hint only breaks ties (it never rejects a
+// lone candidate) because city naming is fuzzy: Ticketmaster may use the
+// metro name where the entry uses the suburb.
 function disambiguate(entries, city, state) {
-  if (entries.length === 1) return entries[0]
   const wantState = stateKey(state)
-  const wantCity = city ? normalizeVenueName(city) : ''
+  const candidates = wantState
+    ? entries.filter((e) => stateKey(e.state) === wantState)
+    : entries
+  if (candidates.length === 0) return null
+  if (candidates.length === 1) return candidates[0]
 
-  if (wantState) {
-    const byState = entries.filter((e) => stateKey(e.state) === wantState)
-    if (byState.length === 1) return byState[0]
-    if (byState.length > 1 && wantCity) {
-      const byCity = byState.filter((e) => normalizeVenueName(e.city) === wantCity)
-      if (byCity.length >= 1) return byCity[0]
-    }
-    if (byState.length >= 1) return byState[0]
-  }
+  const wantCity = city ? normalizeVenueName(city) : ''
   if (wantCity) {
-    const byCity = entries.filter((e) => normalizeVenueName(e.city) === wantCity)
+    const byCity = candidates.filter((e) => normalizeVenueName(e.city) === wantCity)
     if (byCity.length >= 1) return byCity[0]
   }
   // Ambiguous and no usable hints — refuse to guess.
@@ -155,10 +157,8 @@ export function getVenueKnowledge(name, { city, state } = {}) {
     if (indexKey !== key && indexKey.includes(key)) subsetMatches.push(...entries)
   }
   if (subsetMatches.length) {
-    const unique = [...new Set(subsetMatches)]
-    const picked = disambiguate(unique, city, state)
+    const picked = disambiguate([...new Set(subsetMatches)], city, state)
     if (picked) return picked
-    if (unique.length === 1) return unique[0]
   }
 
   // 3b. a stored name is a subset of the query — Ticketmaster appended a city
@@ -174,10 +174,8 @@ export function getVenueKnowledge(name, { city, state } = {}) {
     }
   }
   if (bestEntries) {
-    const unique = [...new Set(bestEntries)]
-    const picked = disambiguate(unique, city, state)
+    const picked = disambiguate([...new Set(bestEntries)], city, state)
     if (picked) return picked
-    if (unique.length === 1) return unique[0]
   }
 
   return null
