@@ -28,14 +28,14 @@ test('buildTicketSearchUrl opens the top scoped provider result when Google redi
 test('TICKET_SEARCH_PROVIDERS includes supported secondary marketplaces', () => {
   assert.deepEqual(
     TICKET_SEARCH_PROVIDERS.map(provider => provider.name),
-    ['SeatGeek', 'TickPick', 'Gametime', 'StubHub', 'Vivid Seats', 'AXS']
+    ['SeatGeek', 'TickPick', 'Gametime', 'StubHub', 'Vivid Seats']
   )
 })
 
 test('ticket providers include compact logo metadata', () => {
   assert.deepEqual(
     TICKET_SEARCH_PROVIDERS.map(provider => provider.logoLabel),
-    ['SG', 'TP', 'GT', 'SH', 'VS', 'AXS']
+    ['SG', 'TP', 'GT', 'SH', 'VS']
   )
 
   assert.equal(TICKETMASTER_PROVIDER.logoLabel, 'TM')

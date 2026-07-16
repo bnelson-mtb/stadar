@@ -34,6 +34,10 @@ jobs:
           npm ci
           npm run build
 
+      - name: Run client tests
+        working-directory: client
+        run: npm test
+
   deploy:
     needs: test
     runs-on: ubuntu-latest
