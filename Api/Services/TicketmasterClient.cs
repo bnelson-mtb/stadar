@@ -308,14 +308,44 @@ public class TicketmasterClient(
             else if (!string.IsNullOrWhiteSpace(localDateStr) &&
                      DateTime.TryParse(localDateStr, out var localDateOnly))
             {
-                dateTime = DateTime.SpecifyKind(
-                    localDateOnly.Date.AddDays(1).AddTicks(-1),
-                    DateTimeKind.Utc
-                );
+                // End of day at the *venue* (dates.timezone) so date-only
+                // events survive until venue-local midnight instead of
+                // dropping when UTC rolls over (~5-6 PM Mountain). Unknown
+                // timezone: pad 12h past UTC midnight — covers every US offset.
+                var endOfLocalDay = localDateOnly.Date.AddDays(1).AddTicks(-1);
+                dateTime = ConvertVenueLocalToUtc(ev, endOfLocalDay)
+                    ?? DateTime.SpecifyKind(endOfLocalDay.AddHours(12), DateTimeKind.Utc);
             }
         }
 
         return (dateTime, localDateStr, localTimeStr);
+    }
+
+    /// <summary>
+    /// Converts a venue-local wall-clock time to UTC using the event's
+    /// dates.timezone (IANA id, e.g. "America/Denver"). Returns null when
+    /// the field is missing or the id is unknown on this platform.
+    /// </summary>
+    private static DateTime? ConvertVenueLocalToUtc(JsonElement ev, DateTime local)
+    {
+        if (!ev.TryGetProperty("dates", out var dates) ||
+            !dates.TryGetProperty("timezone", out var tzProp))
+            return null;
+
+        var tzId = tzProp.GetString();
+        if (string.IsNullOrWhiteSpace(tzId))
+            return null;
+
+        try
+        {
+            var tz = TimeZoneInfo.FindSystemTimeZoneById(tzId);
+            return TimeZoneInfo.ConvertTimeToUtc(
+                DateTime.SpecifyKind(local, DateTimeKind.Unspecified), tz);
+        }
+        catch (Exception e) when (e is TimeZoneNotFoundException or InvalidTimeZoneException)
+        {
+            return null;
+        }
     }
 
     private static (string Venue, string City, string State, double Lat, double Lng) ExtractVenue(JsonElement ev)

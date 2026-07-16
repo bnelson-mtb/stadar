@@ -220,13 +220,15 @@ public class TicketmasterClientParseTests
     }
 
     [TestMethod]
-    public void ParseEvent_LocalDateOnly_StillParsesDate()
+    public void ParseEvent_LocalDateOnly_UsesVenueTimezoneEndOfDay()
     {
-        var json = Parse("""
+        // Dynamic future date so the past-event gate never drops the fixture.
+        var localDate = DateTime.UtcNow.AddDays(30).ToString("yyyy-MM-dd");
+        var json = Parse($$"""
         {
           "id": "x4",
           "name": "Utah Utes vs BYU Cougars",
-          "dates": { "start": { "localDate": "2026-09-12" } },
+          "dates": { "timezone": "America/Denver", "start": { "localDate": "{{localDate}}" } },
           "classifications": [
             { "genre": { "name": "Football" }, "subGenre": { "name": "College Football" } }
           ],
@@ -242,12 +244,48 @@ public class TicketmasterClientParseTests
         var ev = TicketmasterClient.ParseEvent(json);
 
         Assert.IsNotNull(ev);
-        Assert.AreEqual(new DateTime(2026, 9, 12), ev.DateTime.Date);
-        Assert.AreEqual("2026-09-12", ev.LocalDate);
+        Assert.AreEqual(localDate, ev.LocalDate);
         Assert.IsNull(ev.LocalTime);
-        Assert.IsTrue(ev.DateTime.TimeOfDay > new TimeSpan(23, 59, 0));
-        Assert.AreEqual("Utah Utes", ev.HomeTeam);
-        Assert.AreEqual("BYU Cougars", ev.AwayTeam);
+
+        // End of the *venue-local* day converted to UTC — strictly later than
+        // plain UTC end-of-day, so the event no longer vanishes from the feed
+        // on game-day afternoon.
+        var tz = TimeZoneInfo.FindSystemTimeZoneById("America/Denver");
+        var endOfLocalDay = DateTime.Parse(localDate).Date.AddDays(1).AddTicks(-1);
+        var expected = TimeZoneInfo.ConvertTimeToUtc(
+            DateTime.SpecifyKind(endOfLocalDay, DateTimeKind.Unspecified), tz);
+        Assert.AreEqual(expected, ev.DateTime);
+        Assert.IsTrue(ev.DateTime > DateTime.SpecifyKind(endOfLocalDay, DateTimeKind.Utc));
+    }
+
+    [TestMethod]
+    public void ParseEvent_LocalDateOnlyNoTimezone_PadsPastUtcMidnight()
+    {
+        var localDate = DateTime.UtcNow.AddDays(30).ToString("yyyy-MM-dd");
+        var json = Parse($$"""
+        {
+          "id": "x5",
+          "name": "Utah Utes vs BYU Cougars",
+          "dates": { "start": { "localDate": "{{localDate}}" } },
+          "classifications": [
+            { "genre": { "name": "Football" }, "subGenre": { "name": "College Football" } }
+          ],
+          "_embedded": {
+            "attractions": [
+              { "name": "Utah Utes Football" },
+              { "name": "BYU Cougars Football" }
+            ]
+          }
+        }
+        """);
+
+        var ev = TicketmasterClient.ParseEvent(json);
+
+        Assert.IsNotNull(ev);
+        var endOfLocalDay = DateTime.Parse(localDate).Date.AddDays(1).AddTicks(-1);
+        Assert.AreEqual(
+            DateTime.SpecifyKind(endOfLocalDay.AddHours(12), DateTimeKind.Utc),
+            ev.DateTime);
     }
 
     [TestMethod]
