@@ -202,16 +202,25 @@ function DiscoverPage() {
 
   useEffect(() => {
     if (!stateCode) return
+    // Guard against out-of-order responses: auto-detect can change
+    // stateCode while the first fetch is still retrying (up to 75s during
+    // a cold start), and the stale response must not clobber the fresh one.
+    let ignore = false
     fetchJsonWithRetry(`${API_BASE}/api/games?stateCode=${stateCode}`)
       .then(data => {
+        if (ignore) return
         setEvents(data)
         setLoading(false)
       })
       .catch(err => {
+        if (ignore) return
         // .status = HTTP error from the API; no .status = never got a response
         setError(err.status ? 'server' : 'network')
         setLoading(false)
       })
+    return () => {
+      ignore = true
+    }
   }, [stateCode, retryToken])
 
   const handleRetry = () => {
