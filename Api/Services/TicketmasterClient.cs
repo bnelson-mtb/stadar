@@ -57,7 +57,7 @@ public class TicketmasterClient(
         if (string.IsNullOrEmpty(apiKey))
             return null;
 
-        var url = $"https://app.ticketmaster.com/discovery/v2/events/{eventId}.json?apikey={apiKey}";
+        var url = $"https://app.ticketmaster.com/discovery/v2/events/{Uri.EscapeDataString(eventId)}.json?apikey={apiKey}";
 
         var response = await GetOrDefaultAsync(url);
         if (response == null || !response.IsSuccessStatusCode)
