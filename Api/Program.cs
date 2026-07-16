@@ -1,6 +1,8 @@
 using Api.Models;
 using Api.Services;
 using Microsoft.Extensions.Caching.Memory;
+using System.Threading.RateLimiting;
+using Microsoft.AspNetCore.HttpOverrides;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -40,7 +42,40 @@ builder.Services.AddCors(options =>
     });
 });
 
+// Behind Container Apps ingress the socket peer is the proxy; restore the
+// real client IP from X-Forwarded-For so the rate limiter partitions per
+// visitor. The ingress is the only hop and its address isn't static, so
+// trust the immediate proxy instead of pinning known networks.
+builder.Services.Configure<ForwardedHeadersOptions>(options =>
+{
+    options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+    options.KnownNetworks.Clear();
+    options.KnownProxies.Clear();
+});
+
+// Per-IP fixed window on /api only — /healthz and static assets stay
+// unlimited. 60/min is ~30x a real browsing session; the target is
+// quota-burning loops (each uncached /api/games/{id} costs a Ticketmaster
+// call against the 5k/day quota).
+builder.Services.AddRateLimiter(options =>
+{
+    options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+    options.GlobalLimiter = PartitionedRateLimiter.Create<HttpContext, string>(ctx =>
+        ctx.Request.Path.StartsWithSegments("/api")
+            ? RateLimitPartition.GetFixedWindowLimiter(
+                ctx.Connection.RemoteIpAddress?.ToString() ?? "unknown",
+                _ => new FixedWindowRateLimiterOptions
+                {
+                    PermitLimit = 60,
+                    Window = TimeSpan.FromMinutes(1),
+                    QueueLimit = 0,
+                })
+            : RateLimitPartition.GetNoLimiter("unlimited"));
+});
+
 var app = builder.Build();
+
+app.UseForwardedHeaders();
 
 if (app.Environment.IsDevelopment())
 {
@@ -80,6 +115,8 @@ app.Use(async (ctx, next) =>
             $"-> {ctx.Response.StatusCode} [{ctx.Request.Protocol}, ua: {ctx.Request.Headers.UserAgent.ToString()[..Math.Min(40, ctx.Request.Headers.UserAgent.ToString().Length)]}]");
 });
 
+app.UseRateLimiter();
+
 // Liveness probe for hosting platforms.
 app.MapGet("/healthz", () => Results.Ok("ok"));
 
@@ -117,8 +154,9 @@ app.MapGet("/api/games/{id}", async (string id, TicketmasterClient ticketmaster,
     if (!cache.TryGetValue(cacheKey, out SportEvent? ev))
     {
         ev = await ticketmaster.GetEventByIdAsync(id);
-        if (ev != null)
-            cache.Set(cacheKey, ev, TimeSpan.FromMinutes(5));
+        // Misses are cached too (short TTL) so random-id probes don't each
+        // burn a Ticketmaster call; hits keep the normal 5-minute TTL.
+        cache.Set(cacheKey, ev, ev == null ? TimeSpan.FromMinutes(1) : TimeSpan.FromMinutes(5));
     }
 
     return ev == null ? Results.NotFound() : Results.Ok(ev);
@@ -146,8 +184,7 @@ app.MapGet("/api/games/{id}/seatgeek", async (string id, TicketmasterClient tick
         if (!cache.TryGetValue(eventKey, out SportEvent? ev))
         {
             ev = await ticketmaster.GetEventByIdAsync(id);
-            if (ev != null)
-                cache.Set(eventKey, ev, TimeSpan.FromMinutes(5));
+            cache.Set(eventKey, ev, ev == null ? TimeSpan.FromMinutes(1) : TimeSpan.FromMinutes(5));
         }
         if (ev == null)
             return Results.NotFound();
@@ -164,3 +201,6 @@ app.MapGet("/api/games/{id}/seatgeek", async (string id, TicketmasterClient tick
 app.MapFallbackToFile("index.html", staticFiles);
 
 app.Run();
+
+// Exposes the implicit Program class to WebApplicationFactory-based tests.
+public partial class Program { }
