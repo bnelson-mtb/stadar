@@ -113,7 +113,6 @@ public static class EventNormalizer
             "ial"                              => ("Football", "IAL"),
             "usl championship" or "usl league one" or "united soccer league" => ("Soccer", "USL"),
             "liga mx"                          => ("Soccer", "Liga MX"),
-            "fifa world cup" or "world cup"    => ("Soccer", "World Cup"),
             "international soccer"             => ("Soccer", "International"),
             _                                  => (null, null),
         };

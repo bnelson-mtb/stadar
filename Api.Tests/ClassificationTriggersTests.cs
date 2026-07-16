@@ -86,7 +86,7 @@ public class ClassificationTriggersTests
         string[] normalizerLeagues =
         [
             "NBA", "WNBA", "NHL", "NFL", "MLB", "MLS", "NWSL", "PLL", "IAL",
-            "USL", "Liga MX", "World Cup", "International", "AHL", "ECHL", "LOVB",
+            "USL", "Liga MX", "International", "AHL", "ECHL", "LOVB",
             "NCAAM", "NCAAW", "NCAAF", "NCAA Baseball", "NCAA Softball",
             "NCAA WVB", "NCAA MVB", "NCAA VB",
             "Women's Soccer", "Men's Soccer", "NCAA Soccer", "NCAA",

@@ -47,12 +47,6 @@ export const LEAGUE_INFO = {
     description: 'Liga MX is the top men\'s professional soccer league in Mexico and one of the most competitive, best-supported leagues in North America.',
     website: 'ligamx.net',
   },
-  'World Cup': {
-    fullName: 'FIFA World Cup',
-    tier: 'International',
-    description: 'The FIFA World Cup is the premier international soccer tournament, bringing together the top national teams in the world.',
-    website: 'fifa.com',
-  },
   International: {
     fullName: 'International Soccer',
     tier: 'International',

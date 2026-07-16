@@ -3895,7 +3895,6 @@ export const LEAGUE_COLORS = {
   IAL: 'bg-red-700',
   USL: 'bg-indigo-700',
   'Liga MX': 'bg-emerald-700',
-  'World Cup': 'bg-cyan-700',
   International: 'bg-sky-700',
   NWSL: 'bg-pink-600',
   "Women's Soccer": 'bg-pink-600',

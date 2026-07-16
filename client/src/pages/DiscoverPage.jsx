@@ -34,7 +34,6 @@ const LEAGUE_ORDER = [
   'MLS',
   'USL',
   'Liga MX',
-  'World Cup',
   'International',
   'PWHL',
   'PLL',

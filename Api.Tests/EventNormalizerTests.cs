@@ -199,4 +199,21 @@ public class EventNormalizerTests
         Assert.AreEqual("Other", result.Sport);
         Assert.AreEqual("Other", result.League);
     }
+
+    [TestMethod]
+    public void NormalizeEvent_WorldCupSubGenre_FallsThroughToGenericSoccer()
+    {
+        // World Cup is not a supported league: the subGenre no longer maps,
+        // so the event falls through to plain Soccer/Other. (Events *named*
+        // "world cup" are hard-dropped by the EventFilter denylist upstream.)
+        var result = EventNormalizer.NormalizeEvent(
+            "Mexico vs Argentina",
+            "Mexico National Football Team",
+            "Argentina National Football Team",
+            "Soccer",
+            "FIFA World Cup");
+
+        Assert.AreEqual("Soccer", result.Sport);
+        Assert.AreEqual("Other", result.League);
+    }
 }

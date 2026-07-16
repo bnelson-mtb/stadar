@@ -22,7 +22,7 @@ public record EventVerdict(
 /// </summary>
 public static class ClassificationSchema
 {
-    public const int Version = 3;
+    public const int Version = 4;
     public const string UnknownLeague = "Unknown";
 
     public static readonly string[] Sports =
@@ -35,7 +35,7 @@ public static class ClassificationSchema
     public static readonly string[] Leagues =
     [
         "NBA", "WNBA", "NHL", "NFL", "MLB", "MLS", "NWSL", "PLL", "IAL",
-        "USL", "Liga MX", "World Cup", "International", "AHL", "ECHL",
+        "USL", "Liga MX", "International", "AHL", "ECHL",
         "LOVB", "PWHL",
         "NCAAM", "NCAAW", "NCAAF", "NCAA Baseball", "NCAA Softball",
         "NCAA WVB", "NCAA MVB", "NCAA VB",
