@@ -153,10 +153,13 @@ app.MapGet("/api/games/{id}", async (string id, TicketmasterClient ticketmaster,
     var cacheKey = $"event:{id}";
     if (!cache.TryGetValue(cacheKey, out SportEvent? ev))
     {
-        ev = await ticketmaster.GetEventByIdAsync(id);
-        // Misses are cached too (short TTL) so random-id probes don't each
-        // burn a Ticketmaster call; hits keep the normal 5-minute TTL.
-        cache.Set(cacheKey, ev, ev == null ? TimeSpan.FromMinutes(1) : TimeSpan.FromMinutes(5));
+        (ev, var definitive) = await ticketmaster.GetEventByIdAsync(id);
+        // Definitive misses are cached briefly so random-id probes don't
+        // each burn a Ticketmaster call; hits keep the normal 5-minute TTL.
+        // Transient upstream failures are never cached — a Ticketmaster
+        // hiccup must not pin a 404 on a real event for the next minute.
+        if (definitive)
+            cache.Set(cacheKey, ev, ev == null ? TimeSpan.FromMinutes(1) : TimeSpan.FromMinutes(5));
     }
 
     return ev == null ? Results.NotFound() : Results.Ok(ev);
@@ -183,8 +186,9 @@ app.MapGet("/api/games/{id}/seatgeek", async (string id, TicketmasterClient tick
         var eventKey = $"event:{id}";
         if (!cache.TryGetValue(eventKey, out SportEvent? ev))
         {
-            ev = await ticketmaster.GetEventByIdAsync(id);
-            cache.Set(eventKey, ev, ev == null ? TimeSpan.FromMinutes(1) : TimeSpan.FromMinutes(5));
+            (ev, var definitive) = await ticketmaster.GetEventByIdAsync(id);
+            if (definitive)
+                cache.Set(eventKey, ev, ev == null ? TimeSpan.FromMinutes(1) : TimeSpan.FromMinutes(5));
         }
         if (ev == null)
             return Results.NotFound();

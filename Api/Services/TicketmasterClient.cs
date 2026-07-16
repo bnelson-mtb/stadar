@@ -1,5 +1,6 @@
 using System.Text.Json;
 using System.Globalization;
+using System.Net;
 using Api.Models;
 
 namespace Api.Services;
@@ -51,24 +52,35 @@ public class TicketmasterClient(
         return await ApplyVerdictsAsync(parsed);
     }
 
-    public async Task<SportEvent?> GetEventByIdAsync(string eventId)
+    /// <summary>
+    /// Looks up a single event. Definitive is true when the answer can be
+    /// cached: Ticketmaster said 404 (no such event) or answered
+    /// successfully (event found, or parsed-and-rejected). Transient
+    /// trouble (network failure, 5xx, 429) and a missing API key report
+    /// Definitive=false so callers don't pin a not-found on a real event.
+    /// </summary>
+    public async Task<(SportEvent? Event, bool Definitive)> GetEventByIdAsync(string eventId)
     {
         var apiKey = config["Ticketmaster:ApiKey"];
         if (string.IsNullOrEmpty(apiKey))
-            return null;
+            return (null, false);
 
         var url = $"https://app.ticketmaster.com/discovery/v2/events/{Uri.EscapeDataString(eventId)}.json?apikey={apiKey}";
 
         var response = await GetOrDefaultAsync(url);
-        if (response == null || !response.IsSuccessStatusCode)
-            return null;
+        if (response == null)
+            return (null, false);
+        if (response.StatusCode == HttpStatusCode.NotFound)
+            return (null, true);
+        if (!response.IsSuccessStatusCode)
+            return (null, false);
 
         var json = await response.Content.ReadFromJsonAsync<JsonElement>();
         var single = ParseRawEvent(json);
         if (single == null)
-            return null;
+            return (null, true);
         var enriched = await ApplyVerdictsAsync([single]);
-        return enriched.FirstOrDefault();
+        return (enriched.FirstOrDefault(), true);
     }
 
     // Network failures and timeouts surface the same as a non-success status:
