@@ -2,21 +2,16 @@ import { useEffect, useRef, useState } from 'react'
 import {
   createSavedRecord,
   normalizeSavedRecords,
-  persistSavedRecords,
   removeSavedRecord,
   updateSavedMetadata,
   updateSavedSnapshot as replaceSavedSnapshot,
 } from '../utils/savedEventRecords.js'
+import { storageAdapter } from '../utils/storageAdapter.js'
 
 const STORAGE_KEY = 'stadar-saved-events'
 
 function loadSaved() {
-  try {
-    const stored = localStorage.getItem(STORAGE_KEY)
-    return stored ? normalizeSavedRecords(JSON.parse(stored)) : []
-  } catch {
-    return []
-  }
+  return normalizeSavedRecords(storageAdapter.load(STORAGE_KEY, []))
 }
 
 export default function useSavedEvents() {
@@ -26,7 +21,7 @@ export default function useSavedEvents() {
   const [pendingRemoval, setPendingRemoval] = useState(null)
 
   useEffect(() => {
-    const result = persistSavedRecords(localStorage, STORAGE_KEY, savedEvents)
+    const result = storageAdapter.save(STORAGE_KEY, savedEvents)
     let cancelled = false
 
     queueMicrotask(() => {

@@ -4,7 +4,6 @@ import assert from 'node:assert/strict'
 import {
   createSavedRecord,
   normalizeSavedRecords,
-  persistSavedRecords,
   removeSavedRecord,
   updateSavedMetadata,
   updateSavedSnapshot,
@@ -142,31 +141,3 @@ test('removeSavedRecord removes only the target record', () => {
   assert.strictEqual(result[0], unmatched)
 })
 
-test('persistSavedRecords serializes records to the requested storage key', () => {
-  const calls = []
-  const storage = {
-    setItem(key, value) {
-      calls.push([key, value])
-    },
-  }
-  const records = [record()]
-
-  const result = persistSavedRecords(storage, 'saved-events', records)
-
-  assert.deepEqual(result, { ok: true })
-  assert.deepEqual(calls, [['saved-events', JSON.stringify(records)]])
-})
-
-test('persistSavedRecords reports a storage write failure without throwing', () => {
-  const quotaError = new Error('quota exceeded')
-  const storage = {
-    setItem() {
-      throw quotaError
-    },
-  }
-
-  const result = persistSavedRecords(storage, 'saved-events', [record()])
-
-  assert.equal(result.ok, false)
-  assert.strictEqual(result.error, quotaError)
-})

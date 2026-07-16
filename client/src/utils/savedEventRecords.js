@@ -51,12 +51,3 @@ export function updateSavedSnapshot(records, freshEvent) {
 export function removeSavedRecord(records, eventId) {
   return records.filter(record => record.event.id !== eventId)
 }
-
-export function persistSavedRecords(storage, storageKey, records) {
-  try {
-    storage.setItem(storageKey, JSON.stringify(records))
-    return { ok: true }
-  } catch (error) {
-    return { ok: false, error }
-  }
-}

@@ -1,25 +1,17 @@
 import { useState } from 'react'
+import { storageAdapter } from '../utils/storageAdapter.js'
 
 const STORAGE_KEY = 'stadar-favorites'
 
-function loadFavorites() {
-  try {
-    const stored = localStorage.getItem(STORAGE_KEY)
-    return stored ? JSON.parse(stored) : []
-  } catch {
-    return []
-  }
-}
-
 export default function useFavorites() {
-  const [favorites, setFavorites] = useState(loadFavorites)
+  const [favorites, setFavorites] = useState(() => storageAdapter.load(STORAGE_KEY, []))
 
   function toggleFavorite(teamName) {
     setFavorites(prev => {
       const next = prev.includes(teamName)
         ? prev.filter(t => t !== teamName)
         : [...prev, teamName]
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(next))
+      storageAdapter.save(STORAGE_KEY, next)
       return next
     })
   }
