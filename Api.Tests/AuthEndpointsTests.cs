@@ -64,5 +64,25 @@ public class AuthEndpointsTests
         Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
     }
 
+    [TestMethod]
+    public async Task Login_RedirectsToGoogle()
+    {
+        using var factory = new WebApplicationFactory<Program>().WithWebHostBuilder(builder =>
+        {
+            builder.UseSetting("ConnectionStrings:Default", "DataSource=file:login?mode=memory&cache=shared");
+            builder.UseSetting("Google:ClientId", "test-client");
+            builder.UseSetting("Google:ClientSecret", "test-secret");
+        });
+        using var client = factory.CreateClient(new WebApplicationFactoryClientOptions
+        {
+            AllowAutoRedirect = false,
+        });
+
+        using var response = await client.GetAsync("/api/auth/login");
+
+        Assert.AreEqual(HttpStatusCode.Redirect, response.StatusCode);
+        StringAssert.Contains(response.Headers.Location!.ToString(), "accounts.google.com");
+    }
+
     private record MeResponse(string Id, string Email, string DisplayName);
 }

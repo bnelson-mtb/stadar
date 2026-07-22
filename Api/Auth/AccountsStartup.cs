@@ -1,7 +1,9 @@
 using System.Security.Claims;
 using Api.Data;
 using Api.Services;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.EntityFrameworkCore;
 
 namespace Api.Auth;
@@ -56,6 +58,23 @@ public static class AccountsStartup
                 o.ClientId = config["Google:ClientId"]!;
                 o.ClientSecret = config["Google:ClientSecret"]!;
                 o.CallbackPath = "/api/auth/callback";
+                o.Events.OnCreatingTicket = async ctx =>
+                {
+                    var accounts = ctx.HttpContext.RequestServices
+                        .GetRequiredService<UserAccountService>();
+                    var subject = ctx.Principal!.FindFirstValue(ClaimTypes.NameIdentifier)!;
+                    var email = ctx.Principal.FindFirstValue(ClaimTypes.Email) ?? "";
+                    var name = ctx.Principal.FindFirstValue(ClaimTypes.Name) ?? "";
+
+                    var user = await accounts.FindOrCreateAsync("google", subject, email, name);
+
+                    // Replace Google's transient subject with our stable user id
+                    // so /api/me and (later) /api/me/* key off our own primary key.
+                    var identity = (ClaimsIdentity)ctx.Principal.Identity!;
+                    var existing = identity.FindFirst(ClaimTypes.NameIdentifier);
+                    if (existing is not null) identity.RemoveClaim(existing);
+                    identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()));
+                };
             });
 
         services.AddAuthorization();
@@ -114,5 +133,28 @@ public static class AccountsStartup
                 displayName = principal.FindFirstValue(ClaimTypes.Name),
             });
         }).RequireAuthorization();
+
+        // Kicks off the Google OAuth challenge. returnUrl is validated as a local
+        // path so it can't be used as an open redirect after sign-in.
+        app.MapGet("/api/auth/login", (HttpContext ctx, string? returnUrl) =>
+        {
+            var target = (returnUrl is not null && Uri.IsWellFormedUriString(returnUrl, UriKind.Relative))
+                ? returnUrl
+                : "/";
+            return Results.Challenge(
+                new AuthenticationProperties { RedirectUri = target },
+                ["Google"]);
+        });
+
+        // Google redirects here after consent. The cookie middleware has already
+        // run find-or-create via OnCreatingTicket (wired below); we just land the
+        // user back in the SPA.
+        app.MapGet("/api/auth/callback", () => Results.Redirect("/"));
+
+        app.MapPost("/api/auth/logout", async (HttpContext ctx) =>
+        {
+            await ctx.SignOutAsync();
+            return Results.Ok();
+        });
     }
 }
