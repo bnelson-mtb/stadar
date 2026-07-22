@@ -1,5 +1,6 @@
 import { Routes, Route, Outlet, useParams } from 'react-router-dom'
 import BottomNav from './components/BottomNav.jsx'
+import AuthButton from './components/AuthButton.jsx'
 import DiscoverPage from './pages/DiscoverPage.jsx'
 import EventDetailPage from './pages/EventDetailPage.jsx'
 import SavedPage from './pages/SavedPage.jsx'
@@ -8,6 +9,9 @@ import TeamSavedPage from './pages/TeamSavedPage.jsx'
 function AppLayout() {
   return (
     <div className="min-h-screen bg-night-950 pb-16">
+      <div className="flex justify-end px-4 pt-3">
+        <AuthButton />
+      </div>
       <Outlet />
       <BottomNav />
     </div>
