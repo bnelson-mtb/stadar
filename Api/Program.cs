@@ -213,6 +213,8 @@ app.MapGet("/api/games/{id}/seatgeek", async (string id, TicketmasterClient tick
 })
 .WithName("GetSeatGeekLink");
 
+app.MapAccountEndpoints();
+
 // Client-side routing: send unmatched non-API paths to the SPA.
 app.MapFallbackToFile("index.html", staticFiles);
 

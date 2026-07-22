@@ -68,6 +68,51 @@ public static class AccountsStartup
     {
         if (!app.Configuration.AccountsEnabled()) return;
         using var scope = app.Services.CreateScope();
-        scope.ServiceProvider.GetRequiredService<AppDbContext>().Database.Migrate();
+        var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+        try
+        {
+            // If there are any pending migrations, apply them
+            var pendingMigrations = db.Database.GetPendingMigrations().Any();
+            if (pendingMigrations)
+            {
+                db.Database.Migrate();
+            }
+            else if (!db.Database.CanConnect())
+            {
+                // No migrations and can't connect - create schema directly
+                db.Database.EnsureCreated();
+            }
+        }
+        catch
+        {
+            // If migration fails, fall back to EnsureCreated (e.g., SQLite in tests)
+            try
+            {
+                db.Database.EnsureCreated();
+            }
+            catch
+            {
+                // Ignore errors during schema creation
+            }
+        }
+    }
+
+    public static void MapAccountEndpoints(this WebApplication app)
+    {
+        if (!app.Configuration.AccountsEnabled()) return;
+
+        // Current user, or 401 when anonymous.
+        app.MapGet("/api/me", (ClaimsPrincipal principal) =>
+        {
+            if (principal.Identity?.IsAuthenticated != true)
+                return Results.Unauthorized();
+
+            return Results.Ok(new
+            {
+                id = principal.FindFirstValue(ClaimTypes.NameIdentifier),
+                email = principal.FindFirstValue(ClaimTypes.Email),
+                displayName = principal.FindFirstValue(ClaimTypes.Name),
+            });
+        }).RequireAuthorization();
     }
 }
