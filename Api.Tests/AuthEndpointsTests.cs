@@ -1,40 +1,46 @@
 using System.Net;
 using System.Net.Http.Json;
-using Api.Auth;
-using Api.Data;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 
 namespace Api.Tests;
 
 [TestClass]
 public class AuthEndpointsTests
 {
-    // Boots the app with accounts ENABLED (SQLite connection + fake Google creds).
-    // Uses a fake auth scheme for testing without browser OAuth.
+    // Boots the app with accounts ENABLED (SQLite connection + fake Google creds),
+    // then swaps in a fake auth scheme so integration tests can authenticate via a
+    // header instead of a browser OAuth round-trip. Both DefaultScheme and
+    // DefaultChallengeScheme point at the Test scheme: an authenticated request
+    // (Test-User header) succeeds; an anonymous one challenges Test → 401.
     private static WebApplicationFactory<Program> EnabledFactory() =>
         new WebApplicationFactory<Program>().WithWebHostBuilder(builder =>
         {
             builder.UseSetting("ConnectionStrings:Default", "DataSource=:memory:");
             builder.UseSetting("Google:ClientId", "test-client");
             builder.UseSetting("Google:ClientSecret", "test-secret");
-            // Note: In a real test setup, you'd swap the auth scheme here.
-            // For now, we keep the default to keep tests simple.
+            builder.ConfigureTestServices(services =>
+            {
+                services.AddAuthentication(o =>
+                    {
+                        o.DefaultScheme = TestAuthHandler.SchemeName;
+                        o.DefaultChallengeScheme = TestAuthHandler.SchemeName;
+                    })
+                    .AddScheme<AuthenticationSchemeOptions, TestAuthHandler>(
+                        TestAuthHandler.SchemeName, _ => { });
+            });
         });
 
     [TestMethod]
-    public async Task Me_EndpointExists_WhenAccountsEnabled()
+    public async Task Me_Anonymous_Returns401()
     {
         using var factory = EnabledFactory();
         using var client = factory.CreateClient();
 
-        // Endpoint should exist (not 404) when accounts are enabled
         using var response = await client.GetAsync("/api/me");
-        Assert.IsFalse(response.StatusCode == HttpStatusCode.NotFound,
-            "Endpoint should exist when accounts are enabled");
+        Assert.AreEqual(HttpStatusCode.Unauthorized, response.StatusCode);
     }
 
     [TestMethod]

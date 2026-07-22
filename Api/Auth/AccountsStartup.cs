@@ -32,8 +32,13 @@ public static class AccountsStartup
 
         services.AddAuthentication(o =>
             {
+                // Protected endpoints (e.g. /api/me) authenticate and challenge the
+                // cookie scheme, which answers API callers with 401 (see
+                // OnRedirectToLogin) instead of an OAuth/HTML redirect. The Google
+                // challenge is invoked explicitly by /api/auth/login, so it must NOT
+                // be the default challenge scheme — otherwise an anonymous /api/me
+                // 302-redirects to Google and the client can't detect "signed out".
                 o.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                o.DefaultChallengeScheme = "Google";
             })
             .AddCookie(o =>
             {
