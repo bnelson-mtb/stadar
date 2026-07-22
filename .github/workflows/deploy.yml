@@ -69,7 +69,11 @@ jobs:
             --name stadar \
             --resource-group stadar-rg \
             --image $IMAGE:${{ github.sha }} \
-            --set-env-vars Ticketmaster__ApiKey=${{ secrets.TICKETMASTER_API_KEY }}
+            --set-env-vars \
+              Ticketmaster__ApiKey=${{ secrets.TICKETMASTER_API_KEY }} \
+              Google__ClientId=${{ secrets.GOOGLE_CLIENT_ID }} \
+              Google__ClientSecret=${{ secrets.GOOGLE_CLIENT_SECRET }} \
+              ConnectionStrings__Default="${{ secrets.SQL_CONNECTION_STRING }}"
 
       - name: Show app URL
         run: |
