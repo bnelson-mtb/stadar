@@ -25,7 +25,7 @@ Stadar is a portfolio project by **Brady Nelson**, a CS student at the Universit
   | ![Discover feed](docs/screenshots/discover.png) | ![Event detail with venue map](docs/screenshots/detail.png) | ![Saved events](docs/screenshots/saved.png) |
 -->
 
-> 📸 _Screenshots pending — in the meantime, the app is live at **[stadar.app](stadar.app)**._
+> 📸 _Screenshots pending — in the meantime, the app is live at **[stadar.app](https://stadar.app/)**._
 
 ## Features
 
