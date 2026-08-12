@@ -1,6 +1,6 @@
 # Stadar
 
-**Radar for future games.** Stadar answers one question: *"What live sports event should I go to, and how do I get there?"* — a discovery-first web app backed by live Ticketmaster data, an AI event-classification layer, and a venue-local trust layer that makes the times, teams, and leagues actually correct.
+**Radar for future games.** Stadar answers one question: *"What live sports event should I go to, and how do I get there?"* — a discovery-first web app backed by live Ticketmaster data, an AI event-classification layer, and a venue-local trust layer that makes the times, teams, and leagues correct.
 
 <p>
   <a href="https://stadar.politeflower-ad39c306.westus3.azurecontainerapps.io"><img alt="Live demo" src="https://img.shields.io/badge/demo-live-2ea44f?style=flat-square"></a>
@@ -11,9 +11,9 @@
 </p>
 
 > 🔗 **Live:** www.stadar.app
-> _(scales to zero — the first request after idle takes ~20s to wake; the client shows a "waking up the server" hint and retries automatically.)_
+> _(scales to zero — the first request after idle takes ~20s to wake)_
 
-Stadar is a portfolio project by **Brady Nelson**, a CS student at the University of Utah. It's deliberately not a stats app or a betting app. It's purely **discovery + navigation** for upcoming live sports.
+Stadar is a portfolio project by **Brady Nelson**, a CS student at the University of Utah. It's deliberately not a stats app or a betting app. It's focus is **discovery and navigation** for upcoming live sports.
 
 ## Screenshots
 
@@ -25,7 +25,7 @@ Stadar is a portfolio project by **Brady Nelson**, a CS student at the Universit
   | ![Discover feed](docs/screenshots/discover.png) | ![Event detail with venue map](docs/screenshots/detail.png) | ![Saved events](docs/screenshots/saved.png) |
 -->
 
-> 📸 _Screenshots pending — in the meantime, the app is live at [stadar.app](stadar.app)**._
+> 📸 _Screenshots pending — in the meantime, the app is live at **[stadar.app](stadar.app)**._
 
 ## Features
 
@@ -101,7 +101,7 @@ cd Api.Tests && dotnet test
 
 ## Roadmap
 
-Web MVP (discovery, favorites, location, deploy, detail page, persistence) is **done**. Direction from here: validate on web, add database and auth (login), then convert to a React Native app (Expo) sharing the same API and data layer.
+Web MVP (discovery, favorites, location, deploy, detail page, persistence) is **done**. Direction from here: validate on web, add database and auth (login), then convert to a React Native app (Expo) sharing the same API and data layer, with a possible UI redesign.
 
 ## License
 
