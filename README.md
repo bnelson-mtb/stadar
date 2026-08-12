@@ -10,10 +10,10 @@
   <img alt="Backend: ASP.NET Core .NET 10" src="https://img.shields.io/badge/backend-.NET%2010-512bd4?style=flat-square">
 </p>
 
-> 🔗 **Live:** https://stadar.politeflower-ad39c306.westus3.azurecontainerapps.io
+> 🔗 **Live:** www.stadar.app
 > _(scales to zero — the first request after idle takes ~20s to wake; the client shows a "waking up the server" hint and retries automatically.)_
 
-Stadar is a portfolio project by **Brady Nelson**, a CS student at the University of Utah. It's deliberately not a stats app or a betting app — purely **discovery + navigation** for upcoming live sports.
+Stadar is a portfolio project by **Brady Nelson**, a CS student at the University of Utah. It's deliberately not a stats app or a betting app. It's purely **discovery + navigation** for upcoming live sports.
 
 ## Screenshots
 
@@ -25,7 +25,7 @@ Stadar is a portfolio project by **Brady Nelson**, a CS student at the Universit
   | ![Discover feed](docs/screenshots/discover.png) | ![Event detail with venue map](docs/screenshots/detail.png) | ![Saved events](docs/screenshots/saved.png) |
 -->
 
-> 📸 _Screenshots pending — in the meantime, the app is live: **[open the demo](https://stadar.politeflower-ad39c306.westus3.azurecontainerapps.io)**._
+> 📸 _Screenshots pending — in the meantime, the app is live at [stadar.app](stadar.app)**._
 
 ## Features
 
@@ -79,8 +79,6 @@ GET /api/games/{id}/seatgeek    # { "url": ... } direct SeatGeek link, or 404 (c
 GET /healthz                    # liveness probe
 ```
 
-> The path segment is `games`, not `events`, on purpose: ad-block filter lists (EasyPrivacy, AdGuard) match `/api/event` fragments and kill the fetch client-side.
-
 ## Run locally
 
 ```bash
@@ -101,20 +99,9 @@ The API needs a Ticketmaster key in `Api/appsettings.Development.json` (`Ticketm
 cd Api.Tests && dotnet test
 ```
 
-## Deployment
-
-Push to `main` and GitHub Actions runs the tests, builds the image on the runner, pushes to ACR, and rolls the Container App to the new commit-tagged image. Full hosting setup, one-time CI configuration, and cost breakdown live in **[docs/DEPLOYMENT.md](docs/DEPLOYMENT.md)**.
-
-## Project docs
-
-This repo keeps its design process in the open. Each feature was shipped spec → plan → implementation:
-
-- **[docs/superpowers/specs/](docs/superpowers/specs/)** — design docs (trust layer, minor-league identification, LLM classification, SeatGeek links, …).
-- **[docs/superpowers/plans/](docs/superpowers/plans/)** — the implementation plans those specs turned into.
-
 ## Roadmap
 
-Web MVP (discovery, favorites, location, deploy, detail page, persistence) is **done**. Direction from here: validate on web → harden the API (custom domain, versioned contract) → React Native app (Expo) sharing the same API and data layer → Google Play, with push notifications ("your team plays tonight") as the mobile-native differentiator that finally justifies a database.
+Web MVP (discovery, favorites, location, deploy, detail page, persistence) is **done**. Direction from here: validate on web, add database and auth (login), then convert to a React Native app (Expo) sharing the same API and data layer.
 
 ## License
 
