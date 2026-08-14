@@ -1,11 +1,13 @@
 import { useEffect, useRef, useState } from 'react'
 import useAuth from './useAuth.js'
+import useAccountLink from './useAccountLink.js'
 import { mergeFavorites } from '../utils/reconcile.js'
 
 const STORAGE_KEY = 'stadar-favorites'
 
 export default function useFavorites() {
-  const { status, user, storageAdapter } = useAuth()
+  const { status, storageAdapter } = useAuth()
+  const { mode } = useAccountLink()
 
   // Instant paint from cache — the anonymous path never shows a spinner.
   const [favorites, setFavorites] = useState(() => storageAdapter.readCache(STORAGE_KEY, []))
@@ -17,54 +19,48 @@ export default function useFavorites() {
     setFavorites(next)
   }
 
-  // Reconcile with auth state. Anonymous → show the local set (empty once
-  // favorites have been transferred to an account). Signed in → hydrate from
-  // the server: first login unions local + server then deletes the local copy
-  // (transfer = move); an already-linked device is server-authoritative. While
-  // signed in, favorites live in memory + the account, never in localStorage.
+  // Reconcile with the shared link mode. The AccountLink provider owns the
+  // linked flag and the import decision; this hook just applies the result.
   useEffect(() => {
     if (status === 'loading') return
     let cancelled = false
 
-    if (status !== 'authenticated' || !user) {
-      // Deferred so it isn't a synchronous setState inside the effect. Resets
-      // the UI to the anonymous set on sign-out.
+    if (mode === 'anonymous') {
+      // Reset the UI to the (post-transfer, possibly empty) anonymous set.
       queueMicrotask(() => {
         if (!cancelled) commit(storageAdapter.readCache(STORAGE_KEY, []))
       })
       return () => { cancelled = true }
     }
 
-    const linkedKey = `stadar-linked-${user.id}`
-    const alreadyLinked = globalThis.localStorage.getItem(linkedKey) === 'true'
+    if (mode === 'wait') return () => { cancelled = true } // modal gating; hold the cache
 
-    // syncStatus resolves in the async callbacks (no synchronous 'syncing' set
-    // here — that would trigger a cascading render, and no UI observes the
-    // hydrate transient; the user-initiated toggle shows 'syncing' on its own).
+    // merge | adopt — pull the server set.
     storageAdapter.fetchRemote(STORAGE_KEY, []).then(remote => {
       if (cancelled) return
       if (remote === null) { setSyncStatus('idle'); return }
 
-      if (alreadyLinked) {
-        commit(remote)
-        setSyncStatus('synced')
-      } else {
+      if (mode === 'merge') {
         const merged = mergeFavorites(favoritesRef.current, remote)
         commit(merged)
         storageAdapter.persist(STORAGE_KEY, merged).then(res => {
           if (cancelled) return
           if (res.ok) {
-            globalThis.localStorage.setItem(linkedKey, 'true')
             globalThis.localStorage.removeItem(STORAGE_KEY) // transfer = move
             setSyncStatus('synced')
           } else {
             setSyncStatus('error')
           }
         })
+      } else {
+        // adopt: server is authoritative; drop any local copy.
+        commit(remote)
+        globalThis.localStorage.removeItem(STORAGE_KEY)
+        setSyncStatus('synced')
       }
     })
     return () => { cancelled = true }
-  }, [status, user, storageAdapter])
+  }, [mode, status, storageAdapter])
 
   function toggleFavorite(teamName) {
     const prev = favoritesRef.current
