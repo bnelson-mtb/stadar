@@ -17,17 +17,29 @@ export default function useFavorites() {
     setFavorites(next)
   }
 
-  // Hydrate from the server when signed in. Anonymous → fetchRemote returns
-  // null and this is a no-op. First login (not yet linked) → one-time union of
-  // local + server (auto-import). Already linked → server is authoritative.
+  // Reconcile with auth state. Anonymous → show the local set (empty once
+  // favorites have been transferred to an account). Signed in → hydrate from
+  // the server: first login unions local + server then deletes the local copy
+  // (transfer = move); an already-linked device is server-authoritative. While
+  // signed in, favorites live in memory + the account, never in localStorage.
   useEffect(() => {
-    if (status !== 'authenticated' || !user) return
+    if (status === 'loading') return
     let cancelled = false
+
+    if (status !== 'authenticated' || !user) {
+      // Deferred so it isn't a synchronous setState inside the effect. Resets
+      // the UI to the anonymous set on sign-out.
+      queueMicrotask(() => {
+        if (!cancelled) commit(storageAdapter.readCache(STORAGE_KEY, []))
+      })
+      return () => { cancelled = true }
+    }
+
     const linkedKey = `stadar-linked-${user.id}`
     const alreadyLinked = globalThis.localStorage.getItem(linkedKey) === 'true'
 
-    // Background hydrate resolves syncStatus directly (no synchronous 'syncing'
-    // set here — that would trigger a cascading render, and no UI observes the
+    // syncStatus resolves in the async callbacks (no synchronous 'syncing' set
+    // here — that would trigger a cascading render, and no UI observes the
     // hydrate transient; the user-initiated toggle shows 'syncing' on its own).
     storageAdapter.fetchRemote(STORAGE_KEY, []).then(remote => {
       if (cancelled) return
@@ -35,15 +47,19 @@ export default function useFavorites() {
 
       if (alreadyLinked) {
         commit(remote)
-        storageAdapter.writeCache(STORAGE_KEY, remote)
         setSyncStatus('synced')
       } else {
         const merged = mergeFavorites(favoritesRef.current, remote)
         commit(merged)
         storageAdapter.persist(STORAGE_KEY, merged).then(res => {
           if (cancelled) return
-          setSyncStatus(res.ok ? 'synced' : 'error')
-          if (res.ok) globalThis.localStorage.setItem(linkedKey, 'true')
+          if (res.ok) {
+            globalThis.localStorage.setItem(linkedKey, 'true')
+            globalThis.localStorage.removeItem(STORAGE_KEY) // transfer = move
+            setSyncStatus('synced')
+          } else {
+            setSyncStatus('error')
+          }
         })
       }
     })

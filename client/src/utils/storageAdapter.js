@@ -4,11 +4,14 @@
 //   readCache(key, fallback)  sync   — instant first paint from localStorage
 //   writeCache(key, value)    sync   — cache-only write, returns { ok }
 //   fetchRemote(key, fallback) async — server value, or null = "cache is truth"
-//   persist(key, value)       async  — cache + remote write, returns { ok }
+//   persist(key, value)       async  — writes to the backing store, returns { ok }
 //
-// Anonymous users get the localStorage adapter (fetchRemote → null, so the
-// hydrate path is a no-op). Signed-in users get the API adapter. Hooks never
-// touch localStorage directly — always go through an adapter from AuthContext.
+// Anonymous users get the localStorage adapter: the cache IS the data, so
+// persist writes localStorage and fetchRemote returns null (hydrate no-op).
+// Signed-in users get the API adapter: the account is the source of truth, so
+// persist PUTs the server and keeps NO local copy — favorites never linger in
+// localStorage once transferred to an account. Hooks never touch localStorage
+// directly except to clear the anonymous key on transfer (see useFavorites).
 // `stadar-location` stays a raw string outside the adapter on purpose.
 
 import { API_BASE } from './api.js'
@@ -69,8 +72,8 @@ export function createApiAdapter(fetchImpl = fetch, storage = globalThis.localSt
       }
     },
 
-    // PUT first; only mirror into the cache once the server confirms, so a
-    // failed write leaves the cache holding the last server-confirmed value.
+    // PUT to the server only — the account is the source of truth for signed-in
+    // users, so no local copy is kept (favorites don't linger in localStorage).
     async persist(key, value) {
       const endpoint = ENDPOINTS[key]
       if (!endpoint) return local.writeCache(key, value)
@@ -81,9 +84,7 @@ export function createApiAdapter(fetchImpl = fetch, storage = globalThis.localSt
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(value),
         })
-        if (!res.ok) return { ok: false, error: new Error(`HTTP ${res.status}`) }
-        local.writeCache(key, value)
-        return { ok: true }
+        return res.ok ? { ok: true } : { ok: false, error: new Error(`HTTP ${res.status}`) }
       } catch (error) {
         return { ok: false, error }
       }

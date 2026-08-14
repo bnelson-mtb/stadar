@@ -41,7 +41,7 @@ test('api adapter: fetchRemote returns null on 401', async () => {
   assert.equal(await a.fetchRemote('stadar-favorites', []), null)
 })
 
-test('api adapter: persist PUTs then mirrors cache on success', async () => {
+test('api adapter: persist PUTs to the server and keeps no local copy', async () => {
   let method = null
   const store = fakeStorage()
   const fake = async (_url, opts) => { method = opts.method; return { ok: true } }
@@ -49,15 +49,15 @@ test('api adapter: persist PUTs then mirrors cache on success', async () => {
   const res = await a.persist('stadar-favorites', ['Jazz'])
   assert.equal(method, 'PUT')
   assert.deepEqual(res, { ok: true })
-  assert.equal(store.getItem('stadar-favorites'), JSON.stringify(['Jazz']))
+  // Signed-in favorites live in the account, not localStorage.
+  assert.equal(store.getItem('stadar-favorites'), null)
 })
 
-test('api adapter: persist failure leaves cache untouched', async () => {
+test('api adapter: persist failure never writes local', async () => {
   const store = fakeStorage()
-  store.setItem('stadar-favorites', JSON.stringify(['prior']))
   const fake = async () => ({ ok: false, status: 500 })
   const a = createApiAdapter(fake, store)
   const res = await a.persist('stadar-favorites', ['new'])
   assert.equal(res.ok, false)
-  assert.equal(store.getItem('stadar-favorites'), JSON.stringify(['prior']))
+  assert.equal(store.getItem('stadar-favorites'), null)
 })

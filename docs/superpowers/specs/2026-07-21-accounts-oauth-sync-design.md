@@ -133,6 +133,17 @@ user's rows for that collection transactionally.
 
 ## Client: Storage Adapter (cache-first, sync-later)
 
+> **Revision (Slice 2 implementation, 2026-07-22):** for signed-in users the
+> account is the sole source of truth — the API adapter's `persist` PUTs the
+> server and keeps **no** local copy, and first-login reconciliation **deletes**
+> the anonymous `stadar-favorites` key after moving it to the account (a
+> transfer, not a copy). Signed-in favorites live in memory + the account and
+> are re-hydrated on load. The original "signed-in `persist` also mirrors the
+> cache" wording below is superseded for the signed-in tier; the anonymous tier
+> is unchanged. Slice 3 should follow the same account-only model for saved
+> events. Rationale: a single source of truth, and nothing user-specific
+> lingering in `localStorage` after sign-out.
+
 The storage adapter gains an interface that separates an instant local read
 from an asynchronous remote read:
 
