@@ -19,6 +19,7 @@ import { API_BASE } from './api.js'
 // Maps a storage key to its server endpoint. Favorites now; saved events in slice 3.
 const ENDPOINTS = {
   'stadar-favorites': '/api/me/favorites',
+  'stadar-saved-events': '/api/me/saved',
 }
 
 export function createLocalStorageAdapter(storage = globalThis.localStorage) {

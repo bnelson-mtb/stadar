@@ -61,3 +61,22 @@ test('api adapter: persist failure never writes local', async () => {
   assert.equal(res.ok, false)
   assert.equal(store.getItem('stadar-favorites'), null)
 })
+
+test('api adapter: saved-events fetchRemote hits /api/me/saved', async () => {
+  let calledUrl = null
+  const fake = async (url) => { calledUrl = url; return { ok: true, json: async () => [] } }
+  const a = createApiAdapter(fake, fakeStorage())
+  await a.fetchRemote('stadar-saved-events', [])
+  assert.ok(calledUrl.endsWith('/api/me/saved'))
+})
+
+test('api adapter: saved-events persist PUTs /api/me/saved', async () => {
+  let calledUrl = null
+  let method = null
+  const fake = async (url, opts) => { calledUrl = url; method = opts.method; return { ok: true } }
+  const a = createApiAdapter(fake, fakeStorage())
+  const res = await a.persist('stadar-saved-events', [{ event: { id: 'x' } }])
+  assert.equal(method, 'PUT')
+  assert.ok(calledUrl.endsWith('/api/me/saved'))
+  assert.deepEqual(res, { ok: true })
+})
