@@ -2,6 +2,7 @@ import { useState, useEffect, useMemo } from 'react'
 import { useLocation } from 'react-router-dom'
 import EventCard from '../components/EventCard.jsx'
 import FilterBar from '../components/FilterBar.jsx'
+import AuthButton from '../components/AuthButton.jsx'
 import RadarLogo from '../components/RadarLogo.jsx'
 import SkeletonCard from '../components/SkeletonCard.jsx'
 import UnsaveConfirmDialog from '../components/UnsaveConfirmDialog.jsx'
@@ -275,7 +276,7 @@ function DiscoverPage() {
       <header className="relative overflow-hidden bg-night-900 border-b border-white/10">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_140%_at_50%_-20%,rgba(163,230,53,0.12),transparent)]" />
         <div className="relative max-w-2xl mx-auto px-4 py-6">
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex items-center gap-3">
               <RadarLogo className="w-10 h-10 shrink-0" />
               <div>
@@ -285,15 +286,19 @@ function DiscoverPage() {
                 <p className="text-sm text-slate-400 mt-1">Live sports on your radar</p>
               </div>
             </div>
-            <select
-              value={stateCode ?? ''}
-              onChange={e => handleStateChange(e.target.value)}
-              className="border border-white/10 rounded-lg px-3 py-2 text-sm font-medium text-slate-200 bg-night-800 hover:border-white/25 focus:outline-none focus:ring-2 focus:ring-radar-400/60"
-            >
-              {US_STATES.map(([code, name]) => (
-                <option key={code} value={code}>{code} — {name}</option>
-              ))}
-            </select>
+            <div className="flex items-center justify-end gap-2">
+              <AuthButton />
+              <select
+                value={stateCode ?? ''}
+                onChange={e => handleStateChange(e.target.value)}
+                aria-label="Select state"
+                className="min-h-10 min-w-0 border border-white/10 rounded-lg px-3 py-2 text-sm font-medium text-slate-200 bg-night-800 hover:border-white/25 focus:outline-none focus:ring-2 focus:ring-radar-400/60"
+              >
+                {US_STATES.map(([code, name]) => (
+                  <option key={code} value={code}>{code} — {name}</option>
+                ))}
+              </select>
+            </div>
           </div>
         </div>
       </header>
