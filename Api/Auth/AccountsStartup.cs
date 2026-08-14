@@ -1,4 +1,5 @@
 using System.Security.Claims;
+using System.Text.Json;
 using Api.Data;
 using Api.Models;
 using Api.Services;
@@ -196,6 +197,55 @@ public static class AccountsStartup
 
             await db.SaveChangesAsync();
             return Results.Ok(deduped);
+        }).RequireAuthorization();
+
+        // Current user's saved-event records. SnapshotJson is the client record
+        // shape stored verbatim; the server never reads inside it. Auth required.
+        app.MapGet("/api/me/saved", async (ClaimsPrincipal principal, AppDbContext db) =>
+        {
+            var userId = Guid.Parse(principal.FindFirstValue(ClaimTypes.NameIdentifier)!);
+            var snapshots = await db.SavedEvents
+                .Where(s => s.UserId == userId)
+                .OrderBy(s => s.UpdatedAt)
+                .Select(s => s.SnapshotJson)
+                .ToListAsync();
+            var records = snapshots.Select(json => JsonSerializer.Deserialize<JsonElement>(json)).ToList();
+            return Results.Ok(records);
+        }).RequireAuthorization();
+
+        // Whole-set replace. Each record is stored verbatim, keyed by event.id.
+        app.MapPut("/api/me/saved", async (
+            ClaimsPrincipal principal, AppDbContext db,
+            [Microsoft.AspNetCore.Mvc.FromBody] List<JsonElement> records) =>
+        {
+            var userId = Guid.Parse(principal.FindFirstValue(ClaimTypes.NameIdentifier)!);
+            var existing = await db.SavedEvents.Where(s => s.UserId == userId).ToListAsync();
+            db.SavedEvents.RemoveRange(existing);
+
+            var now = DateTime.UtcNow;
+            var seen = new HashSet<string>();
+            var stored = new List<JsonElement>();
+            foreach (var record in records)
+            {
+                if (record.ValueKind != JsonValueKind.Object
+                    || !record.TryGetProperty("event", out var ev)
+                    || !ev.TryGetProperty("id", out var idEl))
+                    continue;
+                var eventId = idEl.GetString();
+                if (string.IsNullOrEmpty(eventId) || !seen.Add(eventId)) continue;
+
+                db.SavedEvents.Add(new SavedEventRow
+                {
+                    UserId = userId,
+                    EventId = eventId,
+                    SnapshotJson = record.GetRawText(),
+                    UpdatedAt = now,
+                });
+                stored.Add(record);
+            }
+
+            await db.SaveChangesAsync();
+            return Results.Ok(stored);
         }).RequireAuthorization();
     }
 }
