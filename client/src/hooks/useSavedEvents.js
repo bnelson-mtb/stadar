@@ -11,7 +11,10 @@ import { storageAdapter } from '../utils/storageAdapter.js'
 const STORAGE_KEY = 'stadar-saved-events'
 
 function loadSaved() {
-  return normalizeSavedRecords(storageAdapter.load(STORAGE_KEY, []))
+  // Saved events stay localStorage-only in slice 2 (auth-aware sync arrives in
+  // slice 3); readCache/writeCache are the renamed load/save from the Option-B
+  // adapter, with identical local behavior.
+  return normalizeSavedRecords(storageAdapter.readCache(STORAGE_KEY, []))
 }
 
 export default function useSavedEvents() {
@@ -21,7 +24,7 @@ export default function useSavedEvents() {
   const [pendingRemoval, setPendingRemoval] = useState(null)
 
   useEffect(() => {
-    const result = storageAdapter.save(STORAGE_KEY, savedEvents)
+    const result = storageAdapter.writeCache(STORAGE_KEY, savedEvents)
     let cancelled = false
 
     queueMicrotask(() => {

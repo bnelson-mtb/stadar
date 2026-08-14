@@ -1,63 +1,63 @@
-import test from 'node:test'
+import { test } from 'node:test'
 import assert from 'node:assert/strict'
-import { createLocalStorageAdapter } from './storageAdapter.js'
+import { createLocalStorageAdapter, createApiAdapter } from './storageAdapter.js'
 
-function makeFakeStorage(overrides = {}) {
+function fakeStorage() {
   const map = new Map()
   return {
-    getItem: key => (map.has(key) ? map.get(key) : null),
-    setItem: (key, value) => { map.set(key, String(value)) },
-    ...overrides,
+    getItem: k => (map.has(k) ? map.get(k) : null),
+    setItem: (k, v) => map.set(k, v),
   }
 }
 
-test('load returns the parsed value for a stored key', () => {
-  const storage = makeFakeStorage()
-  storage.setItem('k', JSON.stringify(['Utah Jazz']))
-  const adapter = createLocalStorageAdapter(storage)
-
-  assert.deepEqual(adapter.load('k', []), ['Utah Jazz'])
+test('local adapter: readCache/writeCache round-trip', () => {
+  const a = createLocalStorageAdapter(fakeStorage())
+  a.writeCache('stadar-favorites', ['A'])
+  assert.deepEqual(a.readCache('stadar-favorites', []), ['A'])
 })
 
-test('load returns the fallback for a missing key', () => {
-  const adapter = createLocalStorageAdapter(makeFakeStorage())
-
-  assert.deepEqual(adapter.load('missing', []), [])
+test('local adapter: fetchRemote is always null (cache is truth)', async () => {
+  const a = createLocalStorageAdapter(fakeStorage())
+  assert.equal(await a.fetchRemote('stadar-favorites', []), null)
 })
 
-test('load returns the fallback for corrupt JSON', () => {
-  const storage = makeFakeStorage()
-  storage.setItem('k', '{not json')
-  const adapter = createLocalStorageAdapter(storage)
-
-  assert.deepEqual(adapter.load('k', []), [])
+test('local adapter: persist writes cache and returns ok', async () => {
+  const store = fakeStorage()
+  const a = createLocalStorageAdapter(store)
+  const res = await a.persist('stadar-favorites', ['A'])
+  assert.deepEqual(res, { ok: true })
+  assert.equal(store.getItem('stadar-favorites'), JSON.stringify(['A']))
 })
 
-test('load returns the fallback when storage is unavailable', () => {
-  const adapter = createLocalStorageAdapter(undefined)
-
-  assert.deepEqual(adapter.load('k', []), [])
+test('api adapter: fetchRemote returns server value on 200', async () => {
+  const fake = async () => ({ ok: true, json: async () => ['Jazz'] })
+  const a = createApiAdapter(fake, fakeStorage())
+  assert.deepEqual(await a.fetchRemote('stadar-favorites', []), ['Jazz'])
 })
 
-test('save round-trips through load', () => {
-  const adapter = createLocalStorageAdapter(makeFakeStorage())
-
-  const result = adapter.save('k', [{ id: 'e1' }])
-
-  assert.deepEqual(result, { ok: true })
-  assert.deepEqual(adapter.load('k', []), [{ id: 'e1' }])
+test('api adapter: fetchRemote returns null on 401', async () => {
+  const fake = async () => ({ ok: false, status: 401 })
+  const a = createApiAdapter(fake, fakeStorage())
+  assert.equal(await a.fetchRemote('stadar-favorites', []), null)
 })
 
-test('save reports a storage write failure without throwing', () => {
-  const quotaError = new Error('quota exceeded')
-  const adapter = createLocalStorageAdapter(makeFakeStorage({
-    setItem() {
-      throw quotaError
-    },
-  }))
+test('api adapter: persist PUTs then mirrors cache on success', async () => {
+  let method = null
+  const store = fakeStorage()
+  const fake = async (_url, opts) => { method = opts.method; return { ok: true } }
+  const a = createApiAdapter(fake, store)
+  const res = await a.persist('stadar-favorites', ['Jazz'])
+  assert.equal(method, 'PUT')
+  assert.deepEqual(res, { ok: true })
+  assert.equal(store.getItem('stadar-favorites'), JSON.stringify(['Jazz']))
+})
 
-  const result = adapter.save('k', [1])
-
-  assert.equal(result.ok, false)
-  assert.strictEqual(result.error, quotaError)
+test('api adapter: persist failure leaves cache untouched', async () => {
+  const store = fakeStorage()
+  store.setItem('stadar-favorites', JSON.stringify(['prior']))
+  const fake = async () => ({ ok: false, status: 500 })
+  const a = createApiAdapter(fake, store)
+  const res = await a.persist('stadar-favorites', ['new'])
+  assert.equal(res.ok, false)
+  assert.equal(store.getItem('stadar-favorites'), JSON.stringify(['prior']))
 })
