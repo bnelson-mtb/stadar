@@ -3,3 +3,11 @@
 export function mergeFavorites(local, remote) {
   return [...new Set([...local, ...remote])]
 }
+
+// Union of two saved-record lists by event.id, keeping the LOCAL record on a
+// collision (import intent is to bring local data into a fresh account). Local
+// order first, then remote-only records appended.
+export function mergeSavedRecords(local, remote) {
+  const localIds = new Set(local.map(r => r.event.id))
+  return [...local, ...remote.filter(r => !localIds.has(r.event.id))]
+}
