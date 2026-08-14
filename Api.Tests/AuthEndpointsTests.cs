@@ -1,6 +1,7 @@
 using System.Net;
 using System.Net.Http.Json;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
@@ -59,15 +60,23 @@ public class AuthEndpointsTests
     }
 
     [TestMethod]
-    public async Task Me_AccountsDisabled_Returns404()
+    public async Task Me_AccountsDisabled_IsNotAnActiveEndpoint()
     {
-        // Default factory has no connection string / Google creds → the
-        // endpoint is never mapped, so the route does not exist.
-        using var factory = new WebApplicationFactory<Program>();
+        // Escape the Development environment so appsettings.Development.json (which
+        // may hold real local Google/SQL creds for a smoke test) isn't loaded. The
+        // base appsettings has no accounts config, so the layer stays inert and
+        // /api/me is never mapped — the request then falls through to the SPA
+        // fallback (200 with index.html present locally, 404 without in CI). Either
+        // way it is NOT the 401 that the mapped, auth-required endpoint returns when
+        // accounts are enabled.
+        using var factory = new WebApplicationFactory<Program>().WithWebHostBuilder(builder =>
+        {
+            builder.UseEnvironment("Testing");
+        });
         using var client = factory.CreateClient();
 
         using var response = await client.GetAsync("/api/me");
-        Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
+        Assert.AreNotEqual(HttpStatusCode.Unauthorized, response.StatusCode);
     }
 
     [TestMethod]

@@ -1,5 +1,6 @@
 using System.Security.Claims;
 using Api.Data;
+using Api.Models;
 using Api.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -161,5 +162,40 @@ public static class AccountsStartup
             await ctx.SignOutAsync();
             return Results.Ok();
         });
+
+        // Current user's favorite team names (canonical). Auth required.
+        app.MapGet("/api/me/favorites", async (ClaimsPrincipal principal, AppDbContext db) =>
+        {
+            var userId = Guid.Parse(principal.FindFirstValue(ClaimTypes.NameIdentifier)!);
+            var teams = await db.Favorites
+                .Where(f => f.UserId == userId)
+                .OrderBy(f => f.CreatedAt)
+                .Select(f => f.TeamName)
+                .ToListAsync();
+            return Results.Ok(teams);
+        }).RequireAuthorization();
+
+        // Whole-set replace (matches the client adapter's persist(key, wholeValue)).
+        app.MapPut("/api/me/favorites", async (
+            ClaimsPrincipal principal, AppDbContext db,
+            [Microsoft.AspNetCore.Mvc.FromBody] List<string> teams) =>
+        {
+            var userId = Guid.Parse(principal.FindFirstValue(ClaimTypes.NameIdentifier)!);
+            var existing = await db.Favorites.Where(f => f.UserId == userId).ToListAsync();
+            db.Favorites.RemoveRange(existing);
+
+            var now = DateTime.UtcNow;
+            var deduped = teams.Distinct().ToList();
+            for (var i = 0; i < deduped.Count; i++)
+                db.Favorites.Add(new Favorite
+                {
+                    UserId = userId,
+                    TeamName = deduped[i],
+                    CreatedAt = now.AddMilliseconds(i), // preserve input order on read-back
+                });
+
+            await db.SaveChangesAsync();
+            return Results.Ok(deduped);
+        }).RequireAuthorization();
     }
 }
