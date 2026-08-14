@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { fetchMe, logout as logoutRequest, loginUrl } from '../utils/authApi.js'
+import { createLocalStorageAdapter, createApiAdapter } from '../utils/storageAdapter.js'
 import { AuthContext } from './AuthContextDef.js'
 
 export function AuthProvider({ children }) {
@@ -26,8 +27,14 @@ export function AuthProvider({ children }) {
     setStatus('anonymous')
   }
 
+  // Signed-in users read/write through the API; everyone else stays local.
+  const storageAdapter = useMemo(
+    () => (status === 'authenticated' ? createApiAdapter() : createLocalStorageAdapter()),
+    [status],
+  )
+
   return (
-    <AuthContext.Provider value={{ user, status, login, logout }}>
+    <AuthContext.Provider value={{ user, status, login, logout, storageAdapter }}>
       {children}
     </AuthContext.Provider>
   )
