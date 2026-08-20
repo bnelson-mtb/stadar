@@ -10,31 +10,24 @@
   <img alt="Backend: ASP.NET Core .NET 10" src="https://img.shields.io/badge/backend-.NET%2010-512bd4?style=flat-square">
 </p>
 
-> 🔗 **Live:** www.stadar.app
+> 🔗 **Live:** [www.stadar.app](www.stadar.app)
 > _(scales to zero — the first request after idle takes ~20s to wake)_
 
-Stadar is a portfolio project by **Brady Nelson**, a CS student at the University of Utah. It's deliberately not a stats app or a betting app. It's focus is **discovery and navigation** for upcoming live sports.
+Stadar is a portfolio project by **Brady Nelson**, a CS student at the University of Utah. It's deliberately not a stats app or a betting app. Its focus is **discovery and navigation** for upcoming live sports.
 
 ## Screenshots
 
-<!--
-  Drop PNGs into docs/screenshots/ and uncomment this block:
-
-  | Discover | Event detail | Saved |
-  |----------|--------------|-------|
-  | ![Discover feed](docs/screenshots/discover.png) | ![Event detail with venue map](docs/screenshots/detail.png) | ![Saved events](docs/screenshots/saved.png) |
--->
-
-> 📸 _Screenshots pending — in the meantime, the app is live at **[stadar.app](https://stadar.app/)**._
+![Discover feed](docs/screenshots/stadar-current.jpg)
 
 ## Features
 
-- **Discovery feed** — card-based browse of upcoming events for your state, backed by live Ticketmaster data.
+- **Discovery feed** — card-based browse of upcoming events for your state, backed by live Ticketmaster data from the Discover API.
 - **Location** — manual state picker, IP auto-detect, persisted to `localStorage`.
 - **Sport / league filters** — derived from the fetched events; normalized league + sport labels.
 - **Favorites & "My Teams"** — heart a team, filter the feed to your teams (localStorage).
 - **Saved events** — bookmark an event with a full snapshot, view it under a Saved tab and per-team pages, add notes and final scores.
-- **Event detail** — full view with an embedded venue map, pricing, league info, and a direct **SeatGeek** link when a confident match exists (Google-search fallback otherwise).
+- **Accounts & cross-device sync** — Google sign-in; favorites and saved events sync to your account (Azure SQL via EF Core) and follow you across devices. First login offers a one-time import of anything saved locally. Anonymous browsing stays localStorage-only and never touches the database.
+- **Event detail** — full view with an embedded venue map, pricing, league info, and direct links to SeatGeek and Ticketmaster when a confident match exists (Google-search fallback for non-matches and other ticketing platforms).
 - **Trust layer** — strict spectator-event filtering, league/sport normalization, and **venue-local** date/time so times match the arena, not your browser.
 - **AI classification** — borderline events get a one-time [Gemini](https://ai.google.dev/) verdict (closed league/sport enums, structured output); verdicts are blob-cached and always win over the rules.
 
@@ -54,10 +47,14 @@ flowchart LR
     G --> V[(Blob: verdicts.json)]
     API -->|deterministic match| SG[(SeatGeek API)]
     U -->|team logos| B[(Azure Blob · logos)]
+    U -->|Google sign-in| GO[(Google OAuth)]
+    API -->|accounts + sync| SQL[(Azure SQL · EF Core)]
     CI[GitHub Actions] -->|test · build · push · roll| container
 ```
 
 **Request pipeline** (`GET /api/games`): proxy Ticketmaster → parse → normalize team names & league/sport → spectator-event quality gate → borderline rows get a cached Gemini verdict → sort by date → cache per-state for 5 minutes.
+
+**Account sync** (`/api/me/*`): signed-in users read and whole-set-replace their favorites and saved events; saved-event snapshots are stored per user, opaque to the server and keyed by event id. Anonymous requests never touch SQL.
 
 ## Tech stack
 
@@ -66,17 +63,22 @@ flowchart LR
 | Frontend | React (Vite), React Router v7, Tailwind CSS v4 |
 | Backend | ASP.NET Core Web API (.NET 10) |
 | External data | Ticketmaster Discovery API v2, SeatGeek, Gemini (`gemini-2.5-flash-lite`) |
-| Persistence | `localStorage` (client); Azure Blob for logos + classifier verdicts |
+| Auth | Google OAuth via ASP.NET Core built-in handlers |
+| Persistence | `localStorage` (anonymous client); Azure SQL (EF Core) for account sync of favorites + saved events; Azure Blob for logos + classifier verdicts |
 | Hosting | Single Docker container on Azure Container Apps (scale-to-zero) |
 | CI/CD | GitHub Actions → ACR → Container App, OIDC login, images tagged by commit SHA |
 
 ## API
 
 ```text
-GET /api/games?stateCode={XX}   # up to 50 upcoming events for a state (cached 5 min)
-GET /api/games/{id}             # single event through the same pipeline (cached 5 min)
-GET /api/games/{id}/seatgeek    # { "url": ... } direct SeatGeek link, or 404 (cached 6 h)
-GET /healthz                    # liveness probe
+GET  /api/games?stateCode={XX}   # up to 50 upcoming events for a state (cached 5 min)
+GET  /api/games/{id}             # single event through the same pipeline (cached 5 min)
+GET  /api/games/{id}/seatgeek    # { "url": ... } direct SeatGeek link, or 404 (cached 6 h)
+GET  /api/me                     # current signed-in user, or 401
+GET  /api/me/favorites           # account favorites      (PUT = whole-set replace)
+GET  /api/me/saved               # account saved events   (PUT = whole-set replace)
+GET  /api/auth/login             # start Google OAuth      (+ /callback, POST /logout)
+GET  /healthz                    # liveness probe
 ```
 
 ## Run locally
@@ -92,7 +94,7 @@ npm install
 npm run dev
 ```
 
-The API needs a Ticketmaster key in `Api/appsettings.Development.json` (`Ticketmaster:ApiKey`). The Gemini and SeatGeek layers are optional — without their keys those features are simply inert.
+The API needs a Ticketmaster key in `Api/appsettings.Development.json` (`Ticketmaster:ApiKey`). The Gemini, SeatGeek, and accounts layers are optional — without their config those features are simply inert. Accounts need both `Google:ClientId`/`Google:ClientSecret` and a `ConnectionStrings:Default` SQL connection string; with neither set, the app runs anonymous-only against `localStorage`.
 
 ```bash
 # Run the API test suite
@@ -101,7 +103,7 @@ cd Api.Tests && dotnet test
 
 ## Roadmap
 
-Web MVP (discovery, favorites, location, deploy, detail page, persistence) is **done**. Direction from here: validate on web, add database and auth (login), then convert to a React Native app (Expo) sharing the same API and data layer, with a possible UI redesign.
+The Web MVP (discovery, favorites, location, deploy, detail page, persistence) is done, and accounts (Google sign-in, cross-device sync for favorites and saved events) just landed. Direction from here: validate on web, keep iterating on the UI, then convert to a React Native app (Expo) sharing the same API and data layer.
 
 ## License
 

@@ -4,12 +4,14 @@ import DiscoverPage from './pages/DiscoverPage.jsx'
 import EventDetailPage from './pages/EventDetailPage.jsx'
 import SavedPage from './pages/SavedPage.jsx'
 import TeamSavedPage from './pages/TeamSavedPage.jsx'
+import ImportPrompt from './components/ImportPrompt.jsx'
 
 function AppLayout() {
   return (
     <div className="min-h-screen bg-night-950 pb-16">
       <Outlet />
       <BottomNav />
+      <ImportPrompt />
     </div>
   )
 }

@@ -1,5 +1,6 @@
 using Api.Models;
 using Api.Services;
+using Api.Auth;
 using Microsoft.Extensions.Caching.Memory;
 using System.Threading.RateLimiting;
 using Microsoft.AspNetCore.HttpOverrides;
@@ -73,6 +74,10 @@ builder.Services.AddRateLimiter(options =>
             : RateLimitPartition.GetNoLimiter("unlimited"));
 });
 
+// Optional accounts layer (Google OAuth + Azure SQL). Fully inert unless both
+// a connection string and Google credentials are configured.
+builder.Services.AddAccounts(builder.Configuration);
+
 var app = builder.Build();
 
 app.UseForwardedHeaders();
@@ -116,6 +121,13 @@ app.Use(async (ctx, next) =>
 });
 
 app.UseRateLimiter();
+
+if (app.Configuration.AccountsEnabled())
+{
+    app.UseAuthentication();
+    app.UseAuthorization();
+}
+app.MigrateAccountsDb();
 
 // Liveness probe for hosting platforms.
 app.MapGet("/healthz", () => Results.Ok("ok"));
@@ -200,6 +212,8 @@ app.MapGet("/api/games/{id}/seatgeek", async (string id, TicketmasterClient tick
     return url == null ? Results.NotFound() : Results.Ok(new { url });
 })
 .WithName("GetSeatGeekLink");
+
+app.MapAccountEndpoints();
 
 // Client-side routing: send unmatched non-API paths to the SPA.
 app.MapFallbackToFile("index.html", staticFiles);

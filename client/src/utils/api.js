@@ -3,9 +3,10 @@
 // - In production builds it defaults to '' (same-origin), for the
 //   single-container deployment where the API serves the built client.
 // - In dev it defaults to the local API from launchSettings.json.
+const env = import.meta.env ?? {}
 export const API_BASE =
-  import.meta.env.VITE_API_URL ??
-  (import.meta.env.DEV ? 'http://localhost:5068' : '')
+  env.VITE_API_URL ??
+  (env.DEV ? 'http://localhost:5068' : '')
 
 const RETRY_DELAYS_MS = [1000, 2000, 4000, 8000] // last delay repeats
 const RETRY_DEADLINE_MS = 75000
