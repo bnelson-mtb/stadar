@@ -1,6 +1,8 @@
 # Stadar
 
-**Radar for future games.** Stadar answers one question: *"What live sports event should I go to, and how do I get there?"* — a discovery-first web app backed by live Ticketmaster data, an AI event-classification layer, and a venue-local trust layer that makes the times, teams, and leagues correct.
+Stadar answers one question: *"What live sports event should I go to, and how do I get there?"*
+
+A discovery-first web app backed by live Ticketmaster data, an AI event-classification layer, and a venue-local trust layer that makes the times, teams, and leagues accurate.
 
 <p>
   <a href="https://stadar.politeflower-ad39c306.westus3.azurecontainerapps.io"><img alt="Live demo" src="https://img.shields.io/badge/demo-live-2ea44f?style=flat-square"></a>
@@ -11,9 +13,7 @@
 </p>
 
 > 🔗 **Live:** [www.stadar.app](www.stadar.app)
-> _(scales to zero — the first request after idle takes ~20s to wake)_
-
-Stadar is a portfolio project by **Brady Nelson**, a CS student at the University of Utah. It's deliberately not a stats app or a betting app. Its focus is **discovery and navigation** for upcoming live sports.
+> _(scales to zero - the first request after idle takes ~20s to wake)_
 
 ## Screenshots
 
@@ -103,7 +103,7 @@ cd Api.Tests && dotnet test
 
 ## Roadmap
 
-The Web MVP (discovery, favorites, location, deploy, detail page, persistence) is done, and accounts (Google sign-in, cross-device sync for favorites and saved events) just landed. Direction from here: validate on web, keep iterating on the UI, then convert to a React Native app (Expo) sharing the same API and data layer.
+The Web MVP (discovery, favorites, location, deploy, detail page, persistence) is done. My direction from here is to validate on web, then continue iterating and making the app better, including a possible UI overhaul. Later in the roadmap is creating a React Native mobile app (Expo) sharing the same API and data layer, 
 
 ## License
 
