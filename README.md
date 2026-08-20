@@ -17,7 +17,7 @@ A discovery-first web app backed by live Ticketmaster data, an AI event-classifi
 
 ## Screenshots
 
-![Discover feed](https://raw.githubusercontent.com/bnelson-mtb/stadar/main/docs/screenshots/stadar-current.png)
+![Discover feed](docs/screenshots/stadar-current.png)
 
 ## Features
 
