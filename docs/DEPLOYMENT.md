@@ -18,6 +18,8 @@ docker run -p 8080:8080 -e Ticketmaster__ApiKey=<your-key> stadar
 | `VITE_API_URL` | No | Client **build-time** var. Leave unset for the single-container setup (client uses same-origin requests). |
 | `Gemini__ApiKey` | No | Enables the AI event-classification layer. Unset → the layer is fully inert (pre-LLM behavior). |
 | `Storage__ConnectionString` | No | Persists classifier verdicts to blob `verdicts/verdicts.json` in `stadarstorage`. Without it (but with a Gemini key) verdicts are memory-only. |
+| `ConnectionStrings__Default` | No | Azure SQL connection string. Required **together with** the two `Google__*` vars to enable accounts; see below. |
+| `Google__ClientId` / `Google__ClientSecret` | No | Google OAuth client credentials. Required **together with** `ConnectionStrings__Default`. |
 
 Health probe endpoint: `GET /healthz` (returns 200).
 The container listens on port **8080** (HTTP; the platform's edge terminates TLS).
@@ -36,6 +38,64 @@ Get the storage connection string with:
 ```bash
 az storage account show-connection-string --name stadarstorage --resource-group stadar-rg --query connectionString -o tsv
 ```
+
+### Google OAuth (accounts)
+
+The accounts layer is inert unless **both** `ConnectionStrings__Default` and
+`Google__ClientId`/`Google__ClientSecret` are set. Anonymous browsing never
+touches SQL, so a deployment without these behaves exactly as it did before
+accounts existed.
+
+**Every origin the app is served from must be registered with Google before
+sign-in works there.** Google matches the `redirect_uri` verbatim against the
+OAuth client's allow-list; anything unregistered fails at the consent screen
+with `Access blocked … Error 400: redirect_uri_mismatch`, and nothing in the
+app logs shows it — the request never reaches the container.
+
+In the [Google Cloud console](https://console.cloud.google.com/apis/credentials)
+→ your OAuth 2.0 Client ID → **Authorized redirect URIs**, add one entry per
+origin, each ending in the app's callback path `/api/auth/callback`:
+
+| Environment | Authorized redirect URI |
+|---|---|
+| Local dev | `http://localhost:5068/api/auth/callback` |
+| Production (custom domain — the real front door) | `https://stadar.app/api/auth/callback` |
+| Production (Container App default hostname) | `https://stadar.politeflower-ad39c306.westus3.azurecontainerapps.io/api/auth/callback` |
+| `www` (optional) | `https://www.stadar.app/api/auth/callback` |
+
+Both production entries are needed: the Container App's default hostname keeps
+working alongside the custom domain, and either can serve a visitor. `www`
+currently 301s to the apex before any OAuth challenge, so it is optional —
+register it anyway if you don't want that forwarding to be load-bearing.
+
+Changes take effect within a minute or so. Notes:
+
+- The path comes from `CallbackPath` in `Api/Auth/AccountsStartup.cs`. It is
+  **not** the ASP.NET Core default (`/signin-google`), and it is pinned by
+  `Login_RedirectUri_UsesForwardedSchemeAndRegisteredCallbackPath` in
+  `Api.Tests/AuthEndpointsTests.cs` — if that test has to change, update the
+  console first.
+- The production entry must be `https`. The container itself listens on plain
+  HTTP behind the Container Apps ingress; `UseForwardedHeaders` in
+  `Program.cs` restores the original scheme so the emitted `redirect_uri` is
+  `https`. Removing that would emit `http` and break sign-in.
+- **Every new hostname needs its own entry here.** Binding a custom domain to
+  the Container App does not register it with Google — `stadar.app` was bound
+  in Aug 2026 and sign-in still failed from it until it was added.
+- Google may require the domain under **Authorized domains** on the OAuth
+  consent screen (and ownership verification via Search Console) before it
+  accepts a redirect URI for it. Apps still in *Testing* publishing status
+  generally don't hit this; published apps do.
+
+To verify what the deployed app actually sends without opening a browser:
+
+```bash
+curl -sSD - -o /dev/null \
+  "https://<host>/api/auth/login" | grep -i '^location:'
+```
+
+The `redirect_uri=` parameter in that `Location` header is the exact string
+Google compares against the allow-list.
 
 ## Hosting options
 
@@ -106,8 +166,8 @@ registry already exist (the first deploy also registers the `Microsoft.App`,
 `Microsoft.OperationalInsights`, and `Microsoft.ContainerRegistry` resource
 providers, which needs subscription-level rights CI doesn't have).
 
-**2. Add four GitHub repo secrets** (Settings → Secrets and variables →
-Actions):
+**2. Add the GitHub repo secrets** (Settings → Secrets and variables →
+Actions). `deploy.yml` passes all of these to the Container App:
 
 | Secret | Value |
 |---|---|
@@ -115,6 +175,14 @@ Actions):
 | `AZURE_TENANT_ID` | tenant id printed above |
 | `AZURE_SUBSCRIPTION_ID` | subscription id printed above |
 | `TICKETMASTER_API_KEY` | your Ticketmaster Discovery API key |
+| `GOOGLE_CLIENT_ID` | Google OAuth client id (accounts) |
+| `GOOGLE_CLIENT_SECRET` | Google OAuth client secret (accounts) |
+| `SQL_CONNECTION_STRING` | Azure SQL connection string (accounts) |
+
+Setting the last three switches accounts **on** in production — which also
+means the production redirect URI must already be registered with Google
+(see [Google OAuth](#google-oauth-accounts) above), or sign-in fails with
+`redirect_uri_mismatch`.
 
 **3. Merge to `main`.** Every push to `main` now tests and deploys; the
 workflow can also be run manually from the Actions tab (workflow_dispatch).
