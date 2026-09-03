@@ -3,6 +3,7 @@ import BottomNav from './components/BottomNav.jsx'
 import DiscoverPage from './pages/DiscoverPage.jsx'
 import EventDetailPage from './pages/EventDetailPage.jsx'
 import SavedPage from './pages/SavedPage.jsx'
+import ProfilePage from './pages/ProfilePage.jsx'
 import TeamSavedPage from './pages/TeamSavedPage.jsx'
 import ImportPrompt from './components/ImportPrompt.jsx'
 
@@ -30,6 +31,7 @@ function App() {
       <Route element={<AppLayout />}>
         <Route path="/" element={<DiscoverPage />} />
         <Route path="/saved" element={<SavedPage />} />
+        <Route path="/profile" element={<ProfilePage />} />
       </Route>
       <Route path="/saved/team/:teamName" element={<TeamSavedPage />} />
       <Route path="/event/:id" element={<EventDetailRoute />} />

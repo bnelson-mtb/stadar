@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
+using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Api.Tests;
@@ -97,6 +98,40 @@ public class AuthEndpointsTests
 
         Assert.AreEqual(HttpStatusCode.Redirect, response.StatusCode);
         StringAssert.Contains(response.Headers.Location!.ToString(), "accounts.google.com");
+    }
+
+    // Pins the OAuth redirect_uri, which is a DEPLOYMENT CONTRACT rather than an
+    // internal detail: Google rejects any redirect_uri not registered verbatim on
+    // the OAuth client ("Access blocked / Error 400: redirect_uri_mismatch"). Two
+    // things must hold, and breaking either fails only in production while every
+    // other test stays green — changing CallbackPath, or losing the forwarded-proto
+    // handling that makes the scheme https behind the TLS-terminating ingress.
+    // If this assertion ever has to change, register the new URI under
+    // "Authorized redirect URIs" in the Google Cloud console FIRST (see
+    // docs/DEPLOYMENT.md → Google OAuth).
+    [TestMethod]
+    public async Task Login_RedirectUri_UsesForwardedSchemeAndRegisteredCallbackPath()
+    {
+        using var factory = new WebApplicationFactory<Program>().WithWebHostBuilder(builder =>
+        {
+            builder.UseSetting("ConnectionStrings:Default", "DataSource=file:redirecturi?mode=memory&cache=shared");
+            builder.UseSetting("Google:ClientId", "test-client");
+            builder.UseSetting("Google:ClientSecret", "test-secret");
+        });
+        using var client = factory.CreateClient(new WebApplicationFactoryClientOptions
+        {
+            AllowAutoRedirect = false,
+        });
+        // Mirror the Container Apps ingress: it terminates TLS and forwards the
+        // original scheme. If that hop is not honored the app hands Google an
+        // http:// URI, which is not what is registered.
+        client.DefaultRequestHeaders.Add("X-Forwarded-Proto", "https");
+        client.DefaultRequestHeaders.Add("X-Forwarded-For", "203.0.113.7");
+
+        using var response = await client.GetAsync("/api/auth/login");
+
+        var query = QueryHelpers.ParseQuery(new Uri(response.Headers.Location!.ToString()).Query);
+        Assert.AreEqual("https://localhost/api/auth/callback", query["redirect_uri"].ToString());
     }
 
     private record MeResponse(string Id, string Email, string DisplayName);
