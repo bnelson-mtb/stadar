@@ -2,7 +2,6 @@ import { useState, useEffect, useMemo } from 'react'
 import { useLocation } from 'react-router-dom'
 import EventCard from '../components/EventCard.jsx'
 import FilterBar from '../components/FilterBar.jsx'
-import AuthButton from '../components/AuthButton.jsx'
 import RadarLogo from '../components/RadarLogo.jsx'
 import SkeletonCard from '../components/SkeletonCard.jsx'
 import UnsaveConfirmDialog from '../components/UnsaveConfirmDialog.jsx'
@@ -287,7 +286,7 @@ function DiscoverPage() {
               </div>
             </div>
             <div className="flex items-center justify-end gap-2">
-              <AuthButton />
+              {/* Sign-in moved to the Profile tab. */}
               <select
                 value={stateCode ?? ''}
                 onChange={e => handleStateChange(e.target.value)}
