@@ -46,6 +46,20 @@ The accounts layer is inert unless **both** `ConnectionStrings__Default` and
 touches SQL, so a deployment without these behaves exactly as it did before
 accounts existed.
 
+**Database tier: keep it on Basic.** The `stadar` database runs on the Basic
+DTU tier (~$4.90/month flat, 2 GB cap; the data is a few tens of MB). It was
+originally serverless (`GP_S_Gen5_1`, 60-minute auto-pause), which looked
+free but billed the full vCore rate (~$12/day) once the app's traffic kept it
+from ever pausing — enough to burn through the student credit and take the
+site down for five days in Aug/Sep 2026. If it ever needs more headroom, step
+up to Standard S0, not back to serverless. The Azure SQL free offer was
+considered and rejected: its ~55 active hours/month is exhausted in about a
+week by a database that wakes several times a day.
+
+```bash
+az sql db show -n stadar -g stadar-rg -s stadar-sql --query "{sku:sku.name,tier:sku.tier}" -o json
+```
+
 **Every origin the app is served from must be registered with Google before
 sign-in works there.** Google matches the `redirect_uri` verbatim against the
 OAuth client's allow-list; anything unregistered fails at the consent screen
