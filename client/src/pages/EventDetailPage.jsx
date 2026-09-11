@@ -95,17 +95,13 @@ function TicketProviderLogo({ provider }) {
   )
 }
 
-function TicketProviderButton({ provider, primary = false }) {
-  const className = primary
-    ? 'inline-flex max-w-full items-center gap-2 rounded-full border-1 border-white bg-night-700/60 px-3.5 py-2 text-xs font-bold text-white transition-colors hover:bg-night-600'
-    : 'inline-flex max-w-full items-center gap-2 rounded-full border border-white/10 bg-night-700/60 px-3 py-2 text-xs font-semibold text-slate-200 transition-colors hover:border-radar-400/40 hover:text-white'
-
+function TicketProviderButton({ provider }) {
   return (
     <a
       href={provider.url}
       target="_blank"
       rel="noopener noreferrer"
-      className={className}
+      className="inline-flex max-w-full items-center gap-2 rounded-full border border-white/10 bg-night-700/60 px-3 py-2 text-xs font-semibold text-slate-200 transition-colors hover:border-radar-400/40 hover:text-white"
       aria-label={`Open ${provider.name} tickets`}
     >
       <TicketProviderLogo provider={provider} />
@@ -605,7 +601,7 @@ function EventDetailPage() {
               <CollapsibleSection key={section} title="Get Tickets">
                 <div className="mb-4 flex flex-wrap gap-2">
                   {ticketmasterLink && (
-                    <TicketProviderButton provider={ticketmasterLink} primary />
+                    <TicketProviderButton provider={ticketmasterLink} />
                   )}
 
                   {ticketSearchLinks.map(provider => (

@@ -19,7 +19,7 @@ test('buildTicketSearchUrl opens the top scoped provider result when Google redi
   assert.equal(url.searchParams.get('btnI'), '1')
   assert.equal(
     query,
-    'site:seatgeek.com Utah Jazz vs. Denver Nuggets Delta Center Salt Lake City UT 2026 10 01'
+    'site:seatgeek.com Utah Jazz vs. Denver Nuggets Delta Center Salt Lake City UT October 2026'
   )
   assert.doesNotMatch(query, /tickets/)
   assert.doesNotMatch(query, /2026-10-01/)

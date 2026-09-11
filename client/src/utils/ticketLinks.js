@@ -26,8 +26,17 @@ function compact(value) {
   return String(value ?? '').trim().replace(/\s+/g, ' ')
 }
 
+const MONTH_NAMES = [
+  'January', 'February', 'March', 'April', 'May', 'June',
+  'July', 'August', 'September', 'October', 'November', 'December',
+]
+
 function formatDateForSearch(value) {
-  return compact(value).replace(/[-/]+/g, ' ')
+  const match = compact(value).match(/^(\d{4})-(\d{2})-(\d{2})$/)
+  if (!match) return compact(value)
+
+  const [, year, month] = match
+  return `${MONTH_NAMES[Number(month) - 1]} ${year}`
 }
 
 export function buildTicketSearchUrl(event, domain) {
