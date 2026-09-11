@@ -60,6 +60,17 @@ week by a database that wakes several times a day.
 az sql db show -n stadar -g stadar-rg -s stadar-sql --query "{sku:sku.name,tier:sku.tier}" -o json
 ```
 
+**Budget alert.** A subscription-level budget `stadar-monthly` ($25/month)
+emails the owner when actual spend passes 50% and 100%, and when the
+month-end forecast passes 100%. Normal run rate is ~$10/month (ACR Basic +
+SQL Basic), so the 50% alert only fires if something new starts burning.
+Inspect or edit it in the portal under Cost Management + Billing → Budgets,
+or with:
+
+```bash
+az consumption budget list -o table
+```
+
 **Every origin the app is served from must be registered with Google before
 sign-in works there.** Google matches the `redirect_uri` verbatim against the
 OAuth client's allow-list; anything unregistered fails at the consent screen
