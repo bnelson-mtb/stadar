@@ -88,7 +88,7 @@ function BottomSheet({ open, title, subtitle, onClose, footer, children }) {
             <h2 id={titleId} className="font-display text-[22px] uppercase leading-none text-white">
               {title}
             </h2>
-            {subtitle && <p className="mt-1.5 truncate text-xs text-ink-400">{subtitle}</p>}
+            {subtitle && <p className="mt-1.5 line-clamp-2 text-xs leading-relaxed text-ink-400">{subtitle}</p>}
           </div>
           <button
             type="button"

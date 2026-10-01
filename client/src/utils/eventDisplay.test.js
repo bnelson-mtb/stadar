@@ -19,12 +19,13 @@ import {
 // Wednesday, Sep 30 2026 (local calendar date)
 const today = new Date(2026, 8, 30, 9, 15)
 
-test('getTeamShortName uses the pro nickname and the college school name', () => {
+test('getTeamShortName uses the team nickname for pro and college teams', () => {
   assert.equal(getTeamShortName('Utah Jazz'), 'Jazz')
   assert.equal(getTeamShortName('Denver Nuggets'), 'Nuggets')
-  assert.equal(getTeamShortName('Utah Utes'), 'Utah')
-  assert.equal(getTeamShortName("Utah Men's Basketball"), 'Utah')
-  assert.equal(getTeamShortName('BYU Cougars'), 'BYU')
+  assert.equal(getTeamShortName('Utah Mammoth'), 'Mammoth')
+  assert.equal(getTeamShortName('Utah Utes'), 'Utes')
+  assert.equal(getTeamShortName("Utah Men's Basketball"), 'Utes')
+  assert.equal(getTeamShortName('BYU Cougars'), 'Cougars')
 })
 
 test('getTeamShortName falls back to the given name for unknown teams', () => {

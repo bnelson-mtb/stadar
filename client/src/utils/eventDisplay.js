@@ -2,19 +2,17 @@
 // hero tints, venue-local time labels and day labels. No React, no DOM, so
 // node:test covers them directly.
 
-import { NCAA, getCanonicalTeamName, getTeamData } from '../data/teams.js'
-
-const COLLEGE_KEYS = new Set(Object.keys(NCAA))
+import { getCanonicalTeamName, getTeamData } from '../data/teams.js'
 
 export const FALLBACK_TEAM_COLOR = '#0d2a4a'
 
-// "Jazz" for pro teams. College teams use the school ("Utah", "BYU"), since
-// mascots repeat across the country ("Wildcats vs Tigers" says nothing).
+// Nickname for tight matchup lines: "Jazz", "Utes", "Cougars". Rows always
+// show the logo beside it, which tells same-named mascots apart; pages with
+// room (team page, Teams tab) use the full canonical name instead.
 export function getTeamShortName(name) {
   if (!name) return ''
   const team = getTeamData(name)
   if (!team) return name.trim()
-  if (COLLEGE_KEYS.has(team.canonicalKey)) return team.canonicalKey
   return team.shortName || getCanonicalTeamName(name)
 }
 

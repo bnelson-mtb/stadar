@@ -50,7 +50,7 @@ const NBA = {
 }
 
 const NHL = {
-  'Utah Mammoth':             { color: '#131F33', logo: espnLogo('nhl', 'uta'),  shortName: 'Utah Mammoth' },
+  'Utah Mammoth':             { color: '#131F33', logo: espnLogo('nhl', 'uta'),  shortName: 'Mammoth' },
   'Colorado Avalanche':       { color: '#6F263D', logo: espnLogo('nhl', 'col'),  shortName: 'Avalanche' },
   'Vegas Golden Knights':     { color: '#B4975A', logo: espnLogo('nhl', 'vgk'),  shortName: 'Golden Knights' },
   'Dallas Stars':             { color: '#006847', logo: espnLogo('nhl', 'dal'),  shortName: 'Stars' },
