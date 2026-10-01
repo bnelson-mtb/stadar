@@ -3809,7 +3809,7 @@ const NCAA = {
 
 // ============================================================
 //  BUILD FLAT LOOKUP MAP
-//  EventCard uses TEAMS[teamName] — this map lets that work
+//  getTeamData() looks teams up by name — this map lets that work
 //  regardless of how the data is organized above.
 // ============================================================
 

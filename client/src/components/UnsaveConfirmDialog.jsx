@@ -84,12 +84,12 @@ function UnsaveConfirmDialog({ event, focusFallbackRef, onCancel, onConfirm }) {
         aria-modal="true"
         aria-labelledby={titleId}
         aria-describedby={descriptionId}
-        className="w-full max-w-md rounded-xl border border-white/10 bg-night-800 p-6 shadow-2xl"
+        className="w-full max-w-md rounded-[18px] border border-white/[.08] bg-night-900 p-6 shadow-2xl"
       >
-        <h2 id={titleId} className="font-display text-xl font-bold text-white">
+        <h2 id={titleId} className="font-display text-[22px] uppercase leading-none text-white">
           Unsave this event?
         </h2>
-        <p id={descriptionId} className="mt-3 text-sm leading-relaxed text-slate-400">
+        <p id={descriptionId} className="mt-3 text-sm leading-relaxed text-ink-400">
           {isPast
             ? 'Your notes and the final score will be permanently deleted. This cannot be undone.'
             : 'Are you sure you want to unsave this event?'}
@@ -100,14 +100,14 @@ function UnsaveConfirmDialog({ event, focusFallbackRef, onCancel, onConfirm }) {
             ref={cancelButtonRef}
             type="button"
             onClick={onCancel}
-            className="cursor-pointer rounded-lg border border-white/10 bg-night-700 px-4 py-2 text-sm font-semibold text-slate-200 transition-colors hover:bg-night-600 hover:text-white"
+            className="cursor-pointer rounded-xl border border-white/10 bg-white/[.06] px-4 py-2.5 text-sm font-semibold text-ink-100 transition-colors duration-150 hover:bg-white/10 hover:text-white"
           >
             Cancel
           </button>
           <button
             type="button"
             onClick={onConfirm}
-            className="cursor-pointer rounded-lg bg-rose-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-rose-500"
+            className="cursor-pointer rounded-xl bg-rose-600 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-rose-500"
           >
             Unsave
           </button>
