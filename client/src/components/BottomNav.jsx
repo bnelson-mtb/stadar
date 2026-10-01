@@ -1,51 +1,43 @@
 import { NavLink } from 'react-router-dom'
+import { BookmarkIcon, SearchIcon, UserCircleIcon, UserGroupIcon } from './icons.jsx'
 
-const linkClasses = ({ isActive }) =>
-  `relative flex-1 flex flex-col items-center py-3 text-xs font-medium tracking-wide transition-colors ${
-    isActive ? 'text-radar-400' : 'text-slate-500 hover:text-slate-300'
-  }`
-
-function ActiveBar({ isActive }) {
-  if (!isActive) return null
-  return <span className="absolute top-0 h-0.5 w-8 rounded-full bg-radar-400 shadow-[0_0_8px_rgba(163,230,53,0.8)]" />
-}
+// Profile stays a tab (it was already the third tab before the overhaul), so
+// the nav is Discover / Teams / Saved / Profile.
+const TABS = [
+  { to: '/', label: 'Discover', Icon: SearchIcon, end: true },
+  { to: '/teams', label: 'Teams', Icon: UserGroupIcon },
+  { to: '/saved', label: 'Saved', Icon: BookmarkIcon, fillWhenActive: true },
+  { to: '/profile', label: 'Profile', Icon: UserCircleIcon },
+]
 
 export default function BottomNav() {
   return (
-    <nav className="fixed bottom-0 left-0 right-0 bg-night-900/90 backdrop-blur border-t border-white/10 flex z-50">
-      <NavLink to="/" end className={linkClasses}>
-        {({ isActive }) => (
-          <>
-            <ActiveBar isActive={isActive} />
-            <svg className="w-5 h-5 mb-1" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
-            </svg>
-            Discover
-          </>
-        )}
-      </NavLink>
-      <NavLink to="/saved" className={linkClasses}>
-        {({ isActive }) => (
-          <>
-            <ActiveBar isActive={isActive} />
-            <svg className="w-5 h-5 mb-1" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0 1 11.186 0Z" />
-            </svg>
-            Saved
-          </>
-        )}
-      </NavLink>
-      <NavLink to="/profile" className={linkClasses}>
-        {({ isActive }) => (
-          <>
-            <ActiveBar isActive={isActive} />
-            <svg className="w-5 h-5 mb-1" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
-            </svg>
-            Profile
-          </>
-        )}
-      </NavLink>
+    <nav className="fixed inset-x-0 bottom-0 z-50 border-t border-white/[.06] bg-[linear-gradient(to_top,#07090e_65%,rgba(7,9,14,.85))] backdrop-blur-sm">
+      <div className="mx-auto flex max-w-xl justify-between px-6 pb-4 pt-2.5">
+        {TABS.map(tab => (
+          <NavLink
+            key={tab.to}
+            to={tab.to}
+            end={tab.end}
+            className={({ isActive }) =>
+              `flex w-16 flex-col items-center gap-[5px] text-[10px] font-semibold tracking-[.06em] transition-colors duration-150 ${
+                isActive ? 'text-radar-400' : 'text-ink-500 hover:text-ink-200'
+              }`
+            }
+          >
+            {({ isActive }) => (
+              <>
+                <tab.Icon
+                  className="h-[21px] w-[21px]"
+                  strokeWidth={tab.fillWhenActive && isActive ? 1.5 : 1.7}
+                  filled={Boolean(tab.fillWhenActive && isActive)}
+                />
+                {tab.label}
+              </>
+            )}
+          </NavLink>
+        ))}
+      </div>
     </nav>
   )
 }

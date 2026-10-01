@@ -10,10 +10,12 @@ import {
   getEventStart,
   getHeroColor,
   getStartTerm,
+  getTeamContext,
   getTeamShortName,
   getTimeZoneLabel,
   involvesTeam,
   isToday,
+  splitTeamName,
 } from './eventDisplay.js'
 
 // Wednesday, Sep 30 2026 (local calendar date)
@@ -130,4 +132,23 @@ test('getStartTerm speaks each sport and falls back to "start"', () => {
   assert.equal(getStartTerm('Baseball').label, 'First pitch')
   assert.equal(getStartTerm('Softball').caption, 'to first pitch')
   assert.deepEqual(getStartTerm('Lacrosse'), { label: 'Start', countdown: 'Starts in', caption: 'to start' })
+})
+
+test('splitTeamName breaks the nickname onto its own line', () => {
+  assert.deepEqual(splitTeamName('Utah Jazz'), ['Utah', 'Jazz'])
+  assert.deepEqual(splitTeamName('Utah Utes'), ['Utah', 'Utes'])
+  assert.deepEqual(splitTeamName('Vegas Golden Knights'), ['Vegas', 'Golden Knights'])
+  assert.deepEqual(splitTeamName('Some Touring Exhibition'), ['Some Touring Exhibition'])
+})
+
+test('getTeamContext reads the league and home venue from any game', () => {
+  const games = [
+    { homeTeam: 'Denver Nuggets', awayTeam: 'Utah Jazz', league: 'NBA', venue: 'Ball Arena' },
+    { homeTeam: 'Utah Jazz', awayTeam: 'Phoenix Suns', league: 'NBA', venue: 'Delta Center' },
+    { homeTeam: 'Utah Mammoth', awayTeam: 'Colorado Avalanche', league: 'NHL', venue: 'Delta Center' },
+  ]
+
+  assert.deepEqual(getTeamContext(games, 'Utah Jazz'), { league: 'NBA', homeVenue: 'Delta Center' })
+  assert.deepEqual(getTeamContext(games, 'Colorado Avalanche'), { league: 'NHL', homeVenue: '' })
+  assert.deepEqual(getTeamContext([], 'Utah Jazz'), { league: '', homeVenue: '' })
 })

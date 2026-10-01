@@ -336,6 +336,7 @@ function TeamName({ name, children, className = '' }) {
   return (
     <Link
       to={`/saved/team/${encodeURIComponent(name)}`}
+      state={{ backTo: -1 }}
       className={`${className} transition-colors duration-150 hover:text-radar-300`}
     >
       {children}

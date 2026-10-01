@@ -211,3 +211,25 @@ const DEFAULT_START_TERM = { label: 'Start', countdown: 'Starts in', caption: 't
 export function getStartTerm(sport) {
   return START_TERMS[sport] ?? DEFAULT_START_TERM
 }
+
+// Team-page hero lines: "Utah" / "Jazz". Teams whose nickname is the whole
+// name stay on one line.
+export function splitTeamName(name) {
+  const fullName = getCanonicalTeamName(name)
+  const nickname = getTeamData(name)?.shortName
+  if (nickname && fullName.endsWith(` ${nickname}`)) {
+    return [fullName.slice(0, -nickname.length - 1), nickname]
+  }
+  return [fullName]
+}
+
+// League and home venue for a team, read off any of its games:
+// "NBA · Delta Center".
+export function getTeamContext(events, teamName) {
+  const games = events.filter(event => involvesTeam(event, teamName))
+  const homeGame = games.find(event => getCanonicalTeamName(event.homeTeam) === teamName)
+  return {
+    league: games.find(event => event.league)?.league ?? '',
+    homeVenue: homeGame?.venue ?? '',
+  }
+}
