@@ -124,11 +124,12 @@ public class TicketmasterClientParseTests
     [TestMethod]
     public void ParseEvent_MultipleAttractionsNoVsInTitle_DoesNotInventAwayTeam()
     {
-        var json = Parse("""
+        var start = DateTime.UtcNow.AddDays(30).ToString("yyyy-MM-dd");
+        var json = Parse($$"""
         {
           "id": "mj1",
           "name": "Utah Jazz Season Opener",
-          "dates": { "start": { "dateTime": "2026-10-01T02:00:00Z" } },
+          "dates": { "start": { "dateTime": "{{start}}T02:00:00Z" } },
           "classifications": [
             { "genre": { "name": "Basketball" }, "subGenre": { "name": "NBA" } }
           ],
@@ -151,11 +152,12 @@ public class TicketmasterClientParseTests
     [TestMethod]
     public void ParseEvent_MultipleAttractionsSingleVTitle_UsesSecondAttractionAsAwayTeam()
     {
-        var json = Parse("""
+        var start = DateTime.UtcNow.AddDays(30).ToString("yyyy-MM-dd");
+        var json = Parse($$"""
         {
           "id": "mj2",
           "name": "Utah Utes v BYU Cougars",
-          "dates": { "start": { "dateTime": "2026-10-01T02:00:00Z" } },
+          "dates": { "start": { "dateTime": "{{start}}T02:00:00Z" } },
           "classifications": [
             { "genre": { "name": "Football" }, "subGenre": { "name": "College Football" } }
           ],
@@ -291,13 +293,14 @@ public class TicketmasterClientParseTests
     [TestMethod]
     public void ParseEvent_TimeTba_SetsLocalTimeNull()
     {
-        var json = Parse("""
+        var localDate = DateTime.UtcNow.AddDays(30).ToString("yyyy-MM-dd");
+        var json = Parse($$"""
         {
           "id": "x7",
           "name": "Utah Jazz vs. Denver Nuggets",
           "dates": {
             "start": {
-              "localDate": "2026-10-01",
+              "localDate": "{{localDate}}",
               "localTime": "19:30:00",
               "timeTBA": true
             }
@@ -317,7 +320,7 @@ public class TicketmasterClientParseTests
         var ev = TicketmasterClient.ParseEvent(json);
 
         Assert.IsNotNull(ev);
-        Assert.AreEqual("2026-10-01", ev.LocalDate);
+        Assert.AreEqual(localDate, ev.LocalDate);
         Assert.IsNull(ev.LocalTime);
     }
 
