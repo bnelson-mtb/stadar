@@ -1,14 +1,24 @@
 @import "tailwindcss";
 
 @theme {
-  --color-night-950: #060b16;
-  --color-night-900: #0a1120;
-  --color-night-800: #111a2e;
-  --color-night-700: #1a2740;
-  --color-radar-300: #bef264;
-  --color-radar-400: #a3e635;
-  --color-radar-500: #84cc16;
-  --font-display: "Rajdhani", "Segoe UI", system-ui, sans-serif;
+  --color-night-950: #07090e;
+  --color-night-900: #0d1219;
+  --color-night-800: #101620;
+  --color-night-700: #12171f;
+  --color-radar-300: #7ae6fb;
+  --color-radar-400: #2ed3f2;
+  --color-radar-500: #14b8d9;
+
+  /* Text ramp: titles → body → secondary → muted → tertiary → separators */
+  --color-ink-50: #ffffff;
+  --color-ink-100: #e6ebf2;
+  --color-ink-200: #cdd6e0;
+  --color-ink-400: #8b96a5;
+  --color-ink-500: #5d6b7d;
+  --color-ink-600: #3b4756;
+
+  --font-display: "Anton", Impact, sans-serif;
+  --font-sans: "Sora", system-ui, sans-serif;
 }
 
 :root {
@@ -17,6 +27,7 @@
 
 body {
   background-color: var(--color-night-950);
+  color: var(--color-ink-100);
 }
 
 @keyframes radar-sweep {
@@ -38,6 +49,33 @@ body {
   }
 }
 
+@keyframes sheet-up {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes backdrop-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes shimmer {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
 .radar-sweep {
   animation: radar-sweep 4s linear infinite;
   transform-origin: 50% 50%;
@@ -48,9 +86,43 @@ body {
   animation: radar-blip 2s ease-in-out infinite;
 }
 
+.sheet-up {
+  animation: sheet-up 220ms ease-out;
+}
+
+.backdrop-in {
+  animation: backdrop-in 220ms ease-out;
+}
+
+/* Skeleton shimmer: a soft highlight band sliding across the placeholder. */
+.shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.04), transparent);
+  animation: shimmer 1.4s ease-in-out infinite;
+}
+
+/* Horizontal rails scroll by touch; the bar itself is noise on mobile. */
+.no-scrollbar {
+  scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .radar-sweep,
-  .radar-blip {
+  .radar-blip,
+  .sheet-up,
+  .backdrop-in,
+  .shimmer::after {
     animation: none;
   }
 }
