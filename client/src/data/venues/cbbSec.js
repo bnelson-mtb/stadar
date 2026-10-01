@@ -7,7 +7,7 @@ export const CBB_SEC_VENUES = {
     aliases: ["Coleman Coliseum Tuscaloosa"],
     city: "Tuscaloosa",
     state: "AL",
-    summary: "Alabama's 15,000-seat basketball barn — a football-first school's hoops home that gets genuinely loud during the Crimson Tide's recent tournament runs.",
+    summary: "Alabama's 15,000-seat basketball barn, a football-first school's hoops home that gets genuinely loud during the Crimson Tide's recent tournament runs.",
     bestFor: ["college basketball"],
     atmosphere: {
       vibe: "Grows loud with winning; the up-tempo Nate Oats era filled it with energy",
@@ -30,9 +30,9 @@ export const CBB_SEC_VENUES = {
       nearbyPregame: ["The Strip (University Blvd)", "Rama Jama's", "downtown Tuscaloosa"],
     },
     fanTips: [
-      "Bama basketball became a real ticket — Kentucky/Auburn/Tennessee visits sell.",
+      "Bama basketball became a real ticket; Kentucky/Auburn/Tennessee visits sell.",
       "Weeknight non-conference games are cheap, easy walk-ups.",
-      "The arena also hosts gymnastics ('Power of Pink') — a huge SEC draw."
+      "The arena also hosts gymnastics ('Power of Pink'), a huge SEC draw."
     ],
     officialLinks: {
       website: "https://rolltide.com/facilities/coleman-coliseum/6",
@@ -48,10 +48,10 @@ export const CBB_SEC_VENUES = {
     aliases: ["Basketball Palace of Mid-America", "Bud Walton"],
     city: "Fayetteville",
     state: "AR",
-    summary: "Arkansas's 19,000-seat 'Basketball Palace of Mid-America' — one of the SEC's largest and loudest hoops houses, with Hog Calls echoing off the roof.",
+    summary: "Arkansas's 19,000-seat 'Basketball Palace of Mid-America,' one of the SEC's largest and loudest hoops houses, with Hog Calls echoing off the roof.",
     bestFor: ["college basketball"],
     atmosphere: {
-      vibe: "Woo Pig hoops fervor — big, loud, and hostile on marquee nights",
+      vibe: "Woo Pig hoops fervor: big, loud, and hostile on marquee nights",
       noiseLevel: "Very high",
       familyFriendly: true,
       indoorOutdoor: "Indoor"
@@ -71,7 +71,7 @@ export const CBB_SEC_VENUES = {
       nearbyPregame: ["Dickson Street", "JJ's Grill", "downtown Fayetteville square"],
     },
     fanTips: [
-      "Calling the Hogs at a basketball game is a genuine experience — learn it beforehand.",
+      "Calling the Hogs at a basketball game is a genuine experience, so learn it beforehand.",
       "Kentucky and border rivals fill the building; buy those early.",
       "One of the SEC's largest arenas, so mid-week tickets are usually available."
     ],
@@ -89,10 +89,10 @@ export const CBB_SEC_VENUES = {
     aliases: ["Auburn Arena"],
     city: "Auburn",
     state: "AL",
-    summary: "Auburn's 9,100-seat bandbox — one of the SEC's smallest and loudest arenas, where the Bruce Pearl era turned every home game into a white-hot sellout.",
+    summary: "Auburn's 9,100-seat bandbox, one of the SEC's smallest and loudest arenas, where the Bruce Pearl era turned every home game into a white-hot sellout.",
     bestFor: ["college basketball"],
     atmosphere: {
-      vibe: "Tiny, deafening, and elite — a top-5 college hoops atmosphere in the country",
+      vibe: "Tiny, deafening, and elite: a top-5 college hoops atmosphere in the country",
       noiseLevel: "Very high",
       familyFriendly: true,
       indoorOutdoor: "Indoor"
@@ -104,7 +104,7 @@ export const CBB_SEC_VENUES = {
     },
     seating: {
       bestValueSections: ["Anywhere in the lower bowl", "Upper corners"],
-      avoidIfPossible: ["Nothing — it's all close"],
+      avoidIfPossible: ["Nothing; it's all close"],
       accessibilityNote: "Accessible seating available; verify sections with the ticket office."
     },
     foodAndDrink: {
@@ -112,7 +112,7 @@ export const CBB_SEC_VENUES = {
       nearbyPregame: ["Toomer's Corner", "The Hound", "downtown Auburn bars"],
     },
     fanTips: [
-      "One of the toughest tickets in college basketball — buy well ahead for any SEC game.",
+      "One of the toughest tickets in college basketball, so buy well ahead for any SEC game.",
       "The intimacy makes even blowouts loud; there's no coasting in this building.",
       "Kentucky and Alabama visits are near-impossible walk-ups."
     ],
@@ -130,7 +130,7 @@ export const CBB_SEC_VENUES = {
     aliases: ["O'Connell Center", "The O'Dome", "Exactech Arena"],
     city: "Gainesville",
     state: "FL",
-    summary: "Florida's 10,000-seat 'O'Dome' — a distinctive fabric-roofed arena where the Rowdy Reptiles student section drives a fierce home-court edge.",
+    summary: "Florida's 10,000-seat 'O'Dome,' a distinctive fabric-roofed arena where the Rowdy Reptiles student section drives a fierce home-court edge.",
     bestFor: ["college basketball"],
     atmosphere: {
       vibe: "Rowdy Reptiles intensity in a compact, modern-renovated bowl",
@@ -153,7 +153,7 @@ export const CBB_SEC_VENUES = {
       nearbyPregame: ["Midtown bars", "University Ave strip", "Depot Park area"],
     },
     fanTips: [
-      "Florida's title-contending era made tickets scarcer — buy ahead for SEC games.",
+      "Florida's title-contending era made tickets scarcer, so buy ahead for SEC games.",
       "The fabric-domed roof gives it a unique look; the renovation modernized the interior.",
       "Kentucky and in-state rivalry games are the hot tickets."
     ],
@@ -171,7 +171,7 @@ export const CBB_SEC_VENUES = {
     aliases: ["Stegeman"],
     city: "Athens",
     state: "GA",
-    summary: "Georgia's 10,500-seat coliseum — a classic 1964 dome that fills for marquee SEC visitors in a football-first town.",
+    summary: "Georgia's 10,500-seat coliseum, a classic 1964 dome that fills for marquee SEC visitors in a football-first town.",
     bestFor: ["college basketball", "college gymnastics"],
     atmosphere: {
       vibe: "Loud for big games, sleepy for cupcakes; a football school's hoops venue",
@@ -212,10 +212,10 @@ export const CBB_SEC_VENUES = {
     aliases: ["Rupp", "Rupp Arena at Central Bank Center"],
     city: "Lexington",
     state: "KY",
-    summary: "College basketball's cathedral — Kentucky's 20,500-seat downtown arena, the largest purpose-built basketball venue in the country, where hoops is the state religion.",
+    summary: "College basketball's cathedral: Kentucky's 20,500-seat downtown arena, the largest purpose-built basketball venue in the country, where hoops is the state religion.",
     bestFor: ["college basketball", "concerts"],
     atmosphere: {
-      vibe: "Big Blue Nation reverence — a shrine where 20,000 hang on every possession",
+      vibe: "Big Blue Nation reverence, a shrine where 20,000 hang on every possession",
       noiseLevel: "Very high",
       familyFriendly: true,
       indoorOutdoor: "Indoor"
@@ -235,9 +235,9 @@ export const CBB_SEC_VENUES = {
       nearbyPregame: ["The Distillery District", "downtown Lexington", "bourbon bars on Main"],
     },
     fanTips: [
-      "A Kentucky home game is a bucket-list college basketball experience — worth planning around.",
+      "A Kentucky home game is a bucket-list college basketball experience, worth planning around.",
       "Marquee SEC and non-conference visits (Louisville, blue-bloods) reprice everything.",
-      "Pair with a bourbon-trail day — Lexington is the heart of it."
+      "Pair with a bourbon-trail day; Lexington is the heart of it."
     ],
     officialLinks: {
       website: "https://ukathletics.com/facilities/rupp-arena",
@@ -253,7 +253,7 @@ export const CBB_SEC_VENUES = {
     aliases: ["PMAC", "The Deaf Dome", "Maravich Center"],
     city: "Baton Rouge",
     state: "LA",
-    summary: "LSU's UFO-shaped 'PMAC' — a distinctive domed arena named for Pistol Pete Maravich, loud when the Tigers roll and hosting championship gymnastics.",
+    summary: "LSU's UFO-shaped 'PMAC,' a distinctive domed arena named for Pistol Pete Maravich, loud when the Tigers roll and hosting championship gymnastics.",
     bestFor: ["college basketball", "college gymnastics"],
     atmosphere: {
       vibe: "The Deaf Dome earns its nickname on big nights; gymnastics meets are enormous",
@@ -276,8 +276,8 @@ export const CBB_SEC_VENUES = {
       nearbyPregame: ["The Chimes", "Tigerland bars", "downtown Baton Rouge"],
     },
     fanTips: [
-      "LSU gymnastics ('Gym Nasty') sells out bigger than most basketball games — a genuine SEC spectacle.",
-      "The dome's Pistol Pete history is honored throughout — worth a look.",
+      "LSU gymnastics ('Gym Nasty') sells out bigger than most basketball games, a genuine SEC spectacle.",
+      "The dome's Pistol Pete history is honored throughout and worth a look.",
       "Kentucky and marquee visits fill it; otherwise accessible tickets."
     ],
     officialLinks: {
@@ -294,7 +294,7 @@ export const CBB_SEC_VENUES = {
     aliases: ["The Pavilion at Ole Miss", "SJB Pavilion", "The Pavilion"],
     city: "Oxford",
     state: "MS",
-    summary: "Ole Miss's 9,500-seat Pavilion (opened 2016) — one of the SEC's newest and best-designed arenas, intimate and steep with a modern concourse.",
+    summary: "Ole Miss's 9,500-seat Pavilion (opened 2016), one of the SEC's newest and best-designed arenas, intimate and steep with a modern concourse.",
     bestFor: ["college basketball"],
     atmosphere: {
       vibe: "New-building buzz; steep and loud when the Rebels are competitive",
@@ -309,7 +309,7 @@ export const CBB_SEC_VENUES = {
     },
     seating: {
       bestValueSections: ["Lower sidelines", "Upper corners"],
-      avoidIfPossible: ["Nothing structural — it's a good building"],
+      avoidIfPossible: ["Nothing structural; it's a good building"],
       accessibilityNote: "Modern ADA design; accessible seating available."
     },
     foodAndDrink: {
@@ -317,7 +317,7 @@ export const CBB_SEC_VENUES = {
       nearbyPregame: ["The Square (Oxford)", "Ajax Diner", "City Grocery"],
     },
     fanTips: [
-      "Oxford's Square is a top college-town destination — pair it with any game.",
+      "Oxford's Square is a top college-town destination, so pair it with any game.",
       "One of the SEC's newest arenas; the design shows.",
       "Kentucky and marquee SEC visits are the hot tickets."
     ],
@@ -335,7 +335,7 @@ export const CBB_SEC_VENUES = {
     aliases: ["The Hump"],
     city: "Starkville",
     state: "MS",
-    summary: "Mississippi State's 'Hump' — a 10,500-seat coliseum where cowbells cross over from football and the Bulldogs pull marquee upsets.",
+    summary: "Mississippi State's 'Hump,' a 10,500-seat coliseum where cowbells cross over from football and the Bulldogs pull marquee upsets.",
     bestFor: ["college basketball"],
     atmosphere: {
       vibe: "Cowbell-clanging maroon intensity on big nights",
@@ -358,7 +358,7 @@ export const CBB_SEC_VENUES = {
       nearbyPregame: ["Cotton District", "Two Brothers Smoked Meats", "downtown Starkville"],
     },
     fanTips: [
-      "Yes, the cowbells ring at basketball too — bring ear protection for kids.",
+      "Yes, the cowbells ring at basketball too, so bring ear protection for kids.",
       "Kentucky and rivalry games fill it; otherwise easy tickets.",
       "MSU women's basketball is often a bigger draw than the men's."
     ],
@@ -376,7 +376,7 @@ export const CBB_SEC_VENUES = {
     aliases: ["Paige Sports Arena", "Mizzou Arena Columbia"],
     city: "Columbia",
     state: "MO",
-    summary: "Missouri's 15,000-seat arena — the Antlers student section brings the venom, and the building fills for SEC marquee visitors.",
+    summary: "Missouri's 15,000-seat arena. The Antlers student section brings the venom, and the building fills for SEC marquee visitors.",
     bestFor: ["college basketball"],
     atmosphere: {
       vibe: "The Antlers give it a hostile, witty edge; loud for ranked games",
@@ -399,7 +399,7 @@ export const CBB_SEC_VENUES = {
       nearbyPregame: ["The District", "Shakespeare's Pizza", "Harpo's"],
     },
     fanTips: [
-      "The Antlers are one of college basketball's most notorious student sections — sit near for the show.",
+      "The Antlers are one of college basketball's most notorious student sections, so sit near for the show.",
       "Shakespeare's Pizza pregame is the Columbia tradition.",
       "Kentucky and SEC contenders fill it; midweek games are easy."
     ],
@@ -417,7 +417,7 @@ export const CBB_SEC_VENUES = {
     aliases: ["LNC", "The Lloyd"],
     city: "Norman",
     state: "OK",
-    summary: "Oklahoma's 11,500-seat arena south of the football stadium — a classic SEC-newcomer hoops home that gets loud for Bedlam-era and marquee visits.",
+    summary: "Oklahoma's 11,500-seat arena south of the football stadium, a classic SEC-newcomer hoops home that gets loud for Bedlam-era and marquee visits.",
     bestFor: ["college basketball"],
     atmosphere: {
       vibe: "Crimson-and-cream loud on big nights; football-first town's hoops venue",
@@ -426,7 +426,7 @@ export const CBB_SEC_VENUES = {
       indoorOutdoor: "Indoor"
     },
     arrival: {
-      parking: "Large on-site lots south of campus — easy.",
+      parking: "Large on-site lots south of campus; easy.",
       rideshare: "Jenkins Ave drops.",
       transit: "OU campus shuttles.",
     },
@@ -440,7 +440,7 @@ export const CBB_SEC_VENUES = {
       nearbyPregame: ["Campus Corner", "The Mont", "downtown Norman"],
     },
     fanTips: [
-      "The SEC move brought new marquee opponents — Kentucky, Auburn, etc.",
+      "The SEC move brought new marquee opponents: Kentucky, Auburn, etc.",
       "Campus Corner pregame is the local pattern.",
       "OU women's basketball and gymnastics also draw well here."
     ],
@@ -458,7 +458,7 @@ export const CBB_SEC_VENUES = {
     aliases: ["The Colonial Life", "CLA"],
     city: "Columbia",
     state: "SC",
-    summary: "South Carolina's 18,000-seat downtown arena — the SEC's largest capacity for basketball, home to the powerhouse women's program (Dawn Staley) as much as the men.",
+    summary: "South Carolina's 18,000-seat downtown arena, the SEC's largest capacity for basketball, home to the powerhouse women's program (Dawn Staley) as much as the men.",
     bestFor: ["college basketball", "concerts"],
     atmosphere: {
       vibe: "Women's games are national-title-caliber loud; men's crowds surge for SEC contenders",
@@ -481,7 +481,7 @@ export const CBB_SEC_VENUES = {
       nearbyPregame: ["The Vista", "Five Points", "downtown Columbia"],
     },
     fanTips: [
-      "The women's program (Dawn Staley) is a national juggernaut — those games are the hottest tickets in the SEC.",
+      "The women's program (Dawn Staley) is a national juggernaut, and those games are the hottest tickets in the SEC.",
       "The men's building fills for Kentucky and rivalry games.",
       "One of the SEC's largest arenas, so mid-week men's tickets are usually available."
     ],
@@ -499,10 +499,10 @@ export const CBB_SEC_VENUES = {
     aliases: ["Thompson-Boling Arena", "Thompson Boling Arena", "The Rock (arena)"],
     city: "Knoxville",
     state: "TN",
-    summary: "Tennessee's 21,000-seat arena (renamed from Thompson-Boling in 2024) — one of the SEC's biggest and loudest hoops houses, packed for the Rick Barnes-era Vols.",
+    summary: "Tennessee's 21,000-seat arena (renamed from Thompson-Boling in 2024), one of the SEC's biggest and loudest hoops houses, packed for the Rick Barnes-era Vols.",
     bestFor: ["college basketball", "college gymnastics"],
     atmosphere: {
-      vibe: "Big-orange loud — a top-tier SEC basketball environment on marquee nights",
+      vibe: "Big-orange loud, a top-tier SEC basketball environment on marquee nights",
       noiseLevel: "Very high",
       familyFriendly: true,
       indoorOutdoor: "Indoor"
@@ -522,8 +522,8 @@ export const CBB_SEC_VENUES = {
       nearbyPregame: ["Market Square", "Old City", "Cumberland Strip"],
     },
     fanTips: [
-      "Listings may still say Thompson-Boling Arena — renamed Food City Center in 2024.",
-      "Vols basketball became a hot ticket — Kentucky and top-10 visits sell out.",
+      "Listings may still say Thompson-Boling Arena (renamed Food City Center in 2024).",
+      "Vols basketball became a hot ticket; Kentucky and top-10 visits sell out.",
       "Lady Vols history and gymnastics also fill the building."
     ],
     officialLinks: {
@@ -540,10 +540,10 @@ export const CBB_SEC_VENUES = {
     aliases: ["Moody Center ATX"],
     city: "Austin",
     state: "TX",
-    summary: "Texas's 15,000-seat arena (opened 2022) — a downtown-adjacent, concert-grade building that gave Longhorn hoops a modern, loud home for the SEC era.",
+    summary: "Texas's 15,000-seat arena (opened 2022), a downtown-adjacent, concert-grade building that gave Longhorn hoops a modern, loud home for the SEC era.",
     bestFor: ["college basketball", "concerts"],
     atmosphere: {
-      vibe: "Modern and loud — the new building energized a historically soft hoops crowd",
+      vibe: "Modern and loud; the new building energized a historically soft hoops crowd",
       noiseLevel: "High",
       familyFriendly: true,
       indoorOutdoor: "Indoor"
@@ -555,7 +555,7 @@ export const CBB_SEC_VENUES = {
     },
     seating: {
       bestValueSections: ["Upper sidelines", "Lower corners"],
-      avoidIfPossible: ["Nothing structural — it's a new building"],
+      avoidIfPossible: ["Nothing structural; it's a new building"],
       accessibilityNote: "Modern ADA design; accessible seating on all levels."
     },
     foodAndDrink: {
@@ -563,9 +563,9 @@ export const CBB_SEC_VENUES = {
       nearbyPregame: ["The Drag", "downtown Austin", "Rainey Street (post-game)"],
     },
     fanTips: [
-      "One of the best new arenas in the country — the building itself is a draw.",
+      "One of the best new arenas in the country, where the building itself is a draw.",
       "SEC-era marquee visits (Kentucky, etc.) and the concert calendar drive demand.",
-      "It doubles as Austin's premier concert venue — a genuinely versatile building."
+      "It doubles as Austin's premier concert venue, a genuinely versatile building."
     ],
     officialLinks: {
       website: "https://texassports.com/facilities/moody-center",
@@ -581,7 +581,7 @@ export const CBB_SEC_VENUES = {
     aliases: ["Reed Arena College Station"],
     city: "College Station",
     state: "TX",
-    summary: "Texas A&M's 12,500-seat arena — the Reed Rowdies student section drives energy in a building that fills for SEC contenders.",
+    summary: "Texas A&M's 12,500-seat arena. The Reed Rowdies student section drives energy in a building that fills for SEC contenders.",
     bestFor: ["college basketball"],
     atmosphere: {
       vibe: "Aggie-loud with the yell-culture crossover; big for marquee SEC nights",
@@ -622,7 +622,7 @@ export const CBB_SEC_VENUES = {
     aliases: ["Memorial Gym", "Vanderbilt Memorial Gymnasium"],
     city: "Nashville",
     state: "TN",
-    summary: "Vanderbilt's quirky 1952 gym — the benches are at the ends of the court (not the sides) and the elevated playing floor makes it college basketball's most eccentric building.",
+    summary: "Vanderbilt's quirky 1952 gym: the benches are at the ends of the court (not the sides) and the elevated playing floor makes it college basketball's most eccentric building.",
     bestFor: ["college basketball"],
     atmosphere: {
       vibe: "Idiosyncratic and intimate; a genuine architectural oddity beloved by hoops purists",
@@ -645,9 +645,9 @@ export const CBB_SEC_VENUES = {
       nearbyPregame: ["Midtown bars", "Hattie B's (Midtown)", "West End spots"],
     },
     fanTips: [
-      "The end-court benches and elevated floor make this the sport's most unusual venue — worth seeing once.",
+      "The end-court benches and elevated floor make this the sport's most unusual venue, worth seeing once.",
       "The SEC's cheapest way to see blue-blood road teams (they all visit Nashville).",
-      "It's a short trip from Broadway — build a Nashville weekend around it."
+      "It's a short trip from Broadway, so build a Nashville weekend around it."
     ],
     officialLinks: {
       website: "https://vucommodores.com/facilities/memorial-gymnasium",

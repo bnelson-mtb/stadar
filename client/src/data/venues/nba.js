@@ -1,5 +1,5 @@
 // NBA arenas (all 30). Eleven of these are shared with NHL tenants
-// (noted in bestFor) — nhl.js only contains the 21 NHL-exclusive buildings.
+// (noted in bestFor); nhl.js only contains the 21 NHL-exclusive buildings.
 // Shape: docs/superpowers/userprompts/venue-knowledge.md
 
 export const NBA_VENUES = {
@@ -8,18 +8,18 @@ export const NBA_VENUES = {
     aliases: ["Vivint Arena", "Vivint Smart Home Arena", "EnergySolutions Arena"],
     city: "Salt Lake City",
     state: "UT",
-    summary: "Downtown SLC home of the Jazz and NHL's Utah Mammoth — steep bowl with famously close sightlines, mid-renovation to better fit hockey, and TRAX light rail at the door.",
+    summary: "Downtown SLC home of the Jazz and NHL's Utah Mammoth: a steep bowl with famously close sightlines, mid-renovation to better fit hockey, and TRAX light rail at the door.",
     bestFor: ["NBA", "NHL", "concerts"],
     atmosphere: {
-      vibe: "Loud, engaged small-market crowd that travels well from across the state",
+      vibe: "Loud, engaged crowd that travels well from across the state",
       noiseLevel: "High",
       familyFriendly: true,
       indoorOutdoor: "Indoor"
     },
     arrival: {
-      parking: "Downtown garages within 2-3 blocks (The Gateway, City Creek); event pricing near the arena.",
+      parking: "Downtown garages within 2-3 blocks (The Gateway, City Creek); event pricing near the arena. For free, park along 600 W or at the Salt Lake Central TRAX station.",
       rideshare: "Easy drops on 300 W; post-game surge is mild by big-city standards.",
-      transit: "TRAX (Blue/Green) stops at Arena station directly outside — the best option from anywhere on the line.",
+      transit: "TRAX (Blue/Green) stops at Arena station directly outside, the best option from anywhere on the line. FrontRunner trains transfer to Blue at SL Central, and Green at North Temple.",
     },
     seating: {
       bestValueSections: ["Upper bowl center", "Lower bowl corners"],
@@ -31,8 +31,8 @@ export const NBA_VENUES = {
       nearbyPregame: ["The Gateway", "City Creek Center", "Beer Bar / Bar-X (10-min walk)"],
     },
     fanTips: [
-      "Mammoth games sell separately from Jazz — same building, different sightline economics; center-ice uppers beat low corners for hockey.",
-      "TRAX is free within the downtown fare-free zone — check if your stop qualifies.",
+      "Check out the new north end of the arena finished for the 2026-27 NHL season. It features sightlines for the whole rink. The south side still has obstructed seats this season.",
+      "TRAX is free within the downtown fare-free zone, so check if your stop qualifies.",
       "Jazz upper-bowl tickets are among the league's cheapest ways to sit close to an NBA floor."
     ],
     officialLinks: {
@@ -41,7 +41,7 @@ export const NBA_VENUES = {
       bagPolicy: "",
       accessibility: ""
     },
-    confidence: { level: "medium", lastReviewed: "2026-07-09", source: "generated" }
+    confidence: { level: "high", lastReviewed: "2026-09-30", source: "manual" }
   },
 
   "crypto-com-arena-los-angeles-ca": {
@@ -49,7 +49,7 @@ export const NBA_VENUES = {
     aliases: ["Staples Center", "Crypto Arena"],
     city: "Los Angeles",
     state: "CA",
-    summary: "The Lakers' and Kings' downtown LA home at L.A. Live — celebrity row, banner-heavy rafters, and the busiest arena calendar in the country.",
+    summary: "The Lakers' and Kings' downtown LA home at L.A. Live, with celebrity row, banner-heavy rafters, and the busiest arena calendar in the country.",
     bestFor: ["NBA", "NHL", "WNBA", "concerts"],
     atmosphere: {
       vibe: "Show-business crowd for Lakers; Kings games are grittier and cheaper",
@@ -58,9 +58,9 @@ export const NBA_VENUES = {
       indoorOutdoor: "Indoor"
     },
     arrival: {
-      parking: "L.A. Live and surrounding garages; prices climb the closer you get — prebook.",
+      parking: "L.A. Live and surrounding garages; prices climb the closer you get, so prebook.",
       rideshare: "Designated zones around L.A. Live; expect slow post-game pickups.",
-      transit: "Metro A/E lines to Pico station, one block away — genuinely convenient.",
+      transit: "Metro A/E lines to Pico station, one block away, genuinely convenient.",
     },
     seating: {
       bestValueSections: ["300-level center", "Lower bowl corners (Kings games)"],
@@ -73,8 +73,8 @@ export const NBA_VENUES = {
     },
     fanTips: [
       "Kings tickets are routinely a third the price of Lakers tickets for the same seat.",
-      "With Lakers, Kings, Sparks and concerts, the building turns over nightly — double-check your event's date and time.",
-      "Arrive before doors for Lakers games if you want to see warmups — celebrity row fills late but lines run long."
+      "With Lakers, Kings, Sparks and concerts, the building turns over nightly, so double-check your event's date and time.",
+      "Arrive before doors for Lakers games if you want to see warmups; celebrity row fills late but lines run long."
     ],
     officialLinks: {
       website: "https://www.cryptoarena.com/",
@@ -90,7 +90,7 @@ export const NBA_VENUES = {
     aliases: ["Clippers Arena"],
     city: "Inglewood",
     state: "CA",
-    summary: "The Clippers' $2B tech showcase (opened 2024) next to SoFi Stadium — the all-standing Wall, halo scoreboard, and grab-and-go checkout-free concessions.",
+    summary: "The Clippers' $2B tech showcase (opened 2024) next to SoFi Stadium, with the all-standing Wall, halo scoreboard, and grab-and-go checkout-free concessions.",
     bestFor: ["NBA", "concerts"],
     atmosphere: {
       vibe: "Designed-for-noise; The Wall's 51 rows of standing die-hards set the tone",
@@ -105,17 +105,17 @@ export const NBA_VENUES = {
     },
     seating: {
       bestValueSections: ["Upper corners", "The Wall (if you'll stand all game)"],
-      avoidIfPossible: ["The Wall if you want to sit — it's literally not allowed"],
+      avoidIfPossible: ["The Wall if you want to sit; it's literally not allowed"],
       accessibilityNote: "Modern ADA design throughout; accessible rows on every level."
     },
     foodAndDrink: {
-      summary: "Checkout-free markets everywhere — link a card on entry and food lines mostly disappear.",
+      summary: "Checkout-free markets everywhere. Link a card on entry and food lines mostly disappear.",
       nearbyPregame: ["Hollywood Park complex", "downtown Inglewood", "Three Weavers Brewing"],
     },
     fanTips: [
-      "Halftime free-throw challenges and in-app engagement are part of the building — download the app before you go.",
+      "Halftime free-throw challenges and in-app engagement are part of the building, so download the app before you go.",
       "Clippers tickets run well below Lakers prices for comparable quality basketball.",
-      "The Wall requires facial-recognition enrollment and Clippers fandom pledges — read the rules before buying there."
+      "The Wall requires facial-recognition enrollment and Clippers fandom pledges, so read the rules before buying there."
     ],
     officialLinks: {
       website: "https://www.intuitdome.com/",
@@ -131,7 +131,7 @@ export const NBA_VENUES = {
     aliases: ["Warriors Arena"],
     city: "San Francisco",
     state: "CA",
-    summary: "Warriors' bayfront palace in Mission Bay — pricey, polished, with Thrive City plaza dining and Muni T-line service to the door.",
+    summary: "Warriors' bayfront palace in Mission Bay: pricey, polished, with Thrive City plaza dining and Muni T-line service to the door.",
     bestFor: ["NBA", "concerts"],
     atmosphere: {
       vibe: "Tech-money polished; still erupts properly for big moments",
@@ -146,7 +146,7 @@ export const NBA_VENUES = {
     },
     seating: {
       bestValueSections: ["Upper bowl center", "Upper corners"],
-      avoidIfPossible: ["Nothing structurally — just mind the prices"],
+      avoidIfPossible: ["Nothing structurally; just mind the prices"],
       accessibilityNote: "Modern ADA design; accessible seating on all levels."
     },
     foodAndDrink: {
@@ -154,7 +154,7 @@ export const NBA_VENUES = {
       nearbyPregame: ["Thrive City", "Spark Social food trucks", "Dogpatch bars"],
     },
     fanTips: [
-      "This is one of the NBA's most expensive tickets — weeknight non-marquee games are the value window.",
+      "This is one of the NBA's most expensive tickets, so weeknight non-marquee games are the value window.",
       "The bayfront walk from the Ferry Building is a great pregame if the weather cooperates.",
       "Warriors resale drops closest to tip for non-rival games; patience pays here."
     ],
@@ -172,10 +172,10 @@ export const NBA_VENUES = {
     aliases: ["G1C"],
     city: "Sacramento",
     state: "CA",
-    summary: "Kings' downtown arena attached to the DOCO plaza — loud, purple, famous for the beam, and among the greenest arenas in sports.",
+    summary: "Kings' downtown arena attached to the DOCO plaza: loud, purple, famous for the beam, and among the greenest arenas in sports.",
     bestFor: ["NBA", "concerts"],
     atmosphere: {
-      vibe: "Starved-then-fed fanbase energy — Kings crowds punch above the market size",
+      vibe: "Starved-then-fed fanbase energy; Kings crowds punch above the market size",
       noiseLevel: "High",
       familyFriendly: true,
       indoorOutdoor: "Indoor"
@@ -191,12 +191,12 @@ export const NBA_VENUES = {
       accessibilityNote: "Accessible seating on all levels; check the venue map before buying."
     },
     foodAndDrink: {
-      summary: "Farm-to-fork local vendors — legitimately one of the NBA's best food programs.",
+      summary: "Farm-to-fork local vendors, legitimately one of the NBA's best food programs.",
       nearbyPregame: ["DOCO restaurants", "Punch Bowl Social", "R Street Corridor"],
     },
     fanTips: [
-      "Light the beam nights — stick around after wins; the crowd celebration is part of the ticket.",
-      "Sacramento summers are hot but the arena sits right off the freeway grid — evening arrival is easy.",
+      "Light the beam nights: stick around after wins, because the crowd celebration is part of the ticket.",
+      "Sacramento summers are hot but the arena sits right off the freeway grid, so evening arrival is easy.",
       "Kings tickets are reasonable by California standards; lower-bowl corners often go mid-week cheap."
     ],
     officialLinks: {
@@ -213,10 +213,10 @@ export const NBA_VENUES = {
     aliases: ["Rose Garden", "Rose Garden Arena"],
     city: "Portland",
     state: "OR",
-    summary: "Trail Blazers home in the Rose Quarter on the east bank of the Willamette — Rip City faithful, MAX light rail at the door, and Portland food inside.",
+    summary: "Trail Blazers home in the Rose Quarter on the east bank of the Willamette, with Rip City faithful, MAX light rail at the door, and Portland food inside.",
     bestFor: ["NBA", "concerts"],
     atmosphere: {
-      vibe: "Rip City loyalty runs deep — strong crowds even in down years",
+      vibe: "Rip City loyalty runs deep, with strong crowds even in down years",
       noiseLevel: "High",
       familyFriendly: true,
       indoorOutdoor: "Indoor"
@@ -224,7 +224,7 @@ export const NBA_VENUES = {
     arrival: {
       parking: "Rose Quarter garages; prices reasonable by NBA standards.",
       rideshare: "Fine, but MAX is right there.",
-      transit: "MAX Red/Blue/Green to Rose Quarter TC — arguably the NBA's best transit access.",
+      transit: "MAX Red/Blue/Green to Rose Quarter TC, arguably the NBA's best transit access.",
     },
     seating: {
       bestValueSections: ["300-level center", "Lower corners"],
@@ -232,13 +232,13 @@ export const NBA_VENUES = {
       accessibilityNote: "Accessible seating on all levels; check the venue map before buying."
     },
     foodAndDrink: {
-      summary: "Portland food-cart culture inside — local carts rotate through, plus serious craft beer taps.",
+      summary: "Portland food-cart culture inside: local carts rotate through, plus serious craft beer taps.",
       nearbyPregame: ["Widmer/Interurban on N Williams", "Moda Center food carts", "Lloyd District spots"],
     },
     fanTips: [
-      "Blazers tickets are among the West's most affordable — good spontaneous-night-out value.",
+      "Blazers tickets are among the West's most affordable, good spontaneous-night-out value.",
       "The beer list inside is genuinely good; treat concessions as a feature here.",
-      "Rain doesn't matter — MAX station to seat without meaningful outdoor exposure."
+      "Rain doesn't matter; it's MAX station to seat without meaningful outdoor exposure."
     ],
     officialLinks: {
       website: "https://www.rosequarter.com/",
@@ -254,7 +254,7 @@ export const NBA_VENUES = {
     aliases: ["PHX Arena", "Footprint Center", "Talking Stick Resort Arena", "US Airways Center", "America West Arena"],
     city: "Phoenix",
     state: "AZ",
-    summary: "Suns and Mercury home in downtown Phoenix (renamed from Footprint Center via PHX Arena in 2025) — light-rail friendly with a walkable bar district around it.",
+    summary: "Suns and Mercury home in downtown Phoenix (renamed from Footprint Center via PHX Arena in 2025), light-rail friendly with a walkable bar district around it.",
     bestFor: ["NBA", "WNBA", "concerts"],
     atmosphere: {
       vibe: "Loud when the Suns are rolling; Mercury games have their own devoted following",
@@ -277,8 +277,8 @@ export const NBA_VENUES = {
       nearbyPregame: ["Downtown Phoenix bars on 1st/2nd Street", "Chase Field-area spots", "Roosevelt Row (short ride)"],
     },
     fanTips: [
-      "The arena name changed twice in 2025 (Footprint → PHX Arena → Mortgage Matchup Center) — listings may use any of them.",
-      "Summer Mercury games: the walk from light rail is short but brutal in 110°F — time it tightly.",
+      "The arena name changed twice in 2025 (Footprint → PHX Arena → Mortgage Matchup Center), so listings may use any of them.",
+      "Summer Mercury games: the walk from light rail is short but brutal in 110°F, so time it tightly.",
       "Suns lower-bowl resale softens midweek against non-contenders."
     ],
     officialLinks: {
@@ -295,7 +295,7 @@ export const NBA_VENUES = {
     aliases: ["Pepsi Center"],
     city: "Denver",
     state: "CO",
-    summary: "Nuggets and Avalanche share this workhorse arena between downtown and the South Platte — two championship-caliber tenants and easy light-rail access.",
+    summary: "Nuggets and Avalanche share this workhorse arena between downtown and the South Platte, with two championship-caliber tenants and easy light-rail access.",
     bestFor: ["NBA", "NHL", "concerts"],
     atmosphere: {
       vibe: "Altitude-fueled and loud for both tenants; Avs games skew rowdier",
@@ -318,9 +318,9 @@ export const NBA_VENUES = {
       nearbyPregame: ["LoDo bars", "Larimer Square", "Union Station hall"],
     },
     fanTips: [
-      "Nuggets and Avs both price like contenders now — weeknight games against bottom teams are the value window.",
+      "Nuggets and Avs both price like contenders now, so weeknight games against bottom teams are the value window.",
       "The arena sits in a parking moat: budget 10-15 minutes from any gate to any transit/pickup point.",
-      "Visiting-altitude note applies indoors too — pace the beers."
+      "Visiting-altitude note applies indoors too, so pace the beers."
     ],
     officialLinks: {
       website: "https://www.ballarena.com/",
@@ -336,17 +336,17 @@ export const NBA_VENUES = {
     aliases: ["Chesapeake Energy Arena", "Ford Center"],
     city: "Oklahoma City",
     state: "OK",
-    summary: "Thunder home in downtown OKC next to Bricktown — a small-market crowd with big-market noise, and a new arena already approved to replace it (~2028-29).",
+    summary: "Thunder home in downtown OKC next to Bricktown, a small-market crowd with big-market noise, and a new arena already approved to replace it (~2028-29).",
     bestFor: ["NBA", "concerts"],
     atmosphere: {
-      vibe: "Loud OKC blue loyalty — among the NBA's most engaged home crowds",
+      vibe: "Loud OKC blue loyalty, among the NBA's most engaged home crowds",
       noiseLevel: "Very high",
       familyFriendly: true,
       indoorOutdoor: "Indoor"
     },
     arrival: {
       parking: "Bricktown and downtown garages within a few blocks; cheap by NBA standards.",
-      rideshare: "Painless — OKC scale keeps waits short.",
+      rideshare: "Painless; OKC scale keeps waits short.",
       transit: "OKC Streetcar loops Bricktown and downtown past the arena.",
     },
     seating: {
@@ -359,7 +359,7 @@ export const NBA_VENUES = {
       nearbyPregame: ["Bricktown canal restaurants", "Toby Keith's", "Prairie Artisan taproom"],
     },
     fanTips: [
-      "Thunder playoff-era demand has repriced everything — buy early for marquee opponents.",
+      "Thunder playoff-era demand has repriced everything, so buy early for marquee opponents.",
       "A new downtown arena is coming (~2028-29); this building's window is closing.",
       "OKC is a driving city but the streetcar + Bricktown combo makes gameday car-free easily."
     ],
@@ -402,7 +402,7 @@ export const NBA_VENUES = {
     fanTips: [
       "Lynx games are elite basketball at a fraction of Wolves prices.",
       "The North Loop neighborhood is the best eat-drink area, 5-10 minutes' walk.",
-      "Check the Twins schedule — shared-block event nights strain parking."
+      "Check the Twins schedule; shared-block event nights strain parking."
     ],
     officialLinks: {
       website: "https://www.targetcenter.com/",
@@ -418,10 +418,10 @@ export const NBA_VENUES = {
     aliases: ["The Forum"],
     city: "Milwaukee",
     state: "WI",
-    summary: "Bucks' modern home with the Deer District plaza out front — the outdoor watch-party culture is as famous as the building.",
+    summary: "Bucks' modern home with the Deer District plaza out front, where the outdoor watch-party culture is as famous as the building.",
     bestFor: ["NBA", "college basketball", "concerts"],
     atmosphere: {
-      vibe: "Milwaukee shows up — title-era energy stuck around",
+      vibe: "Milwaukee shows up, and title-era energy stuck around",
       noiseLevel: "High",
       familyFriendly: true,
       indoorOutdoor: "Indoor"
@@ -437,13 +437,13 @@ export const NBA_VENUES = {
       accessibilityNote: "Modern ADA design; accessible seating on all levels."
     },
     foodAndDrink: {
-      summary: "Wisconsin does concessions right — cheese curds, brats, and a deep local tap list.",
+      summary: "Wisconsin does concessions right: cheese curds, brats, and a deep local tap list.",
       nearbyPregame: ["Deer District (Good City, Punch Bowl)", "Old World Third Street", "Milwaukee Brat House"],
     },
     fanTips: [
-      "Marquette basketball plays here too — cheap way into the building in winter.",
+      "Marquette basketball plays here too, a cheap way into the building in winter.",
       "Playoff watch parties in the Deer District (free) are a phenomenon of their own.",
-      "Giannis-era pricing eased somewhat — midweek games are reasonable again."
+      "Giannis-era pricing eased somewhat, so midweek games are reasonable again."
     ],
     officialLinks: {
       website: "https://www.fiservforum.com/",
@@ -459,7 +459,7 @@ export const NBA_VENUES = {
     aliases: ["UC", "Madhouse on Madison"],
     city: "Chicago",
     state: "IL",
-    summary: "The Madhouse on Madison — Bulls and Blackhawks under one massive roof on the Near West Side, with the Jordan statue out front.",
+    summary: "The Madhouse on Madison: Bulls and Blackhawks under one massive roof on the Near West Side, with the Jordan statue out front.",
     bestFor: ["NBA", "NHL", "concerts"],
     atmosphere: {
       vibe: "The Blackhawks anthem roar and Bulls intro lights are both bucket-list moments",
@@ -482,9 +482,9 @@ export const NBA_VENUES = {
       nearbyPregame: ["Randolph Street (West Loop)", "Billy Goat West", "Park Tavern"],
     },
     fanTips: [
-      "Arrive early for the Jordan statue photo — the atrium queue is shorter pregame than postgame.",
+      "Arrive early for the Jordan statue photo; the atrium queue is shorter pregame than postgame.",
       "Blackhawks rebuild-era tickets are cheap; the anthem alone is worth it.",
-      "The neighborhood is fine on event nights but plan your exact postgame route — it's not a wander-around area."
+      "The neighborhood is fine on event nights but plan your exact postgame route; it's not a wander-around area."
     ],
     officialLinks: {
       website: "https://www.unitedcenter.com/",
@@ -500,7 +500,7 @@ export const NBA_VENUES = {
     aliases: ["Bankers Life Fieldhouse", "Conseco Fieldhouse"],
     city: "Indianapolis",
     state: "IN",
-    summary: "The best-designed basketball building in America by many accounts — a retro fieldhouse downtown, home of the Pacers and Fever, walkable from everything in Indy.",
+    summary: "The best-designed basketball building in America by many accounts: a retro fieldhouse downtown, home of the Pacers and Fever, walkable from everything in Indy.",
     bestFor: ["NBA", "WNBA", "concerts"],
     atmosphere: {
       vibe: "Basketball-state reverence; Fever games now draw some of the loudest crowds in the WNBA",
@@ -510,12 +510,12 @@ export const NBA_VENUES = {
     },
     arrival: {
       parking: "Downtown garages everywhere; Virginia Avenue garage connects via skywalk.",
-      rideshare: "Easy — downtown Indy traffic is gentle.",
+      rideshare: "Easy; downtown Indy traffic is gentle.",
       transit: "Walkable from all downtown hotels; IndyGo Red Line nearby.",
     },
     seating: {
       bestValueSections: ["Balcony center", "Lower corners"],
-      avoidIfPossible: ["Nothing structural — it's a fair bowl top to bottom"],
+      avoidIfPossible: ["Nothing structural; it's a fair bowl top to bottom"],
       accessibilityNote: "Accessible seating on all levels; check the venue map before buying."
     },
     foodAndDrink: {
@@ -523,9 +523,9 @@ export const NBA_VENUES = {
       nearbyPregame: ["Georgia Street", "Kilroy's", "Sun King taproom"],
     },
     fanTips: [
-      "Fever games sell out now — treat them like marquee events, not walk-ups.",
+      "Fever games sell out now, so treat them like marquee events, not walk-ups.",
       "Pacers tickets remain among the NBA's most affordable for the quality of the building.",
-      "Big Ten tournament weeks take over the building and downtown — check the calendar."
+      "Big Ten tournament weeks take over the building and downtown, so check the calendar."
     ],
     officialLinks: {
       website: "https://www.gainbridgefieldhouse.com/",
@@ -544,7 +544,7 @@ export const NBA_VENUES = {
     summary: "Cavs home on Gateway Plaza downtown (renamed Rocket Arena in 2025), sharing the block with Progressive Field and connected to the casino district.",
     bestFor: ["NBA", "AHL", "concerts"],
     atmosphere: {
-      vibe: "Loud and loyal — Cleveland treats the Cavs as civic property",
+      vibe: "Loud and loyal; Cleveland treats the Cavs as civic property",
       noiseLevel: "High",
       familyFriendly: true,
       indoorOutdoor: "Indoor"
@@ -564,9 +564,9 @@ export const NBA_VENUES = {
       nearbyPregame: ["East 4th Street", "Flannery's", "Winking Lizard"],
     },
     fanTips: [
-      "Listings may still say Rocket Mortgage FieldHouse — same building, renamed 2025.",
+      "Listings may still say Rocket Mortgage FieldHouse. Same building, renamed 2025.",
       "Monsters (AHL) games here are a cheap, high-energy alternative in winter.",
-      "Guardians playoff overlap turns the Gateway district into a crush — check both schedules in October."
+      "Guardians playoff overlap turns the Gateway district into a crush, so check both schedules in October."
     ],
     officialLinks: {
       website: "https://www.rocketarena.com/",
@@ -582,7 +582,7 @@ export const NBA_VENUES = {
     aliases: ["LCA"],
     city: "Detroit",
     state: "MI",
-    summary: "Pistons and Red Wings share this District Detroit anchor — a gondola-seated, deconstructed-roof design that's among the best modern arenas in the league.",
+    summary: "Pistons and Red Wings share this District Detroit anchor, a gondola-seated, deconstructed-roof design that's among the best modern arenas in the league.",
     bestFor: ["NBA", "NHL", "concerts"],
     atmosphere: {
       vibe: "Red Wings tradition meets rebuilding Pistons energy; concerts fill the gaps loudly",
@@ -605,9 +605,9 @@ export const NBA_VENUES = {
       nearbyPregame: ["Union Assembly", "Hockeytown Cafe", "Midtown bars up Woodward"],
     },
     fanTips: [
-      "Red Wings and Pistons the same week is common — the arena flips overnight; confirm which sport you're buying.",
+      "Red Wings and Pistons the same week is common, and the arena flips overnight; confirm which sport you're buying.",
       "Pistons games run cheap; it's one of the best value tickets in the NBA for a top-tier building.",
-      "The bowl was designed hockey-first — sightlines for the Wings are excellent everywhere."
+      "The bowl was designed hockey-first, so sightlines for the Wings are excellent everywhere."
     ],
     officialLinks: {
       website: "https://www.313presents.com/venue/little-caesars-arena",
@@ -623,10 +623,10 @@ export const NBA_VENUES = {
     aliases: ["Philips Arena"],
     city: "Atlanta",
     state: "GA",
-    summary: "Hawks home next to the Georgia World Congress Center downtown — heavily renovated with courtside barbershop-style experiences and MARTA at the door.",
+    summary: "Hawks home next to the Georgia World Congress Center downtown, heavily renovated with courtside barbershop-style experiences and MARTA at the door.",
     bestFor: ["NBA", "concerts"],
     atmosphere: {
-      vibe: "Atlanta showtime — music-heavy production and a lively crowd",
+      vibe: "Atlanta showtime: music-heavy production and a lively crowd",
       noiseLevel: "Medium-high",
       familyFriendly: true,
       indoorOutdoor: "Indoor"
@@ -634,7 +634,7 @@ export const NBA_VENUES = {
     arrival: {
       parking: "CNN Center-area decks; prebook on Falcons/concert overlap nights.",
       rideshare: "Downtown drops fine; MARTA is easier.",
-      transit: "MARTA to GWCC/CNN Center or Five Points — both a short walk.",
+      transit: "MARTA to GWCC/CNN Center or Five Points, both a short walk.",
     },
     seating: {
       bestValueSections: ["Lower corners", "Upper center"],
@@ -642,12 +642,12 @@ export const NBA_VENUES = {
       accessibilityNote: "Accessible seating on all levels; check the venue map before buying."
     },
     foodAndDrink: {
-      summary: "Atlanta-priced-fair food program modeled on the Falcons' approach — cheaper than league norm.",
+      summary: "Atlanta-priced-fair food program modeled on the Falcons' approach, cheaper than league norm.",
       nearbyPregame: ["Marietta Street", "Centennial Olympic Park district", "Castleberry Hill"],
     },
     fanTips: [
-      "Hawks tickets are soft outside marquee opponents — same-week resale is a buyer's market.",
-      "Combined State Farm Arena + Mercedes-Benz Stadium event nights strain the whole district — check both.",
+      "Hawks tickets are soft outside marquee opponents, so same-week resale is a buyer's market.",
+      "Combined State Farm Arena + Mercedes-Benz Stadium event nights strain the whole district, so check both.",
       "The zone-entry concessions pricing makes eating inside reasonable, unusual for the NBA."
     ],
     officialLinks: {
@@ -664,7 +664,7 @@ export const NBA_VENUES = {
     aliases: ["Time Warner Cable Arena", "Charlotte Bobcats Arena"],
     city: "Charlotte",
     state: "NC",
-    summary: "Hornets home in Uptown Charlotte — an easy, walkable arena with light rail beneath it and a mid-renovation refresh keeping it current.",
+    summary: "Hornets home in Uptown Charlotte, an easy, walkable arena with light rail beneath it and a mid-renovation refresh keeping it current.",
     bestFor: ["NBA", "concerts"],
     atmosphere: {
       vibe: "Patient fanbase waiting on a winner; buzzes properly for stars and rivals",
@@ -687,8 +687,8 @@ export const NBA_VENUES = {
       nearbyPregame: ["South End breweries (Blue Line)", "Uptown bar row", "7th Street Public Market"],
     },
     fanTips: [
-      "Hornets tickets are among the cheapest in the NBA — star road teams are the exception.",
-      "ACC/CIAA tournament weeks own this building in March — plan around them.",
+      "Hornets tickets are among the cheapest in the NBA; star road teams are the exception.",
+      "ACC/CIAA tournament weeks own this building in March, so plan around them.",
       "South End pre/postgame via the Blue Line is the local pattern worth copying."
     ],
     officialLinks: {
@@ -705,10 +705,10 @@ export const NBA_VENUES = {
     aliases: ["FTX Arena", "AmericanAirlines Arena", "American Airlines Arena"],
     city: "Miami",
     state: "FL",
-    summary: "Heat home on Biscayne Bay downtown — white-hot playoff culture, bayfront views from the upper concourse, and Metromover access.",
+    summary: "Heat home on Biscayne Bay downtown, with white-hot playoff culture, bayfront views from the upper concourse, and Metromover access.",
     bestFor: ["NBA", "concerts"],
     atmosphere: {
-      vibe: "Arrives late, stays loud — Heat culture is real once the building fills",
+      vibe: "Arrives late, stays loud; Heat culture is real once the building fills",
       noiseLevel: "High (playoffs) / Medium (regular season)",
       familyFriendly: true,
       indoorOutdoor: "Indoor"
@@ -728,9 +728,9 @@ export const NBA_VENUES = {
       nearbyPregame: ["Bayside Marketplace", "downtown Flagler district", "Wynwood (short ride)"],
     },
     fanTips: [
-      "Regular-season crowds arrive in the second quarter — playoff Miami is a different animal entirely.",
+      "Regular-season crowds arrive in the second quarter, but playoff Miami is a different animal entirely.",
       "Brightline from Fort Lauderdale/West Palm + Metromover is the best regional arrival in Florida sports.",
-      "The building has cycled names (AAA → FTX → Kaseya) — old listings persist everywhere."
+      "The building has cycled names (AAA → FTX → Kaseya), and old listings persist everywhere."
     ],
     officialLinks: {
       website: "https://www.kaseyacenter.com/",
@@ -746,7 +746,7 @@ export const NBA_VENUES = {
     aliases: ["Amway Center", "Orlando Arena"],
     city: "Orlando",
     state: "FL",
-    summary: "Magic home in downtown Orlando's Church Street district (renamed from Amway Center in late 2023) — tall atrium design with a rooftop bar overlooking the city.",
+    summary: "Magic home in downtown Orlando's Church Street district (renamed from Amway Center in late 2023), a tall atrium design with a rooftop bar overlooking the city.",
     bestFor: ["NBA", "concerts"],
     atmosphere: {
       vibe: "Young-core excitement building as the Magic contend again",
@@ -757,7 +757,7 @@ export const NBA_VENUES = {
     arrival: {
       parking: "City garages on Church/South Street; prebook for weekend games.",
       rideshare: "Church Street drops are the standard.",
-      transit: "SunRail's Church Street station is two blocks away (limited evening service — check return times).",
+      transit: "SunRail's Church Street station is two blocks away (limited evening service, so check return times).",
     },
     seating: {
       bestValueSections: ["Lower corners", "Upper center"],
@@ -769,9 +769,9 @@ export const NBA_VENUES = {
       nearbyPregame: ["Church Street Station bars", "Wall Street Plaza", "The Boheme (dinner)"],
     },
     fanTips: [
-      "Magic tickets remain affordable for a rising team — buy before the breakout fully prices in.",
-      "Listings still show Amway Center in older feeds — same building.",
-      "Downtown Orlando (not the tourist corridor) — I-4 traffic from the parks takes longer than maps claim at rush hour."
+      "Magic tickets remain affordable for a rising team, so buy before the breakout fully prices in.",
+      "Listings still show Amway Center in older feeds. Same building.",
+      "Downtown Orlando (not the tourist corridor): I-4 traffic from the parks takes longer than maps claim at rush hour."
     ],
     officialLinks: {
       website: "https://www.kiacenter.com/",
@@ -787,7 +787,7 @@ export const NBA_VENUES = {
     aliases: ["New Orleans Arena", "The Blender"],
     city: "New Orleans",
     state: "LA",
-    summary: "Pelicans home next door to the Superdome in the CBD — 'The Blender' shares all the Dome's logistics with a fraction of the crowd.",
+    summary: "Pelicans home next door to the Superdome in the CBD. 'The Blender' shares all the Dome's logistics with a fraction of the crowd.",
     bestFor: ["NBA", "concerts"],
     atmosphere: {
       vibe: "Easygoing NOLA crowd that turns raucous when Zion-era basketball clicks",
@@ -810,8 +810,8 @@ export const NBA_VENUES = {
       nearbyPregame: ["Warehouse District restaurants", "Poydras bars", "French Quarter (15-min walk)"],
     },
     fanTips: [
-      "Pelicans tickets are among the league's cheapest — great spontaneous outing when visiting NOLA.",
-      "Mardi Gras season games come with parade street closures — check the krewe calendar.",
+      "Pelicans tickets are among the league's cheapest, a great spontaneous outing when visiting NOLA.",
+      "Mardi Gras season games come with parade street closures, so check the krewe calendar.",
       "Saints home Sundays next door change all parking math; check the NFL slate."
     ],
     officialLinks: {
@@ -828,10 +828,10 @@ export const NBA_VENUES = {
     aliases: ["FedEx Forum"],
     city: "Memphis",
     state: "TN",
-    summary: "Grizzlies home one block off Beale Street — grit-and-grind culture with the best pregame street in the NBA outside the doors.",
+    summary: "Grizzlies home one block off Beale Street, with grit-and-grind culture and the best pregame street in the NBA outside the doors.",
     bestFor: ["NBA", "college basketball", "concerts"],
     atmosphere: {
-      vibe: "Chip-on-shoulder loud — Memphis identifies with this team hard",
+      vibe: "Chip-on-shoulder loud; Memphis identifies with this team hard",
       noiseLevel: "High",
       familyFriendly: true,
       indoorOutdoor: "Indoor"
@@ -847,11 +847,11 @@ export const NBA_VENUES = {
       accessibilityNote: "Accessible seating on all levels; check the venue map before buying."
     },
     foodAndDrink: {
-      summary: "Memphis BBQ inside (Central BBQ presence) — and Rendezvous ribs two blocks away.",
+      summary: "Memphis BBQ inside (Central BBQ presence), and Rendezvous ribs two blocks away.",
       nearbyPregame: ["Beale Street", "Charlie Vergos' Rendezvous", "Ghost River taproom"],
     },
     fanTips: [
-      "Memphis Tigers college games share the building and sell hot — check which team the listing is for.",
+      "Memphis Tigers college games share the building and sell hot, so check which team the listing is for.",
       "Grizzlies tickets are affordable; Beale Street makes it the best cheap night out in the league.",
       "Walk Main Street's trolley corridor postgame rather than waiting in the garage queue."
     ],
@@ -869,10 +869,10 @@ export const NBA_VENUES = {
     aliases: ["Toyota Center Houston"],
     city: "Houston",
     state: "TX",
-    summary: "Rockets home in downtown Houston's southeast quadrant — an unflashy but comfortable arena walkable from the Main Street rail spine.",
+    summary: "Rockets home in downtown Houston's southeast quadrant, an unflashy but comfortable arena walkable from the Main Street rail spine.",
     bestFor: ["NBA", "concerts"],
     atmosphere: {
-      vibe: "Quiet baseline, loud ceiling — Houston shows up when the Rockets matter",
+      vibe: "Quiet baseline, loud ceiling; Houston shows up when the Rockets matter",
       noiseLevel: "Medium",
       familyFriendly: true,
       indoorOutdoor: "Indoor"
@@ -892,9 +892,9 @@ export const NBA_VENUES = {
       nearbyPregame: ["Discovery Green area", "Main Street bars", "EaDo breweries (short ride)"],
     },
     fanTips: [
-      "Rockets rebuild-to-contender pricing is climbing — buy earlier each season.",
-      "Toyota Center and Daikin Park (Astros) events overlap in October — check both schedules.",
-      "Houston humidity makes even the walk from parking sweaty until November — dress accordingly."
+      "Rockets rebuild-to-contender pricing is climbing, so buy earlier each season.",
+      "Toyota Center and Daikin Park (Astros) events overlap in October, so check both schedules.",
+      "Houston humidity makes even the walk from parking sweaty until November, so dress accordingly."
     ],
     officialLinks: {
       website: "https://www.toyotacenter.com/",
@@ -910,7 +910,7 @@ export const NBA_VENUES = {
     aliases: ["AT&T Center", "SBC Center"],
     city: "San Antonio",
     state: "TX",
-    summary: "Spurs home on the east side of San Antonio — a rodeo-sharing barn with a devoted crowd, likely to be replaced by a downtown arena in the coming years.",
+    summary: "Spurs home on the east side of San Antonio, a rodeo-sharing barn with a devoted crowd, likely to be replaced by a downtown arena in the coming years.",
     bestFor: ["NBA", "rodeo", "concerts"],
     atmosphere: {
       vibe: "Family-dynasty loyalty; the Wemby era re-electrified the building",
@@ -919,7 +919,7 @@ export const NBA_VENUES = {
       indoorOutdoor: "Indoor"
     },
     arrival: {
-      parking: "Big on-site lots — this is a drive-to arena; prepay for quicker exit lanes.",
+      parking: "Big on-site lots. This is a drive-to arena; prepay for quicker exit lanes.",
       rideshare: "Designated zones; waits after big games run long.",
       transit: "VIA bus routes only; effectively car country.",
     },
@@ -929,13 +929,13 @@ export const NBA_VENUES = {
       accessibilityNote: "Accessible seating on all levels; check the venue map before buying."
     },
     foodAndDrink: {
-      summary: "Tex-Mex heavy and proud of it — brisket tacos are the move.",
+      summary: "Tex-Mex heavy and proud of it; brisket tacos are the move.",
       nearbyPregame: ["On-site lots", "Eastside spots on Houston St", "downtown/Pearl before driving out"],
     },
     fanTips: [
-      "A downtown San Antonio arena is in the works — this building's Spurs era has a horizon (~2032 target).",
-      "Wembanyama games price like playoff games — weekday non-marquee dates are the value.",
-      "February rodeo weeks displace everything; the Spurs go on long road trips — check the schedule pattern."
+      "A downtown San Antonio arena is in the works, so this building's Spurs era has a horizon (~2032 target).",
+      "Wembanyama games price like playoff games, so weekday non-marquee dates are the value.",
+      "February rodeo weeks displace everything and the Spurs go on long road trips, so check the schedule pattern."
     ],
     officialLinks: {
       website: "https://www.frostbankcenter.com/",
@@ -951,7 +951,7 @@ export const NBA_VENUES = {
     aliases: ["AAC", "American Airlines Center Dallas"],
     city: "Dallas",
     state: "TX",
-    summary: "Mavericks and Stars share this Victory Park anchor north of downtown Dallas — a handsome brick hangar with the DART rail a short walk away.",
+    summary: "Mavericks and Stars share this Victory Park anchor north of downtown Dallas, a handsome brick hangar with the DART rail a short walk away.",
     bestFor: ["NBA", "NHL", "concerts"],
     atmosphere: {
       vibe: "Corporate-polished with real playoff bite for both tenants",
@@ -960,7 +960,7 @@ export const NBA_VENUES = {
       indoorOutdoor: "Indoor"
     },
     arrival: {
-      parking: "Victory Park garages; prebook — event pricing is steep.",
+      parking: "Victory Park garages; prebook, because event pricing is steep.",
       rideshare: "Victory Ave drops; postgame surge standard.",
       transit: "DART Green/Orange lines to Victory station, steps from the plaza.",
     },
@@ -974,9 +974,9 @@ export const NBA_VENUES = {
       nearbyPregame: ["Victory Park bars", "Happiest Hour", "Katy Trail Ice House (short walk)"],
     },
     fanTips: [
-      "Stars games often run cheaper than Mavs for equivalent seats — hockey is the value ticket here.",
+      "Stars games often run cheaper than Mavs for equivalent seats, so hockey is the value ticket here.",
       "Mavs and Stars can play back-to-back nights; hotel + two-game weekends work well.",
-      "Victory Park pregame gets crowded — Katy Trail Ice House a 10-minute walk north is the local escape."
+      "Victory Park pregame gets crowded. Katy Trail Ice House, a 10-minute walk north, is the local escape."
     ],
     officialLinks: {
       website: "https://www.americanairlinescenter.com/",
@@ -992,7 +992,7 @@ export const NBA_VENUES = {
     aliases: ["MSG", "The Garden"],
     city: "New York",
     state: "NY",
-    summary: "The world's most famous arena, above Penn Station in Midtown — Knicks and Rangers under the iconic ceiling, with the best transit access in sports.",
+    summary: "The world's most famous arena, above Penn Station in Midtown: Knicks and Rangers under the iconic ceiling, with the best transit access in sports.",
     bestFor: ["NBA", "NHL", "college basketball", "boxing", "concerts"],
     atmosphere: {
       vibe: "Celebrity-row theater for Knicks; Rangers crowds are the louder, saltier sibling",
@@ -1003,7 +1003,7 @@ export const NBA_VENUES = {
     arrival: {
       parking: "Don't. Midtown garages run $50-80 on event nights.",
       rideshare: "Slower than the subway in Midtown, always.",
-      transit: "It sits on top of Penn Station (LIRR, NJ Transit, Amtrak, subway 1/2/3/A/C/E) — unmatched.",
+      transit: "It sits on top of Penn Station (LIRR, NJ Transit, Amtrak, subway 1/2/3/A/C/E). Unmatched.",
     },
     seating: {
       bestValueSections: ["200-level corners", "Upper bowl center"],
@@ -1015,9 +1015,9 @@ export const NBA_VENUES = {
       nearbyPregame: ["Koreatown (32nd St)", "Stout NYC", "The Pennsy-area spots"],
     },
     fanTips: [
-      "Knicks and Rangers prices are top-3 in their leagues — St. John's college games are the budget way in.",
+      "Knicks and Rangers prices are top-3 in their leagues; St. John's college games are the budget way in.",
       "Playoff MSG is a bucket-list sports experience worth the premium once.",
-      "Post-game, walk a few blocks before hailing anything — Penn district congestion is instant."
+      "Post-game, walk a few blocks before hailing anything, because Penn district congestion is instant."
     ],
     officialLinks: {
       website: "https://www.msg.com/madison-square-garden",
@@ -1033,7 +1033,7 @@ export const NBA_VENUES = {
     aliases: ["Barclays"],
     city: "Brooklyn",
     state: "NY",
-    summary: "Nets home at Atlantic Terminal — the rusted-steel oculus building with nearly MSG-level transit access and Brooklyn's food scene around it.",
+    summary: "Nets home at Atlantic Terminal, the rusted-steel oculus building with nearly MSG-level transit access and Brooklyn's food scene around it.",
     bestFor: ["NBA", "WNBA", "boxing", "concerts"],
     atmosphere: {
       vibe: "Event-crowd cool for Nets; Liberty games bring the borough's loudest sports energy now",
@@ -1042,7 +1042,7 @@ export const NBA_VENUES = {
       indoorOutdoor: "Indoor"
     },
     arrival: {
-      parking: "Minimal — this venue assumes transit.",
+      parking: "Minimal; this venue assumes transit.",
       rideshare: "Flatbush/Atlantic drops are chaotic; the subway wins.",
       transit: "Atlantic Av–Barclays Ctr station (2/3/4/5/B/D/N/Q/R + LIRR) directly below.",
     },
@@ -1056,7 +1056,7 @@ export const NBA_VENUES = {
       nearbyPregame: ["Fifth Avenue (Park Slope) bars", "Dekalb Market Hall", "Fort Greene spots"],
     },
     fanTips: [
-      "Liberty games are the hot ticket in this building now — buy WNBA earlier than you'd think.",
+      "Liberty games are the hot ticket in this building now, so buy WNBA earlier than you'd think.",
       "Nets non-marquee games are quietly one of NYC's cheapest pro tickets.",
       "Postgame, walk into Park Slope or Fort Greene instead of fighting Atlantic Terminal crowds."
     ],
@@ -1074,10 +1074,10 @@ export const NBA_VENUES = {
     aliases: ["Boston Garden", "FleetCenter", "The Garden (Boston)"],
     city: "Boston",
     state: "MA",
-    summary: "Celtics and Bruins over North Station — banner-saturated rafters, a compact loud bowl, and commuter rail literally beneath the seats.",
+    summary: "Celtics and Bruins over North Station, with banner-saturated rafters, a compact loud bowl, and commuter rail literally beneath the seats.",
     bestFor: ["NBA", "NHL", "college hockey (Beanpot)", "concerts"],
     atmosphere: {
-      vibe: "Championship-entitled and loud — both tenants' crowds punish mistakes and reward effort",
+      vibe: "Championship-entitled and loud; both tenants' crowds punish mistakes and reward effort",
       noiseLevel: "High",
       familyFriendly: true,
       indoorOutdoor: "Indoor"
@@ -1097,9 +1097,9 @@ export const NBA_VENUES = {
       nearbyPregame: ["The Fours' successors on Canal St", "North End (Regina, Neptune)", "Hub Hall"],
     },
     fanTips: [
-      "Celtics and Bruins tickets both run top-5 expensive — the Beanpot (college hockey, February) is the atmospheric bargain.",
-      "Same-day Celtics/Bruins flips happen — verify the sport on your ticket's date.",
-      "Canal Street pregame bars hit capacity 90 minutes out — go earlier or eat in the North End."
+      "Celtics and Bruins tickets both run top-5 expensive, so the Beanpot (college hockey, February) is the atmospheric bargain.",
+      "Same-day Celtics/Bruins flips happen, so verify the sport on your ticket's date.",
+      "Canal Street pregame bars hit capacity 90 minutes out, so go earlier or eat in the North End."
     ],
     officialLinks: {
       website: "https://www.tdgarden.com/",
@@ -1115,7 +1115,7 @@ export const NBA_VENUES = {
     aliases: ["Wells Fargo Center", "Wachovia Center", "First Union Center", "CoreStates Center"],
     city: "Philadelphia",
     state: "PA",
-    summary: "76ers and Flyers home in the South Philly sports complex (renamed from Wells Fargo Center in August 2025) — with the Sixers planning a move around 2031.",
+    summary: "76ers and Flyers home in the South Philly sports complex (renamed from Wells Fargo Center in August 2025), with the Sixers planning a move around 2031.",
     bestFor: ["NBA", "NHL", "concerts"],
     atmosphere: {
       vibe: "Philly hostile-passionate for both tenants; Flyers crowds are the old-school heart",
@@ -1126,7 +1126,7 @@ export const NBA_VENUES = {
     arrival: {
       parking: "Sports-complex lots shared with the Linc and CBP.",
       rideshare: "Designated zones; the subway is faster.",
-      transit: "SEPTA Broad Street Line to NRG station — direct from Center City.",
+      transit: "SEPTA Broad Street Line to NRG station, direct from Center City.",
     },
     seating: {
       bestValueSections: ["Mezzanine center", "Lower corners"],
@@ -1138,8 +1138,8 @@ export const NBA_VENUES = {
       nearbyPregame: ["Xfinity Live!", "Chickie's & Pete's", "South Philly rowhouse bars on Oregon Ave"],
     },
     fanTips: [
-      "Most listings and locals still say Wells Fargo Center — renamed Xfinity Mobile Arena in 2025.",
-      "Check all four Philly teams' schedules — complex event stacking changes everything about arrival.",
+      "Most listings and locals still say Wells Fargo Center (renamed Xfinity Mobile Arena in 2025).",
+      "Check all four Philly teams' schedules; complex event stacking changes everything about arrival.",
       "Flyers tickets generally undercut Sixers for equivalent seats."
     ],
     officialLinks: {
@@ -1156,7 +1156,7 @@ export const NBA_VENUES = {
     aliases: ["Verizon Center", "MCI Center"],
     city: "Washington",
     state: "DC",
-    summary: "Wizards and Capitals home in Chinatown/Gallery Place — mid-major renovation through 2027 after the teams committed to staying downtown, with Metro directly below.",
+    summary: "Wizards and Capitals home in Chinatown/Gallery Place, mid-major renovation through 2027 after the teams committed to staying downtown, with Metro directly below.",
     bestFor: ["NBA", "NHL", "college basketball", "concerts"],
     atmosphere: {
       vibe: "Caps crowds ('Rock the Red') carry the building; Wizards games are quieter",
@@ -1172,16 +1172,16 @@ export const NBA_VENUES = {
     seating: {
       bestValueSections: ["100-level corners", "400-level center"],
       avoidIfPossible: ["400-level behind-net top rows for hockey"],
-      accessibilityNote: "Accessible seating on all levels; renovation may shift locations — verify at purchase."
+      accessibilityNote: "Accessible seating on all levels; renovation may shift locations, so verify at purchase."
     },
     foodAndDrink: {
       summary: "Improving with the renovation; Chinatown and Penn Quarter restaurants surround it.",
       nearbyPregame: ["Chinatown spots", "Penn Quarter bars", "The Wharf (pre-Metro ride)"],
     },
     fanTips: [
-      "Renovation work (through ~2027) shifts entrances and closes concourse sections — read the event-day email.",
+      "Renovation work (through ~2027) shifts entrances and closes concourse sections, so read the event-day email.",
       "Caps tickets outdraw and outprice Wizards; Georgetown college games are the budget option.",
-      "Gallery Place after games is crowded but the Metro swallows it fast — don't bother with a car."
+      "Gallery Place after games is crowded but the Metro swallows it fast, so don't bother with a car."
     ],
     officialLinks: {
       website: "https://www.capitalonearena.com/",
@@ -1197,7 +1197,7 @@ export const NBA_VENUES = {
     aliases: ["Air Canada Centre", "ACC"],
     city: "Toronto",
     state: "ON",
-    summary: "Raptors and Maple Leafs share Canada's busiest arena at Union Station — Jurassic Park plaza culture outside, hockey-cathedral pricing inside.",
+    summary: "Raptors and Maple Leafs share Canada's busiest arena at Union Station, with Jurassic Park plaza culture outside and hockey-cathedral pricing inside.",
     bestFor: ["NBA", "NHL", "concerts"],
     atmosphere: {
       vibe: "Leafs games are reverent and corporate low, loud up top; Raptors crowds are younger and rowdier",
@@ -1220,8 +1220,8 @@ export const NBA_VENUES = {
       nearbyPregame: ["Real Sports Bar (adjacent)", "St. Lawrence Market area", "King West"],
     },
     fanTips: [
-      "Leafs tickets are the most expensive in the NHL — Raptors games are the affordable way into the building.",
-      "US visitors: prices list in CAD — the exchange rate is a quiet discount.",
+      "Leafs tickets are the most expensive in the NHL; Raptors games are the affordable way into the building.",
+      "US visitors: prices list in CAD, and the exchange rate is a quiet discount.",
       "Maple Leaf Square ('Jurassic Park') playoff watch parties are free and legendary."
     ],
     officialLinks: {

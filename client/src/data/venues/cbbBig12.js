@@ -7,7 +7,7 @@ export const CBB_BIG_12_VENUES = {
     aliases: ["Huntsman Center", "The Huntsman", "Jon M Huntsman Center"],
     city: "Salt Lake City",
     state: "UT",
-    summary: "Utah's 15,000-seat domed arena on the upper campus — a striking circular building with mountain views from the lots, home to Ute basketball and championship gymnastics (the Red Rocks).",
+    summary: "Utah's 15,000-seat domed arena on the upper campus, a striking circular building with mountain views from the lots, home to Ute basketball and championship gymnastics (the Red Rocks).",
     bestFor: ["college basketball", "college gymnastics"],
     atmosphere: {
       vibe: "Loud on marquee nights; Red Rocks gymnastics meets are among the biggest crowds in the sport",
@@ -30,7 +30,7 @@ export const CBB_BIG_12_VENUES = {
       nearbyPregame: ["9th & 9th district", "downtown SLC (TRAX)", "campus-area spots"],
     },
     fanTips: [
-      "Utah Red Rocks gymnastics regularly outdraws basketball — a genuine SLC spectacle.",
+      "Utah Red Rocks gymnastics regularly outdraws basketball, a genuine SLC spectacle.",
       "The Big 12 move brought marquee hoops visitors (Kansas, Houston, etc.).",
       "The circular domed design and mountain-backed setting are distinctive."
     ],
@@ -48,7 +48,7 @@ export const CBB_BIG_12_VENUES = {
     aliases: ["The Marriott Center"],
     city: "Provo",
     state: "UT",
-    summary: "BYU's cavernous 17,500-seat arena — one of the larger on-campus basketball venues in the country, with the ROC student section and a Wasatch backdrop out the doors.",
+    summary: "BYU's cavernous 17,500-seat arena, one of the larger on-campus basketball venues in the country, with the ROC student section and a Wasatch backdrop out the doors.",
     bestFor: ["college basketball"],
     atmosphere: {
       vibe: "Big and loud on marquee nights; the ROC drives a devoted, family-heavy crowd",
@@ -57,7 +57,7 @@ export const CBB_BIG_12_VENUES = {
       indoorOutdoor: "Indoor"
     },
     arrival: {
-      parking: "Ample campus lots — easy by P4 standards.",
+      parking: "Ample campus lots; easy by P4 standards.",
       rideshare: "Campus Drive drops.",
       transit: "UVX bus rapid transit connects FrontRunner stations to campus.",
     },
@@ -71,7 +71,7 @@ export const CBB_BIG_12_VENUES = {
       nearbyPregame: ["Provo Center Street", "Brick Oven", "Cougar Tail stands"],
     },
     fanTips: [
-      "No alcohol is sold — the energy comes from the crowd, not the concourse.",
+      "No alcohol is sold, so the energy comes from the crowd, not the concourse.",
       "The Big 12 move brought Kansas, Houston, and other marquee visitors.",
       "Try a Cougar Tail. It's a foot-long maple bar and the best-known concession in the conference."
     ],
@@ -89,10 +89,10 @@ export const CBB_BIG_12_VENUES = {
     aliases: ["McKale Memorial Center", "McKale"],
     city: "Tucson",
     state: "AZ",
-    summary: "Arizona's 14,600-seat fortress — the Zona Zoo student section and a proud basketball tradition make McKale one of the toughest home courts in the West.",
+    summary: "Arizona's 14,600-seat fortress. The Zona Zoo student section and a proud basketball tradition make McKale one of the toughest home courts in the West.",
     bestFor: ["college basketball"],
     atmosphere: {
-      vibe: "Desert basketball devotion — loud, red, and hostile to ranked visitors",
+      vibe: "Desert basketball devotion: loud, red, and hostile to ranked visitors",
       noiseLevel: "Very high",
       familyFriendly: true,
       indoorOutdoor: "Indoor"
@@ -112,7 +112,7 @@ export const CBB_BIG_12_VENUES = {
       nearbyPregame: ["4th Avenue", "University Blvd strip", "El Charro Café (downtown)"],
     },
     fanTips: [
-      "Arizona basketball is the marquee program in a football-quiet town — McKale is loud.",
+      "Arizona basketball is the marquee program in a football-quiet town, and McKale is loud.",
       "The Big 12 move brought Kansas, Houston, and Baylor to Tucson.",
       "Tucson's food scene (UNESCO gastronomy) makes any trip worthwhile."
     ],
@@ -130,7 +130,7 @@ export const CBB_BIG_12_VENUES = {
     aliases: ["Wells Fargo Arena (ASU)", "ASU Activity Center"],
     city: "Tempe",
     state: "AZ",
-    summary: "Arizona State's 14,000-seat arena (renamed from Wells Fargo Arena) — the '942 Crew' student section and the Curtain of Distraction give ASU hoops a quirky, loud edge.",
+    summary: "Arizona State's 14,000-seat arena (renamed from Wells Fargo Arena). The '942 Crew' student section and the Curtain of Distraction give ASU hoops a quirky, loud edge.",
     bestFor: ["college basketball"],
     atmosphere: {
       vibe: "The Curtain of Distraction (behind the visitor's free-throw line) is nationally famous; 942 Crew energy",
@@ -153,8 +153,8 @@ export const CBB_BIG_12_VENUES = {
       nearbyPregame: ["Mill Avenue district", "Four Peaks Brewing", "Tempe Marketplace"],
     },
     fanTips: [
-      "Watch the Curtain of Distraction during opponent free throws — one of the sport's best student-section gags.",
-      "Listings may still say Wells Fargo Arena — renamed Desert Financial Arena.",
+      "Watch the Curtain of Distraction during opponent free throws; it's one of the sport's best student-section gags.",
+      "Listings may still say Wells Fargo Arena (renamed Desert Financial Arena).",
       "The Big 12 move brought Kansas and Houston to Tempe."
     ],
     officialLinks: {
@@ -171,10 +171,10 @@ export const CBB_BIG_12_VENUES = {
     aliases: ["Paul and Alejandra Foster Pavilion"],
     city: "Waco",
     state: "TX",
-    summary: "Baylor's new 7,000-seat riverfront arena (opened 2024) — an intimate downtown-Waco building on the Brazos that replaced the isolated Ferrell Center for the national-champion Bears.",
+    summary: "Baylor's new 7,000-seat riverfront arena (opened 2024), an intimate downtown-Waco building on the Brazos that replaced the isolated Ferrell Center for the national-champion Bears.",
     bestFor: ["college basketball"],
     atmosphere: {
-      vibe: "New-building intimacy — small, loud, and a big upgrade in atmosphere over the old barn",
+      vibe: "New-building intimacy: small, loud, and a big upgrade in atmosphere over the old barn",
       noiseLevel: "High",
       familyFriendly: true,
       indoorOutdoor: "Indoor"
@@ -186,7 +186,7 @@ export const CBB_BIG_12_VENUES = {
     },
     seating: {
       bestValueSections: ["Anywhere lower bowl", "Corners"],
-      avoidIfPossible: ["Nothing — it's a small new building"],
+      avoidIfPossible: ["Nothing; it's a small new building"],
       accessibilityNote: "Brand-new ADA design throughout."
     },
     foodAndDrink: {
@@ -194,7 +194,7 @@ export const CBB_BIG_12_VENUES = {
       nearbyPregame: ["Magnolia Market area", "downtown Waco restaurants", "riverfront spots"],
     },
     fanTips: [
-      "Opened in 2024 — a much better atmosphere and location than the old Ferrell Center.",
+      "Opened in 2024, with a much better atmosphere and location than the old Ferrell Center.",
       "At 7,000 seats, marquee Big 12 visits (Kansas, Houston) sell out fast.",
       "Pair with a Magnolia/downtown Waco day."
     ],
@@ -212,7 +212,7 @@ export const CBB_BIG_12_VENUES = {
     aliases: ["Shoemaker Center", "Fifth Third Arena Cincinnati"],
     city: "Cincinnati",
     state: "OH",
-    summary: "Cincinnati's renovated 12,000-seat on-campus arena — a gritty basketball tradition (the Bearcats) with a loud student section and a Big 12-era profile boost.",
+    summary: "Cincinnati's renovated 12,000-seat on-campus arena, a gritty basketball tradition (the Bearcats) with a loud student section and a Big 12-era profile boost.",
     bestFor: ["college basketball"],
     atmosphere: {
       vibe: "Blue-collar Bearcat basketball intensity; loud for the Crosstown Shootout and ranked visits",
@@ -253,7 +253,7 @@ export const CBB_BIG_12_VENUES = {
     aliases: ["Coors Events Center", "The Keg"],
     city: "Boulder",
     state: "CO",
-    summary: "Colorado's 11,000-seat arena in the shadow of the Flatirons — a renovated bowl where the C-Unit student section brings altitude-fueled noise.",
+    summary: "Colorado's 11,000-seat arena in the shadow of the Flatirons, a renovated bowl where the C-Unit student section brings altitude-fueled noise.",
     bestFor: ["college basketball"],
     atmosphere: {
       vibe: "Boulder-eclectic energy; loud for ranked Big 12 visitors",
@@ -276,7 +276,7 @@ export const CBB_BIG_12_VENUES = {
       nearbyPregame: ["Pearl Street Mall", "The Hill", "Avery Brewing (a ride away)"],
     },
     fanTips: [
-      "Altitude affects visitors — 5,300+ feet plus a loud crowd.",
+      "Altitude affects visitors: 5,300+ feet plus a loud crowd.",
       "The Big 12 move brought Kansas, Houston, and Baylor to Boulder.",
       "Pair with Pearl Street for a great Boulder evening."
     ],
@@ -294,10 +294,10 @@ export const CBB_BIG_12_VENUES = {
     aliases: ["Hofheinz Pavilion", "The Fertitta"],
     city: "Houston",
     state: "TX",
-    summary: "Houston's 7,100-seat renovated arena — small, ferociously loud, and home to one of the best programs in the country under Kelvin Sampson.",
+    summary: "Houston's 7,100-seat renovated arena: small, ferociously loud, and home to one of the best programs in the country under Kelvin Sampson.",
     bestFor: ["college basketball"],
     atmosphere: {
-      vibe: "Tiny and thunderous — a top-tier home court for a national-title-contending program",
+      vibe: "Tiny and thunderous, a top-tier home court for a national-title-contending program",
       noiseLevel: "Very high",
       familyFriendly: true,
       indoorOutdoor: "Indoor"
@@ -309,7 +309,7 @@ export const CBB_BIG_12_VENUES = {
     },
     seating: {
       bestValueSections: ["Anywhere lower bowl", "Corners"],
-      avoidIfPossible: ["Nothing — it's a small, intense building"],
+      avoidIfPossible: ["Nothing; it's a small, intense building"],
       accessibilityNote: "Renovated ADA design; accessible seating available."
     },
     foodAndDrink: {
@@ -317,7 +317,7 @@ export const CBB_BIG_12_VENUES = {
       nearbyPregame: ["EaDo breweries", "Frenchy's Chicken", "downtown Houston"],
     },
     fanTips: [
-      "Houston is a national power — Fertitta Center tickets for marquee games are hard to get.",
+      "Houston is a national power, so Fertitta Center tickets for marquee games are hard to get.",
       "The small capacity makes it one of the loudest buildings in the Big 12.",
       "The renovation (from Hofheinz Pavilion) modernized a classic."
     ],
@@ -335,16 +335,16 @@ export const CBB_BIG_12_VENUES = {
     aliases: ["Hilton Magic", "Hilton"],
     city: "Ames",
     state: "IA",
-    summary: "Iowa State's 14,400-seat coliseum — 'Hilton Magic' is real: the Cyclone Alley student section and a rabid fanbase make it one of the loudest arenas in America.",
+    summary: "Iowa State's 14,400-seat coliseum, where 'Hilton Magic' is real: the Cyclone Alley student section and a rabid fanbase make it one of the loudest arenas in America.",
     bestFor: ["college basketball"],
     atmosphere: {
-      vibe: "Hilton Magic — a genuine top-5 national home-court atmosphere; cardinal-and-gold delirium",
+      vibe: "Hilton Magic, a genuine top-5 national home-court atmosphere; cardinal-and-gold delirium",
       noiseLevel: "Very high",
       familyFriendly: true,
       indoorOutdoor: "Indoor"
     },
     arrival: {
-      parking: "Large campus lots adjacent — easy.",
+      parking: "Large campus lots adjacent; easy.",
       rideshare: "University Blvd drops.",
       transit: "CyRide gameday shuttles.",
     },
@@ -358,7 +358,7 @@ export const CBB_BIG_12_VENUES = {
       nearbyPregame: ["Campustown (Welch Ave)", "Hickory Park BBQ", "Ames spots"],
     },
     fanTips: [
-      "Hilton Magic is one of the sport's genuinely elite atmospheres — a bucket-list building.",
+      "Hilton Magic is one of the sport's genuinely elite atmospheres, a bucket-list building.",
       "Kansas, Houston, and rivalry games are the hardest tickets.",
       "Iowa State basketball is the state's passion in winter."
     ],
@@ -376,10 +376,10 @@ export const CBB_BIG_12_VENUES = {
     aliases: ["The Phog", "Allen Field House"],
     city: "Lawrence",
     state: "KS",
-    summary: "The most sacred building in college basketball — Kansas's 16,300-seat cathedral where 'Pay Heed, All Who Enter: Beware of the Phog' hangs over a fanbase that invented the sport's rulebook.",
+    summary: "The most sacred building in college basketball: Kansas's 16,300-seat cathedral where 'Pay Heed, All Who Enter: Beware of the Phog' hangs over a fanbase that invented the sport's rulebook.",
     bestFor: ["college basketball"],
     atmosphere: {
-      vibe: "The gold standard — the Rock Chalk Chant and the pregame roar are unmatched anywhere in the sport",
+      vibe: "The gold standard; the Rock Chalk Chant and the pregame roar are unmatched anywhere in the sport",
       noiseLevel: "Very high (the loudest, by many measures)",
       familyFriendly: true,
       indoorOutdoor: "Indoor"
@@ -391,7 +391,7 @@ export const CBB_BIG_12_VENUES = {
     },
     seating: {
       bestValueSections: ["Upper sidelines", "Lower corners"],
-      avoidIfPossible: ["Nothing — every seat is part of the experience"],
+      avoidIfPossible: ["Nothing; every seat is part of the experience"],
       accessibilityNote: "Historic building with retrofits; verify accessible sections at purchase."
     },
     foodAndDrink: {
@@ -399,9 +399,9 @@ export const CBB_BIG_12_VENUES = {
       nearbyPregame: ["Massachusetts Street", "Free State Brewing", "The Wheel"],
     },
     fanTips: [
-      "A Kansas home game at Allen Fieldhouse is the #1 bucket-list venue in college basketball — full stop.",
+      "A Kansas home game at Allen Fieldhouse is the #1 bucket-list venue in college basketball. Full stop.",
       "The Rock Chalk Chant (slow, eerie, unison) after wins is unforgettable.",
-      "Tickets are scarce and pricey — plan months ahead. Visit the DeBruce Center to see Naismith's original rules."
+      "Tickets are scarce and pricey, so plan months ahead. Visit the DeBruce Center to see Naismith's original rules."
     ],
     officialLinks: {
       website: "https://kuathletics.com/facilities/allen-fieldhouse",
@@ -417,7 +417,7 @@ export const CBB_BIG_12_VENUES = {
     aliases: ["The Octagon of Doom", "Bramlage"],
     city: "Manhattan",
     state: "KS",
-    summary: "Kansas State's 12,500-seat arena — 'The Octagon of Doom' gets loud enough to give the Wildcats one of the Big 12's better home-court edges, especially against Kansas.",
+    summary: "Kansas State's 12,500-seat arena, where 'The Octagon of Doom' gets loud enough to give the Wildcats one of the Big 12's better home-court edges, especially against Kansas.",
     bestFor: ["college basketball"],
     atmosphere: {
       vibe: "Purple-clad and rowdy; the Octagon of Doom nickname is earned on Sunflower Showdown nights",
@@ -426,7 +426,7 @@ export const CBB_BIG_12_VENUES = {
       indoorOutdoor: "Indoor"
     },
     arrival: {
-      parking: "Campus lots adjacent — easy.",
+      parking: "Campus lots adjacent; easy.",
       rideshare: "Kimball Ave drops; thin market.",
       transit: "ATA gameday routes.",
     },
@@ -458,7 +458,7 @@ export const CBB_BIG_12_VENUES = {
     aliases: ["Gallagher Iba Arena", "The Rowdiest Arena in the Country", "GIA"],
     city: "Stillwater",
     state: "OK",
-    summary: "Oklahoma State's 13,600-seat classic — 'The Rowdiest Arena in the Country,' a wrestling-and-basketball shrine with historic bones and a devoted orange crowd.",
+    summary: "Oklahoma State's 13,600-seat classic, 'The Rowdiest Arena in the Country,' a wrestling-and-basketball shrine with historic bones and a devoted orange crowd.",
     bestFor: ["college basketball", "college wrestling"],
     atmosphere: {
       vibe: "Old-school loud; the wrestling heritage and hoops tradition run deep",
@@ -481,7 +481,7 @@ export const CBB_BIG_12_VENUES = {
       nearbyPregame: ["Eskimo Joe's", "The Strip (Washington St)", "downtown Stillwater"],
     },
     fanTips: [
-      "OSU wrestling (a dynasty) draws huge crowds here too — a genuine spectacle.",
+      "OSU wrestling (a dynasty) draws huge crowds here too, a genuine spectacle.",
       "The Bedlam rivalry with OU carries over even after conference realignment shuffles.",
       "Eskimo Joe's cheese fries are as mandatory for hoops as for football."
     ],
@@ -499,7 +499,7 @@ export const CBB_BIG_12_VENUES = {
     aliases: ["Daniel-Meyer Coliseum", "Ed and Rae Schollmaier Arena"],
     city: "Fort Worth",
     state: "TX",
-    summary: "TCU's renovated 8,500-seat arena — an intimate, modernized building where the Frogs pull off memorable upsets in Fort Worth's pleasant campus neighborhood.",
+    summary: "TCU's renovated 8,500-seat arena, an intimate, modernized building where the Frogs pull off memorable upsets in Fort Worth's pleasant campus neighborhood.",
     bestFor: ["college basketball"],
     atmosphere: {
       vibe: "Purple-clad and intimate; loud for ranked Big 12 visitors",
@@ -508,13 +508,13 @@ export const CBB_BIG_12_VENUES = {
       indoorOutdoor: "Indoor"
     },
     arrival: {
-      parking: "Campus lots adjacent — easy.",
+      parking: "Campus lots adjacent; easy.",
       rideshare: "Stadium Drive drops.",
-      transit: "Limited — Fort Worth driving is standard.",
+      transit: "Limited; Fort Worth driving is standard.",
     },
     seating: {
       bestValueSections: ["Lower sidelines", "Corners"],
-      avoidIfPossible: ["Nothing — it's small and close"],
+      avoidIfPossible: ["Nothing; it's small and close"],
       accessibilityNote: "Renovated ADA design; accessible seating available."
     },
     foodAndDrink: {
@@ -522,7 +522,7 @@ export const CBB_BIG_12_VENUES = {
       nearbyPregame: ["Magnolia Avenue", "University Drive spots", "Dutch's Hamburgers"],
     },
     fanTips: [
-      "At 8,500 seats it's intimate — marquee Big 12 visits (Kansas, Houston) fill it.",
+      "At 8,500 seats it's intimate, but marquee Big 12 visits (Kansas, Houston) fill it.",
       "Fort Worth is an underrated game-weekend city.",
       "The renovation modernized the old Daniel-Meyer Coliseum."
     ],
@@ -540,7 +540,7 @@ export const CBB_BIG_12_VENUES = {
     aliases: ["USA (Texas Tech)", "The USA"],
     city: "Lubbock",
     state: "TX",
-    summary: "Texas Tech's 15,000-seat arena — the raucous student section and West Texas basketball passion make it a genuinely tough Big 12 road environment.",
+    summary: "Texas Tech's 15,000-seat arena. The raucous student section and West Texas basketball passion make it a genuinely tough Big 12 road environment.",
     bestFor: ["college basketball"],
     atmosphere: {
       vibe: "Guns-up loud; Red Raider hoops fervor rivals the football crowd on big nights",
@@ -563,9 +563,9 @@ export const CBB_BIG_12_VENUES = {
       nearbyPregame: ["Depot District", "Broadway strip", "Lubbock spots"],
     },
     fanTips: [
-      "Tech hoops became a Big 12 power — the arena is loud for ranked visits.",
+      "Tech hoops became a Big 12 power, and the arena is loud for ranked visits.",
       "Kansas, Houston, and Baylor games are the hardest tickets.",
-      "West Texas fans travel and show up — expect a full building for marquee games."
+      "West Texas fans travel and show up, so expect a full building for marquee games."
     ],
     officialLinks: {
       website: "https://texastech.com/facilities/united-supermarkets-arena",
@@ -581,7 +581,7 @@ export const CBB_BIG_12_VENUES = {
     aliases: ["CFE Arena", "UCF Arena", "The Venue"],
     city: "Orlando",
     state: "FL",
-    summary: "UCF's 10,000-seat on-campus arena — a modern building on America's largest campus, energized by the Knights' Big 12 arrival.",
+    summary: "UCF's 10,000-seat on-campus arena, a modern building on America's largest campus, energized by the Knights' Big 12 arrival.",
     bestFor: ["college basketball", "concerts"],
     atmosphere: {
       vibe: "Young, growing crowd; loud for ranked Big 12 visitors",
@@ -592,7 +592,7 @@ export const CBB_BIG_12_VENUES = {
     arrival: {
       parking: "Campus garages and lots; East Orlando driving applies.",
       rideshare: "Gemini Blvd drops.",
-      transit: "Limited — drive from Orlando proper (30+ minutes).",
+      transit: "Limited; drive from Orlando proper (30+ minutes).",
     },
     seating: {
       bestValueSections: ["Lower sidelines", "Corners"],
@@ -622,7 +622,7 @@ export const CBB_BIG_12_VENUES = {
     aliases: ["West Virginia Coliseum", "The Coliseum"],
     city: "Morgantown",
     state: "WV",
-    summary: "West Virginia's 14,000-seat circular coliseum — a 1970 concrete drum where the Mountaineer faithful bring Appalachian intensity to Big 12 hoops.",
+    summary: "West Virginia's 14,000-seat circular coliseum, a 1970 concrete drum where the Mountaineer faithful bring Appalachian intensity to Big 12 hoops.",
     bestFor: ["college basketball"],
     atmosphere: {
       vibe: "Gold-and-blue loud; the round design and passionate crowd make it a tough road trip",
@@ -631,7 +631,7 @@ export const CBB_BIG_12_VENUES = {
       indoorOutdoor: "Indoor"
     },
     arrival: {
-      parking: "Coliseum lots adjacent — easier than football.",
+      parking: "Coliseum lots adjacent; easier than football.",
       rideshare: "Patteson Drive drops; thin market.",
       transit: "The PRT (personal rapid transit) connects to the Coliseum station.",
     },
@@ -645,9 +645,9 @@ export const CBB_BIG_12_VENUES = {
       nearbyPregame: ["High Street (downtown)", "Mario's Fishbowl", "Morgantown spots"],
     },
     fanTips: [
-      "The PRT to the Coliseum is worth riding once — a 1970s futurist oddity.",
+      "The PRT to the Coliseum is worth riding once, a 1970s futurist oddity.",
       "Kansas, Houston, and Baylor visits are the marquee tickets.",
-      "Pepperoni rolls are the state's signature food — eat one."
+      "Pepperoni rolls are the state's signature food, so eat one."
     ],
     officialLinks: {
       website: "https://wvusports.com/facilities/wvu-coliseum",
