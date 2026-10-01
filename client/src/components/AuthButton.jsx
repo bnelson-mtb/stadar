@@ -23,7 +23,7 @@ export default function AuthButton() {
       <button
         type="button"
         onClick={logout}
-        className="inline-flex min-h-10 items-center gap-2 rounded-lg border border-white/10 bg-night-800 px-3 py-2 text-xs font-semibold text-slate-300 shadow-sm transition hover:border-white/25 hover:bg-night-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-radar-400/60"
+        className="inline-flex min-h-10 items-center gap-2 rounded-xl border border-white/10 bg-night-800 px-3 py-2 text-xs font-semibold text-ink-200 shadow-sm transition hover:border-white/25 hover:bg-night-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-radar-400/60"
         title={user?.email || title}
       >
         <span className="flex h-5 w-5 items-center justify-center rounded-full bg-radar-400/15 text-[11px] text-radar-300" aria-hidden="true">
@@ -39,7 +39,7 @@ export default function AuthButton() {
     <button
       type="button"
       onClick={login}
-      className="inline-flex min-h-10 items-center gap-2 rounded-lg border border-white/10 bg-night-800 px-3 py-2 text-xs font-semibold text-slate-200 shadow-sm transition hover:border-white/25 hover:bg-night-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-radar-400/60"
+      className="inline-flex min-h-10 items-center gap-2 rounded-xl border border-white/10 bg-night-800 px-3 py-2 text-xs font-semibold text-ink-100 shadow-sm transition hover:border-white/25 hover:bg-night-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-radar-400/60"
       title={title}
     >
       <GoogleMark />

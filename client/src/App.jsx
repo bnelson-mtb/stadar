@@ -4,12 +4,13 @@ import DiscoverPage from './pages/DiscoverPage.jsx'
 import EventDetailPage from './pages/EventDetailPage.jsx'
 import SavedPage from './pages/SavedPage.jsx'
 import ProfilePage from './pages/ProfilePage.jsx'
+import TeamsPage from './pages/TeamsPage.jsx'
 import TeamSavedPage from './pages/TeamSavedPage.jsx'
 import ImportPrompt from './components/ImportPrompt.jsx'
 
 function AppLayout() {
   return (
-    <div className="min-h-screen bg-night-950 pb-16">
+    <div className="min-h-screen bg-night-950 pb-24">
       <Outlet />
       <BottomNav />
       <ImportPrompt />
@@ -30,6 +31,7 @@ function App() {
     <Routes>
       <Route element={<AppLayout />}>
         <Route path="/" element={<DiscoverPage />} />
+        <Route path="/teams" element={<TeamsPage />} />
         <Route path="/saved" element={<SavedPage />} />
         <Route path="/profile" element={<ProfilePage />} />
       </Route>
