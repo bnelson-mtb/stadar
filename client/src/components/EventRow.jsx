@@ -11,6 +11,10 @@ function EventRow({ event, isSaved = false, stateCode, backTo }) {
   const awayTeamName = getCanonicalTeamName(event.awayTeam)
   const time = formatLocalTime(event.localTime)
   const zone = getTimeZoneLabel(event)
+  const homeLabel = getTeamShortName(homeTeamName) || event.name
+  // Nicknames are short and never give up space; long unrecognized names
+  // (raw Ticketmaster strings) share it with the away side instead.
+  const homeKeepsWidth = Boolean(awayTeamName) && homeLabel.length <= 12
 
   return (
     <Link
@@ -32,8 +36,8 @@ function EventRow({ event, isSaved = false, stateCode, backTo }) {
       <div className="min-w-0 flex-1">
         <div className="flex min-w-0 items-center gap-[7px]">
           <TeamLogo name={homeTeamName} size={22} />
-          <span className="min-w-0 truncate text-sm font-semibold text-white">
-            {getTeamShortName(homeTeamName) || event.name}
+          <span className={`truncate text-sm font-semibold text-white ${homeKeepsWidth ? 'shrink-0' : 'min-w-0'}`}>
+            {homeLabel}
           </span>
           {awayTeamName && (
             <>
