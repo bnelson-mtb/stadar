@@ -52,18 +52,18 @@ export const MLS_VENUES = {
     aliases: ["Q2"],
     city: "Austin",
     state: "TX",
-    summary: "Austin FC's verde-and-black fortress in North Austin — sold out since day one, with the Violet Crown supporters setting one of MLS's best atmospheres.",
+    summary: "Austin FC's verde-and-black fortress in North Austin, sold out since day one, with the Violet Crown supporters setting one of MLS's best atmospheres.",
     bestFor: ["MLS", "international soccer"],
     atmosphere: {
-      vibe: "Full-throated from kickoff — Austin treats this as the city's team in a pro-sports-scarce town",
+      vibe: "Full-throated from kickoff; Austin treats this as the city's team in a pro-sports-scarce town",
       noiseLevel: "Very high",
       familyFriendly: true,
       indoorOutdoor: "Outdoor (canopy covers most seats)"
     },
     arrival: {
-      parking: "Limited on-site — the district around McKalla Place is still building out; prebook or transit.",
+      parking: "Limited on-site. The district around McKalla Place is still building out; prebook or transit.",
       rideshare: "Designated zones; surge after final whistle.",
-      transit: "CapMetro Red Line's McKalla station is at the gates — built for the stadium.",
+      transit: "CapMetro Red Line's McKalla station is at the gates, built for the stadium.",
     },
     seating: {
       bestValueSections: ["Upper corners", "North end (calmer)"] ,
@@ -71,11 +71,11 @@ export const MLS_VENUES = {
       accessibilityNote: "Modern ADA design; accessible seating on all levels."
     },
     foodAndDrink: {
-      summary: "Austin-quality program — breakfast tacos, smoked meats, and deep local beer taps.",
+      summary: "Austin-quality program: breakfast tacos, smoked meats, and deep local beer taps.",
       nearbyPregame: ["The Domain (10 min)", "Little Woodrow's Burnet", "food trucks near McKalla"],
     },
     fanTips: [
-      "Sellouts are standard — resale is the realistic entry for most matches.",
+      "Sellouts are standard, so resale is the realistic entry for most matches.",
       "Texas summer evening kickoffs are still 95°F+ at start; the canopy helps but hydrate.",
       "Verde smoke and the Q2 roar after goals are worth positioning near the south end once."
     ],
@@ -93,10 +93,10 @@ export const MLS_VENUES = {
     aliases: ["West End Stadium"],
     city: "Cincinnati",
     state: "OH",
-    summary: "FC Cincinnati's steep-banked West End cauldron — a canopy that traps noise, The Bailey's smoke-and-drums, and among the best soccer atmospheres in the country.",
+    summary: "FC Cincinnati's steep-banked West End cauldron: a canopy that traps noise, The Bailey's smoke-and-drums, and among the best soccer atmospheres in the country.",
     bestFor: ["MLS", "international soccer"],
     atmosphere: {
-      vibe: "Bundesliga-styled intensity — The Bailey's standing wall drives 90 minutes of noise",
+      vibe: "Bundesliga-styled intensity; The Bailey's standing wall drives 90 minutes of noise",
       noiseLevel: "Very high",
       familyFriendly: true,
       indoorOutdoor: "Outdoor (canopy over all seats)"
@@ -116,7 +116,7 @@ export const MLS_VENUES = {
       nearbyPregame: ["Over-the-Rhine (Rhinegeist, Taft's)", "Findlay Market", "Washington Park"],
     },
     fanTips: [
-      "Hell is Real derby (vs Columbus) is one of American soccer's best events — buy months early.",
+      "Hell is Real derby (vs Columbus) is one of American soccer's best events, so buy months early.",
       "The canopy means rain rarely ruins a match here.",
       "Rhinegeist's rooftop pre-match is the local institution."
     ],
@@ -134,7 +134,7 @@ export const MLS_VENUES = {
     aliases: ["DSG Park", "DSGP"],
     city: "Commerce City",
     state: "CO",
-    summary: "Colorado Rapids' home northeast of Denver — an early-generation soccer-specific stadium surrounded by fields, with mountain views and a low-key crowd.",
+    summary: "Colorado Rapids' home northeast of Denver, an early-generation soccer-specific stadium surrounded by fields, with mountain views and a low-key crowd.",
     bestFor: ["MLS"],
     atmosphere: {
       vibe: "Mellow by MLS standards; Centennial 38 supporters carry the noise",
@@ -143,9 +143,9 @@ export const MLS_VENUES = {
       indoorOutdoor: "Outdoor"
     },
     arrival: {
-      parking: "Large free-ish on-site lots — one of MLS's easiest parking situations.",
+      parking: "Large free-ish on-site lots, one of MLS's easiest parking situations.",
       rideshare: "Works, but it's a hike from Denver; budget the fare.",
-      transit: "Limited — RTD buses only; effectively a driving venue.",
+      transit: "Limited. RTD buses only; effectively a driving venue.",
     },
     seating: {
       bestValueSections: ["West sideline", "Corners"],
@@ -157,9 +157,9 @@ export const MLS_VENUES = {
       nearbyPregame: ["RiNo breweries (pre-drive)", "Bison grill spots on the way", "tailgate lots"],
     },
     fanTips: [
-      "Rapids tickets are among MLS's cheapest — easy spontaneous soccer.",
+      "Rapids tickets are among MLS's cheapest, making for easy spontaneous soccer.",
       "Summer evening matches with mountain sunsets are the park at its best.",
-      "The stadium anchors a huge youth-field complex — expect tournament traffic some weekends."
+      "The stadium anchors a huge youth-field complex, so expect tournament traffic some weekends."
     ],
     officialLinks: {
       website: "https://www.coloradorapids.com/dsgpark",
@@ -175,10 +175,10 @@ export const MLS_VENUES = {
     aliases: ["New Crew Stadium", "Lower.com Field Columbus"],
     city: "Columbus",
     state: "OH",
-    summary: "Columbus Crew's Astor Park home (2021) — the club that saved itself built one of MLS's best modern grounds, with the Nordecke supporters' corner in full voice.",
+    summary: "Columbus Crew's Astor Park home (2021). The club that saved itself built one of MLS's best modern grounds, with the Nordecke supporters' corner in full voice.",
     bestFor: ["MLS", "international soccer"],
     atmosphere: {
-      vibe: "Save-the-Crew energy institutionalized — the Nordecke is among MLS's loudest corners",
+      vibe: "Save-the-Crew energy institutionalized; the Nordecke is among MLS's loudest corners",
       noiseLevel: "High",
       familyFriendly: true,
       indoorOutdoor: "Outdoor"
@@ -198,9 +198,9 @@ export const MLS_VENUES = {
       nearbyPregame: ["Land-Grant Brewing", "North Market", "Arena District bars"],
     },
     fanTips: [
-      "Hell is Real weekends (vs Cincinnati) are the calendar highlight — plan ahead.",
+      "Hell is Real weekends (vs Cincinnati) are the calendar highlight, so plan ahead.",
       "The Crew's trophy-era consistency keeps demand high; weeknight matches are the value entry.",
-      "Historic Crew Stadium (the original 1999 ground) still hosts other events nearby — don't confuse venues."
+      "Historic Crew Stadium (the original 1999 ground) still hosts other events nearby, so don't confuse venues."
     ],
     officialLinks: {
       website: "https://www.columbuscrew.com/lowerfield",
@@ -216,7 +216,7 @@ export const MLS_VENUES = {
     aliases: ["FC Dallas Stadium", "Pizza Hut Park"],
     city: "Frisco",
     state: "TX",
-    summary: "FC Dallas's Frisco home, mid-renovation to modernize the 2005-vintage ground — also hosts the National Soccer Hall of Fame behind the south goal.",
+    summary: "FC Dallas's Frisco home, mid-renovation to modernize the 2005-vintage ground, which also hosts the National Soccer Hall of Fame behind the south goal.",
     bestFor: ["MLS", "college football (Frisco Bowl)", "international soccer"],
     atmosphere: {
       vibe: "Family-suburban with pockets of supporter noise; heat defines the calendar",
@@ -225,14 +225,14 @@ export const MLS_VENUES = {
       indoorOutdoor: "Outdoor"
     },
     arrival: {
-      parking: "Ample on-site lots — a comfortable suburban drive-to venue.",
+      parking: "Ample on-site lots; a comfortable suburban drive-to venue.",
       rideshare: "Works fine; Frisco sprawl means real fares from Dallas.",
-      transit: "None practical — drive.",
+      transit: "None practical. Drive.",
     },
     seating: {
       bestValueSections: ["West sideline", "Corners"],
       avoidIfPossible: ["East side for summer evening kickoffs (sun)"],
-      accessibilityNote: "Accessible seating available; renovation may relocate sections — verify at purchase."
+      accessibilityNote: "Accessible seating available; renovation may relocate sections, so verify at purchase."
     },
     foodAndDrink: {
       summary: "Standard fare; Frisco's restaurant sprawl (The Star nearby) covers pregame.",
@@ -240,7 +240,7 @@ export const MLS_VENUES = {
     },
     fanTips: [
       "The National Soccer Hall of Fame inside the south end is worth the add-on for soccer fans.",
-      "Summer matches are brutal until sundown — night kickoffs only, June-September.",
+      "Summer matches are brutal until sundown, so pick night kickoffs only, June-September.",
       "FCD's academy pipeline means you're often watching future USMNT players early."
     ],
     officialLinks: {
@@ -257,7 +257,7 @@ export const MLS_VENUES = {
     aliases: ["Audi Field DC"],
     city: "Washington",
     state: "DC",
-    summary: "D.C. United's Buzzard Point home near Nationals Park — a compact urban ground with the Screaming Eagles' end and the Anacostia waterfront developing around it.",
+    summary: "D.C. United's Buzzard Point home near Nationals Park, a compact urban ground with the Screaming Eagles' end and the Anacostia waterfront developing around it.",
     bestFor: ["MLS", "NWSL"],
     atmosphere: {
       vibe: "District-diverse crowd; supporters' end keeps old RFK traditions alive",
@@ -266,7 +266,7 @@ export const MLS_VENUES = {
       indoorOutdoor: "Outdoor"
     },
     arrival: {
-      parking: "Limited nearby garages — this is a transit/rideshare ground.",
+      parking: "Limited nearby garages; this is a transit/rideshare ground.",
       rideshare: "Potomac Ave drops standard.",
       transit: "Metro Green Line to Navy Yard-Ballpark or Waterfront, ~10-minute walk.",
     },
@@ -280,8 +280,8 @@ export const MLS_VENUES = {
       nearbyPregame: ["Navy Yard (Bluejacket)", "The Wharf", "Buzzard Point spots as they open"],
     },
     fanTips: [
-      "Spirit (NWSL) matches here draw big — check which team's fixture you're buying.",
-      "Nats/United same-day events crowd the Green Line — check both schedules.",
+      "Spirit (NWSL) matches here draw big, so check which team's fixture you're buying.",
+      "Nats/United same-day events crowd the Green Line, so check both schedules.",
       "Summer evening river breezes make this one of DC's more pleasant outdoor venues."
     ],
     officialLinks: {
@@ -298,7 +298,7 @@ export const MLS_VENUES = {
     aliases: ["BBVA Stadium", "BBVA Compass Stadium", "PNC Stadium"],
     city: "Houston",
     state: "TX",
-    summary: "Houston Dynamo's orange-clad EaDo ground east of downtown — compact, loud when full, and part of the East Downtown bar district's rise.",
+    summary: "Houston Dynamo's orange-clad EaDo ground east of downtown: compact, loud when full, and part of the East Downtown bar district's rise.",
     bestFor: ["MLS", "NWSL", "college football"],
     atmosphere: {
       vibe: "El Batallón and Latino soccer culture give it real derby-night bite",
@@ -321,9 +321,9 @@ export const MLS_VENUES = {
       nearbyPregame: ["8th Wonder Brewery", "Truck Yard Houston", "EaDo bar row"],
     },
     fanTips: [
-      "Texas derby (vs FC Dallas/Austin) nights bring the building alive — target those.",
-      "Dash (NWSL) matches share the ground — verify the fixture.",
-      "Summer day matches are a genuine heat risk — evening only, May through September."
+      "Texas derby (vs FC Dallas/Austin) nights bring the building alive, so target those.",
+      "Dash (NWSL) matches share the ground, so verify the fixture.",
+      "Summer day matches are a genuine heat risk, so go evening only, May through September."
     ],
     officialLinks: {
       website: "https://www.houstondynamofc.com/shellenergystadium",
@@ -339,22 +339,22 @@ export const MLS_VENUES = {
     aliases: ["Miami Freedom Park", "Miami Freedom Park Stadium"],
     city: "Miami",
     state: "FL",
-    summary: "Inter Miami's brand-new home at Miami Freedom Park (opened April 2026) — a 26,700-seat ground by the airport anchoring a 131-acre park/retail district, built for the Messi era and beyond.",
+    summary: "Inter Miami's brand-new home at Miami Freedom Park (opened April 2026), a 26,700-seat ground by the airport anchoring a 131-acre park/retail district, built for the Messi era and beyond.",
     bestFor: ["MLS", "international soccer"],
     atmosphere: {
-      vibe: "Global-event glamour — the Messi effect makes every match a destination fixture",
+      vibe: "Global-event glamour; the Messi effect makes every match a destination fixture",
       noiseLevel: "High",
       familyFriendly: true,
       indoorOutdoor: "Outdoor"
     },
     arrival: {
-      parking: "On-site garages within the Freedom Park district; prebook — demand is global-tourist heavy.",
+      parking: "On-site garages within the Freedom Park district; prebook, because demand is global-tourist heavy.",
       rideshare: "Designated zones; expect surge after every match.",
       transit: "Near MIA airport transit connections; check current shuttle/Metrorail links as the district builds out.",
     },
     seating: {
       bestValueSections: ["Upper corners", "End opposite supporters (calmer)"],
-      avoidIfPossible: ["Nothing structural — pricing is the obstacle"],
+      avoidIfPossible: ["Nothing structural; pricing is the obstacle"],
       accessibilityNote: "Modern ADA design; accessible seating on all levels."
     },
     foodAndDrink: {
@@ -362,9 +362,9 @@ export const MLS_VENUES = {
       nearbyPregame: ["Freedom Park district venues", "Wynwood (short ride)", "Doral spots"],
     },
     fanTips: [
-      "As long as Messi plays, this is one of the toughest tickets in world sport — resale far above face is normal.",
-      "The club moved here from Chase Stadium (Fort Lauderdale) in April 2026 — old listings may show the wrong venue.",
-      "Summer afternoon storms are a Miami certainty — evening fixtures fare better."
+      "As long as Messi plays, this is one of the toughest tickets in world sport, and resale far above face is normal.",
+      "The club moved here from Chase Stadium (Fort Lauderdale) in April 2026, so old listings may show the wrong venue.",
+      "Summer afternoon storms are a Miami certainty, so evening fixtures fare better."
     ],
     officialLinks: {
       website: "https://www.intermiamicf.com/",
@@ -380,7 +380,7 @@ export const MLS_VENUES = {
     aliases: ["StubHub Center", "Home Depot Center"],
     city: "Carson",
     state: "CA",
-    summary: "LA Galaxy's veteran Carson ground on the CSU Dominguez Hills campus — MLS's flagship stadium of the 2000s, still a great sightline venue with SoCal weather.",
+    summary: "LA Galaxy's veteran Carson ground on the CSU Dominguez Hills campus, MLS's flagship stadium of the 2000s, still a great sightline venue with SoCal weather.",
     bestFor: ["MLS", "international soccer", "rugby"],
     atmosphere: {
       vibe: "Galaxy tradition (the league's old money) with the Riot Squad and Victoria Block supplying edge",
@@ -391,7 +391,7 @@ export const MLS_VENUES = {
     arrival: {
       parking: "Big campus lots; prepay for El Tráfico and big matches.",
       rideshare: "Standard zones; Carson is car country.",
-      transit: "Minimal — buses only; plan to drive.",
+      transit: "Minimal. Buses only; plan to drive.",
     },
     seating: {
       bestValueSections: ["Upper sidelines", "Corners"],
@@ -399,13 +399,13 @@ export const MLS_VENUES = {
       accessibilityNote: "Accessible seating on all levels; check the venue map before buying."
     },
     foodAndDrink: {
-      summary: "SoCal standard with taco stands; nothing walkable outside — eat before driving.",
+      summary: "SoCal standard with taco stands; nothing walkable outside, so eat before driving.",
       nearbyPregame: ["Tailgate lots", "South Bay spots pre-drive", "Torrance breweries"],
     },
     fanTips: [
-      "El Tráfico (vs LAFC) is the fixture — everything else is a relaxed evening.",
+      "El Tráfico (vs LAFC) is the fixture; everything else is a relaxed evening.",
       "Galaxy history (Beckham-Zlatan-etc.) makes the stadium tour/plaza worth a look.",
-      "Evening marine layer cools it fast — bring a layer even after hot days."
+      "Evening marine layer cools it fast, so bring a layer even after hot days."
     ],
     officialLinks: {
       website: "https://www.dignityhealthsportspark.com/",
@@ -421,10 +421,10 @@ export const MLS_VENUES = {
     aliases: ["Banc of California Stadium", "Banc of California"],
     city: "Los Angeles",
     state: "CA",
-    summary: "LAFC's black-and-gold Exposition Park fortress — the 3252 supporters' wall, a design-forward bowl, and the loudest sustained soccer atmosphere on the West Coast.",
+    summary: "LAFC's black-and-gold Exposition Park fortress: the 3252 supporters' wall, a design-forward bowl, and the loudest sustained soccer atmosphere on the West Coast.",
     bestFor: ["MLS", "NWSL", "international soccer", "concerts"],
     atmosphere: {
-      vibe: "The 3252's drum-and-flag wall never sits, never stops — a top-2 MLS atmosphere",
+      vibe: "The 3252's drum-and-flag wall never sits, never stops: a top-2 MLS atmosphere",
       noiseLevel: "Very high",
       familyFriendly: true,
       indoorOutdoor: "Outdoor"
@@ -440,13 +440,13 @@ export const MLS_VENUES = {
       accessibilityNote: "Modern ADA design; accessible seating on all levels."
     },
     foodAndDrink: {
-      summary: "LA-quality vendors (birria, elote, craft beer) — one of MLS's best food programs.",
+      summary: "LA-quality vendors (birria, elote, craft beer), one of MLS's best food programs.",
       nearbyPregame: ["Exposition Park lawns", "USC Village spots", "Mercado La Paloma (10-min walk, elite)"],
     },
     fanTips: [
-      "Mercado La Paloma pregame is the local secret — some of LA's best food two blocks away.",
-      "El Tráfico at BMO is the hottest ticket in MLS — buy early or pay heavily.",
-      "Angel City FC (NWSL) shares the ground with big crowds — verify the fixture."
+      "Mercado La Paloma pregame is the local secret, with some of LA's best food two blocks away.",
+      "El Tráfico at BMO is the hottest ticket in MLS, so buy early or pay heavily.",
+      "Angel City FC (NWSL) shares the ground with big crowds, so verify the fixture."
     ],
     officialLinks: {
       website: "https://www.bmostadium.com/",
@@ -462,7 +462,7 @@ export const MLS_VENUES = {
     aliases: ["The Loons' Nest"],
     city: "Saint Paul",
     state: "MN",
-    summary: "Minnesota United's shimmering wing-clad ground in the Midway — the Wonderwall supporters' end and a stainless-mesh facade that glows on match nights.",
+    summary: "Minnesota United's shimmering wing-clad ground in the Midway, with the Wonderwall supporters' end and a stainless-mesh facade that glows on match nights.",
     bestFor: ["MLS", "international soccer"],
     atmosphere: {
       vibe: "The Wonderwall's post-win Oasis singalong is one of MLS's best traditions",
@@ -471,7 +471,7 @@ export const MLS_VENUES = {
       indoorOutdoor: "Outdoor (canopy over all seats)"
     },
     arrival: {
-      parking: "Midway lots are limited — the club pushes transit hard.",
+      parking: "Midway lots are limited; the club pushes transit hard.",
       rideshare: "Snelling Ave drops.",
       transit: "Green Line LRT to Snelling Avenue station, one block away.",
     },
@@ -485,9 +485,9 @@ export const MLS_VENUES = {
       nearbyPregame: ["Black Hart of St. Paul (the soccer bar)", "Allianz-adjacent beer hall", "University Ave spots"],
     },
     fanTips: [
-      "Stay for Wonderwall after wins — the crowd sings the whole song, every time.",
+      "Stay for Wonderwall after wins. The crowd sings the whole song, every time.",
       "Early/late-season matches are cold; the canopy blocks rain, not Minnesota.",
-      "Loons tickets are mid-priced MLS with genuine atmosphere — good value overall."
+      "Loons tickets are mid-priced MLS with genuine atmosphere, good value overall."
     ],
     officialLinks: {
       website: "https://www.mnufc.com/allianzfield",
@@ -503,10 +503,10 @@ export const MLS_VENUES = {
     aliases: ["Saputo Stadium"],
     city: "Montreal",
     state: "QC",
-    summary: "CF Montréal's home next to the Olympic Stadium — a European-feeling ground with bilingual chants and Ultras Montréal driving the east end.",
+    summary: "CF Montréal's home next to the Olympic Stadium, a European-feeling ground with bilingual chants and Ultras Montréal driving the east end.",
     bestFor: ["MLS", "international soccer"],
     atmosphere: {
-      vibe: "French-inflected ultra culture — flags, flares (occasionally), and continental songcraft",
+      vibe: "French-inflected ultra culture: flags, flares (occasionally), and continental songcraft",
       noiseLevel: "High",
       familyFriendly: true,
       indoorOutdoor: "Outdoor"
@@ -526,9 +526,9 @@ export const MLS_VENUES = {
       nearbyPregame: ["Rue Ontario Est spots", "Marché Maisonneuve", "Plateau pre-Métro"],
     },
     fanTips: [
-      "Early-season (Feb-Apr) matches move indoors to Olympic Stadium when it's freezing — check the venue on your ticket.",
+      "Early-season (Feb-Apr) matches move indoors to Olympic Stadium when it's freezing, so check the venue on your ticket.",
       "CAD pricing is friendly for US visitors.",
-      "The 1642MTL/Ultras end delivers the atmosphere — sit near, not in, for the best of both."
+      "The 1642MTL/Ultras end delivers the atmosphere, so sit near, not in, for the best of both."
     ],
     officialLinks: {
       website: "https://www.cfmontreal.com/en/stade-saputo",
@@ -544,7 +544,7 @@ export const MLS_VENUES = {
     aliases: ["Nashville SC Stadium"],
     city: "Nashville",
     state: "TN",
-    summary: "The largest soccer-specific stadium in the US (30,000) at the Fairgrounds — Nashville SC's gold wall and The Backline supporters giving it real voice.",
+    summary: "The largest soccer-specific stadium in the US (30,000) at the Fairgrounds, with Nashville SC's gold wall and The Backline supporters giving it real voice.",
     bestFor: ["MLS", "international soccer", "concerts"],
     atmosphere: {
       vibe: "Big-bowl soccer with honky-tonk energy imported from Broadway",
@@ -553,7 +553,7 @@ export const MLS_VENUES = {
       indoorOutdoor: "Outdoor (canopy over most seats)"
     },
     arrival: {
-      parking: "Fairgrounds lots; prebook — the neighborhood streets are permit-tight.",
+      parking: "Fairgrounds lots; prebook, because the neighborhood streets are permit-tight.",
       rideshare: "Designated zones off Nolensville Pike.",
       transit: "WeGo buses along Nolensville Pike; mostly a driving venue.",
     },
@@ -563,12 +563,12 @@ export const MLS_VENUES = {
       accessibilityNote: "Modern ADA design; accessible seating on all levels."
     },
     foodAndDrink: {
-      summary: "Hot chicken and local brews — a solid Nashville-flavored program.",
+      summary: "Hot chicken and local brews, a solid Nashville-flavored program.",
       nearbyPregame: ["Nolensville Pike's international food row (elite, underrated)", "12 South", "Plaza Mariachi"],
     },
     fanTips: [
       "Nolensville Pike pregame (Kurdish, Mexican, Vietnamese) is Nashville's best-kept food secret.",
-      "Summer evening matches still start hot — the canopy helps once the sun drops.",
+      "Summer evening matches still start hot, but the canopy helps once the sun drops.",
       "NSC tickets are reasonable; big-name visitors (Messi) reprice the building overnight."
     ],
     officialLinks: {
@@ -585,7 +585,7 @@ export const MLS_VENUES = {
     aliases: ["Red Bull Arena", "SI Stadium"],
     city: "Harrison",
     state: "NJ",
-    summary: "The Red Bulls' Harrison ground (renamed from Red Bull Arena in 2025) — still one of America's best pure soccer venues, one PATH stop from Newark and 20 minutes from Manhattan.",
+    summary: "The Red Bulls' Harrison ground (renamed from Red Bull Arena in 2025), still one of America's best pure soccer venues, one PATH stop from Newark and 20 minutes from Manhattan.",
     bestFor: ["MLS", "NWSL", "international soccer"],
     atmosphere: {
       vibe: "South Ward loyalists in a European-style shed; Gotham FC matches add NWSL star power",
@@ -596,7 +596,7 @@ export const MLS_VENUES = {
     arrival: {
       parking: "Harrison garages next door; fine but the PATH is better.",
       rideshare: "Frank E. Rodgers Blvd drops.",
-      transit: "PATH to Harrison station, a 5-minute walk — direct from WTC.",
+      transit: "PATH to Harrison station, a 5-minute walk, direct from WTC.",
     },
     seating: {
       bestValueSections: ["Upper sidelines", "Corners"],
@@ -608,8 +608,8 @@ export const MLS_VENUES = {
       nearbyPregame: ["Ironbound district (Ferry St)", "Harrison's growing apartment-district spots", "Tops Diner (legendary)"],
     },
     fanTips: [
-      "Listings may still say Red Bull Arena — renamed Sports Illustrated Stadium (13-year deal).",
-      "Gotham FC (NWSL) shares the ground — check the fixture.",
+      "Listings may still say Red Bull Arena (renamed Sports Illustrated Stadium, 13-year deal).",
+      "Gotham FC (NWSL) shares the ground, so check the fixture.",
       "Hudson River Derby (vs NYCFC) is the match to target."
     ],
     officialLinks: {
@@ -626,7 +626,7 @@ export const MLS_VENUES = {
     aliases: ["Exploria Stadium", "Orlando City Stadium"],
     city: "Orlando",
     state: "FL",
-    summary: "Orlando City's purple Parramore ground downtown — The Wall's standing end, Pride matches, and one of MLS's better urban-stadium settings.",
+    summary: "Orlando City's purple Parramore ground downtown, with The Wall's standing end, Pride matches, and one of MLS's better urban-stadium settings.",
     bestFor: ["MLS", "NWSL", "international soccer"],
     atmosphere: {
       vibe: "Purple smoke and Latin-inflected supporter culture; Pride crowds add NWSL heat",
@@ -649,9 +649,9 @@ export const MLS_VENUES = {
       nearbyPregame: ["Church Street Station", "Wall Street Plaza", "The Milk District (short ride)"],
     },
     fanTips: [
-      "Summer storms hit like clockwork at 5pm — the canopy handles most of it, but arrive dry.",
-      "Pride (NWSL) matches here have championship pedigree and real crowds — worth targeting.",
-      "It's genuinely downtown — pair with an evening out, unlike most Florida venues."
+      "Summer storms hit like clockwork at 5pm. The canopy handles most of it, but arrive dry.",
+      "Pride (NWSL) matches here have championship pedigree and real crowds, so they're worth targeting.",
+      "It's genuinely downtown, so pair with an evening out, unlike most Florida venues."
     ],
     officialLinks: {
       website: "https://www.orlandocitysc.com/stadium",
@@ -667,7 +667,7 @@ export const MLS_VENUES = {
     aliases: ["Talen Energy Stadium", "PPL Park"],
     city: "Chester",
     state: "PA",
-    summary: "Philadelphia Union's riverside ground under the Commodore Barry Bridge — the Sons of Ben's River End and Delaware River sunsets, 30 minutes south of Philly.",
+    summary: "Philadelphia Union's riverside ground under the Commodore Barry Bridge, with the Sons of Ben's River End and Delaware River sunsets, 30 minutes south of Philly.",
     bestFor: ["MLS"],
     atmosphere: {
       vibe: "Sons of Ben bring Philly edge to a scenic riverside bowl",
@@ -676,9 +676,9 @@ export const MLS_VENUES = {
       indoorOutdoor: "Outdoor"
     },
     arrival: {
-      parking: "On-site lots are the default — Chester is a driving destination.",
+      parking: "On-site lots are the default; Chester is a driving destination.",
       rideshare: "Works; fares from Philly add up.",
-      transit: "SEPTA Wilmington/Newark line to Highland Ave + a walk/shuttle — limited but exists.",
+      transit: "SEPTA Wilmington/Newark line to Highland Ave + a walk/shuttle; limited but exists.",
     },
     seating: {
       bestValueSections: ["East sideline", "Corners"],
@@ -691,7 +691,7 @@ export const MLS_VENUES = {
     },
     fanTips: [
       "The Union's homegrown pipeline means young-star sightings before they're sold to Europe.",
-      "Sunset over the Commodore Barry Bridge is the stadium's postcard — west-facing seats get it.",
+      "Sunset over the Commodore Barry Bridge is the stadium's postcard, and west-facing seats get it.",
       "Union tickets are among the best atmosphere-per-dollar buys in the league."
     ],
     officialLinks: {
@@ -708,31 +708,31 @@ export const MLS_VENUES = {
     aliases: ["Jeld-Wen Field", "PGE Park", "Civic Stadium"],
     city: "Portland",
     state: "OR",
-    summary: "A 1926 ground rebuilt into America's best soccer venue — the Timbers Army's north end, log slabs for goals, and a downtown Portland location with MAX at the door.",
+    summary: "A 1926 ground rebuilt into America's best soccer venue, with the Timbers Army's north end, log slabs for goals, and a downtown Portland location with MAX at the door.",
     bestFor: ["MLS", "NWSL"],
     atmosphere: {
-      vibe: "The Timbers Army is the American gold standard — 90 minutes of coordinated noise; Thorns crowds are the NWSL's benchmark",
+      vibe: "The Timbers Army is the American gold standard: 90 minutes of coordinated noise; Thorns crowds are the NWSL's benchmark",
       noiseLevel: "Very high",
       familyFriendly: true,
       indoorOutdoor: "Outdoor (covered on most sides)"
     },
     arrival: {
-      parking: "Minimal — a deliberately transit-first venue in a neighborhood.",
+      parking: "Minimal. A deliberately transit-first venue in a neighborhood.",
       rideshare: "Burnside drops; MAX is right there.",
       transit: "MAX Blue/Red to Providence Park station, at the gate.",
     },
     seating: {
       bestValueSections: ["East side uppers (the 2019 addition)", "South corners"],
       avoidIfPossible: ["North end unless standing with the Army"],
-      accessibilityNote: "Historic structure — accessible seating exists but verify specific sections at purchase."
+      accessibilityNote: "Historic structure; accessible seating exists but verify specific sections at purchase."
     },
     foodAndDrink: {
       summary: "Portland food-cart quality inside; the surrounding blocks are all bars and restaurants.",
       nearbyPregame: ["Goose Hollow Inn (the classic)", "21st Ave bars", "downtown breweries"],
     },
     fanTips: [
-      "Timbers and Thorns matches both sell strong — this is a two-team soccer city like nowhere else in the US.",
-      "Watch for Timber Joey cutting the log slab after goals — the league's best tradition.",
+      "Timbers and Thorns matches both sell strong; this is a two-team soccer city like nowhere else in the US.",
+      "Watch for Timber Joey cutting the log slab after goals, the league's best tradition.",
       "Rain is ambient here; most seats are covered and nobody cares."
     ],
     officialLinks: {
@@ -749,7 +749,7 @@ export const MLS_VENUES = {
     aliases: ["SDSU Mission Valley Stadium"],
     city: "San Diego",
     state: "CA",
-    summary: "San Diego FC's home (and SDSU football's) in Mission Valley — a 2022-built 35k stadium with trolley access and the expansion club's instant sellout culture.",
+    summary: "San Diego FC's home (and SDSU football's) in Mission Valley, a 2022-built 35k stadium with trolley access and the expansion club's instant sellout culture.",
     bestFor: ["MLS", "college football", "NWSL", "rugby"],
     atmosphere: {
       vibe: "New-club enthusiasm meets San Diego chill; Aztecs Saturdays bring the college edge",
@@ -772,9 +772,9 @@ export const MLS_VENUES = {
       nearbyPregame: ["Mission Valley spots", "North Park breweries (pre-trolley)", "Old Town (trolley line)"],
     },
     fanTips: [
-      "SDFC's debut seasons sold out regularly — treat tickets as advance purchases.",
-      "SDSU football, Wave FC, and rugby share the calendar — verify which event you're buying.",
-      "San Diego evenings cool fast — a light layer even after warm days."
+      "SDFC's debut seasons sold out regularly, so treat tickets as advance purchases.",
+      "SDSU football, Wave FC, and rugby share the calendar, so verify which event you're buying.",
+      "San Diego evenings cool fast, so bring a light layer even after warm days."
     ],
     officialLinks: {
       website: "https://www.snapdragonstadium.com/",
@@ -790,10 +790,10 @@ export const MLS_VENUES = {
     aliases: ["Avaya Stadium", "Earthquakes Stadium"],
     city: "San Jose",
     state: "CA",
-    summary: "San Jose Earthquakes' compact ground by the airport — Europe's steep-stand feel, the giant outdoor bar behind the north goal, and Quakes history running back to the NASL.",
+    summary: "San Jose Earthquakes' compact ground by the airport, with Europe's steep-stand feel, the giant outdoor bar behind the north goal, and Quakes history running back to the NASL.",
     bestFor: ["MLS", "NWSL", "international soccer"],
     atmosphere: {
-      vibe: "Intimate and steep — the 1906 Ultras bring noise disproportionate to capacity",
+      vibe: "Intimate and steep; the 1906 Ultras bring noise disproportionate to capacity",
       noiseLevel: "Medium-high",
       familyFriendly: true,
       indoorOutdoor: "Outdoor"
@@ -813,7 +813,7 @@ export const MLS_VENUES = {
       nearbyPregame: ["The north-end bar itself", "Santana Row (15 min)", "downtown San Jose"],
     },
     fanTips: [
-      "Cali Clásico vs the Galaxy — especially the annual Stanford Stadium edition — is the fixture to know.",
+      "Cali Clásico vs the Galaxy (especially the annual Stanford Stadium edition) is the fixture to know.",
       "Airport flight paths overhead are part of the venue's character.",
       "Quakes tickets are Bay Area's cheapest pro soccer by far."
     ],
@@ -831,10 +831,10 @@ export const MLS_VENUES = {
     aliases: ["Sporting Park", "Livestrong Sporting Park"],
     city: "Kansas City",
     state: "KS",
-    summary: "Sporting KC's Village West ground — the 2011 stadium that set MLS's modern standard, with the Cauldron's noise and the Legends district around it.",
+    summary: "Sporting KC's Village West ground, the 2011 stadium that set MLS's modern standard, with the Cauldron's noise and the Legends district around it.",
     bestFor: ["MLS", "international soccer"],
     atmosphere: {
-      vibe: "The Cauldron's sustained noise in a compact, canopy-topped bowl — a soccer-first city block",
+      vibe: "The Cauldron's sustained noise in a compact, canopy-topped bowl, a soccer-first city block",
       noiseLevel: "High",
       familyFriendly: true,
       indoorOutdoor: "Outdoor (canopy over most seats)"
@@ -842,7 +842,7 @@ export const MLS_VENUES = {
     arrival: {
       parking: "Big Village West lots shared with the Legends district.",
       rideshare: "Standard zones; it's a highway-junction location.",
-      transit: "Minimal — drive; it's in Kansas City, Kansas at the speedway junction.",
+      transit: "Minimal, so drive; it's in Kansas City, Kansas at the speedway junction.",
     },
     seating: {
       bestValueSections: ["Upper sidelines", "Corners"],
@@ -854,7 +854,7 @@ export const MLS_VENUES = {
       nearbyPregame: ["The Legends district", "Yard House", "BBQ in KCMO before the drive"],
     },
     fanTips: [
-      "SKC's long sellout heritage faded — good seats are gettable most matches now.",
+      "SKC's long sellout heritage faded, so good seats are gettable most matches now.",
       "Combine with the speedway/Legends complex for a full-day outing with kids.",
       "Evening thunderstorm season (May-June) is real; the canopy earns its keep."
     ],
@@ -872,10 +872,10 @@ export const MLS_VENUES = {
     aliases: ["CityPark", "CITYPARK", "St. Louis City Stadium"],
     city: "St. Louis",
     state: "MO",
-    summary: "St. Louis City SC's downtown-west ground (renamed from CityPark in 2024) — a sunken pitch, curated local-only food program, and a fanbase that sold the place out from day one.",
+    summary: "St. Louis City SC's downtown-west ground (renamed from CityPark in 2024), with a sunken pitch, curated local-only food program, and a fanbase that sold the place out from day one.",
     bestFor: ["MLS"],
     atmosphere: {
-      vibe: "Soccer-heritage city finally given its team — the CITY Faithful end never sits",
+      vibe: "Soccer-heritage city finally given its team; the CITY Faithful end never sits",
       noiseLevel: "High",
       familyFriendly: true,
       indoorOutdoor: "Outdoor (canopy over most seats)"
@@ -891,13 +891,13 @@ export const MLS_VENUES = {
       accessibilityNote: "Modern ADA design; accessible seating on all levels."
     },
     foodAndDrink: {
-      summary: "All-local vendor policy (Balkan Treat Box, Steve's Hot Dogs) — a top-3 MLS food program.",
+      summary: "All-local vendor policy (Balkan Treat Box, Steve's Hot Dogs), a top-3 MLS food program.",
       nearbyPregame: ["Union Station", "Schlafly Tap Room", "The Grove (short ride)"],
     },
     fanTips: [
-      "Listings may still say CityPark — renamed Energizer Park in 2024.",
+      "Listings may still say CityPark (renamed Energizer Park in 2024).",
       "The local-only food program is genuinely worth arriving hungry for.",
-      "Sellout culture persists — buy ahead rather than gambling on walk-up."
+      "Sellout culture persists, so buy ahead rather than gambling on walk-up."
     ],
     officialLinks: {
       website: "https://www.stlcitysc.com/stadium",
@@ -913,10 +913,10 @@ export const MLS_VENUES = {
     aliases: ["Exhibition Stadium site", "BMO Field Toronto"],
     city: "Toronto",
     state: "ON",
-    summary: "Toronto FC's lakeside ground at Exhibition Place — the south end's flag-waving culture, Lake Ontario behind, and a 2026 World Cup host venue.",
+    summary: "Toronto FC's lakeside ground at Exhibition Place, with the south end's flag-waving culture, Lake Ontario behind, and a 2026 World Cup host venue.",
     bestFor: ["MLS", "international soccer", "CFL"],
     atmosphere: {
-      vibe: "TFC's supporters set MLS's early standard — still loud, banner-heavy, and bilingual in song",
+      vibe: "TFC's supporters set MLS's early standard and are still loud, banner-heavy, and bilingual in song",
       noiseLevel: "High",
       familyFriendly: true,
       indoorOutdoor: "Outdoor (partial roof over sides)"
@@ -936,8 +936,8 @@ export const MLS_VENUES = {
       nearbyPregame: ["Liberty Village", "King West", "Ossington strip (short ride)"],
     },
     fanTips: [
-      "The 2026 World Cup expansion work upgraded capacity and facilities — the building is at its best.",
-      "Lake wind makes spring/fall evenings colder than forecast — layer.",
+      "The 2026 World Cup expansion work upgraded capacity and facilities, so the building is at its best.",
+      "Lake wind makes spring/fall evenings colder than forecast, so layer.",
       "Canadian Classique vs CF Montréal is the derby to target."
     ],
     officialLinks: {
@@ -954,10 +954,10 @@ export const MLS_VENUES = {
     aliases: ["BC Place Stadium"],
     city: "Vancouver",
     state: "BC",
-    summary: "Whitecaps home downtown under the world's largest cable-supported retractable roof — a 2026 World Cup host with SkyTrain at the door and mountains out every gate.",
+    summary: "Whitecaps home downtown under the world's largest cable-supported retractable roof, a 2026 World Cup host with SkyTrain at the door and mountains out every gate.",
     bestFor: ["MLS", "international soccer", "CFL", "concerts"],
     atmosphere: {
-      vibe: "Big-building soccer — the Southsiders concentrate the noise; internationals fill it properly",
+      vibe: "Big-building soccer; the Southsiders concentrate the noise, and internationals fill it properly",
       noiseLevel: "Medium-high",
       familyFriendly: true,
       indoorOutdoor: "Retractable roof"
@@ -977,7 +977,7 @@ export const MLS_VENUES = {
       nearbyPregame: ["Yaletown", "The Pint", "Rogers Arena-shared bar row"],
     },
     fanTips: [
-      "The roof means weather never cancels — rare and valuable in Vancouver.",
+      "The roof means weather never cancels, which is rare and valuable in Vancouver.",
       "Cascadia derbies (Seattle, Portland) are the crowd-filling fixtures.",
       "CAD pricing helps US visitors; internationals and World Cup legacy events sell fastest."
     ],

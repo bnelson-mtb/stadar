@@ -7,7 +7,7 @@ export const CBB_BIG_TEN_VENUES = {
     aliases: ["Assembly Hall (Illinois)", "The Farm"],
     city: "Champaign",
     state: "IL",
-    summary: "Illinois's flying-saucer arena (a cable-suspended 1963 dome) — 15,000 orange-clad fans making it one of the Big Ten's loudest on marquee nights.",
+    summary: "Illinois's flying-saucer arena (a cable-suspended 1963 dome), with 15,000 orange-clad fans making it one of the Big Ten's loudest on marquee nights.",
     bestFor: ["college basketball"],
     atmosphere: {
       vibe: "Orange Krush student section drives elite noise for big games",
@@ -48,10 +48,10 @@ export const CBB_BIG_TEN_VENUES = {
     aliases: ["Assembly Hall (Indiana)", "IU Assembly Hall"],
     city: "Bloomington",
     state: "IN",
-    summary: "Indiana's cathedral of college basketball — the towering side bleachers and the candy-striped warmups make Assembly Hall one of the sport's holy sites.",
+    summary: "Indiana's cathedral of college basketball. The towering side bleachers and the candy-striped warmups make Assembly Hall one of the sport's holy sites.",
     bestFor: ["college basketball"],
     atmosphere: {
-      vibe: "Five-banner reverence — the steep side stands loom over the floor for maximum intimidation",
+      vibe: "Five-banner reverence; the steep side stands loom over the floor for maximum intimidation",
       noiseLevel: "Very high",
       familyFriendly: true,
       indoorOutdoor: "Indoor"
@@ -71,7 +71,7 @@ export const CBB_BIG_TEN_VENUES = {
       nearbyPregame: ["Kirkwood Avenue", "Nick's English Hut", "Upland Brewing"],
     },
     fanTips: [
-      "The candy-striped warmup pants and the five championship banners are IU basketball iconography — soak it in.",
+      "The candy-striped warmup pants and the five championship banners are IU basketball iconography, so soak it in.",
       "Purdue (the rivalry) and blue-blood visits are the hardest tickets.",
       "One of the sport's must-visit venues for any hoops fan."
     ],
@@ -89,7 +89,7 @@ export const CBB_BIG_TEN_VENUES = {
     aliases: ["Carver Hawkeye Arena", "Carver"],
     city: "Iowa City",
     state: "IA",
-    summary: "Iowa's below-ground arena — you enter at the top and descend into a steep 15,000-seat bowl, a design that traps noise for both the men's and powerhouse women's programs.",
+    summary: "Iowa's below-ground arena: you enter at the top and descend into a steep 15,000-seat bowl, a design that traps noise for both the men's and powerhouse women's programs.",
     bestFor: ["college basketball"],
     atmosphere: {
       vibe: "The Caitlin Clark era made women's games a national phenomenon; men's crowds surge for rivals",
@@ -112,7 +112,7 @@ export const CBB_BIG_TEN_VENUES = {
       nearbyPregame: ["Pedestrian Mall", "The Airliner", "downtown bars"],
     },
     fanTips: [
-      "Iowa women's basketball is one of the biggest tickets in the sport post-Clark — plan ahead.",
+      "Iowa women's basketball is one of the biggest tickets in the sport post-Clark, so plan ahead.",
       "The sunken-bowl entry (top-down) is a genuinely distinctive design.",
       "Men's games fill for Big Ten contenders."
     ],
@@ -130,7 +130,7 @@ export const CBB_BIG_TEN_VENUES = {
     aliases: ["Comcast Center", "Maryland Xfinity Center"],
     city: "College Park",
     state: "MD",
-    summary: "Maryland's 17,000-seat arena — the Wall student section and the 'Amen' chant give Terps hoops a hostile, Metro-accessible home inside the Beltway.",
+    summary: "Maryland's 17,000-seat arena. The Wall student section and the 'Amen' chant give Terps hoops a hostile, Metro-accessible home inside the Beltway.",
     bestFor: ["college basketball"],
     atmosphere: {
       vibe: "The Wall brings profane intensity; loud for ranked Big Ten visitors",
@@ -153,7 +153,7 @@ export const CBB_BIG_TEN_VENUES = {
       nearbyPregame: ["Route 1 (College Park)", "The Hall CP", "downtown DC (pre-Metro)"],
     },
     fanTips: [
-      "The Wall student section is loud and unfiltered — sit elsewhere with kids.",
+      "The Wall student section is loud and unfiltered; sit elsewhere with kids.",
       "Metro access makes it one of the easiest Big Ten road trips.",
       "Purdue, Michigan State, and marquee visits fill it."
     ],
@@ -171,7 +171,7 @@ export const CBB_BIG_TEN_VENUES = {
     aliases: ["Crisler Arena", "The House That Cazzie Built"],
     city: "Ann Arbor",
     state: "MI",
-    summary: "Michigan's 12,700-seat arena — a renovated classic near the Big House where the Maize Rage student section drives energy for Wolverine hoops.",
+    summary: "Michigan's 12,700-seat arena, a renovated classic near the Big House where the Maize Rage student section drives energy for Wolverine hoops.",
     bestFor: ["college basketball"],
     atmosphere: {
       vibe: "Maize Rage-led and loud for rivals; renovation modernized the classic bowl",
@@ -212,10 +212,10 @@ export const CBB_BIG_TEN_VENUES = {
     aliases: ["Jack Breslin Student Events Center", "The Breslin"],
     city: "East Lansing",
     state: "MI",
-    summary: "Michigan State's 14,800-seat arena — the Izzone student section and Tom Izzo's championship legacy make it one of the Big Ten's most feared home courts.",
+    summary: "Michigan State's 14,800-seat arena. The Izzone student section and Tom Izzo's championship legacy make it one of the Big Ten's most feared home courts.",
     bestFor: ["college basketball"],
     atmosphere: {
-      vibe: "The Izzone brings sustained, organized noise — a genuine top-tier college atmosphere",
+      vibe: "The Izzone brings sustained, organized noise, a genuine top-tier college atmosphere",
       noiseLevel: "Very high",
       familyFriendly: true,
       indoorOutdoor: "Indoor"
@@ -235,7 +235,7 @@ export const CBB_BIG_TEN_VENUES = {
       nearbyPregame: ["Grand River Ave bars", "Crunchy's", "HopCat East Lansing"],
     },
     fanTips: [
-      "The Izzone is one of the sport's premier student sections — the atmosphere is the draw.",
+      "The Izzone is one of the sport's premier student sections; the atmosphere is the draw.",
       "Michigan (the rivalry) and top-10 visits are the hardest tickets.",
       "Izzo-era MSU basketball is a bucket-list Big Ten experience."
     ],
@@ -253,7 +253,7 @@ export const CBB_BIG_TEN_VENUES = {
     aliases: ["The Barn", "Williams Arena Minneapolis"],
     city: "Minneapolis",
     state: "MN",
-    summary: "Minnesota's 'Barn' — a 1928 gym with a signature raised floor (the court sits above the front rows), one of college basketball's most charming architectural oddities.",
+    summary: "Minnesota's 'Barn,' a 1928 gym with a signature raised floor (the court sits above the front rows), one of college basketball's most charming architectural oddities.",
     bestFor: ["college basketball"],
     atmosphere: {
       vibe: "Old-barn intimacy; the raised court and low ceiling trap noise beautifully",
@@ -276,7 +276,7 @@ export const CBB_BIG_TEN_VENUES = {
       nearbyPregame: ["Stadium Village", "Dinkytown", "Surly Brewing (light rail)"],
     },
     fanTips: [
-      "The raised floor is genuinely unique in college basketball — worth experiencing.",
+      "The raised floor is genuinely unique in college basketball and worth experiencing.",
       "Winter games are cold trips but the Barn is cozy inside.",
       "Big Ten contenders fill it; midweek games are easy."
     ],
@@ -294,7 +294,7 @@ export const CBB_BIG_TEN_VENUES = {
     aliases: ["PBA", "The Vault"],
     city: "Lincoln",
     state: "NE",
-    summary: "Nebraska's 15,500-seat downtown arena in the Haymarket — a modern building that gets loud when the Huskers push toward the tournament bubble.",
+    summary: "Nebraska's 15,500-seat downtown arena in the Haymarket, a modern building that gets loud when the Huskers push toward the tournament bubble.",
     bestFor: ["college basketball", "concerts"],
     atmosphere: {
       vibe: "Red-clad and hungry for a first NCAA tournament win; loud for ranked visits",
@@ -335,7 +335,7 @@ export const CBB_BIG_TEN_VENUES = {
     aliases: ["Welsh Ryan Arena", "McGaw Memorial Hall"],
     city: "Evanston",
     state: "IL",
-    summary: "Northwestern's renovated 7,000-seat arena — the Big Ten's smallest and most intimate hoops home, a short train ride from downtown Chicago.",
+    summary: "Northwestern's renovated 7,000-seat arena: the Big Ten's smallest and most intimate hoops home, a short train ride from downtown Chicago.",
     bestFor: ["college basketball"],
     atmosphere: {
       vibe: "Intimate and increasingly loud as NU basketball found its footing",
@@ -344,13 +344,13 @@ export const CBB_BIG_TEN_VENUES = {
       indoorOutdoor: "Indoor"
     },
     arrival: {
-      parking: "Limited campus lots — transit is easier.",
+      parking: "Limited campus lots; transit is easier.",
       rideshare: "Central Street drops.",
       transit: "Metra UP-North and CTA Purple Line both serve Evanston near campus.",
     },
     seating: {
       bestValueSections: ["Anywhere in the lower bowl", "Corners"],
-      avoidIfPossible: ["Nothing — it's all close"],
+      avoidIfPossible: ["Nothing; it's all close"],
       accessibilityNote: "Renovated ADA design; accessible seating available."
     },
     foodAndDrink: {
@@ -358,7 +358,7 @@ export const CBB_BIG_TEN_VENUES = {
       nearbyPregame: ["Downtown Evanston", "Central Street spots", "Chicago (pre-train)"],
     },
     fanTips: [
-      "Chicago fans: this is the closest and easiest Big Ten hoops trip — Metra to Central Street.",
+      "Chicago fans: this is the closest and easiest Big Ten hoops trip (Metra to Central Street).",
       "The intimate scale makes marquee visitors (Purdue, etc.) sell out.",
       "The renovation modernized a historically dated building."
     ],
@@ -376,7 +376,7 @@ export const CBB_BIG_TEN_VENUES = {
     aliases: ["Jerome Schottenstein Center", "The Schott", "Schottenstein Center"],
     city: "Columbus",
     state: "OH",
-    summary: "Ohio State's 18,800-seat arena — one of the Big Ten's largest, filling for marquee hoops in a football-first town.",
+    summary: "Ohio State's 18,800-seat arena, one of the Big Ten's largest, filling for marquee hoops in a football-first town.",
     bestFor: ["college basketball", "concerts"],
     atmosphere: {
       vibe: "Big and loud for ranked games; scarlet-and-gray energy",
@@ -399,7 +399,7 @@ export const CBB_BIG_TEN_VENUES = {
       nearbyPregame: ["Short North", "campus-area spots", "downtown Columbus"],
     },
     fanTips: [
-      "One of the Big Ten's largest arenas — mid-week tickets are usually available.",
+      "One of the Big Ten's largest arenas, so mid-week tickets are usually available.",
       "Michigan, Purdue, and top-10 visits fill it.",
       "It doubles as a major concert venue."
     ],
@@ -417,7 +417,7 @@ export const CBB_BIG_TEN_VENUES = {
     aliases: ["Matt Knight Arena", "MKA"],
     city: "Eugene",
     state: "OR",
-    summary: "Oregon's 12,300-seat arena — a Nike-money design showcase with the striking 'Deep in the Woods' court pattern, home to the Ducks and a powerhouse women's program.",
+    summary: "Oregon's 12,300-seat arena, a Nike-money design showcase with the striking 'Deep in the Woods' court pattern, home to the Ducks and a powerhouse women's program.",
     bestFor: ["college basketball"],
     atmosphere: {
       vibe: "Modern and design-forward; the Pit Crew student section brings the noise",
@@ -441,7 +441,7 @@ export const CBB_BIG_TEN_VENUES = {
     },
     fanTips: [
       "The 'Deep in the Woods' court design (a forest pattern) is a famous Nike-era flourish.",
-      "Oregon women's basketball has been a national power — those games draw big.",
+      "Oregon women's basketball has been a national power, and those games draw big.",
       "One of the more modern, comfortable Big Ten arenas."
     ],
     officialLinks: {
@@ -458,7 +458,7 @@ export const CBB_BIG_TEN_VENUES = {
     aliases: ["BJC", "The Jordan Center"],
     city: "University Park",
     state: "PA",
-    summary: "Penn State's 15,000-seat arena next to Beaver Stadium — a football-school hoops home that packs in for the occasional marquee Big Ten night.",
+    summary: "Penn State's 15,000-seat arena next to Beaver Stadium, a football-school hoops home that packs in for the occasional marquee Big Ten night.",
     bestFor: ["college basketball", "concerts"],
     atmosphere: {
       vibe: "Grows loud for ranked visitors; a football town's basketball venue",
@@ -467,7 +467,7 @@ export const CBB_BIG_TEN_VENUES = {
       indoorOutdoor: "Indoor"
     },
     arrival: {
-      parking: "Large lots shared with the stadium complex — easy for hoops.",
+      parking: "Large lots shared with the stadium complex; easy for hoops.",
       rideshare: "University Drive drops.",
       transit: "CATA campus routes.",
     },
@@ -499,10 +499,10 @@ export const CBB_BIG_TEN_VENUES = {
     aliases: ["Mackey"],
     city: "West Lafayette",
     state: "IN",
-    summary: "Purdue's 14,200-seat dome — the Paint Crew, the World's Largest Drum, and a domed roof that traps sound make Mackey one of the loudest buildings in college basketball.",
+    summary: "Purdue's 14,200-seat dome. The Paint Crew, the World's Largest Drum, and a domed roof that traps sound make Mackey one of the loudest buildings in college basketball.",
     bestFor: ["college basketball"],
     atmosphere: {
-      vibe: "A perennial top-3 home-court atmosphere — the domed roof creates a wall of sound",
+      vibe: "A perennial top-3 home-court atmosphere; the domed roof creates a wall of sound",
       noiseLevel: "Very high (one of the loudest in the sport)",
       familyFriendly: true,
       indoorOutdoor: "Indoor"
@@ -514,7 +514,7 @@ export const CBB_BIG_TEN_VENUES = {
     },
     seating: {
       bestValueSections: ["Lower sidelines", "Corners"],
-      avoidIfPossible: ["Nothing — the whole building is close and loud"],
+      avoidIfPossible: ["Nothing; the whole building is close and loud"],
       accessibilityNote: "Accessible seating available; verify sections with the ticket office."
     },
     foodAndDrink: {
@@ -522,7 +522,7 @@ export const CBB_BIG_TEN_VENUES = {
       nearbyPregame: ["Harry's Chocolate Shop", "Chauncey Hill", "Triple XXX"],
     },
     fanTips: [
-      "Mackey is a bucket-list college basketball building — the noise is genuinely elite.",
+      "Mackey is a bucket-list college basketball building, and the noise is genuinely elite.",
       "Indiana (the rivalry) and blue-blood visits are the hardest tickets.",
       "The World's Largest Drum and the Boilermaker Special traditions carry over from football."
     ],
@@ -540,10 +540,10 @@ export const CBB_BIG_TEN_VENUES = {
     aliases: ["Louis Brown Athletic Center", "The RAC", "Rutgers Athletic Center"],
     city: "Piscataway",
     state: "NJ",
-    summary: "Rutgers's 8,000-seat arena (still 'The RAC' to everyone) — a cramped, deafening bandbox that ranked among the toughest home courts in the country during the Steve Pikiell era.",
+    summary: "Rutgers's 8,000-seat arena (still 'The RAC' to everyone), a cramped, deafening bandbox that ranked among the toughest home courts in the country during the Steve Pikiell era.",
     bestFor: ["college basketball"],
     atmosphere: {
-      vibe: "The RAC is a genuine bear pit — small, loud, and hostile to ranked visitors",
+      vibe: "The RAC is a genuine bear pit: small, loud, and hostile to ranked visitors",
       noiseLevel: "Very high",
       familyFriendly: true,
       indoorOutdoor: "Indoor"
@@ -555,7 +555,7 @@ export const CBB_BIG_TEN_VENUES = {
     },
     seating: {
       bestValueSections: ["Lower sidelines", "Corners"],
-      avoidIfPossible: ["Nothing — it's a tiny, intense building"],
+      avoidIfPossible: ["Nothing; it's a tiny, intense building"],
       accessibilityNote: "Accessible seating available; verify sections with the ticket office."
     },
     foodAndDrink: {
@@ -563,7 +563,7 @@ export const CBB_BIG_TEN_VENUES = {
       nearbyPregame: ["Easton Ave (New Brunswick)", "Stuff Yer Face", "Jersey Mike's original shop (Point Pleasant, spiritually)"],
     },
     fanTips: [
-      "Listings may still say the RAC or Louis Brown Athletic Center — renamed Jersey Mike's Arena in 2023.",
+      "Listings may still say the RAC or Louis Brown Athletic Center (renamed Jersey Mike's Arena in 2023).",
       "Blue-blood visitors (Purdue, etc.) turn it into one of the sport's toughest road environments.",
       "NYC-area fans: the closest Big Ten basketball to the city."
     ],
@@ -581,7 +581,7 @@ export const CBB_BIG_TEN_VENUES = {
     aliases: ["Pauley", "Edwin W. Pauley Pavilion"],
     city: "Los Angeles",
     state: "CA",
-    summary: "UCLA's historic 13,800-seat arena — John Wooden's house of 11 national titles, renovated but still dripping with the sport's richest banner history.",
+    summary: "UCLA's historic 13,800-seat arena: John Wooden's house of 11 national titles, renovated but still dripping with the sport's richest banner history.",
     bestFor: ["college basketball"],
     atmosphere: {
       vibe: "Reverent and history-soaked; the championship banners are the sport's most impressive collection",
@@ -604,7 +604,7 @@ export const CBB_BIG_TEN_VENUES = {
       nearbyPregame: ["Westwood Village", "Diddy Riese cookies (the classic)", "Santa Monica (a ride away)"],
     },
     fanTips: [
-      "Look up at the 11 national-championship banners — no building in the sport has more.",
+      "Look up at the 11 national-championship banners; no building in the sport has more.",
       "USC (the crosstown rivalry, now Big Ten) is the local marquee game.",
       "Diddy Riese cookies in Westwood are the required pregame ritual."
     ],
@@ -622,7 +622,7 @@ export const CBB_BIG_TEN_VENUES = {
     aliases: ["The Galen Center"],
     city: "Los Angeles",
     state: "CA",
-    summary: "USC's 10,300-seat arena near downtown LA — a modern, comfortable building that fills for the crosstown rivalry and marquee Big Ten visits.",
+    summary: "USC's 10,300-seat arena near downtown LA, a modern, comfortable building that fills for the crosstown rivalry and marquee Big Ten visits.",
     bestFor: ["college basketball"],
     atmosphere: {
       vibe: "Cardinal-and-gold energy that surges for UCLA and ranked opponents",
@@ -633,7 +633,7 @@ export const CBB_BIG_TEN_VENUES = {
     arrival: {
       parking: "Campus structures near Figueroa; downtown-adjacent.",
       rideshare: "Figueroa Street drops.",
-      transit: "Metro E Line to Expo Park/USC — same easy access as USC's stadiums.",
+      transit: "Metro E Line to Expo Park/USC, the same easy access as USC's stadiums.",
     },
     seating: {
       bestValueSections: ["Lower sidelines", "Upper corners"],
@@ -663,7 +663,7 @@ export const CBB_BIG_TEN_VENUES = {
     aliases: ["Hec Edmundson Pavilion", "Hec Ed", "Alaska Airlines Arena"],
     city: "Seattle",
     state: "WA",
-    summary: "Washington's historic 10,000-seat 'Hec Ed' — a 1927 pavilion with a distinctive arched roof, renovated into an intimate, loud home for Husky hoops.",
+    summary: "Washington's historic 10,000-seat 'Hec Ed,' a 1927 pavilion with a distinctive arched roof, renovated into an intimate, loud home for Husky hoops.",
     bestFor: ["college basketball"],
     atmosphere: {
       vibe: "Old-arena charm with modern amenities; the Dawg Pack drives the noise",
@@ -704,7 +704,7 @@ export const CBB_BIG_TEN_VENUES = {
     aliases: ["The Kohl Center"],
     city: "Madison",
     state: "WI",
-    summary: "Wisconsin's 17,000-seat arena — the Grateful Red student section, 'Jump Around' crossover energy, and one of the Big Ten's toughest home courts for both basketball and hockey.",
+    summary: "Wisconsin's 17,000-seat arena: the Grateful Red student section, 'Jump Around' crossover energy, and one of the Big Ten's toughest home courts for both basketball and hockey.",
     bestFor: ["college basketball", "college hockey"],
     atmosphere: {
       vibe: "Grateful Red-driven and loud; Wisconsin protects home court fiercely",
@@ -727,7 +727,7 @@ export const CBB_BIG_TEN_VENUES = {
       nearbyPregame: ["State Street", "The Great Dane", "Memorial Union Terrace"],
     },
     fanTips: [
-      "The Kohl Center hosts both basketball AND hockey — confirm which sport your event is.",
+      "The Kohl Center hosts both basketball AND hockey, so confirm which sport your event is.",
       "The Grateful Red student section makes marquee games loud.",
       "Madison is one of the best college towns for a game-day weekend."
     ],

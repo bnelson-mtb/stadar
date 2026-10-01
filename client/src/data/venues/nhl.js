@@ -10,7 +10,7 @@ export const NHL_VENUES = {
     aliases: ["Arrowhead Pond", "The Pond"],
     city: "Anaheim",
     state: "CA",
-    summary: "Ducks home across the 57 from Angel Stadium — an easy-driving Orange County arena with ARTIC train station next door and a big renovation/district build underway around it.",
+    summary: "Ducks home across the 57 from Angel Stadium, an easy-driving Orange County arena with ARTIC train station next door and a big renovation/district build underway around it.",
     bestFor: ["NHL", "concerts"],
     atmosphere: {
       vibe: "Relaxed OC crowd that spikes for rivals (Kings games are the loud nights)",
@@ -21,7 +21,7 @@ export const NHL_VENUES = {
     arrival: {
       parking: "Large on-site lots; easy in, slow out onto Katella.",
       rideshare: "Simple drops; OC surge is mild.",
-      transit: "Metrolink/Amtrak at ARTIC station a short walk away — usable from LA and OC.",
+      transit: "Metrolink/Amtrak at ARTIC station a short walk away, usable from LA and OC.",
     },
     seating: {
       bestValueSections: ["Terrace center", "Plaza corners"],
@@ -33,8 +33,8 @@ export const NHL_VENUES = {
       nearbyPregame: ["The Ranch (steakhouse/saloon)", "JT Schmid's", "Golden Road Brewing (Angel Stadium)"],
     },
     fanTips: [
-      "Freeway (Ducks-Kings) games are the atmosphere nights — buy those first.",
-      "Angels home dates across the street double the traffic — check the MLB slate.",
+      "Freeway (Ducks-Kings) games are the atmosphere nights, so buy those first.",
+      "Angels home dates across the street double the traffic, so check the MLB slate.",
       "Ducks rebuild-era tickets are among the NHL's cheapest for a warm-weather market."
     ],
     officialLinks: {
@@ -51,7 +51,7 @@ export const NHL_VENUES = {
     aliases: ["San Jose Arena", "HP Pavilion", "The Shark Tank"],
     city: "San Jose",
     state: "CA",
-    summary: "The Shark Tank — a teal fortress near downtown San Jose and Diridon Station, famous for the shark-head player entrance.",
+    summary: "The Shark Tank: a teal fortress near downtown San Jose and Diridon Station, famous for the shark-head player entrance.",
     bestFor: ["NHL", "concerts"],
     atmosphere: {
       vibe: "Loyal through the rebuild; the chomp and goal horn traditions endure",
@@ -74,9 +74,9 @@ export const NHL_VENUES = {
       nearbyPregame: ["San Pedro Square Market", "Poor House Bistro", "downtown San Jose bars"],
     },
     fanTips: [
-      "Sharks tickets are deep-value during the rebuild — great cheap NHL night in an expensive metro.",
+      "Sharks tickets are deep-value during the rebuild, making for a great cheap NHL night in an expensive metro.",
       "The pregame shark-head entrance is worth being in your seat early to see.",
-      "Google's Downtown West construction keeps shifting the parking map — recheck each season."
+      "Google's Downtown West construction keeps shifting the parking map, so recheck each season."
     ],
     officialLinks: {
       website: "https://www.sapcenter.com/",
@@ -92,7 +92,7 @@ export const NHL_VENUES = {
     aliases: ["T Mobile Arena"],
     city: "Las Vegas",
     state: "NV",
-    summary: "Golden Knights' Strip-side fortress behind New York-New York — the best pregame show in hockey and a Toshiba Plaza party before every game.",
+    summary: "Golden Knights' Strip-side fortress behind New York-New York, with the best pregame show in hockey and a Toshiba Plaza party before every game.",
     bestFor: ["NHL", "boxing", "UFC", "concerts"],
     atmosphere: {
       vibe: "Production-heavy spectacle that converted a tourist town into a real hockey market",
@@ -103,7 +103,7 @@ export const NHL_VENUES = {
     arrival: {
       parking: "MGM-property garages (NYNY, Park MGM) with validation quirks; most visitors walk the Strip.",
       rideshare: "Strip drops crawl on event nights; walking beats wheels within a mile.",
-      transit: "The Strip itself — walk from most center-Strip hotels; monorail is east-side only.",
+      transit: "The Strip itself. Walk from most center-Strip hotels; monorail is east-side only.",
     },
     seating: {
       bestValueSections: ["Upper center", "Lower corners"],
@@ -115,7 +115,7 @@ export const NHL_VENUES = {
       nearbyPregame: ["Beer Park (Paris)", "The Park restaurants", "NYNY's bars"],
     },
     fanTips: [
-      "The pregame drumline and castle show start well before puck drop — be inside 30 minutes early.",
+      "The pregame drumline and castle show start well before puck drop, so be inside 30 minutes early.",
       "Knights games double as tourist events; visiting-team fans are everywhere and welcome.",
       "Weeknight games are notably cheaper than the weekend tourist-inflated dates."
     ],
@@ -133,7 +133,7 @@ export const NHL_VENUES = {
     aliases: ["KeyArena", "Seattle Center Arena"],
     city: "Seattle",
     state: "WA",
-    summary: "Kraken home under the preserved 1962 World's Fair roof at Seattle Center — a carbon-neutral rebuild next to the Space Needle with monorail access.",
+    summary: "Kraken home under the preserved 1962 World's Fair roof at Seattle Center, a carbon-neutral rebuild next to the Space Needle with monorail access.",
     bestFor: ["NHL", "WNBA", "concerts"],
     atmosphere: {
       vibe: "New-franchise enthusiasm with Pacific Northwest polish; Storm games bring championship history",
@@ -142,13 +142,13 @@ export const NHL_VENUES = {
       indoorOutdoor: "Indoor"
     },
     arrival: {
-      parking: "Limited Seattle Center garages — the venue actively discourages driving.",
+      parking: "Limited Seattle Center garages; the venue actively discourages driving.",
       rideshare: "Mercer Street congestion is infamous; drop farther and walk Seattle Center.",
       transit: "Monorail from Westlake (included with event tickets) plus the D Line and Link via reroute.",
     },
     seating: {
       bestValueSections: ["Upper center", "Lower corners"],
-      avoidIfPossible: ["Nothing structural — a fair modern bowl"],
+      avoidIfPossible: ["Nothing structural; a fair modern bowl"],
       accessibilityNote: "Modern ADA design; accessible seating on all levels."
     },
     foodAndDrink: {
@@ -156,8 +156,8 @@ export const NHL_VENUES = {
       nearbyPregame: ["Queen Anne bars (lower QA)", "Seattle Center food", "Belltown spots"],
     },
     fanTips: [
-      "Transit is included with tickets — genuinely use it; parking here is the worst in the league.",
-      "Storm and Kraken share the building — check which team your date belongs to.",
+      "Transit is included with tickets, so genuinely use it; parking here is the worst in the league.",
+      "Storm and Kraken share the building, so check which team your date belongs to.",
       "The building is cashless and heavily app-driven; set up tickets and payment before arriving."
     ],
     officialLinks: {
@@ -174,7 +174,7 @@ export const NHL_VENUES = {
     aliases: ["GM Place", "General Motors Place"],
     city: "Vancouver",
     state: "BC",
-    summary: "Canucks home downtown next to BC Place — SkyTrain-served, surrounded by the stadium district's towers, and loud when the Canucks are good.",
+    summary: "Canucks home downtown next to BC Place: SkyTrain-served, surrounded by the stadium district's towers, and loud when the Canucks are good.",
     bestFor: ["NHL", "concerts"],
     atmosphere: {
       vibe: "Hockey-mad city energy; the building shakes in playoff springs",
@@ -197,9 +197,9 @@ export const NHL_VENUES = {
       nearbyPregame: ["Yaletown breweries", "The Pint", "Chinatown restaurants"],
     },
     fanTips: [
-      "Prices list in CAD — a quiet discount for US visitors.",
+      "Prices list in CAD, a quiet discount for US visitors.",
       "Yaletown pregame + SkyTrain is the local pattern.",
-      "Canucks playoff tickets are scarce civic events — regular season is the accessible window."
+      "Canucks playoff tickets are scarce civic events; regular season is the accessible window."
     ],
     officialLinks: {
       website: "https://rogersarena.com/",
@@ -215,17 +215,17 @@ export const NHL_VENUES = {
     aliases: ["Rogers Place Edmonton"],
     city: "Edmonton",
     state: "AB",
-    summary: "Oilers home anchoring the Ice District downtown — a modern hockey palace with the Ford Hall gathering space and McDavid-era electricity.",
+    summary: "Oilers home anchoring the Ice District downtown, a modern hockey palace with the Ford Hall gathering space and McDavid-era electricity.",
     bestFor: ["NHL", "concerts"],
     atmosphere: {
-      vibe: "As hockey-intense as it gets — orange playoff crowds are among the sport's loudest",
+      vibe: "As hockey-intense as it gets; orange playoff crowds are among the sport's loudest",
       noiseLevel: "Very high",
       familyFriendly: true,
       indoorOutdoor: "Indoor"
     },
     arrival: {
       parking: "Ice District garages; prebook on weekend games.",
-      rideshare: "104 Ave drops; winter waits are cold — time it.",
+      rideshare: "104 Ave drops; winter waits are cold, so time it.",
       transit: "LRT to MacEwan station connects directly to the arena via pedway.",
     },
     seating: {
@@ -238,7 +238,7 @@ export const NHL_VENUES = {
       nearbyPregame: ["Ice District plaza", "The Banquet", "104 Street spots"],
     },
     fanTips: [
-      "Oilers tickets are priced for a city that plans life around the team — buy well ahead.",
+      "Oilers tickets are priced for a city that plans life around the team, so buy well ahead.",
       "The Moss Pit (standing area) and playoff watch parties define the atmosphere.",
       "CAD pricing softens the blow for US visitors."
     ],
@@ -256,7 +256,7 @@ export const NHL_VENUES = {
     aliases: ["Saddledome", "Pengrowth Saddledome", "Canadian Airlines Saddledome"],
     city: "Calgary",
     state: "AB",
-    summary: "The saddle-roofed Flames barn on the Stampede grounds — the NHL's most distinctive silhouette, living out its final seasons before Scotia Place opens (~2027).",
+    summary: "The saddle-roofed Flames barn on the Stampede grounds, the NHL's most distinctive silhouette, living out its final seasons before Scotia Place opens (~2027).",
     bestFor: ["NHL", "concerts", "Stampede events"],
     atmosphere: {
       vibe: "C of Red loyalty in an old-school loud building",
@@ -272,14 +272,14 @@ export const NHL_VENUES = {
     seating: {
       bestValueSections: ["Upper center (press level)", "Lower corners"],
       avoidIfPossible: ["Highest corner rows (roof-curve sightline quirks)"],
-      accessibilityNote: "Older building — accessible seating exists but verify locations before buying."
+      accessibilityNote: "Older building; accessible seating exists but verify locations before buying."
     },
     foodAndDrink: {
       summary: "Old-barn concessions; 17th Ave SW (the Red Mile) and Inglewood carry the pregame.",
       nearbyPregame: ["17th Ave SW (Red Mile)", "Inglewood breweries", "Victoria Park spots"],
     },
     fanTips: [
-      "See it before it's gone — Scotia Place replaces it around 2027 and the Dome is a piece of hockey architecture history.",
+      "See it before it's gone. Scotia Place replaces it around 2027, and the Dome is a piece of hockey architecture history.",
       "During July Stampede weeks the grounds transform entirely; no NHL but the venue hosts rodeo events.",
       "Flames-Oilers Battle of Alberta nights are the ticket to hunt."
     ],
@@ -297,10 +297,10 @@ export const NHL_VENUES = {
     aliases: ["MTS Centre", "Bell MTS Place"],
     city: "Winnipeg",
     state: "MB",
-    summary: "Jets home in downtown Winnipeg — the NHL's smallest building, which makes the whiteout playoff crowds feel like standing inside a jet engine.",
+    summary: "Jets home in downtown Winnipeg, the NHL's smallest building, which makes the whiteout playoff crowds feel like standing inside a jet engine.",
     bestFor: ["NHL", "concerts"],
     atmosphere: {
-      vibe: "Small building, maximum noise — the whiteout is a league-wide legend",
+      vibe: "Small building, maximum noise; the whiteout is a league-wide legend",
       noiseLevel: "Very high",
       familyFriendly: true,
       indoorOutdoor: "Indoor"
@@ -312,7 +312,7 @@ export const NHL_VENUES = {
     },
     seating: {
       bestValueSections: ["Upper center", "Lower corners"],
-      avoidIfPossible: ["Nothing — the building's size is the feature"],
+      avoidIfPossible: ["Nothing; the building's size is the feature"],
       accessibilityNote: "Accessible seating on all levels; check the venue map before buying."
     },
     foodAndDrink: {
@@ -320,9 +320,9 @@ export const NHL_VENUES = {
       nearbyPregame: ["The Forks", "Exchange District spots", "King's Head Pub"],
     },
     fanTips: [
-      "Wear white for playoff games — the whiteout is a genuine all-crowd dress code.",
+      "Wear white for playoff games; the whiteout is a genuine all-crowd dress code.",
       "Winter arrival logistics are serious at -35°C; park connected or get dropped at the door.",
-      "Tickets are scarce relative to the small capacity — buy early for weekend games."
+      "Tickets are scarce relative to the small capacity, so buy early for weekend games."
     ],
     officialLinks: {
       website: "https://www.canadalifecentre.ca/",
@@ -338,10 +338,10 @@ export const NHL_VENUES = {
     aliases: ["Xcel Energy Center", "The X"],
     city: "Saint Paul",
     state: "MN",
-    summary: "Wild home in downtown St. Paul (renamed from Xcel Energy Center in September 2025) — long regarded as one of the best pure hockey buildings in the NHL.",
+    summary: "Wild home in downtown St. Paul (renamed from Xcel Energy Center in September 2025), long regarded as one of the best pure hockey buildings in the NHL.",
     bestFor: ["NHL", "high school hockey (state tournament)", "concerts"],
     atmosphere: {
-      vibe: "State-of-Hockey reverence — knowledgeable, loud, and green-clad",
+      vibe: "State-of-Hockey reverence: knowledgeable, loud, and green-clad",
       noiseLevel: "High",
       familyFriendly: true,
       indoorOutdoor: "Indoor"
@@ -361,7 +361,7 @@ export const NHL_VENUES = {
       nearbyPregame: ["Cossetta's", "Tom Reid's Hockey City Pub", "Eagle Street Grille"],
     },
     fanTips: [
-      "Listings may still say Xcel Energy Center — renamed Grand Casino Arena in 2025.",
+      "Listings may still say Xcel Energy Center (renamed Grand Casino Arena in 2025).",
       "The Minnesota boys' high school hockey tournament (March) is a bucket-list event in this building.",
       "Wild tickets run reasonable; rivalry nights (Blackhawks, Jets) price up."
     ],
@@ -379,7 +379,7 @@ export const NHL_VENUES = {
     aliases: ["Scottrade Center", "Savvis Center", "Kiel Center"],
     city: "St. Louis",
     state: "MO",
-    summary: "Blues home in downtown St. Louis near Union Station — organ-led hockey tradition and the Stanley Cup banner they waited 52 years for.",
+    summary: "Blues home in downtown St. Louis near Union Station, with organ-led hockey tradition and the Stanley Cup banner they waited 52 years for.",
     bestFor: ["NHL", "college basketball", "concerts"],
     atmosphere: {
       vibe: "Blue-collar hockey town warmth; 'Gloria' nostalgia runs deep",
@@ -402,9 +402,9 @@ export const NHL_VENUES = {
       nearbyPregame: ["Union Station (Train Shed, soda fountain)", "Ballpark Village (10-min walk)", "Maggie O'Brien's"],
     },
     fanTips: [
-      "Blues tickets are mid-priced NHL — weeknights drop pleasantly.",
+      "Blues tickets are mid-priced NHL, and weeknights drop pleasantly.",
       "Cardinals playoff overlap in October strains downtown; check both calendars.",
-      "The organist is a genuine part of the experience — this is one of the league's traditional atmospheres."
+      "The organist is a genuine part of the experience; this is one of the league's traditional atmospheres."
     ],
     officialLinks: {
       website: "https://www.enterprisecenter.com/",
@@ -420,17 +420,17 @@ export const NHL_VENUES = {
     aliases: ["Gaylord Entertainment Center", "Nashville Arena", "Sommet Center"],
     city: "Nashville",
     state: "TN",
-    summary: "Predators home directly on Lower Broadway — the only NHL rink where the pregame is 30 honky-tonks within 500 feet, and the in-game country acts play the Zamboni breaks.",
+    summary: "Predators home directly on Lower Broadway, the only NHL rink where the pregame is 30 honky-tonks within 500 feet and the in-game country acts play the Zamboni breaks.",
     bestFor: ["NHL", "concerts"],
     atmosphere: {
-      vibe: "Party-loud smashville — catfish throws, standing-cheering culture, and country music between whistles",
+      vibe: "Party-loud smashville: catfish throws, standing-cheering culture, and country music between whistles",
       noiseLevel: "Very high",
       familyFriendly: true,
       indoorOutdoor: "Indoor"
     },
     arrival: {
       parking: "Downtown garages at Broadway prices; park a few blocks south for relief.",
-      rideshare: "Broadway is closed-chaotic on weekends — drop on 4th/5th Ave and walk.",
+      rideshare: "Broadway is closed-chaotic on weekends, so drop on 4th/5th Ave and walk.",
       transit: "WeGo buses downtown; most visitors are already staying walkable.",
     },
     seating: {
@@ -443,7 +443,7 @@ export const NHL_VENUES = {
       nearbyPregame: ["Any Lower Broadway honky-tonk", "Assembly Food Hall", "Printer's Alley"],
     },
     fanTips: [
-      "Weekend games double as bachelorette-party central — weeknights are the purer hockey experience.",
+      "Weekend games double as bachelorette-party central; weeknights are the purer hockey experience.",
       "Preds tickets price mid-league; the atmosphere outperforms the price badly.",
       "If someone throws a catfish, that's normal here."
     ],
@@ -461,7 +461,7 @@ export const NHL_VENUES = {
     aliases: ["Nationwide"],
     city: "Columbus",
     state: "OH",
-    summary: "Blue Jackets home anchoring the Arena District — cannon blasts after goals and a purpose-built entertainment neighborhood around it.",
+    summary: "Blue Jackets home anchoring the Arena District, with cannon blasts after goals and a purpose-built entertainment neighborhood around it.",
     bestFor: ["NHL", "concerts"],
     atmosphere: {
       vibe: "Underdog-market enthusiasm; the cannon culture is beloved and deafening",
@@ -484,9 +484,9 @@ export const NHL_VENUES = {
       nearbyPregame: ["R Bar (the hockey bar)", "North Market", "Goodale Park-area spots"],
     },
     fanTips: [
-      "The goal cannon is genuinely loud — warn kids (or sensitive adults) near the west end.",
-      "CBJ tickets are among the NHL's most affordable — good spontaneous hockey.",
-      "Ohio State home-game Saturdays gridlock all of Columbus — check the college schedule."
+      "The goal cannon is genuinely loud, so warn kids (or sensitive adults) near the west end.",
+      "CBJ tickets are among the NHL's most affordable, making for good spontaneous hockey.",
+      "Ohio State home-game Saturdays gridlock all of Columbus, so check the college schedule."
     ],
     officialLinks: {
       website: "https://www.nationwidearena.com/",
@@ -502,7 +502,7 @@ export const NHL_VENUES = {
     aliases: ["Consol Energy Center"],
     city: "Pittsburgh",
     state: "PA",
-    summary: "Penguins home uptown, a short walk from downtown Pittsburgh — a modern barn with sellout streak history and a devoted black-and-gold crowd.",
+    summary: "Penguins home uptown, a short walk from downtown Pittsburgh: a modern barn with sellout streak history and a devoted black-and-gold crowd.",
     bestFor: ["NHL", "college basketball", "concerts"],
     atmosphere: {
       vibe: "Hockey-first city intensity carried from the Crosby era forward",
@@ -525,7 +525,7 @@ export const NHL_VENUES = {
       nearbyPregame: ["Souper Bowl", "downtown Market Square", "Duquesne-area spots"],
     },
     fanTips: [
-      "Pens tickets softened post-dynasty — good value windows against non-rivals.",
+      "Pens tickets softened post-dynasty, with good value windows against non-rivals.",
       "The Market Square-to-arena walk uphill takes 15 minutes; budget it.",
       "Student-rush programs make this one of the better cheap-ticket NHL markets if eligible."
     ],
@@ -543,7 +543,7 @@ export const NHL_VENUES = {
     aliases: ["The Rock"],
     city: "Newark",
     state: "NJ",
-    summary: "Devils home ('The Rock') in downtown Newark — one stop from Manhattan on multiple rail lines and far easier than any NYC arena logistics.",
+    summary: "Devils home ('The Rock') in downtown Newark, one stop from Manhattan on multiple rail lines and far easier than any NYC arena logistics.",
     bestFor: ["NHL", "college basketball", "concerts"],
     atmosphere: {
       vibe: "Underrated-loud Devils crowd with a young-core buzz",
@@ -568,7 +568,7 @@ export const NHL_VENUES = {
     fanTips: [
       "The Ironbound pregame dinner is the best-kept secret in NY-area sports.",
       "Devils tickets undercut Rangers and Islanders badly for comparable hockey.",
-      "Seton Hall college games share the building in winter — verify the event."
+      "Seton Hall college games share the building in winter, so verify the event."
     ],
     officialLinks: {
       website: "https://www.prucenter.com/",
@@ -584,10 +584,10 @@ export const NHL_VENUES = {
     aliases: ["UBS Arena at Belmont Park"],
     city: "Elmont",
     state: "NY",
-    summary: "Islanders home at Belmont Park (opened 2021) — a retro-styled hockey barn built to end the team's arena odyssey, with its own LIRR station.",
+    summary: "Islanders home at Belmont Park (opened 2021), a retro-styled hockey barn built to end the team's arena odyssey, with its own LIRR station.",
     bestFor: ["NHL", "concerts"],
     atmosphere: {
-      vibe: "Long Island loyalty transplanted intact — the 'Yes! Yes! Yes!' chants survived the move",
+      vibe: "Long Island loyalty transplanted intact; the 'Yes! Yes! Yes!' chants survived the move",
       noiseLevel: "High",
       familyFriendly: true,
       indoorOutdoor: "Indoor"
@@ -607,8 +607,8 @@ export const NHL_VENUES = {
       nearbyPregame: ["UBS Arena's own bars", "Floral Park pubs", "Queens spots pre-LIRR"],
     },
     fanTips: [
-      "Isles-Rangers games are the hottest tickets — buy early or watch resale close to puck drop.",
-      "The building was built for noise — upper-bowl center is the best sound-per-dollar in the metro.",
+      "Isles-Rangers games are the hottest tickets, so buy early or watch resale close to puck drop.",
+      "The building was built for noise, and upper-bowl center is the best sound-per-dollar in the metro.",
       "Check LIRR event-train times home; gaps run long on weeknights."
     ],
     officialLinks: {
@@ -625,7 +625,7 @@ export const NHL_VENUES = {
     aliases: ["First Niagara Center", "HSBC Arena", "Marine Midland Arena"],
     city: "Buffalo",
     state: "NY",
-    summary: "Sabres home at the foot of Main Street downtown, next to the Canalside waterfront district — a loyal hockey town waiting out a long rebuild.",
+    summary: "Sabres home at the foot of Main Street downtown, next to the Canalside waterfront district, where a loyal hockey town is waiting out a long rebuild.",
     bestFor: ["NHL", "college basketball (NCAA rounds)", "concerts"],
     atmosphere: {
       vibe: "Patient, hockey-literate crowd that erupts when given reason",
@@ -636,7 +636,7 @@ export const NHL_VENUES = {
     arrival: {
       parking: "Downtown ramps and surface lots, cheap by NHL standards.",
       rideshare: "Easy drops on Perry/Main.",
-      transit: "Metro Rail ends at Special Events/Canalside station at the door — free along Main Street's surface section.",
+      transit: "Metro Rail ends at Special Events/Canalside station at the door, and it's free along Main Street's surface section.",
     },
     seating: {
       bestValueSections: ["300-level center", "Lower corners"],
@@ -644,13 +644,13 @@ export const NHL_VENUES = {
       accessibilityNote: "Accessible seating on all levels; check the venue map before buying."
     },
     foodAndDrink: {
-      summary: "Wings, beef on weck, and local beer — Buffalo does arena food right.",
+      summary: "Wings, beef on weck, and local beer: Buffalo does arena food right.",
       nearbyPregame: ["Canalside bars", "Pearl Street Grill & Brewery", "Cobblestone District"],
     },
     fanTips: [
-      "Sabres tickets are among the NHL's cheapest — Toronto and Boston fans often invade; buy early for those.",
+      "Sabres tickets are among the NHL's cheapest. Toronto and Boston fans often invade; buy early for those.",
       "Pearl Street Brewery pregame is the local institution.",
-      "Lake-effect storms can make the drive in worse than the game-time weather suggests — check radar."
+      "Lake-effect storms can make the drive in worse than the game-time weather suggests, so check radar."
     ],
     officialLinks: {
       website: "https://www.keybankcenter.com/",
@@ -666,10 +666,10 @@ export const NHL_VENUES = {
     aliases: ["Centre Bell", "Molson Centre"],
     city: "Montreal",
     state: "QC",
-    summary: "The largest and loudest building in hockey — the Canadiens' cathedral downtown, where 21,000 bilingual die-hards make regular-season games feel like playoffs.",
+    summary: "The largest and loudest building in hockey: the Canadiens' cathedral downtown, where 21,000 bilingual die-hards make regular-season games feel like playoffs.",
     bestFor: ["NHL", "concerts"],
     atmosphere: {
-      vibe: "The standard against which NHL atmosphere is measured — anthem to final horn",
+      vibe: "The standard against which NHL atmosphere is measured, anthem to final horn",
       noiseLevel: "Very high",
       familyFriendly: true,
       indoorOutdoor: "Indoor"
@@ -689,7 +689,7 @@ export const NHL_VENUES = {
       nearbyPregame: ["Crescent Street bars", "Rue Sainte-Catherine", "Griffintown (short walk)"],
     },
     fanTips: [
-      "Habs tickets are expensive and demand is bilingual-city universal — book well ahead.",
+      "Habs tickets are expensive and demand is bilingual-city universal, so book well ahead.",
       "The anthem (sung by the crowd) and goal songs are worth arriving early for.",
       "CAD pricing helps US visitors; Saturday night games are the full-fever experience."
     ],
@@ -707,7 +707,7 @@ export const NHL_VENUES = {
     aliases: ["Scotiabank Place", "Corel Centre", "The Palladium"],
     city: "Ottawa",
     state: "ON",
-    summary: "Senators home in suburban Kanata, 25km west of downtown Ottawa — a commuter arena the franchise plans to eventually replace with a downtown LeBreton Flats build.",
+    summary: "Senators home in suburban Kanata, 25km west of downtown Ottawa, a commuter arena the franchise plans to eventually replace with a downtown LeBreton Flats build.",
     bestFor: ["NHL", "concerts"],
     atmosphere: {
       vibe: "Loud when the Sens contend; the young core has re-energized the barn",
@@ -716,7 +716,7 @@ export const NHL_VENUES = {
       indoorOutdoor: "Indoor"
     },
     arrival: {
-      parking: "Big on-site lots — this is a drive-to venue; exits onto the 417 crawl.",
+      parking: "Big on-site lots. This is a drive-to venue; exits onto the 417 crawl.",
       rideshare: "Long waits post-game in Kanata; arrange pickup spots ahead.",
       transit: "OC Transpo event buses (Connexion routes) from downtown and park-and-rides.",
     },
@@ -726,12 +726,12 @@ export const NHL_VENUES = {
       accessibilityNote: "Accessible seating on all levels; check the venue map before buying."
     },
     foodAndDrink: {
-      summary: "Standard fare; Kanata's chain-restaurant strip is the nearby option — eat downtown first if staying there.",
+      summary: "Standard fare; Kanata's chain-restaurant strip is the nearby option, so eat downtown first if staying there.",
       nearbyPregame: ["Local Public Eatery Kanata", "Broadway Bar & Grill", "downtown Ottawa before driving"],
     },
     fanTips: [
-      "Leafs and Habs visits flip the building half-away-fans — buy early if you want Sens-crowd nights.",
-      "A downtown LeBreton Flats arena is planned — this suburban era has an end date (~2030s).",
+      "Leafs and Habs visits flip the building half-away-fans, so buy early if you want Sens-crowd nights.",
+      "A downtown LeBreton Flats arena is planned, so this suburban era has an end date (~2030s).",
       "Sens tickets are among the cheaper Canadian-market NHL entries."
     ],
     officialLinks: {
@@ -748,7 +748,7 @@ export const NHL_VENUES = {
     aliases: ["PNC Arena", "RBC Center", "Raleigh Entertainment and Sports Arena"],
     city: "Raleigh",
     state: "NC",
-    summary: "Hurricanes home (renamed from PNC Arena in 2024) shared with NC State basketball — the loudest house in the South when the Caniacs storm playoff surges, with a big tailgating culture rare for the NHL.",
+    summary: "Hurricanes home (renamed from PNC Arena in 2024) shared with NC State basketball, the loudest house in the South when the Caniacs storm playoff surges, with a big tailgating culture rare for the NHL.",
     bestFor: ["NHL", "college basketball", "concerts"],
     atmosphere: {
       vibe: "Tailgate-fueled and deafening for playoffs; NC State games bring their own red-clad noise",
@@ -757,9 +757,9 @@ export const NHL_VENUES = {
       indoorOutdoor: "Indoor"
     },
     arrival: {
-      parking: "Massive lots shared with Carter-Finley Stadium — NHL's best tailgating happens here.",
+      parking: "Massive lots shared with Carter-Finley Stadium; NHL's best tailgating happens here.",
       rideshare: "Designated zones; post-game waits are suburban-long.",
-      transit: "Minimal — GoRaleigh game-day services only; plan to drive.",
+      transit: "Minimal. GoRaleigh game-day services only; plan to drive.",
     },
     seating: {
       bestValueSections: ["Upper center", "Lower corners"],
@@ -771,8 +771,8 @@ export const NHL_VENUES = {
       nearbyPregame: ["Your own tailgate", "Backyard Bistro", "Hillsborough Street (NC State side)"],
     },
     fanTips: [
-      "Listings may still show PNC Arena — renamed Lenovo Center in late 2024.",
-      "NC State basketball and Canes hockey can play back-to-back days — verify which event you're buying.",
+      "Listings may still show PNC Arena (renamed Lenovo Center in late 2024).",
+      "NC State basketball and Canes hockey can play back-to-back days, so verify which event you're buying.",
       "The Storm Surge era made Canes tickets pricier, but weeknight non-rivals stay reasonable."
     ],
     officialLinks: {
@@ -789,18 +789,18 @@ export const NHL_VENUES = {
     aliases: ["FLA Live Arena", "BB&T Center", "BankAtlantic Center", "Office Depot Center"],
     city: "Sunrise",
     state: "FL",
-    summary: "Panthers home on the edge of the Everglades in Sunrise — a back-to-back Cup-winning team that turned a sleepy suburban barn into a real hockey destination.",
+    summary: "Panthers home on the edge of the Everglades in Sunrise, where a back-to-back Cup-winning team turned a sleepy suburban barn into a real hockey destination.",
     bestFor: ["NHL", "concerts"],
     atmosphere: {
-      vibe: "Cup-era loud with rat-throwing tradition revived — a transformed fanbase",
+      vibe: "Cup-era loud with rat-throwing tradition revived, a transformed fanbase",
       noiseLevel: "High",
       familyFriendly: true,
       indoorOutdoor: "Indoor"
     },
     arrival: {
-      parking: "Big on-site lots; prepay saves time — it's 35+ minutes from Miami without traffic.",
+      parking: "Big on-site lots; prepay saves time. It's 35+ minutes from Miami without traffic.",
       rideshare: "Works, but distances from Miami/Fort Lauderdale make it pricey.",
-      transit: "Effectively none — this is a driving venue next to Sawgrass Mills mall.",
+      transit: "Effectively none. This is a driving venue next to Sawgrass Mills mall.",
     },
     seating: {
       bestValueSections: ["Upper center", "Lower corners"],
@@ -813,7 +813,7 @@ export const NHL_VENUES = {
     },
     fanTips: [
       "Championship-era demand raised prices, but it's still cheaper than most contender tickets in the league.",
-      "Plastic rats fly after big wins — tradition, not littering.",
+      "Plastic rats fly after big wins: tradition, not littering.",
       "The team has explored a move closer to Miami long-term; enjoy the suburban-barn era while it lasts."
     ],
     officialLinks: {
@@ -830,10 +830,10 @@ export const NHL_VENUES = {
     aliases: ["Amalie Arena", "Tampa Bay Times Forum", "St. Pete Times Forum", "Ice Palace"],
     city: "Tampa",
     state: "FL",
-    summary: "Lightning home in Tampa's Channelside district (renamed from Amalie Arena in 2025) — Tesla-coil goal effects, a Cup-hardened crowd, and the Riverwalk at the doors.",
+    summary: "Lightning home in Tampa's Channelside district (renamed from Amalie Arena in 2025), with Tesla-coil goal effects, a Cup-hardened crowd, and the Riverwalk at the doors.",
     bestFor: ["NHL", "concerts"],
     atmosphere: {
-      vibe: "Championship-tested loud — Tampa turned into a legitimate hockey town",
+      vibe: "Championship-tested loud; Tampa turned into a legitimate hockey town",
       noiseLevel: "High",
       familyFriendly: true,
       indoorOutdoor: "Indoor"
@@ -849,12 +849,12 @@ export const NHL_VENUES = {
       accessibilityNote: "Accessible seating on all levels; check the venue map before buying."
     },
     foodAndDrink: {
-      summary: "Cuban sandwiches (it's Tampa — they're serious) and solid fare; Sparkman Wharf next door.",
+      summary: "Cuban sandwiches (it's Tampa, so they're serious) and solid fare; Sparkman Wharf next door.",
       nearbyPregame: ["Sparkman Wharf", "Ybor City (streetcar)", "American Social on the Riverwalk"],
     },
     fanTips: [
-      "Listings may still show Amalie Arena — renamed Benchmark International Arena in 2025.",
-      "The Tesla coils fire for goals — sit mid-bowl to feel it properly.",
+      "Listings may still show Amalie Arena (renamed Benchmark International Arena in 2025).",
+      "The Tesla coils fire for goals, so sit mid-bowl to feel it properly.",
       "Bolts tickets price like a contender; weeknight non-rivals are the entry point."
     ],
     officialLinks: {

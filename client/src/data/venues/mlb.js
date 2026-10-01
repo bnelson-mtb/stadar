@@ -10,7 +10,7 @@ export const MLB_VENUES = {
     aliases: ["Angel Stadium of Anaheim", "Edison International Field", "Anaheim Stadium", "The Big A"],
     city: "Anaheim",
     state: "CA",
-    summary: "The Big A — MLB's fourth-oldest park, a comfortable classic off the 57 freeway with the famous halo marquee and rock-pile waterfall in center.",
+    summary: "The Big A: MLB's fourth-oldest park, a comfortable classic off the 57 freeway with the famous halo marquee and rock-pile waterfall in center.",
     bestFor: ["MLB"],
     atmosphere: {
       vibe: "Family-forward Orange County calm; Rally Monkey nostalgia endures",
@@ -21,7 +21,7 @@ export const MLB_VENUES = {
     arrival: {
       parking: "Huge on-site lot with easy freeway access; exits jam briefly post-game.",
       rideshare: "Simple drops off State College Blvd.",
-      transit: "Metrolink/Amtrak at ARTIC station across the street — genuinely usable from LA.",
+      transit: "Metrolink/Amtrak at ARTIC station across the street, genuinely usable from LA.",
     },
     seating: {
       bestValueSections: ["View level behind home", "Field level outfield lines"],
@@ -29,13 +29,13 @@ export const MLB_VENUES = {
       accessibilityNote: "Accessible seating on all levels; check the venue map before buying."
     },
     foodAndDrink: {
-      summary: "Standard SoCal ballpark fare — helmet nachos and Chronic Tacos presence.",
+      summary: "Standard SoCal ballpark fare: helmet nachos and Chronic Tacos presence.",
       nearbyPregame: ["Golden Road Brewing (across the lot)", "The Catch", "Noble Ale Works"],
     },
     fanTips: [
-      "Angels tickets are among MLB's cheapest for a two-superstar-era team gone quiet — great value nights.",
+      "Angels tickets are among MLB's cheapest for a two-superstar-era team gone quiet, making for great value nights.",
       "June-September evenings are near-perfect weather; day games bake the third-base side.",
-      "The team's long-running stadium/relocation saga is unresolved — the Big A's future is perennially in the news."
+      "The team's long-running stadium/relocation saga is unresolved, and the Big A's future is perennially in the news."
     ],
     officialLinks: {
       website: "https://www.mlb.com/angels/ballpark",
@@ -51,10 +51,10 @@ export const MLB_VENUES = {
     aliases: ["Bank One Ballpark", "The BOB"],
     city: "Phoenix",
     state: "AZ",
-    summary: "Retractable-roof, air-conditioned Diamondbacks home downtown — the pool in right-center and light rail at the door make it the desert's most practical ballpark.",
+    summary: "Retractable-roof, air-conditioned Diamondbacks home downtown. The pool in right-center and light rail at the door make it the desert's most practical ballpark.",
     bestFor: ["MLB"],
     atmosphere: {
-      vibe: "Casual and cool (literally) — the roof stays closed most of the summer",
+      vibe: "Casual and cool (literally); the roof stays closed most of the summer",
       noiseLevel: "Medium",
       familyFriendly: true,
       indoorOutdoor: "Retractable roof (closed in summer)"
@@ -74,8 +74,8 @@ export const MLB_VENUES = {
       nearbyPregame: ["Downtown bars on Roosevelt Row (short ride)", "Cornish Pasty Co", "Pedal Haus"],
     },
     fanTips: [
-      "D-backs tickets are consistently among MLB's most affordable — walk-up friendly most nights.",
-      "It's 75°F inside when it's 112°F outside — dress for AC, not the desert.",
+      "D-backs tickets are consistently among MLB's most affordable, and it's walk-up friendly most nights.",
+      "It's 75°F inside when it's 112°F outside, so dress for AC, not the desert.",
       "Stadium lease/renovation politics simmer in the background; the building itself is comfortable as-is."
     ],
     officialLinks: {
@@ -92,18 +92,18 @@ export const MLB_VENUES = {
     aliases: ["SunTrust Park"],
     city: "Atlanta",
     state: "GA",
-    summary: "Braves home in Cobb County, wrapped in The Battery — the sport's most complete ballpark-village, where the pregame neighborhood is half the ticket's value.",
+    summary: "Braves home in Cobb County, wrapped in The Battery, the sport's most complete ballpark-village, where the pregame neighborhood is half the ticket's value.",
     bestFor: ["MLB"],
     atmosphere: {
-      vibe: "Chop-chanting, packed, and social — the Battery keeps energy flowing all night",
+      vibe: "Chop-chanting, packed, and social; the Battery keeps energy flowing all night",
       noiseLevel: "High",
       familyFriendly: true,
       indoorOutdoor: "Outdoor"
     },
     arrival: {
-      parking: "Battery and satellite decks; prepay always — it's a car venue by design.",
+      parking: "Battery and satellite decks; prepay always, because it's a car venue by design.",
       rideshare: "Designated zones across Windy Ridge; surge post-game.",
-      transit: "No rail — CobbLinc shuttle options only; this is metro Atlanta driving.",
+      transit: "No rail. CobbLinc shuttle options only; this is metro Atlanta driving.",
     },
     seating: {
       bestValueSections: ["Terrace infield", "Vista corners behind home"],
@@ -115,9 +115,9 @@ export const MLB_VENUES = {
       nearbyPregame: ["The Battery (Punch Bowl Social, Live! venue)", "Terrapin Taproom", "Superica"],
     },
     fanTips: [
-      "Braves games sell strongly — weekday matinees are the value window.",
+      "Braves games sell strongly, so weekday matinees are the value window.",
       "Summer evening storms pass fast; delays are common but rarely wash out.",
-      "The Battery is worth arriving early for even without kids — it's the model every team now copies."
+      "The Battery is worth arriving early for even without kids; it's the model every team now copies."
     ],
     officialLinks: {
       website: "https://www.mlb.com/braves/ballpark",
@@ -133,7 +133,7 @@ export const MLB_VENUES = {
     aliases: ["Camden Yards", "Oriole Park"],
     city: "Baltimore",
     state: "MD",
-    summary: "The park that started the retro-ballpark revolution (1992) — the B&O Warehouse backdrop, Eutaw Street's Boog's BBQ, and downtown Baltimore at the gates.",
+    summary: "The park that started the retro-ballpark revolution (1992), with the B&O Warehouse backdrop, Eutaw Street's Boog's BBQ, and downtown Baltimore at the gates.",
     bestFor: ["MLB"],
     atmosphere: {
       vibe: "Baseball-romantic; the young-core era re-filled the seats with orange",
@@ -152,11 +152,11 @@ export const MLB_VENUES = {
       accessibilityNote: "Accessible seating on all levels; check the venue map before buying."
     },
     foodAndDrink: {
-      summary: "Boog's BBQ on Eutaw Street and crab-everything — a top-5 MLB food park.",
+      summary: "Boog's BBQ on Eutaw Street and crab-everything, a top-5 MLB food park.",
       nearbyPregame: ["Pickles Pub", "Federal Hill", "Cross Street Market"],
     },
     fanTips: [
-      "Walk Eutaw Street even if your seats are elsewhere — it's the park's living museum.",
+      "Walk Eutaw Street even if your seats are elsewhere; it's the park's living museum.",
       "O's tickets remain affordable for the product; weekend Yankees/Sox games are the exception.",
       "Combine with Fort McHenry or the Inner Harbor for a full Baltimore day."
     ],
@@ -174,30 +174,30 @@ export const MLB_VENUES = {
     aliases: ["Fenway"],
     city: "Boston",
     state: "MA",
-    summary: "America's oldest ballpark (1912) — the Green Monster, Pesky's Pole, and a century of quirks in the middle of a living Boston neighborhood.",
+    summary: "America's oldest ballpark (1912): the Green Monster, Pesky's Pole, and a century of quirks in the middle of a living Boston neighborhood.",
     bestFor: ["MLB", "concerts"],
     atmosphere: {
-      vibe: "Cathedral crossed with a pub — 'Sweet Caroline' in the 8th, tourists and die-hards shoulder to shoulder",
+      vibe: "Cathedral crossed with a pub: 'Sweet Caroline' in the 8th, tourists and die-hards shoulder to shoulder",
       noiseLevel: "High",
       familyFriendly: true,
       indoorOutdoor: "Outdoor"
     },
     arrival: {
-      parking: "Scarce and extortionate — Fenway garages hit $60+; don't drive.",
+      parking: "Scarce and extortionate. Fenway garages hit $60+; don't drive.",
       rideshare: "Kenmore-area drops; the T is faster.",
       transit: "Green Line to Kenmore or Fenway stations, a 5-minute walk.",
     },
     seating: {
       bestValueSections: ["Bleachers (sections 34-43)", "Grandstand infield (poles permitting)"],
       avoidIfPossible: ["Grandstand seats flagged obstructed (support poles)", "Right field grandstand angles (face center, not home)"],
-      accessibilityNote: "A 1912 building — accessible seating exists but options are limited; verify carefully before buying."
+      accessibilityNote: "A 1912 building, so accessible seating exists but options are limited; verify carefully before buying."
     },
     foodAndDrink: {
       summary: "Fenway Franks inside; Lansdowne Street and the Fenway neighborhood bars carry the pregame.",
       nearbyPregame: ["Cask 'n Flagon", "Bleacher Bar (under the bleachers)", "Time Out Market Boston"],
     },
     fanTips: [
-      "Take the park tour if it's your first visit — the Monster's interior and 1912 details are worth it.",
+      "Take the park tour if it's your first visit; the Monster's interior and 1912 details are worth it.",
       "Grandstand seats are wooden 1934 originals: narrow and knee-tight; aisle seats help.",
       "Yankees series and October reprice everything; midweek NL visitors are the value window."
     ],
@@ -215,31 +215,31 @@ export const MLB_VENUES = {
     aliases: ["Wrigley", "The Friendly Confines"],
     city: "Chicago",
     state: "IL",
-    summary: "The Friendly Confines (1914) — ivy walls, hand-turned scoreboard, rooftop bleachers across Waveland and Sheffield, and Wrigleyville wrapped around it all.",
+    summary: "The Friendly Confines (1914): ivy walls, hand-turned scoreboard, rooftop bleachers across Waveland and Sheffield, and Wrigleyville wrapped around it all.",
     bestFor: ["MLB", "concerts"],
     atmosphere: {
-      vibe: "Half ballgame, half street festival — the neighborhood is the experience",
+      vibe: "Half ballgame, half street festival; the neighborhood is the experience",
       noiseLevel: "High",
       familyFriendly: true,
       indoorOutdoor: "Outdoor"
     },
     arrival: {
-      parking: "Nearly nonexistent — remote lots with shuttles exist, but don't drive to Wrigleyville.",
+      parking: "Nearly nonexistent. Remote lots with shuttles exist, but don't drive to Wrigleyville.",
       rideshare: "Drop zones blocks away; the L is faster and cheaper.",
       transit: "CTA Red Line to Addison station, directly outside the park.",
     },
     seating: {
       bestValueSections: ["Upper deck infield", "Bleachers (general admission energy)"],
       avoidIfPossible: ["Back terrace rows under the overhang (obstructed sky)", "Poles-adjacent seats flagged obstructed"],
-      accessibilityNote: "A 1914 building — accessible options are limited and specific; verify at purchase."
+      accessibilityNote: "A 1914 building, so accessible options are limited and specific; verify at purchase."
     },
     foodAndDrink: {
       summary: "Chicago dogs and Old Style inside; every third door in Wrigleyville is a bar.",
       nearbyPregame: ["Murphy's Bleachers", "Sluggers", "Gallagher Way plaza"],
     },
     fanTips: [
-      "Day games are the canonical Wrigley experience — the park was built for afternoon sun.",
-      "Wind direction changes the game: blowing out means homers, blowing in means 2-1 — check the flags.",
+      "Day games are the canonical Wrigley experience; the park was built for afternoon sun.",
+      "Wind direction changes the game: blowing out means homers, blowing in means 2-1, so check the flags.",
       "April and September games can be 40°F off the lake; summer bleachers can be 95°F. There is no neutral Wrigley weather."
     ],
     officialLinks: {
@@ -256,7 +256,7 @@ export const MLB_VENUES = {
     aliases: ["Guaranteed Rate Field", "U.S. Cellular Field", "Comiskey Park", "The Cell"],
     city: "Chicago",
     state: "IL",
-    summary: "White Sox home in Bridgeport on the South Side — an underrated food park with easy Red Line access and famously cheap tickets.",
+    summary: "White Sox home in Bridgeport on the South Side, an underrated food park with easy Red Line access and famously cheap tickets.",
     bestFor: ["MLB"],
     atmosphere: {
       vibe: "South Side local pride, sparse in rebuild years but genuinely fun when full",
@@ -265,7 +265,7 @@ export const MLB_VENUES = {
       indoorOutdoor: "Outdoor"
     },
     arrival: {
-      parking: "Big official lots — one of the few easy-driving Chicago venues.",
+      parking: "Big official lots, one of the few easy-driving Chicago venues.",
       rideshare: "Simple drops off 35th Street.",
       transit: "Red Line to Sox-35th, directly across the street.",
     },
@@ -275,12 +275,12 @@ export const MLB_VENUES = {
       accessibilityNote: "Accessible seating on all levels; check the venue map before buying."
     },
     foodAndDrink: {
-      summary: "Sleeper top-5 MLB food — elote, Polish sausage, and South Side classics.",
+      summary: "Sleeper top-5 MLB food: elote, Polish sausage, and South Side classics.",
       nearbyPregame: ["Cork & Kerry", "Turtle's Bar", "Bridgeport spots on Halsted"],
     },
     fanTips: [
-      "Sox tickets are routinely MLB's cheapest — a $15 night with elite ballpark food.",
-      "The Sox have flirted with a new South Loop stadium — the future here is an open question.",
+      "Sox tickets are routinely MLB's cheapest, a $15 night with elite ballpark food.",
+      "The Sox have flirted with a new South Loop stadium, so the future here is an open question.",
       "Crosstown Cubs series flips the park's energy completely; buy those early."
     ],
     officialLinks: {
@@ -297,7 +297,7 @@ export const MLB_VENUES = {
     aliases: ["GABP"],
     city: "Cincinnati",
     state: "OH",
-    summary: "Reds home on the Ohio River next to The Banks — riverboat smokestacks in center field and the baseball-original franchise's museum at the gate.",
+    summary: "Reds home on the Ohio River next to The Banks, with riverboat smokestacks in center field and the baseball-original franchise's museum at the gate.",
     bestFor: ["MLB"],
     atmosphere: {
       vibe: "Old-baseball-town warmth; fireworks Fridays are a family institution",
@@ -320,7 +320,7 @@ export const MLB_VENUES = {
       nearbyPregame: ["Moerlein Lager House", "The Banks bars", "Findlay Market (pre-game trip)"],
     },
     fanTips: [
-      "Reds tickets are deep-value MLB — great walk-up spontaneity.",
+      "Reds tickets are deep-value MLB, with great walk-up spontaneity.",
       "The Reds Hall of Fame at the park is worth the add-on for baseball-history fans.",
       "Cross the Roebling Bridge from Covington for cheaper parking and a better walk."
     ],
@@ -338,7 +338,7 @@ export const MLB_VENUES = {
     aliases: ["Jacobs Field", "The Jake"],
     city: "Cleveland",
     state: "OH",
-    summary: "Guardians home on the Gateway block downtown — a renovated 90s gem with a famously rowdy bullpen-adjacent right field district.",
+    summary: "Guardians home on the Gateway block downtown, a renovated 90s gem with a famously rowdy bullpen-adjacent right field district.",
     bestFor: ["MLB"],
     atmosphere: {
       vibe: "Midwest-earnest with drum-in-the-bleachers tradition",
@@ -357,13 +357,13 @@ export const MLB_VENUES = {
       accessibilityNote: "Accessible seating on all levels; check the venue map before buying."
     },
     foodAndDrink: {
-      summary: "Renovations brought Cleveland vendors in force — a legit local-food park.",
+      summary: "Renovations brought Cleveland vendors in force, making it a legit local-food park.",
       nearbyPregame: ["East 4th Street", "Flannery's", "Masthead Brewing"],
     },
     fanTips: [
       "Guardians tickets stay affordable even in contention years.",
-      "April games off Lake Erie are genuinely cold — this is a June-September park at its best.",
-      "The John Adams drum tradition continues via successors in the bleachers — sit left field for it."
+      "April games off Lake Erie are genuinely cold; this is a June-September park at its best.",
+      "The John Adams drum tradition continues via successors in the bleachers, so sit left field for it."
     ],
     officialLinks: {
       website: "https://www.mlb.com/guardians/ballpark",
@@ -379,10 +379,10 @@ export const MLB_VENUES = {
     aliases: ["Coors"],
     city: "Denver",
     state: "CO",
-    summary: "Mile-high baseball in LoDo — thin-air homers, the Rooftop party deck, mountain sunsets, and the purple row marking exactly 5,280 feet.",
+    summary: "Mile-high baseball in LoDo: thin-air homers, the Rooftop party deck, mountain sunsets, and the purple row marking exactly 5,280 feet.",
     bestFor: ["MLB"],
     atmosphere: {
-      vibe: "Social-first — the Rooftop crowd sometimes outnumbers the baseball-watchers",
+      vibe: "Social-first; the Rooftop crowd sometimes outnumbers the baseball-watchers",
       noiseLevel: "Medium",
       familyFriendly: true,
       indoorOutdoor: "Outdoor"
@@ -394,16 +394,16 @@ export const MLB_VENUES = {
     },
     seating: {
       bestValueSections: ["Upper infield (mountain views)", "The Rockpile"],
-      avoidIfPossible: ["Nothing structural — it's a friendly bowl"],
+      avoidIfPossible: ["Nothing structural; it's a friendly bowl"],
       accessibilityNote: "Accessible seating on all levels; check the venue map before buying."
     },
     foodAndDrink: {
-      summary: "Helton Burger and craft beer everywhere — plus the entire LoDo bar scene at the gates.",
+      summary: "Helton Burger and craft beer everywhere, plus the entire LoDo bar scene at the gates.",
       nearbyPregame: ["Wynkoop Brewing", "Falling Rock territory (LoDo beer bars)", "Union Station hall"],
     },
     fanTips: [
-      "Sit on the purple 20th row of the upper deck — exactly one mile above sea level.",
-      "The team is usually bad; the experience isn't — treat it as a $20 patio with baseball attached.",
+      "Sit on the purple 20th row of the upper deck, exactly one mile above sea level.",
+      "The team is usually bad, but the experience isn't, so treat it as a $20 patio with baseball attached.",
       "Summer evening storms roll through fast; delays end quickly at altitude."
     ],
     officialLinks: {
@@ -444,7 +444,7 @@ export const MLB_VENUES = {
     },
     fanTips: [
       "The carousel/Ferris wheel make this a legitimately great first-ballgame park for kids.",
-      "April in Detroit is winter baseball — night games before May demand layers.",
+      "April in Detroit is winter baseball, so night games before May demand layers.",
       "Tigers contention has revived crowds; weekend games are no longer walk-up sure things."
     ],
     officialLinks: {
@@ -461,7 +461,7 @@ export const MLB_VENUES = {
     aliases: ["Minute Maid Park", "Enron Field", "The Juice Box"],
     city: "Houston",
     state: "TX",
-    summary: "Astros home downtown (renamed from Minute Maid Park in 2025) — retractable roof, the left-field train, and the Crawford Boxes' short porch.",
+    summary: "Astros home downtown (renamed from Minute Maid Park in 2025), with a retractable roof, the left-field train, and the Crawford Boxes' short porch.",
     bestFor: ["MLB"],
     atmosphere: {
       vibe: "Championship-era confidence; loud with the roof closed",
@@ -480,12 +480,12 @@ export const MLB_VENUES = {
       accessibilityNote: "Accessible seating on all levels; check the venue map before buying."
     },
     foodAndDrink: {
-      summary: "Torchy's, BBQ, and Tex-Mex — top-half MLB food.",
+      summary: "Torchy's, BBQ, and Tex-Mex: top-half MLB food.",
       nearbyPregame: ["Home Plate Bar & Grill", "Truck Yard Houston", "EaDo breweries"],
     },
     fanTips: [
-      "Old listings still say Minute Maid Park — renamed Daikin Park for 2025.",
-      "The train on the left-field track runs after homers — sit third-base side to face it.",
+      "Old listings still say Minute Maid Park (renamed Daikin Park for 2025).",
+      "The train on the left-field track runs after homers, so sit third-base side to face it.",
       "Astros weekend games price high; midweek NL visitors are the value window."
     ],
     officialLinks: {
@@ -502,7 +502,7 @@ export const MLB_VENUES = {
     aliases: ["The K", "Royals Stadium"],
     city: "Kansas City",
     state: "MO",
-    summary: "The K — crown-topped scoreboard and the famous outfield fountains, sharing the Truman Sports Complex with Arrowhead while the Royals pursue a new ballpark.",
+    summary: "The K: crown-topped scoreboard and the famous outfield fountains, sharing the Truman Sports Complex with Arrowhead while the Royals pursue a new ballpark.",
     bestFor: ["MLB"],
     atmosphere: {
       vibe: "Fountains-and-family calm with 2015-vintage loyalty underneath",
@@ -511,7 +511,7 @@ export const MLB_VENUES = {
       indoorOutdoor: "Outdoor"
     },
     arrival: {
-      parking: "Sports-complex lots only — a driving venue, no neighborhood.",
+      parking: "Sports-complex lots only; a driving venue, no neighborhood.",
       rideshare: "Designated zones; waits moderate.",
       transit: "Minimal; plan to drive.",
     },
@@ -522,12 +522,12 @@ export const MLB_VENUES = {
     },
     foodAndDrink: {
       summary: "KC BBQ inside is real (burnt ends); Craft & Draft in right field is the beer destination.",
-      nearbyPregame: ["Your tailgate", "eat BBQ in the city first (Joe's, Q39) — it's a drive anyway"],
+      nearbyPregame: ["Your tailgate", "eat BBQ in the city first (Joe's, Q39), since it's a drive anyway"],
     },
     fanTips: [
-      "The Royals' new-stadium pursuit (downtown/Kansas-side options) means The K's era is winding toward an end — see the fountains while they run.",
+      "The Royals' new-stadium pursuit (downtown/Kansas-side options) means The K's era is winding toward an end, so see the fountains while they run.",
       "Royals tickets are among MLB's cheapest; fireworks Fridays are the family standard.",
-      "Summer day games are shadeless in much of the bowl — check sun exposure."
+      "Summer day games are shadeless in much of the bowl, so check sun exposure."
     ],
     officialLinks: {
       website: "https://www.mlb.com/royals/ballpark",
@@ -543,23 +543,23 @@ export const MLB_VENUES = {
     aliases: ["Chavez Ravine"],
     city: "Los Angeles",
     state: "CA",
-    summary: "Baseball's third-oldest park (1962) carved into Chavez Ravine — palm trees, San Gabriel views, Dodger Dogs, and the sport's biggest capacity.",
+    summary: "Baseball's third-oldest park (1962) carved into Chavez Ravine, with palm trees, San Gabriel views, Dodger Dogs, and the sport's biggest capacity.",
     bestFor: ["MLB", "concerts"],
     atmosphere: {
-      vibe: "Arrives in the 2nd, leaves in the 8th, loud in between — LA's most reliable communal event",
+      vibe: "Arrives in the 2nd, leaves in the 8th, loud in between: LA's most reliable communal event",
       noiseLevel: "High",
       familyFriendly: true,
       indoorOutdoor: "Outdoor"
     },
     arrival: {
-      parking: "The classic option — big lots but slow exits; prepay and park facing out.",
+      parking: "The classic option: big lots but slow exits; prepay and park facing out.",
       rideshare: "Dedicated lot; expect walking either way.",
-      transit: "Dodger Stadium Express bus (free with ticket) from Union Station — the best-kept non-secret.",
+      transit: "Dodger Stadium Express bus (free with ticket) from Union Station, the best-kept non-secret.",
     },
     seating: {
       bestValueSections: ["Top deck infield", "Reserve level infield"],
       avoidIfPossible: ["Pavilions if you want to leave your section (historically restricted circulation)"],
-      accessibilityNote: "Terraced hillside design — verify elevator/gate access for your level when buying."
+      accessibilityNote: "Terraced hillside design, so verify elevator/gate access for your level when buying."
     },
     foodAndDrink: {
       summary: "The Dodger Dog is the ritual; micheladas and helmet nachos round out the classics.",
@@ -567,7 +567,7 @@ export const MLB_VENUES = {
     },
     fanTips: [
       "Sunset from the reserve level over the outfield palms is the definitive LA baseball image.",
-      "Freeway exits back up 90 minutes before first pitch — the Express bus or early arrival are the only good plans.",
+      "Freeway exits back up 90 minutes before first pitch, so the Express bus or early arrival are the only good plans.",
       "Friday-night fireworks let you exit late and skip the worst traffic."
     ],
     officialLinks: {
@@ -584,7 +584,7 @@ export const MLB_VENUES = {
     aliases: ["Marlins Park", "LoanDepot Park"],
     city: "Miami",
     state: "FL",
-    summary: "Retractable-roof Marlins home in Little Havana — air-conditioned, art-splashed, and never crowded, with genuinely great Cuban food inside.",
+    summary: "Retractable-roof Marlins home in Little Havana: air-conditioned, art-splashed, and never crowded, with genuinely great Cuban food inside.",
     bestFor: ["MLB", "international soccer/baseball (WBC)"],
     atmosphere: {
       vibe: "Quiet most nights; erupts for WBC and Cuban-heritage events",
@@ -594,21 +594,21 @@ export const MLB_VENUES = {
     },
     arrival: {
       parking: "On-site garages are cheap by Miami standards.",
-      rideshare: "Easy — attendance keeps traffic light.",
-      transit: "Limited; Magic City trolleys and buses — most drive.",
+      rideshare: "Easy; attendance keeps traffic light.",
+      transit: "Limited; Magic City trolleys and buses, but most drive.",
     },
     seating: {
       bestValueSections: ["Anywhere infield (buy cheapest, upgrade by walking)", "Home run porch"],
-      avoidIfPossible: ["Nothing — emptiness is the amenity"],
+      avoidIfPossible: ["Nothing; emptiness is the amenity"],
       accessibilityNote: "Accessible seating on all levels; check the venue map before buying."
     },
     foodAndDrink: {
-      summary: "Cuban sandwiches, croquetas, and cafecito — the food outperforms the team reliably.",
+      summary: "Cuban sandwiches, croquetas, and cafecito. The food outperforms the team reliably.",
       nearbyPregame: ["Calle Ocho (Little Havana)", "Ball & Chain", "Versailles (pre-game institution)"],
     },
     fanTips: [
-      "Pair the game with a Calle Ocho evening — the neighborhood is the draw.",
-      "WBC games here are the building at its true potential — completely different event class.",
+      "Pair the game with a Calle Ocho evening; the neighborhood is the draw.",
+      "WBC games here are the building at its true potential, a completely different event class.",
       "Marlins tickets are MLB's most discounted; never pay face for a regular-season game."
     ],
     officialLinks: {
@@ -625,10 +625,10 @@ export const MLB_VENUES = {
     aliases: ["Miller Park", "AmFam Field"],
     city: "Milwaukee",
     state: "WI",
-    summary: "Brewers home with the fan-shaped retractable roof — MLB's best tailgating scene, the sausage race, and Bernie's dugout slide.",
+    summary: "Brewers home with the fan-shaped retractable roof, MLB's best tailgating scene, the sausage race, and Bernie's dugout slide.",
     bestFor: ["MLB"],
     atmosphere: {
-      vibe: "Wisconsin tailgate culture transplanted to baseball — social, beery, and warm",
+      vibe: "Wisconsin tailgate culture transplanted to baseball: social, beery, and warm",
       noiseLevel: "Medium-high",
       familyFriendly: true,
       indoorOutdoor: "Retractable roof"
@@ -648,9 +648,9 @@ export const MLB_VENUES = {
       nearbyPregame: ["Your tailgate (non-negotiable)", "Kelly's Bleachers", "J&B's Blue Ribbon"],
     },
     fanTips: [
-      "The roof means weather never cancels — book travel plans with confidence.",
+      "The roof means weather never cancels, so book travel plans with confidence.",
       "Watch the sausage race like it matters, because everyone around you thinks it does.",
-      "Brewers tickets stay affordable even in contending seasons — strong value market."
+      "Brewers tickets stay affordable even in contending seasons, a strong value market."
     ],
     officialLinks: {
       website: "https://www.mlb.com/brewers/ballpark",
@@ -666,7 +666,7 @@ export const MLB_VENUES = {
     aliases: ["Target Field Minneapolis"],
     city: "Minneapolis",
     state: "MN",
-    summary: "Twins home in the North Loop — limestone-clad, transit-served, and regularly rated among MLB's best modern parks despite April's cold reality.",
+    summary: "Twins home in the North Loop: limestone-clad, transit-served, and regularly rated among MLB's best modern parks despite April's cold reality.",
     bestFor: ["MLB"],
     atmosphere: {
       vibe: "Minnesota-nice with real baseball bones",
@@ -685,13 +685,13 @@ export const MLB_VENUES = {
       accessibilityNote: "Accessible seating on all levels; check the venue map before buying."
     },
     foodAndDrink: {
-      summary: "Kramarczuk's sausages and Juicy Lucys — top-10 MLB food with the North Loop next door.",
+      summary: "Kramarczuk's sausages and Juicy Lucys, top-10 MLB food with the North Loop next door.",
       nearbyPregame: ["Fulton Brewing", "The Freehouse", "North Loop restaurant row"],
     },
     fanTips: [
-      "April/May night games are genuinely cold — day games until June are the comfort play.",
+      "April/May night games are genuinely cold, so day games until June are the comfort play.",
       "Twins tickets are reasonable; summer weekend series sell best.",
-      "Combine with a Saturday North Loop brunch-to-ballgame — the neighborhood is the underrated star."
+      "Combine with a Saturday North Loop brunch-to-ballgame; the neighborhood is the underrated star."
     ],
     officialLinks: {
       website: "https://www.mlb.com/twins/ballpark",
@@ -707,10 +707,10 @@ export const MLB_VENUES = {
     aliases: ["Citi", "Shea Stadium (predecessor site)"],
     city: "Queens",
     state: "NY",
-    summary: "Mets home in Flushing — the Jackie Robinson Rotunda, the Home Run Apple, Shake Shack in center field, and the 7 train to the gates.",
+    summary: "Mets home in Flushing, with the Jackie Robinson Rotunda, the Home Run Apple, Shake Shack in center field, and the 7 train to the gates.",
     bestFor: ["MLB", "concerts"],
     atmosphere: {
-      vibe: "Long-suffering wit turned big-payroll hope — Queens loud when it matters",
+      vibe: "Long-suffering wit turned big-payroll hope, with Queens loud when it matters",
       noiseLevel: "Medium-high",
       familyFriendly: true,
       indoorOutdoor: "Outdoor"
@@ -726,13 +726,13 @@ export const MLB_VENUES = {
       accessibilityNote: "Accessible seating on all levels; check the venue map before buying."
     },
     foodAndDrink: {
-      summary: "One of MLB's best food parks — Shake Shack, Fuku, Pat LaFrieda's, and the whole World's Fare Market.",
-      nearbyPregame: ["Flushing's Chinatown (one stop away — elite pre-game meal)", "Mikkeller-successor brewery spots", "Corona's Italian ices"],
+      summary: "One of MLB's best food parks: Shake Shack, Fuku, Pat LaFrieda's, and the whole World's Fare Market.",
+      nearbyPregame: ["Flushing's Chinatown (one stop away, elite pre-game meal)", "Mikkeller-successor brewery spots", "Corona's Italian ices"],
     },
     fanTips: [
       "Pregame in downtown Flushing (one 7 stop) is the best food move in New York sports.",
-      "NYCFC also plays occasional matches here — check whether your event is baseball or soccer.",
-      "Planes into LGA fly over — part of the charm, honest."
+      "NYCFC also plays occasional matches here, so check whether your event is baseball or soccer.",
+      "Planes into LGA fly over. Part of the charm, honest."
     ],
     officialLinks: {
       website: "https://www.mlb.com/mets/ballpark",
@@ -748,10 +748,10 @@ export const MLB_VENUES = {
     aliases: ["The Stadium", "New Yankee Stadium"],
     city: "Bronx",
     state: "NY",
-    summary: "The Yankees' marble-and-frieze cathedral in the South Bronx — Monument Park, the Bleacher Creatures' roll call, and NYCFC soccer on off-days until Etihad Park opens (~2027).",
+    summary: "The Yankees' marble-and-frieze cathedral in the South Bronx, with Monument Park, the Bleacher Creatures' roll call, and NYCFC soccer on off-days until Etihad Park opens (~2027).",
     bestFor: ["MLB", "MLS", "college football (Pinstripe Bowl)"],
     atmosphere: {
-      vibe: "Imperial-franchise expectation — October here is a different sport",
+      vibe: "Imperial-franchise expectation; October here is a different sport",
       noiseLevel: "High",
       familyFriendly: true,
       indoorOutdoor: "Outdoor"
@@ -771,7 +771,7 @@ export const MLB_VENUES = {
       nearbyPregame: ["Stan's Sports Bar (the institution)", "Billy's Sports Bar", "Yankee Tavern"],
     },
     fanTips: [
-      "Visit Monument Park early — it closes 45 minutes before first pitch.",
+      "Visit Monument Park early; it closes 45 minutes before first pitch.",
       "Bleacher roll call (top of the 1st, right field) is a tradition worth sitting through once.",
       "NYCFC matches here are cheap and the pitch-in-a-ballpark oddity ends when Etihad Park opens (~2027)."
     ],
@@ -789,17 +789,17 @@ export const MLB_VENUES = {
     aliases: ["Raley Field"],
     city: "West Sacramento",
     state: "CA",
-    summary: "The Athletics' temporary home (2025 until the Las Vegas ballpark opens, ~2028) — a Triple-A park across the river from downtown Sacramento hosting big-league baseball at minor-league intimacy.",
+    summary: "The Athletics' temporary home (2025 until the Las Vegas ballpark opens, ~2028), a Triple-A park across the river from downtown Sacramento hosting big-league baseball at minor-league intimacy.",
     bestFor: ["MLB", "minor league baseball"],
     atmosphere: {
-      vibe: "Novelty-era intimacy — 14,000 seats of major leaguers up close",
+      vibe: "Novelty-era intimacy: 14,000 seats of major leaguers up close",
       noiseLevel: "Medium",
       familyFriendly: true,
       indoorOutdoor: "Outdoor"
     },
     arrival: {
       parking: "Modest on-site lots by MLB standards; downtown Sacramento garages + the bridge walk.",
-      rideshare: "Easy — Sacramento scale.",
+      rideshare: "Easy at Sacramento scale.",
       transit: "Walkable from downtown Sacramento over the Tower Bridge; SacRT buses nearby.",
     },
     seating: {
@@ -812,9 +812,9 @@ export const MLB_VENUES = {
       nearbyPregame: ["Drake's: The Barn (riverfront)", "Old Sacramento", "R Street Corridor"],
     },
     fanTips: [
-      "Summer day games regularly top 95°F with limited shade — night games strongly preferred.",
+      "Summer day games regularly top 95°F with limited shade, so night games are strongly preferred.",
       "The berm in the outfield is the family value play.",
-      "This arrangement ends when the Vegas ballpark opens (~2028) — a genuine baseball-history oddity to catch while it lasts."
+      "This arrangement ends when the Vegas ballpark opens (~2028), a genuine baseball-history oddity to catch while it lasts."
     ],
     officialLinks: {
       website: "https://www.mlb.com/athletics/ballpark",
@@ -830,7 +830,7 @@ export const MLB_VENUES = {
     aliases: ["CBP", "The Bank"],
     city: "Philadelphia",
     state: "PA",
-    summary: "Phillies home in the South Philly complex — Ashburn Alley's food row, the Liberty Bell in right-center, and October crowds that shake broadcast cameras.",
+    summary: "Phillies home in the South Philly complex, with Ashburn Alley's food row, the Liberty Bell in right-center, and October crowds that shake broadcast cameras.",
     bestFor: ["MLB"],
     atmosphere: {
       vibe: "The loudest sustained regular-season crowds in baseball since 2022",
@@ -849,12 +849,12 @@ export const MLB_VENUES = {
       accessibilityNote: "Accessible seating on all levels; check the venue map before buying."
     },
     foodAndDrink: {
-      summary: "Ashburn Alley is a top-3 MLB food destination — Federal Donuts chicken, Chickie's crab fries, cheesesteaks that don't embarrass.",
+      summary: "Ashburn Alley is a top-3 MLB food destination: Federal Donuts chicken, Chickie's crab fries, cheesesteaks that don't embarrass.",
       nearbyPregame: ["Xfinity Live!", "Pattison Ave bars", "East Passyunk (dinner before)"],
     },
     fanTips: [
-      "Phillies crowds since the 2022 run are playoff-loud in June — buy expecting demand.",
-      "Check the complex calendar — quadruple-event days change every logistic.",
+      "Phillies crowds since the 2022 run are playoff-loud in June, so buy expecting demand.",
+      "Check the complex calendar; quadruple-event days change every logistic.",
       "Dollar Dog Nights' successors and weekday promos are the value entries."
     ],
     officialLinks: {
@@ -871,17 +871,17 @@ export const MLB_VENUES = {
     aliases: ["PNC"],
     city: "Pittsburgh",
     state: "PA",
-    summary: "Consensus pick for the most beautiful ballpark in America — the Clemente Bridge walk, the downtown skyline over the outfield, and the Allegheny beyond the right-field wall.",
+    summary: "Consensus pick for the most beautiful ballpark in America, with the Clemente Bridge walk, the downtown skyline over the outfield, and the Allegheny beyond the right-field wall.",
     bestFor: ["MLB"],
     atmosphere: {
-      vibe: "Gorgeous and gentle — the view outdraws the (usually rebuilding) team",
+      vibe: "Gorgeous and gentle; the view outdraws the (usually rebuilding) team",
       noiseLevel: "Medium",
       familyFriendly: true,
       indoorOutdoor: "Outdoor"
     },
     arrival: {
       parking: "North Shore garages or downtown + the bridge walk.",
-      rideshare: "Drop downtown and walk the Clemente Bridge — it closes to cars on game days.",
+      rideshare: "Drop downtown and walk the Clemente Bridge; it closes to cars on game days.",
       transit: "The T (light rail) is free to North Side station from downtown.",
     },
     seating: {
@@ -894,7 +894,7 @@ export const MLB_VENUES = {
       nearbyPregame: ["Mike's Beer Bar", "Burgatory", "Southern Tier"],
     },
     fanTips: [
-      "Pirates tickets are among the cheapest in baseball — a $12 seat here beats a $90 seat in most parks.",
+      "Pirates tickets are among the cheapest in baseball, and a $12 seat here beats a $90 seat in most parks.",
       "The pierogi race (Great Pierogi Race) is the mid-inning tradition to catch.",
       "Friday fireworks over the river are legitimately spectacular from the third-base side."
     ],
@@ -912,10 +912,10 @@ export const MLB_VENUES = {
     aliases: ["Petco"],
     city: "San Diego",
     state: "CA",
-    summary: "Padres home in the Gaslamp Quarter — the Western Metal Supply building in left field, the Park at the Park lawn, and the best ballpark weather in the majors.",
+    summary: "Padres home in the Gaslamp Quarter, with the Western Metal Supply building in left field, the Park at the Park lawn, and the best ballpark weather in the majors.",
     bestFor: ["MLB", "concerts"],
     atmosphere: {
-      vibe: "Sold-out and loud in the Padres' win-now era — San Diego finally has the crowds the park deserved",
+      vibe: "Sold-out and loud in the Padres' win-now era; San Diego finally has the crowds the park deserved",
       noiseLevel: "High",
       familyFriendly: true,
       indoorOutdoor: "Outdoor"
@@ -931,13 +931,13 @@ export const MLB_VENUES = {
       accessibilityNote: "Accessible seating on all levels; check the venue map before buying."
     },
     foodAndDrink: {
-      summary: "Elite — Hodad's burgers, fish tacos, Cali burritos, and a deep local craft-beer program.",
+      summary: "Elite: Hodad's burgers, fish tacos, Cali burritos, and a deep local craft-beer program.",
       nearbyPregame: ["Gaslamp Quarter (everything)", "East Village breweries (Stone tap room area)", "Barrio Logan (pre-game tacos)"],
     },
     fanTips: [
-      "There is no bad-weather date on the Padres schedule — book any game with confidence.",
+      "There is no bad-weather date on the Padres schedule, so book any game with confidence.",
       "The lawn (Park at the Park) with kids is the best family value in the sport.",
-      "Padres contention means weekend sellouts — midweek is the access window now."
+      "Padres contention means weekend sellouts, so midweek is the access window now."
     ],
     officialLinks: {
       website: "https://www.mlb.com/padres/ballpark",
@@ -953,7 +953,7 @@ export const MLB_VENUES = {
     aliases: ["AT&T Park", "SBC Park", "Pacific Bell Park", "Pac Bell Park"],
     city: "San Francisco",
     state: "CA",
-    summary: "Giants home on McCovey Cove — splash hits, the Coke bottle slide, garlic fries, and the most scenic waterfront setting in the majors.",
+    summary: "Giants home on McCovey Cove, with splash hits, the Coke bottle slide, garlic fries, and the most scenic waterfront setting in the majors.",
     bestFor: ["MLB", "concerts"],
     atmosphere: {
       vibe: "Postcard-beautiful and knowledgeable; bring layers, always",
@@ -972,13 +972,13 @@ export const MLB_VENUES = {
       accessibilityNote: "Accessible seating on all levels; check the venue map before buying."
     },
     foodAndDrink: {
-      summary: "Gilroy garlic fries, Crazy Crab'z sandwich, Ghirardelli sundaes — a top-tier food park.",
+      summary: "Gilroy garlic fries, Crazy Crab'z sandwich, Ghirardelli sundaes. A top-tier food park.",
       nearbyPregame: ["MoMo's", "21st Amendment Brewery", "The Yard at Mission Rock"],
     },
     fanTips: [
-      "Night games are cold in July — this is non-negotiable local knowledge; bring a real jacket.",
+      "Night games are cold in July. This is non-negotiable local knowledge; bring a real jacket.",
       "Standing room along the arcade lets you watch splash-hit territory up close.",
-      "Day games are the warm, postcard version of the park — prioritize them for first visits."
+      "Day games are the warm, postcard version of the park, so prioritize them for first visits."
     ],
     officialLinks: {
       website: "https://www.mlb.com/giants/ballpark",
@@ -994,13 +994,13 @@ export const MLB_VENUES = {
     aliases: ["Safeco Field"],
     city: "Seattle",
     state: "WA",
-    summary: "Mariners home in SODO with a retractable umbrella-roof (open sides, covered top) — sushi-grade food, the 'Pen bar district inside, and Link light rail nearby.",
+    summary: "Mariners home in SODO with a retractable umbrella-roof (open sides, covered top), sushi-grade food, the 'Pen bar district inside, and Link light rail nearby.",
     bestFor: ["MLB"],
     atmosphere: {
       vibe: "Long-patient fanbase with real bite when contention appears",
       noiseLevel: "Medium-high",
       familyFriendly: true,
-      indoorOutdoor: "Retractable roof (umbrella style — covers, doesn't enclose)"
+      indoorOutdoor: "Retractable roof (umbrella style: covers, doesn't enclose)"
     },
     arrival: {
       parking: "SODO garages shared with Lumen Field.",
@@ -1013,12 +1013,12 @@ export const MLB_VENUES = {
       accessibilityNote: "Accessible seating on all levels; check the venue map before buying."
     },
     foodAndDrink: {
-      summary: "Ichiroll sushi, Din Tai Fung history, toasted grasshoppers (chapulines) — MLB's most adventurous menu.",
+      summary: "Ichiroll sushi, Din Tai Fung history, toasted grasshoppers (chapulines). MLB's most adventurous menu.",
       nearbyPregame: ["Pioneer Square", "Hatback Bar & Grille", "SODO breweries"],
     },
     fanTips: [
-      "The roof covers rain but doesn't heat — Seattle night games need layers into July.",
-      "Mariners tickets are moderate; weekend Blue Jays invasions (border fans) sell out — buy those early.",
+      "The roof covers rain but doesn't heat, so Seattle night games need layers into July.",
+      "Mariners tickets are moderate, but weekend Blue Jays invasions (border fans) sell out, so buy those early.",
       "The chapulines are actually good. Trust."
     ],
     officialLinks: {
@@ -1035,10 +1035,10 @@ export const MLB_VENUES = {
     aliases: ["New Busch Stadium", "Busch Stadium III"],
     city: "St. Louis",
     state: "MO",
-    summary: "Cardinals home downtown with the Arch framed over the outfield and Ballpark Village across the street — baseball's self-styled best fans in a sea of red.",
+    summary: "Cardinals home downtown with the Arch framed over the outfield and Ballpark Village across the street, where baseball's self-styled best fans make a sea of red.",
     bestFor: ["MLB"],
     atmosphere: {
-      vibe: "Church-of-baseball earnest — knowledgeable, polite, and packed regardless of standings",
+      vibe: "Church-of-baseball earnest: knowledgeable, polite, and packed regardless of standings",
       noiseLevel: "Medium-high",
       familyFriendly: true,
       indoorOutdoor: "Outdoor"
@@ -1058,7 +1058,7 @@ export const MLB_VENUES = {
       nearbyPregame: ["Ballpark Village", "Broadway Oyster Bar (institution)", "Soulard (short ride)"],
     },
     fanTips: [
-      "Cardinals crowds fill the park even in down years — don't expect distressed-ticket bargains.",
+      "Cardinals crowds fill the park even in down years, so don't expect distressed-ticket bargains.",
       "July games are humid-hot; the third-base side shades first.",
       "Broadway Oyster Bar pregame with live music is the local ritual worth adopting."
     ],
@@ -1076,32 +1076,32 @@ export const MLB_VENUES = {
     aliases: ["The Trop"],
     city: "St. Petersburg",
     state: "FL",
-    summary: "The Rays' fixed-dome home, reopened for 2026 with a rebuilt roof and refreshed interior after Hurricane Milton forced the 2025 season to Tampa — catwalks, rays touch tank, and all.",
+    summary: "The Rays' fixed-dome home, reopened for 2026 with a rebuilt roof and refreshed interior after Hurricane Milton forced the 2025 season to Tampa. Catwalks, rays touch tank, and all.",
     bestFor: ["MLB"],
     atmosphere: {
-      vibe: "Quirky and intimate — small crowds, analytics-darling team, cowbells",
+      vibe: "Quirky and intimate: small crowds, analytics-darling team, cowbells",
       noiseLevel: "Medium",
       familyFriendly: true,
       indoorOutdoor: "Indoor (fixed dome)"
     },
     arrival: {
       parking: "On-site lots are ample and cheap by MLB standards.",
-      rideshare: "Easy — St. Pete traffic is light.",
+      rideshare: "Easy; St. Pete traffic is light.",
       transit: "SunRunner BRT connects the beaches and downtown St. Pete near the dome.",
     },
     seating: {
       bestValueSections: ["Lower infield (resale)", "Outfield 100s"],
       avoidIfPossible: ["Upper corners (tarped/closed in many configurations)"],
-      accessibilityNote: "Accessible seating available; post-renovation layouts may shift — verify at purchase."
+      accessibilityNote: "Accessible seating available; post-renovation layouts may shift, so verify at purchase."
     },
     foodAndDrink: {
       summary: "Cuban sandwiches and the rays touch tank make it memorable; renovation refreshed the concourses.",
       nearbyPregame: ["Central Avenue breweries (Green Bench, Cycle)", "downtown St. Pete", "Ferg's Sports Bar"],
     },
     fanTips: [
-      "2026 is the return season after the hurricane year in Tampa — expect event-level energy early.",
+      "2026 is the return season after the hurricane year in Tampa, so expect event-level energy early.",
       "The Rays' long-term stadium question remains open; the Trop's remaining years are numbered either way.",
-      "AC and a roof mean every summer date is weatherproof — Florida's rain doesn't apply here."
+      "AC and a roof mean every summer date is weatherproof; Florida's rain doesn't apply here."
     ],
     officialLinks: {
       website: "https://www.mlb.com/rays/ballpark",
@@ -1117,10 +1117,10 @@ export const MLB_VENUES = {
     aliases: ["GLF"],
     city: "Arlington",
     state: "TX",
-    summary: "Rangers' retractable-roof, air-conditioned home (2020) across from AT&T Stadium — the World Series-winning answer to Texas summer.",
+    summary: "Rangers' retractable-roof, air-conditioned home (2020) across from AT&T Stadium, the World Series-winning answer to Texas summer.",
     bestFor: ["MLB", "college baseball", "concerts"],
     atmosphere: {
-      vibe: "Comfortable and loud when full — the 2023 title era reset expectations",
+      vibe: "Comfortable and loud when full; the 2023 title era reset expectations",
       noiseLevel: "Medium-high",
       familyFriendly: true,
       indoorOutdoor: "Retractable roof (closed all summer)"
@@ -1128,7 +1128,7 @@ export const MLB_VENUES = {
     arrival: {
       parking: "Shared entertainment-district lots with AT&T Stadium; prepay and note the lot.",
       rideshare: "Texas Live! drops.",
-      transit: "None meaningful — Arlington remains America's largest transit-less city; drive.",
+      transit: "None meaningful. Arlington remains America's largest transit-less city; drive.",
     },
     seating: {
       bestValueSections: ["Upper infield", "Lower outfield (resale)"],
@@ -1140,9 +1140,9 @@ export const MLB_VENUES = {
       nearbyPregame: ["Texas Live!", "Hurtado BBQ (Arlington's own)", "Division Brewing"],
     },
     fanTips: [
-      "Summer games are 72°F inside when it's 105°F out — the roof made Texas baseball civilized.",
-      "Check the Cowboys/concert calendar across the street — shared-district nights jam everything.",
-      "The old Globe Life Park (Choctaw Stadium) next door now hosts other events — don't navigate to the wrong building."
+      "Summer games are 72°F inside when it's 105°F out; the roof made Texas baseball civilized.",
+      "Check the Cowboys/concert calendar across the street, because shared-district nights jam everything.",
+      "The old Globe Life Park (Choctaw Stadium) next door now hosts other events, so don't navigate to the wrong building."
     ],
     officialLinks: {
       website: "https://www.mlb.com/rangers/ballpark",
@@ -1158,10 +1158,10 @@ export const MLB_VENUES = {
     aliases: ["SkyDome"],
     city: "Toronto",
     state: "ON",
-    summary: "The former SkyDome downtown at the CN Tower's feet — retractable roof, hotel rooms overlooking center field, and a major bowl renovation completed in 2024.",
+    summary: "The former SkyDome downtown at the CN Tower's feet, with a retractable roof, hotel rooms overlooking center field, and a major bowl renovation completed in 2024.",
     bestFor: ["MLB", "concerts"],
     atmosphere: {
-      vibe: "A whole country's team — Jays crowds draw from coast to coast and get loud",
+      vibe: "A whole country's team; Jays crowds draw from coast to coast and get loud",
       noiseLevel: "High",
       familyFriendly: true,
       indoorOutdoor: "Retractable roof"
@@ -1177,13 +1177,13 @@ export const MLB_VENUES = {
       accessibilityNote: "Renovated accessibility throughout; check the venue map before buying."
     },
     foodAndDrink: {
-      summary: "Post-renovation food is far better — local Toronto vendors joined the classics.",
+      summary: "Post-renovation food is far better, with local Toronto vendors joining the classics.",
       nearbyPregame: ["Steam Whistle Brewing (in the roundhouse next door)", "King West", "The Loose Moose"],
     },
     fanTips: [
-      "Roof-open summer nights with the CN Tower lit above the field are special — check the roof forecast.",
+      "Roof-open summer nights with the CN Tower lit above the field are special, so check the roof forecast.",
       "US visitors: CAD pricing is a quiet discount.",
-      "Canada Day and Yankees/Sox weekends sell out — book ahead for those."
+      "Canada Day and Yankees/Sox weekends sell out, so book ahead for those."
     ],
     officialLinks: {
       website: "https://www.mlb.com/bluejays/ballpark",
@@ -1199,10 +1199,10 @@ export const MLB_VENUES = {
     aliases: ["Nats Park"],
     city: "Washington",
     state: "DC",
-    summary: "Nationals home in the Navy Yard — the ballpark that regenerated a neighborhood, with the racing presidents, Capitol views from the upper deck, and Metro at the gate.",
+    summary: "Nationals home in the Navy Yard, the ballpark that regenerated a neighborhood, with the racing presidents, Capitol views from the upper deck, and Metro at the gate.",
     bestFor: ["MLB"],
     atmosphere: {
-      vibe: "Political-city casual — packed happy-hour energy on summer Fridays",
+      vibe: "Political-city casual, with packed happy-hour energy on summer Fridays",
       noiseLevel: "Medium",
       familyFriendly: true,
       indoorOutdoor: "Outdoor"
@@ -1222,9 +1222,9 @@ export const MLB_VENUES = {
       nearbyPregame: ["The Bullpen/Half Street Fairgrounds", "Bluejacket Brewery", "The Wharf (one stop away)"],
     },
     fanTips: [
-      "Watch the racing presidents (4th inning) — Teddy's lore is required DC knowledge.",
+      "Watch the racing presidents (4th inning); Teddy's lore is required DC knowledge.",
       "Rebuild-era tickets run cheap; the neighborhood experience holds the value.",
-      "July humidity is swampy-real — night games and the first-base shade side matter."
+      "July humidity is swampy-real, so night games and the first-base shade side matter."
     ],
     officialLinks: {
       website: "https://www.mlb.com/nationals/ballpark",
