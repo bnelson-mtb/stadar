@@ -8,18 +8,18 @@ export const NBA_VENUES = {
     aliases: ["Vivint Arena", "Vivint Smart Home Arena", "EnergySolutions Arena"],
     city: "Salt Lake City",
     state: "UT",
-    summary: "Downtown SLC home of the Jazz and NHL's Utah Mammoth: steep bowl with famously close sightlines, mid-renovation to better fit hockey, and TRAX light rail at the door.",
+    summary: "Downtown SLC home of the Jazz and NHL's Utah Mammoth: a steep bowl with famously close sightlines, mid-renovation to better fit hockey, and TRAX light rail at the door.",
     bestFor: ["NBA", "NHL", "concerts"],
     atmosphere: {
-      vibe: "Loud, engaged small-market crowd that travels well from across the state",
+      vibe: "Loud, engaged crowd that travels well from across the state",
       noiseLevel: "High",
       familyFriendly: true,
       indoorOutdoor: "Indoor"
     },
     arrival: {
-      parking: "Downtown garages within 2-3 blocks (The Gateway, City Creek); event pricing near the arena.",
+      parking: "Downtown garages within 2-3 blocks (The Gateway, City Creek); event pricing near the arena. For free, park along 600 W or at the Salt Lake Central TRAX station.",
       rideshare: "Easy drops on 300 W; post-game surge is mild by big-city standards.",
-      transit: "TRAX (Blue/Green) stops at Arena station directly outside, the best option from anywhere on the line.",
+      transit: "TRAX (Blue/Green) stops at Arena station directly outside, the best option from anywhere on the line. FrontRunner trains transfer to Blue at SL Central, and Green at North Temple.",
     },
     seating: {
       bestValueSections: ["Upper bowl center", "Lower bowl corners"],
@@ -31,7 +31,7 @@ export const NBA_VENUES = {
       nearbyPregame: ["The Gateway", "City Creek Center", "Beer Bar / Bar-X (10-min walk)"],
     },
     fanTips: [
-      "Mammoth games sell separately from Jazz. Same building, different sightline economics; center-ice uppers beat low corners for hockey.",
+      "Check out the new north end of the arena finished for the 2026-27 NHL season. It features sightlines for the whole rink. The south side still has obstructed seats this season.",
       "TRAX is free within the downtown fare-free zone, so check if your stop qualifies.",
       "Jazz upper-bowl tickets are among the league's cheapest ways to sit close to an NBA floor."
     ],
@@ -41,7 +41,7 @@ export const NBA_VENUES = {
       bagPolicy: "",
       accessibility: ""
     },
-    confidence: { level: "medium", lastReviewed: "2026-07-09", source: "generated" }
+    confidence: { level: "high", lastReviewed: "2026-09-30", source: "manual" }
   },
 
   "crypto-com-arena-los-angeles-ca": {

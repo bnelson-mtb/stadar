@@ -44,7 +44,7 @@ export const MLS_VENUES = {
       bagPolicy: "",
       accessibility: ""
     },
-    confidence: { level: "medium", lastReviewed: "2026-07-09", source: "manual" }
+    confidence: { level: "high", lastReviewed: "2026-07-09", source: "manual" }
   },
 
   "q2-stadium-austin-tx": {
