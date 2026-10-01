@@ -51,3 +51,23 @@ export function buildTicketSearchUrl(event, domain) {
   const params = new URLSearchParams({ q: queryParts.join(' '), btnI: '1' })
   return `https://www.google.com/search?${params.toString()}`
 }
+
+// Every provider in display order: Ticketmaster's own event page first (when
+// the feed has one), then the marketplaces. SeatGeek swaps its search link
+// for the direct event page once /api/games/{id}/seatgeek finds a match.
+export function buildTicketLinks(event, seatGeekUrl = null) {
+  const links = event?.ticketUrl
+    ? [{ ...TICKETMASTER_PROVIDER, url: event.ticketUrl, isDirect: true }]
+    : []
+
+  for (const provider of TICKET_SEARCH_PROVIDERS) {
+    const isDirect = provider.name === 'SeatGeek' && Boolean(seatGeekUrl)
+    links.push({
+      ...provider,
+      url: isDirect ? seatGeekUrl : buildTicketSearchUrl(event, provider.domain),
+      isDirect,
+    })
+  }
+
+  return links
+}

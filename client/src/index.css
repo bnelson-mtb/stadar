@@ -94,6 +94,17 @@ body {
   animation: backdrop-in 220ms ease-out;
 }
 
+/* Press/hover wash for rows and cards. An inset shadow instead of a
+   background change, so it also works over gradient card backgrounds. */
+.press {
+  transition: box-shadow 150ms ease;
+}
+
+.press:hover,
+.press:active {
+  box-shadow: inset 0 0 0 100vmax rgba(255, 255, 255, 0.03);
+}
+
 /* Skeleton shimmer: a soft highlight band sliding across the placeholder. */
 .shimmer {
   position: relative;
