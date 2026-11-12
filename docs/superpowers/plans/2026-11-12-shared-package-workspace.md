@@ -122,25 +122,43 @@ In `"dependencies"`, add this line before `"@tailwindcss/vite"`:
     "@stadar/shared": "*",
 ```
 
-- [ ] **Step 5: Replace the client lockfile with a root lockfile**
+- [ ] **Step 5: Un-ignore the workspace folder**
+
+`.gitignore` carries the Visual Studio NuGet rule `**/[Pp]ackages/*`, which silently ignores `packages/shared`. Directly after the line `!**/[Pp]ackages/build/`, add:
+
+```text
+# The repo-root packages/ folder is the npm workspace (packages/shared), not NuGet.
+!/packages/*
+```
+
+Check: `git check-ignore -v packages/shared/package.json; echo "exit=$?"` prints `exit=1`.
+
+- [ ] **Step 5b: Replace the client lockfile with a root lockfile, keeping every version**
+
+A plain `npm install` would re-resolve inside the semver ranges and move about 144 packages (React 19.2.4 → 19.3.1, React Router 7.13 → 7.18, Tailwind 4.2 → 4.3). Seed the root lockfile from the old one instead:
 
 ```bash
+git show HEAD:client/package-lock.json > package-lock.json
 git rm -q client/package-lock.json
 rm -rf client/node_modules
 npm install
 ```
 
-Expected: `npm install` finishes without errors and creates `package-lock.json` and `node_modules/` at the root. `node_modules/@stadar/shared` is a link to `packages/shared`.
+Expected: `npm install` finishes without errors; `node_modules/@stadar/shared` is a link to `packages/shared` (`ls node_modules/@stadar/shared/package.json` prints the path).
 
-Check the link:
+Confirm no version moved:
 
 ```bash
-ls node_modules/@stadar/shared/package.json
+node -e "
+const {execSync}=require('child_process');
+const old=JSON.parse(execSync('git show HEAD:client/package-lock.json',{maxBuffer:1e8})).packages, cur=require('./package-lock.json').packages;
+let same=0,diff=[],added=[];
+for(const [k,v] of Object.entries(cur)){ if(!k.startsWith('node_modules/'))continue; const o=old[k]; if(!o){added.push(k);continue} if(o.version===v.version)same++; else diff.push(k+' '+o.version+' -> '+v.version)}
+console.log('same',same,'changed',diff.length,'new',added.length); console.log(diff.join('\n')); console.log(added.join('\n'))
+"
 ```
 
-Expected: the path prints (no "No such file").
-
-Note: regenerating the lockfile re-resolves versions inside the existing semver ranges, so patch versions of Vite/Tailwind/ESLint may move. That is accepted; the next step is the check.
+Expected: `changed 0`; the only new entries are the workspace links `node_modules/@stadar/shared` and `node_modules/client`.
 
 - [ ] **Step 6: Verify nothing changed for the web app**
 
@@ -154,7 +172,7 @@ Expected: one block of counts (only the client has a `test` script so far) with 
 - [ ] **Step 7: Commit**
 
 ```bash
-git add package.json package-lock.json packages/shared/package.json client/package.json client/package-lock.json
+git add .gitignore package.json package-lock.json packages/shared/package.json client/package.json
 git commit -m "build: npm workspace root with empty @stadar/shared package
 
 Co-Authored-By: Claude Fable 5.2 <noreply@anthropic.com>"
