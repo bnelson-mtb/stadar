@@ -1,12 +1,12 @@
 # Screenshots
 
-Drop the app screenshots here, then uncomment the image block in the root
-[`README.md`](../../README.md) under **Screenshots**.
+Product screenshots used by the root [`README.md`](../../README.md).
 
-Suggested set (PNG, ~1200px wide, light theme):
+## Assets
 
-| File | Shot |
-|------|------|
-| `discover.png` | The Discover feed with a few event cards + filter bar |
-| `detail.png`   | An event detail page showing the venue map + pricing |
-| `saved.png`    | The Saved tab (or a per-team saved page) |
+| File | Description |
+|------|-------------|
+| `stadar-app-overview.jpg` | Mobile product overview: Discover, event details, Saved, and team page |
+
+Keep README-facing images optimized for the web and use descriptive, lowercase,
+hyphenated filenames.
