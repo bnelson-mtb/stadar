@@ -39,3 +39,15 @@ test('ticket URL is included only when present', () => {
   assert.ok(withUrl.includes('URL:https://tickets.example/evt1'))
   assert.ok(!buildIcsContent(base).includes('URL:'))
 })
+
+test('timed event crossing midnight on 31 December rolls into the next year', () => {
+  const lines = buildIcsContent({ ...base, localDate: '2026-12-31', localTime: '23:00:00' }).split('\r\n')
+  assert.ok(lines.includes('DTSTART:20261231T230000'))
+  assert.ok(lines.includes('DTEND:20270101T010000'))
+})
+
+test('a start time without seconds is padded', () => {
+  const lines = buildIcsContent({ ...base, localTime: '19:30' }).split('\r\n')
+  assert.ok(lines.includes('DTSTART:20261120T193000'))
+  assert.ok(lines.includes('DTEND:20261120T213000'))
+})
