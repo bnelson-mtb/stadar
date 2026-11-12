@@ -1,12 +1,16 @@
 // API base URL for backend requests. '' means same-origin.
 // Each app sets it once at startup with setApiBase(): the web client from
 // Vite env (client/src/apiBase.js), the mobile app from EXPO_PUBLIC_API_URL.
-// API_BASE is a live binding, so importers always read the current value —
-// read it inside functions, never capture it at module load.
-export let API_BASE = ''
+// Read it with getApiBase() at call time. It is a function, not an exported
+// variable, so nothing depends on how a bundler handles reassigned exports.
+let apiBase = ''
 
 export function setApiBase(url) {
-  API_BASE = url
+  apiBase = (url ?? '').replace(/\/+$/, '')
+}
+
+export function getApiBase() {
+  return apiBase
 }
 
 const RETRY_DELAYS_MS = [1000, 2000, 4000, 8000] // last delay repeats

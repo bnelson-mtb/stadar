@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { getCanonicalTeamName } from '@stadar/shared/data/teams.js'
-import { API_BASE, fetchJsonWithRetry } from '@stadar/shared/utils/api.js'
+import { getApiBase, fetchJsonWithRetry } from '@stadar/shared/utils/api.js'
 import { formatLocalTime, formatShortDate } from '@stadar/shared/utils/eventDisplay.js'
 import { buildTicketLinks } from '@stadar/shared/utils/ticketLinks.js'
 import BottomSheet from './BottomSheet.jsx'
@@ -35,7 +35,7 @@ function useSeatGeekUrl(eventId, enabled) {
   useEffect(() => {
     if (!enabled || !eventId) return undefined
     let cancelled = false
-    fetchJsonWithRetry(`${API_BASE}/api/games/${eventId}/seatgeek`)
+    fetchJsonWithRetry(`${getApiBase()}/api/games/${eventId}/seatgeek`)
       .then(data => {
         if (!cancelled && data?.url) setFound({ eventId, url: data.url })
       })

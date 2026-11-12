@@ -21,7 +21,7 @@ import {
 } from '../components/icons.jsx'
 import useCountdown from '@stadar/shared/hooks/useCountdown.js'
 import useSavedEvents from '@stadar/shared/hooks/useSavedEvents.js'
-import { API_BASE, fetchJsonWithRetry } from '@stadar/shared/utils/api.js'
+import { getApiBase, fetchJsonWithRetry } from '@stadar/shared/utils/api.js'
 import {
   getDetailSectionOrder,
   getEventBoundaryDelay,
@@ -409,7 +409,7 @@ function EventDetailPage() {
     // and for past saved events (always use snapshot).
     if (event && (!isEventSaved || isPast)) return
 
-    fetchJsonWithRetry(`${API_BASE}/api/games/${id}`)
+    fetchJsonWithRetry(`${getApiBase()}/api/games/${id}`)
       .then(fresh => {
         setEvent(fresh)
         if (isEventSaved) updateSnapshot(fresh)
@@ -428,7 +428,7 @@ function EventDetailPage() {
     let cancelled = false
     setSeatGeekUrl(null)
 
-    fetchJsonWithRetry(`${API_BASE}/api/games/${id}/seatgeek`)
+    fetchJsonWithRetry(`${getApiBase()}/api/games/${id}/seatgeek`)
       .then(data => {
         if (!cancelled && data?.url) setSeatGeekUrl(data.url)
       })

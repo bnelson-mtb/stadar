@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { API_BASE, fetchJsonWithRetry } from '../utils/api.js'
+import { getApiBase, fetchJsonWithRetry } from '../utils/api.js'
 
 // Session cache shared by Discover, Teams and the team page, so switching tabs
 // doesn't refetch (and re-skeleton) the same state. Same 5-minute TTL as the
@@ -15,7 +15,7 @@ function readCache(stateCode) {
 function loadGames(stateCode) {
   const cached = readCache(stateCode)
   if (cached) return Promise.resolve(cached)
-  return fetchJsonWithRetry(`${API_BASE}/api/games?stateCode=${stateCode}`).then(events => {
+  return fetchJsonWithRetry(`${getApiBase()}/api/games?stateCode=${stateCode}`).then(events => {
     cache.set(stateCode, { events, at: Date.now() })
     return events
   })
