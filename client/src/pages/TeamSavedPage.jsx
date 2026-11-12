@@ -6,13 +6,13 @@ import TeamLogo from '../components/TeamLogo.jsx'
 import TicketSheet from '../components/TicketSheet.jsx'
 import { LivePill } from '../components/Countdown.jsx'
 import { ChevronLeftIcon, HeartIcon } from '../components/icons.jsx'
-import useCountdown from '../hooks/useCountdown.js'
-import useFavorites from '../hooks/useFavorites.js'
-import useGames from '../hooks/useGames.js'
-import useSavedEvents from '../hooks/useSavedEvents.js'
-import { getCanonicalTeamName } from '../data/teams.js'
-import { readStoredStateCode } from '../data/usStates.js'
-import { formatCountdown } from '../utils/countdown.js'
+import useCountdown from '@stadar/shared/hooks/useCountdown.js'
+import useFavorites from '@stadar/shared/hooks/useFavorites.js'
+import useGames from '@stadar/shared/hooks/useGames.js'
+import useSavedEvents from '@stadar/shared/hooks/useSavedEvents.js'
+import { getCanonicalTeamName } from '@stadar/shared/data/teams.js'
+import { readStoredStateCode } from '@stadar/shared/data/usStates.js'
+import { formatCountdown } from '@stadar/shared/utils/countdown.js'
 import {
   formatLocalTime,
   formatLongDate,
@@ -23,8 +23,8 @@ import {
   getTeamShortName,
   involvesTeam,
   splitTeamName,
-} from '../utils/eventDisplay.js'
-import { getNextGameForTeam } from '../utils/feedFilters.js'
+} from '@stadar/shared/utils/eventDisplay.js'
+import { getNextGameForTeam } from '@stadar/shared/utils/feedFilters.js'
 import {
   formatWinLoss,
   getOpponentName,
@@ -32,7 +32,7 @@ import {
   getTeamRecords,
   getTeamStats,
   partitionByTime,
-} from '../utils/savedHelpers.js'
+} from '@stadar/shared/utils/savedHelpers.js'
 
 function matchupTitle(event, teamName) {
   const opponent = getOpponentName(event, teamName)

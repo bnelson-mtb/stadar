@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
-import useAuth from '../hooks/useAuth.js'
-import { decideInitialLinkMode } from '../utils/accountLink.js'
-import { AccountLinkContext } from './AccountLinkContextDef.js'
+import useAuth from '@stadar/shared/hooks/useAuth.js'
+import { decideInitialLinkMode } from '@stadar/shared/utils/accountLink.js'
+import { AccountLinkContext } from '@stadar/shared/context/AccountLinkContextDef.js'
 
 const FAVORITES_KEY = 'stadar-favorites'
 const SAVED_KEY = 'stadar-saved-events'

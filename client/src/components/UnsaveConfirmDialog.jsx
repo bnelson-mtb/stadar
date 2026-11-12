@@ -3,7 +3,7 @@ import {
   getFocusRestoreTarget,
   getFocusTrapTarget,
   isPastEvent,
-} from '../utils/eventDetailState.js'
+} from '@stadar/shared/utils/eventDetailState.js'
 
 const FOCUSABLE_SELECTOR = [
   'a[href]',

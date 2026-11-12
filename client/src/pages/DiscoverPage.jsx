@@ -13,22 +13,22 @@ import BottomSheet from '../components/BottomSheet.jsx'
 import TicketSheet from '../components/TicketSheet.jsx'
 import UnsaveConfirmDialog from '../components/UnsaveConfirmDialog.jsx'
 import { FilterIcon, MapPinIcon, XMarkIcon } from '../components/icons.jsx'
-import useFavorites from '../hooks/useFavorites.js'
-import useGames from '../hooks/useGames.js'
-import useSavedEvents from '../hooks/useSavedEvents.js'
-import { getCanonicalTeamName } from '../data/teams'
+import useFavorites from '@stadar/shared/hooks/useFavorites.js'
+import useGames from '@stadar/shared/hooks/useGames.js'
+import useSavedEvents from '@stadar/shared/hooks/useSavedEvents.js'
+import { getCanonicalTeamName } from '@stadar/shared/data/teams.js'
 import {
   LOCATION_STORAGE_KEY,
   US_STATES,
   US_STATE_CODES,
   getStateName,
-} from '../data/usStates.js'
+} from '@stadar/shared/data/usStates.js'
 import {
   formatShortDate,
   getDayLabel,
   getTeamShortName,
   involvesTeam,
-} from '../utils/eventDisplay.js'
+} from '@stadar/shared/utils/eventDisplay.js'
 import {
   DATE_SEGMENTS,
   getDefaultDateSegment,
@@ -36,7 +36,7 @@ import {
   getTeamsInFeed,
   matchesDateSegment,
   pickNextUpEvent,
-} from '../utils/feedFilters.js'
+} from '@stadar/shared/utils/feedFilters.js'
 
 function toggleArrayItem(arr, item) {
   return arr.includes(item) ? arr.filter(x => x !== item) : [...arr, item]

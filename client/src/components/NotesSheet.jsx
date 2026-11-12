@@ -1,5 +1,5 @@
-import { getCanonicalTeamName } from '../data/teams'
-import { formatLongDate } from '../utils/eventDisplay.js'
+import { getCanonicalTeamName } from '@stadar/shared/data/teams.js'
+import { formatLongDate } from '@stadar/shared/utils/eventDisplay.js'
 import BottomSheet from './BottomSheet.jsx'
 import GameNotesSection from './GameNotesSection.jsx'
 

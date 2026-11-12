@@ -1,5 +1,5 @@
-import useAccountLink from '../hooks/useAccountLink.js'
-import { importPromptBody } from './importPromptCopy.js'
+import useAccountLink from '@stadar/shared/hooks/useAccountLink.js'
+import { importPromptBody } from '@stadar/shared/copy/importPromptCopy.js'
 
 // One-time first-login reconciliation prompt. Renders only while the provider
 // is holding a decision (counts present, mode === 'wait'). The overlay gates

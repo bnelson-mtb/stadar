@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, useParams, useLocation, useNavigate } from 'react-router-dom'
-import { getCanonicalTeamName, getTeamData } from '../data/teams'
-import { LEAGUE_INFO } from '../data/leagueInfo'
+import { getCanonicalTeamName, getTeamData } from '@stadar/shared/data/teams.js'
+import { LEAGUE_INFO } from '@stadar/shared/data/leagueInfo.js'
 import TeamLogo from '../components/TeamLogo'
 import VenueMap from '../components/VenueMap'
 import CollapsibleSection from '../components/CollapsibleSection.jsx'
@@ -19,15 +19,15 @@ import {
   PaperPlaneIcon,
   ShareIcon,
 } from '../components/icons.jsx'
-import useCountdown from '../hooks/useCountdown.js'
-import useSavedEvents from '../hooks/useSavedEvents.js'
-import { API_BASE, fetchJsonWithRetry } from '../utils/api.js'
+import useCountdown from '@stadar/shared/hooks/useCountdown.js'
+import useSavedEvents from '@stadar/shared/hooks/useSavedEvents.js'
+import { API_BASE, fetchJsonWithRetry } from '@stadar/shared/utils/api.js'
 import {
   getDetailSectionOrder,
   getEventBoundaryDelay,
   isPastEvent,
   shouldShowFinalScore,
-} from '../utils/eventDetailState.js'
+} from '@stadar/shared/utils/eventDetailState.js'
 import {
   formatLocalTime,
   formatShortDate,
@@ -35,9 +35,9 @@ import {
   getStartTerm,
   getTeamHeroColor,
   getTeamShortName,
-} from '../utils/eventDisplay.js'
-import { getVenueMapUrls } from '../utils/maps.js'
-import { buildTicketLinks } from '../utils/ticketLinks.js'
+} from '@stadar/shared/utils/eventDisplay.js'
+import { getVenueMapUrls } from '@stadar/shared/utils/maps.js'
+import { buildTicketLinks } from '@stadar/shared/utils/ticketLinks.js'
 
 function buildIcsContent(event) {
   const dateStr = (event.localDate || '').replace(/-/g, '')
@@ -416,7 +416,7 @@ function EventDetailPage() {
       }
     }
 
-    import('../data/venues/index.js')
+    import('@stadar/shared/data/venues/index.js')
       .then(({ getVenueKnowledge }) => {
         if (!cancelled) {
           setVenueKnowledge(getVenueKnowledge(event.venue, { city: event.city, state: event.state }))

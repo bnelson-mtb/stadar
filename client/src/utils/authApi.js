@@ -1,4 +1,4 @@
-import { API_BASE } from './api.js'
+import { API_BASE } from '@stadar/shared/utils/api.js'
 
 // Returns the signed-in user object, or null when anonymous (401) or on any
 // network/parse failure — callers treat null as "anonymous tier".

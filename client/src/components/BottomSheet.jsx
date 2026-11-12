@@ -2,7 +2,7 @@ import { useEffect, useId, useRef } from 'react'
 import {
   getFocusRestoreTarget,
   getFocusTrapTarget,
-} from '../utils/eventDetailState.js'
+} from '@stadar/shared/utils/eventDetailState.js'
 import { XMarkIcon } from './icons.jsx'
 
 const FOCUSABLE_SELECTOR = [

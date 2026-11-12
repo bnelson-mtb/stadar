@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { fetchMe, logout as logoutRequest, loginUrl } from '../utils/authApi.js'
-import { createLocalStorageAdapter, createApiAdapter } from '../utils/storageAdapter.js'
-import { AuthContext } from './AuthContextDef.js'
+import { createLocalStorageAdapter, createApiAdapter } from '@stadar/shared/utils/storageAdapter.js'
+import { AuthContext } from '@stadar/shared/context/AuthContextDef.js'
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null)

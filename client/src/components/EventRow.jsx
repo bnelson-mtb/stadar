@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
-import { getCanonicalTeamName } from '../data/teams'
-import { formatLocalTime, getTeamShortName, getTimeZoneLabel } from '../utils/eventDisplay.js'
+import { getCanonicalTeamName } from '@stadar/shared/data/teams.js'
+import { formatLocalTime, getTeamShortName, getTimeZoneLabel } from '@stadar/shared/utils/eventDisplay.js'
 import TeamLogo from './TeamLogo.jsx'
 import { BookmarkIcon, ChevronRightIcon } from './icons.jsx'
 

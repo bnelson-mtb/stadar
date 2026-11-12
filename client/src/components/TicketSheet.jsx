@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
-import { getCanonicalTeamName } from '../data/teams'
-import { API_BASE, fetchJsonWithRetry } from '../utils/api.js'
-import { formatLocalTime, formatShortDate } from '../utils/eventDisplay.js'
-import { buildTicketLinks } from '../utils/ticketLinks.js'
+import { getCanonicalTeamName } from '@stadar/shared/data/teams.js'
+import { API_BASE, fetchJsonWithRetry } from '@stadar/shared/utils/api.js'
+import { formatLocalTime, formatShortDate } from '@stadar/shared/utils/eventDisplay.js'
+import { buildTicketLinks } from '@stadar/shared/utils/ticketLinks.js'
 import BottomSheet from './BottomSheet.jsx'
 import { ExternalLinkIcon } from './icons.jsx'
 

@@ -1,4 +1,4 @@
-import { getCountdownParts } from '../utils/countdown.js'
+import { getCountdownParts } from '@stadar/shared/utils/countdown.js'
 
 const DIGIT_SIZES = {
   hero: { digits: 'text-[38px]', units: 'text-[15px]', gap: 'gap-[3px]', unitSpacing: 'mr-1.5' },

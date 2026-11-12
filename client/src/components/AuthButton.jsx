@@ -1,5 +1,5 @@
-import useAuth from '../hooks/useAuth.js'
-import { getAuthButtonCopy } from './authButtonCopy.js'
+import useAuth from '@stadar/shared/hooks/useAuth.js'
+import { getAuthButtonCopy } from '@stadar/shared/copy/authButtonCopy.js'
 
 function GoogleMark() {
   return (

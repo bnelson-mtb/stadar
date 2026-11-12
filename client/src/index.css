@@ -1,4 +1,6 @@
 @import "tailwindcss";
+/* teams.js and other shared files contain Tailwind class names as strings. */
+@source "../../packages/shared";
 
 @theme {
   --color-night-950: #07090e;

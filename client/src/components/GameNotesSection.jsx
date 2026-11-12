@@ -1,5 +1,5 @@
 import { useId } from 'react'
-import { sanitizeScoreInput } from '../utils/eventDetailState.js'
+import { sanitizeScoreInput } from '@stadar/shared/utils/eventDetailState.js'
 import TeamLogo from './TeamLogo.jsx'
 
 function GameNotesSection({

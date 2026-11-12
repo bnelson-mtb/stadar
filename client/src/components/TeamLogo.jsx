@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { getTeamData } from '../data/teams'
+import { getTeamData } from '@stadar/shared/data/teams.js'
 
 const NAMED_SIZES = {
   small: 28,

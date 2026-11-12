@@ -1,4 +1,4 @@
-import { getVenueMapUrls } from '../utils/maps.js'
+import { getVenueMapUrls } from '@stadar/shared/utils/maps.js'
 
 // Static map preview for the venue card. Non-interactive on purpose: at this
 // height a pannable iframe just traps scroll on phones, and the card's
