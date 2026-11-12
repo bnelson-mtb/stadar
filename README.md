@@ -61,6 +61,7 @@ flowchart LR
 | Layer | Choice |
 |-------|--------|
 | Frontend | React (Vite), React Router v7, Tailwind CSS v4 |
+| Shared code | `packages/shared` (`@stadar/shared`) — data, utils, copy, and hooks shared by the web client and the future mobile app (npm workspace) |
 | Backend | ASP.NET Core Web API (.NET 10) |
 | External data | Ticketmaster Discovery API v2, SeatGeek, Gemini (`gemini-2.5-flash-lite`) |
 | Auth | Google OAuth via ASP.NET Core built-in handlers |
@@ -89,7 +90,7 @@ cd Api
 dotnet watch
 
 # Terminal 2 — client  (http://localhost:5173)
-cd client
+# Run from the repo root: it is an npm workspace (client + packages/shared).
 npm install
 npm run dev
 ```
@@ -99,6 +100,9 @@ The API needs a Ticketmaster key in `Api/appsettings.Development.json` (`Ticketm
 ```bash
 # Run the API test suite
 cd Api.Tests && dotnet test
+
+# Run the JavaScript tests (client + packages/shared), from the repo root
+npm test
 ```
 
 ## Roadmap
