@@ -346,6 +346,8 @@ Before committing, run `git status --short` and confirm the list contains only r
 
 ### Task 3: Make `api.js` independent of Vite
 
+> **Superseded in part (code review, commits `3bca8bd` and `a30287d`):** the exported `API_BASE` variable described below was replaced by `getApiBase()`, with all nine call sites reading `${getApiBase()}`. A reassigned export depends on the bundler preserving live bindings, which Metro may not. `setApiBase` now also strips trailing slashes and treats `undefined` as same-origin, `api.test.js` has four tests, `ics.test.js` six, and the shared ESLint config allows only cross-runtime globals. Test total after the fix: 142 (client 5, shared 137). Later "138" figures in this plan mean 142.
+
 `api.js` reads `import.meta.env`, which only Vite provides. The shared version exposes a setter; each app sets the base URL once at startup. `API_BASE` stays an exported binding, so every existing `${API_BASE}` call site is untouched (ES module exports are live: importers see the new value). All current uses are inside function bodies — `useGames.js:18`, `storageAdapter.js:68,82`, `authApi.js:7,17,25`, `TicketSheet.jsx:38`, `EventDetailPage.jsx:456,475` — so setting it during startup is early enough.
 
 **Files:**

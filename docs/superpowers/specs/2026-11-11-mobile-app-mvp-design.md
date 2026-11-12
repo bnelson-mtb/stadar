@@ -74,10 +74,12 @@ Consumers import by subpath, for example
 
 1. **`api.js` loses its Vite dependency.** It currently reads
    `import.meta.env`, which Metro does not provide. The shared version exports
-   `export let API_BASE = ''` and `setApiBase(url)`. Because ES module exports
-   are live bindings, every existing `${API_BASE}` call site keeps working
-   unchanged. All uses are inside functions, so setting it at startup is early
-   enough.
+   `setApiBase(url)` and `getApiBase()`; call sites read
+   `${getApiBase()}` at call time. (First built as a reassigned
+   `export let API_BASE`; code review replaced it with the getter because a
+   mutable export only works if the bundler preserves live bindings, which
+   Metro may not.) All uses are inside functions, so setting it at startup is
+   early enough.
    - Web: a new `client/src/apiBase.js` computes the value exactly as today
      (`VITE_API_URL`, else `http://localhost:5068` in dev, else `''`) and calls
      `setApiBase`. `main.jsx` imports it first.
