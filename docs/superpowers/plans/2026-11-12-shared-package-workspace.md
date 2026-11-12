@@ -292,10 +292,10 @@ utils\authApi.js: ./api.js -> @stadar/shared/utils/api.js
 - [ ] **Step 5: Confirm no client import still points at a moved file**
 
 ```bash
-grep -rnE "'\.{1,2}/(data|hooks)/|'\.\./utils/|'\./api\.js'|Copy\.js'|ContextDef\.js'" client/src | grep -v "@stadar/shared"
+grep -rnE "'\.{1,2}/(data|hooks)/|'\.\./utils/|'\./api\.js'|Copy\.js'|ContextDef\.js'" client/src | grep -v "@stadar/shared" | grep -v "utils/authApi"
 ```
 
-Expected: no output.
+Expected: no output (`authApi.js` stayed in the client, so imports of it are legitimate).
 
 - [ ] **Step 6: Tell Tailwind to scan the shared package**
 
@@ -649,7 +649,7 @@ The file becomes:
     "./*": "./*"
   },
   "scripts": {
-    "test": "node --test \"data/**/*.test.js\" \"utils/**/*.test.js\" \"copy/**/*.test.js\"",
+    "test": "node --test",
     "lint": "eslint ."
   },
   "peerDependencies": {
@@ -665,6 +665,8 @@ The file becomes:
 ```
 
 The versions match `client/package.json`, so npm keeps one hoisted copy of each.
+
+The `test` script also changes here, from three explicit globs to a bare `node --test` (review finding on Task 2): with no arguments Node finds every `*.test.js` under the package and skips `node_modules`, so a test added later under `hooks/` or `context/` cannot be silently missed. After the edit, `npm test -w @stadar/shared 2>&1 | grep -E "^ℹ (tests|pass|fail)"` must report the same count as before the edit (133 at this point: 127 moved + 2 api + 4 ics), `fail 0`.
 
 - [ ] **Step 2: Create `packages/shared/eslint.config.js`**
 
