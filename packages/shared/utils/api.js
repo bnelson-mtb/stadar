@@ -1,12 +1,13 @@
-// API base URL for backend requests.
-// - Set VITE_API_URL to point at a separately hosted API.
-// - In production builds it defaults to '' (same-origin), for the
-//   single-container deployment where the API serves the built client.
-// - In dev it defaults to the local API from launchSettings.json.
-const env = import.meta.env ?? {}
-export const API_BASE =
-  env.VITE_API_URL ??
-  (env.DEV ? 'http://localhost:5068' : '')
+// API base URL for backend requests. '' means same-origin.
+// Each app sets it once at startup with setApiBase(): the web client from
+// Vite env (client/src/apiBase.js), the mobile app from EXPO_PUBLIC_API_URL.
+// API_BASE is a live binding, so importers always read the current value —
+// read it inside functions, never capture it at module load.
+export let API_BASE = ''
+
+export function setApiBase(url) {
+  API_BASE = url
+}
 
 const RETRY_DELAYS_MS = [1000, 2000, 4000, 8000] // last delay repeats
 const RETRY_DEADLINE_MS = 75000
