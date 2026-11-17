@@ -722,6 +722,8 @@ Co-Authored-By: Claude Fable 5.2 <noreply@anthropic.com>"
 
 ### Task 6: Dockerfile builds from the workspace
 
+> **Verified 2026-11-17** (after commit `08043f0`, whose message says it was not yet built): `docker build -t stadar:shared-test .` succeeded on Docker 29.1.3. Inside `node:22-alpine`, `npm ci` added 178 packages and Vite built the client; the served assets have the same hashes as the local build (`index-DKnFfaEC.js`, `index-CzhLThLw.css`). Container smoke test: `/healthz` 200, one `id="root"`, `bg-rose-600` present in the served CSS, `index.html` `no-cache`, assets `immutable`, SPA fallback `/saved` 200. `/api/games` returned 500 because the test container had no Ticketmaster key.
+
 **Files:**
 - Modify: `Dockerfile:1-7` (stage 1) and the `COPY --from=client-build` line
 - Modify: `.dockerignore`
