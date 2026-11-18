@@ -55,6 +55,9 @@ committed. A release APK, signed with a local key:
 ```bash
 npx expo prebuild --platform android
 cd android
+# Android Studio ships JDK 25; this keeps its native-access warning from
+# failing the CMake steps:
+export JAVA_TOOL_OPTIONS=--enable-native-access=ALL-UNNAMED
 ./gradlew app:assembleRelease
 # -> android/app/build/outputs/apk/release/app-release.apk
 ```

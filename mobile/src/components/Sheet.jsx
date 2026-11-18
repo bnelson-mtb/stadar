@@ -1,5 +1,13 @@
-import { KeyboardAvoidingView, Modal, Platform, Pressable, ScrollView, View } from 'react-native'
-import Animated, { FadeIn, SlideInDown } from 'react-native-reanimated'
+import { useEffect } from 'react'
+import { KeyboardAvoidingView, Modal, Pressable, ScrollView, View, useWindowDimensions } from 'react-native'
+import Animated, {
+  Easing,
+  FadeIn,
+  useAnimatedStyle,
+  useReducedMotion,
+  useSharedValue,
+  withTiming,
+} from 'react-native-reanimated'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { colors } from '../theme.js'
 import Txt from './Txt.jsx'
@@ -7,9 +15,22 @@ import { XMarkIcon } from './icons.jsx'
 
 // Modal sheet that slides up from the bottom. Tapping the backdrop, the close
 // button or Android back closes it.
-export default function Sheet({ open, title, subtitle, onClose, footer, children }) {
-  const insets = useSafeAreaInsets()
+export default function Sheet({ open, ...props }) {
   if (!open) return null
+  return <OpenSheet {...props} />
+}
+
+// Slides up with a plain translate (Reanimated's SlideInDown entering
+// animation left the panel short of the bottom edge under Android edge-to-edge).
+function OpenSheet({ title, subtitle, onClose, footer, children }) {
+  const insets = useSafeAreaInsets()
+  const { height } = useWindowDimensions()
+  const reduceMotion = useReducedMotion()
+  const offset = useSharedValue(reduceMotion ? 0 : height)
+  useEffect(() => {
+    offset.value = withTiming(0, { duration: 220, easing: Easing.out(Easing.cubic) })
+  }, [offset])
+  const slide = useAnimatedStyle(() => ({ transform: [{ translateY: offset.value }] }))
 
   return (
     <Modal
@@ -20,7 +41,7 @@ export default function Sheet({ open, title, subtitle, onClose, footer, children
       statusBarTranslucent
       navigationBarTranslucent
     >
-      <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={{ flex: 1 }}>
+      <KeyboardAvoidingView behavior="padding" style={{ flex: 1 }}>
         <View style={{ flex: 1, justifyContent: 'flex-end' }}>
           <Animated.View
             entering={FadeIn.duration(220)}
@@ -36,13 +57,12 @@ export default function Sheet({ open, title, subtitle, onClose, footer, children
           {/* Styling lives on a plain inner View: NativeWind classes don't
               reach Reanimated's Animated.View. */}
           <Animated.View
-            entering={SlideInDown.duration(220)}
-            style={{ width: '100%', maxWidth: 576, alignSelf: 'center', maxHeight: '88%' }}
+            style={[{ width: '100%', maxWidth: 576, alignSelf: 'center', maxHeight: '88%' }, slide]}
           >
           <View
             accessibilityViewIsModal
             className="rounded-t-[22px] border-t border-white/[.08] bg-night-900"
-            style={{ maxHeight: '100%' }}
+            style={{ flexShrink: 1 }}
           >
             <View className="items-center pt-2.5">
               <View className="h-1 w-10 rounded-full bg-white/15" />

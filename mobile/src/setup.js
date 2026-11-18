@@ -3,6 +3,9 @@
 // this import does nothing and the browser's localStorage is used.
 import 'expo-sqlite/localStorage/install'
 import { setApiBase } from '@stadar/shared/utils/api.js'
+import { ensureWorkingStorage } from './lib/storageCheck.js'
+
+ensureWorkingStorage(globalThis)
 
 // The live API by default; EXPO_PUBLIC_API_URL points a dev build elsewhere
 // (e.g. http://10.0.2.2:5068 for the Android emulator).

@@ -48,7 +48,14 @@ export default function TeamLogo({ name, size = 'small', style }) {
         borderColor: 'rgba(255,255,255,0.15)',
       }, style]}
     >
-      <Txt className="font-sans-bold text-white" style={{ fontSize: Math.max(8, Math.round(px * 0.34)) }}>
+      <Txt
+        numberOfLines={1}
+        adjustsFontSizeToFit
+        minimumFontScale={0.6}
+        allowFontScaling={false}
+        className="font-sans-bold text-white"
+        style={{ fontSize: Math.max(8, Math.round(px * 0.34)), maxWidth: px * 0.86, textAlign: 'center' }}
+      >
         {initials}
       </Txt>
     </View>

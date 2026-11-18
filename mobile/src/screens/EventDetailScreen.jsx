@@ -28,6 +28,7 @@ import Button from '../components/Button.jsx'
 import { CountdownDigits, EmptyState, LivePill, MicroLabel } from '../components/common.jsx'
 import { CollapsibleSection, GameNotesSection, VenueKnowledgeCard, VenueTips } from '../components/detail.jsx'
 import { TicketSheet, UnsaveConfirmDialog } from '../components/sheets.jsx'
+import StatusBarScrim from '../components/StatusBarScrim.jsx'
 import TeamLogo from '../components/TeamLogo.jsx'
 import Txt from '../components/Txt.jsx'
 import VenueMap from '../components/VenueMap'
@@ -410,6 +411,8 @@ export default function EventDetailScreen({ id }) {
           </View>
         </View>
       ) : null}
+
+      <StatusBarScrim />
 
       <TicketSheet event={event} open={ticketsOpen} onClose={() => setTicketsOpen(false)} seatGeekUrl={seatGeekUrl} />
       <UnsaveConfirmDialog event={pendingRemoval} onCancel={cancelRemove} onConfirm={confirmRemove} />

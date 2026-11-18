@@ -113,3 +113,19 @@ test('app data-usage copy replaces the browser-storage wording and adds permissi
   assert.ok(sections.some(s => s.heading === 'Phone permissions'))
   assert.equal(sections.find(s => s.heading === 'Browsing without an account').body.includes('this phone'), true)
 })
+
+test('ensureWorkingStorage keeps a working store and replaces a broken one', async () => {
+  const { createMemoryStorage, ensureWorkingStorage } = await import('./storageCheck.js')
+  const good = { localStorage: createMemoryStorage() }
+  good.localStorage.setItem('keep', 'me')
+  assert.equal(ensureWorkingStorage(good, { warn: () => {} }), 'persistent')
+  assert.equal(good.localStorage.getItem('keep'), 'me')
+  assert.equal(good.localStorage.getItem('__stadar_storage_check__'), null)
+
+  const broken = { localStorage: { setItem() { throw new Error('no native lib') }, getItem: () => null, removeItem() {} } }
+  const warnings = []
+  assert.equal(ensureWorkingStorage(broken, { warn: m => warnings.push(m) }), 'memory')
+  broken.localStorage.setItem('a', 1)
+  assert.equal(broken.localStorage.getItem('a'), '1')
+  assert.equal(warnings.length, 1)
+})

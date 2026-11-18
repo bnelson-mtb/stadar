@@ -1,5 +1,6 @@
 import { Platform } from 'react-native'
-import * as Calendar from 'expo-calendar'
+// SDK 57 moved the system add-event screen to the legacy entry point.
+import * as Calendar from 'expo-calendar/legacy'
 import { File, Paths } from 'expo-file-system'
 import * as Sharing from 'expo-sharing'
 import { getCanonicalTeamName } from '@stadar/shared/data/teams.js'

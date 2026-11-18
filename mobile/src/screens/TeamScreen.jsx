@@ -33,6 +33,7 @@ import { EmptyState, GroupHeading, LivePill } from '../components/common.jsx'
 import { CornerGlow } from '../components/NextUpHero.jsx'
 import { SavedEventRow } from '../components/saved.jsx'
 import { TicketSheet } from '../components/sheets.jsx'
+import StatusBarScrim from '../components/StatusBarScrim.jsx'
 import TeamLogo from '../components/TeamLogo.jsx'
 import Txt from '../components/Txt.jsx'
 import { ChevronLeftIcon, HeartIcon } from '../components/icons.jsx'
@@ -267,6 +268,8 @@ export default function TeamScreen({ teamName }) {
           </View>
         </View>
       </ScrollView>
+
+      <StatusBarScrim />
 
       <TicketSheet event={nextGame} open={ticketsOpen} onClose={() => setTicketsOpen(false)} />
     </View>

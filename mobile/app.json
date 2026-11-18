@@ -24,7 +24,14 @@
     },
     "plugins": [
       "expo-router",
-      "expo-sqlite",
+      [
+        "expo-sqlite",
+        {
+          "android": {
+            "enableFTS": true
+          }
+        }
+      ],
       "expo-font",
       "expo-image",
       "expo-web-browser",
@@ -36,7 +43,8 @@
           "image": "./assets/splash-icon.png",
           "imageWidth": 160
         }
-      ]
+      ],
+      "./plugins/withGradleJvmArgs"
     ],
     "scheme": "stadar",
     "backgroundColor": "#07090e",
