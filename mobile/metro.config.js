@@ -7,11 +7,23 @@ const path = require('path')
 const { getDefaultConfig } = require('expo/metro-config')
 const { withNativeWind } = require('nativewind/metro')
 
+const fs = require('fs')
+
 const projectRoot = __dirname
-const sharedRoot = path.resolve(projectRoot, '../packages/shared')
+// The shared package as seen from here, and where its node_modules link
+// really points. They differ when the repo is opened through a mapped drive
+// (subst, used for Windows' path-length limit), and Metro must watch both.
+const sharedRoots = [
+  ...new Set(
+    [path.resolve(projectRoot, '../packages/shared'), path.join(projectRoot, 'node_modules/@stadar/shared')]
+      .filter(p => fs.existsSync(p))
+      .map(p => fs.realpathSync(p))
+      .concat(path.resolve(projectRoot, '../packages/shared')),
+  ),
+]
 
 const config = getDefaultConfig(projectRoot)
-config.watchFolders = [...(config.watchFolders ?? []), sharedRoot]
+config.watchFolders = [...(config.watchFolders ?? []), ...sharedRoots]
 
 const SINGLETONS = ['react', 'react-dom', 'react-native', 'react-native-web']
 const isSingleton = name => SINGLETONS.some(pkg => name === pkg || name.startsWith(`${pkg}/`))
@@ -20,7 +32,7 @@ const appAnchor = path.join(projectRoot, 'package.json')
 const upstream = config.resolver.resolveRequest
 config.resolver.resolveRequest = (context, moduleName, platform) => {
   const resolve = upstream ?? context.resolveRequest
-  if (isSingleton(moduleName) && context.originModulePath.startsWith(sharedRoot)) {
+  if (isSingleton(moduleName) && sharedRoots.some(root => context.originModulePath.startsWith(root))) {
     return resolve({ ...context, originModulePath: appAnchor }, moduleName, platform)
   }
   return resolve(context, moduleName, platform)

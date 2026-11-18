@@ -23,7 +23,9 @@ export async function signInWithBrowser() {
   const api = getApiBase()
   try {
     const probe = await fetch(`${api}/api/auth/mobile`, { credentials: 'include' })
-    if (!probe.ok) return { status: 'unavailable' }
+    // Exactly 204: an API without these endpoints answers unknown paths with
+    // the web app's index.html (200), which must not count as support.
+    if (probe.status !== 204) return { status: 'unavailable' }
   } catch {
     return { status: 'failed' }
   }
