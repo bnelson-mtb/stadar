@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, useParams, useLocation, useNavigate } from 'react-router-dom'
-import { getCanonicalTeamName, getTeamData } from '../data/teams'
-import { LEAGUE_INFO } from '../data/leagueInfo'
+import { getCanonicalTeamName, getTeamData } from '@stadar/shared/data/teams.js'
+import { LEAGUE_INFO } from '@stadar/shared/data/leagueInfo.js'
 import TeamLogo from '../components/TeamLogo'
 import VenueMap from '../components/VenueMap'
 import CollapsibleSection from '../components/CollapsibleSection.jsx'
@@ -19,15 +19,15 @@ import {
   PaperPlaneIcon,
   ShareIcon,
 } from '../components/icons.jsx'
-import useCountdown from '../hooks/useCountdown.js'
-import useSavedEvents from '../hooks/useSavedEvents.js'
-import { API_BASE, fetchJsonWithRetry } from '../utils/api.js'
+import useCountdown from '@stadar/shared/hooks/useCountdown.js'
+import useSavedEvents from '@stadar/shared/hooks/useSavedEvents.js'
+import { getApiBase, fetchJsonWithRetry } from '@stadar/shared/utils/api.js'
 import {
   getDetailSectionOrder,
   getEventBoundaryDelay,
   isPastEvent,
   shouldShowFinalScore,
-} from '../utils/eventDetailState.js'
+} from '@stadar/shared/utils/eventDetailState.js'
 import {
   formatLocalTime,
   formatShortDate,
@@ -35,54 +35,10 @@ import {
   getStartTerm,
   getTeamHeroColor,
   getTeamShortName,
-} from '../utils/eventDisplay.js'
-import { getVenueMapUrls } from '../utils/maps.js'
-import { buildTicketLinks } from '../utils/ticketLinks.js'
-
-function buildIcsContent(event) {
-  const dateStr = (event.localDate || '').replace(/-/g, '')
-  if (event.localTime) {
-    const timeStr = event.localTime.replace(/:/g, '').padEnd(6, '0').slice(0, 6)
-    const [hh, mm, ss] = event.localTime.split(':').map(Number)
-    const totalMinutes = hh * 60 + mm + 120 // add 2 hours
-    const endH = Math.floor(totalMinutes / 60) % 24
-    const endM = totalMinutes % 60
-    const rollover = totalMinutes >= 1440 // crossed midnight
-    let endDateStr = dateStr
-    if (rollover) {
-      const [y, mo, d] = (event.localDate || '').split('-').map(Number)
-      const next = new Date(y, mo - 1, d + 1)
-      endDateStr = `${next.getFullYear()}${String(next.getMonth() + 1).padStart(2, '0')}${String(next.getDate()).padStart(2, '0')}`
-    }
-    const endStr = `${String(endH).padStart(2, '0')}${String(endM).padStart(2, '0')}${String(ss ?? 0).padStart(2, '0')}`
-    return [
-      'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Stadar//EN',
-      'BEGIN:VEVENT',
-      `UID:${event.id}@stadar`,
-      `DTSTART:${dateStr}T${timeStr}`,
-      `DTEND:${endDateStr}T${endStr}`,
-      `SUMMARY:${event.name}`,
-      `LOCATION:${event.venue}, ${event.city}, ${event.state}`,
-      ...(event.ticketUrl ? [`URL:${event.ticketUrl}`] : []),
-      'END:VEVENT', 'END:VCALENDAR',
-    ].join('\r\n')
-  } else {
-    const [y, mo, d] = (event.localDate || '').split('-').map(Number)
-    const next = new Date(y, mo - 1, d + 1)
-    const nextDateStr = `${next.getFullYear()}${String(next.getMonth() + 1).padStart(2, '0')}${String(next.getDate()).padStart(2, '0')}`
-    return [
-      'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Stadar//EN',
-      'BEGIN:VEVENT',
-      `UID:${event.id}@stadar`,
-      `DTSTART;VALUE=DATE:${dateStr}`,
-      `DTEND;VALUE=DATE:${nextDateStr}`,
-      `SUMMARY:${event.name}`,
-      `LOCATION:${event.venue}, ${event.city}, ${event.state}`,
-      ...(event.ticketUrl ? [`URL:${event.ticketUrl}`] : []),
-      'END:VEVENT', 'END:VCALENDAR',
-    ].join('\r\n')
-  }
-}
+} from '@stadar/shared/utils/eventDisplay.js'
+import { getVenueMapUrls } from '@stadar/shared/utils/maps.js'
+import { buildIcsContent } from '@stadar/shared/utils/ics.js'
+import { buildTicketLinks } from '@stadar/shared/utils/ticketLinks.js'
 
 function downloadIcs(event) {
   const content = buildIcsContent(event)
@@ -416,7 +372,7 @@ function EventDetailPage() {
       }
     }
 
-    import('../data/venues/index.js')
+    import('@stadar/shared/data/venues/index.js')
       .then(({ getVenueKnowledge }) => {
         if (!cancelled) {
           setVenueKnowledge(getVenueKnowledge(event.venue, { city: event.city, state: event.state }))
@@ -453,7 +409,7 @@ function EventDetailPage() {
     // and for past saved events (always use snapshot).
     if (event && (!isEventSaved || isPast)) return
 
-    fetchJsonWithRetry(`${API_BASE}/api/games/${id}`)
+    fetchJsonWithRetry(`${getApiBase()}/api/games/${id}`)
       .then(fresh => {
         setEvent(fresh)
         if (isEventSaved) updateSnapshot(fresh)
@@ -472,7 +428,7 @@ function EventDetailPage() {
     let cancelled = false
     setSeatGeekUrl(null)
 
-    fetchJsonWithRetry(`${API_BASE}/api/games/${id}/seatgeek`)
+    fetchJsonWithRetry(`${getApiBase()}/api/games/${id}/seatgeek`)
       .then(data => {
         if (!cancelled && data?.url) setSeatGeekUrl(data.url)
       })

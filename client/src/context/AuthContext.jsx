@@ -5,9 +5,9 @@ import {
   logout as logoutRequest,
   loginUrl,
 } from '../utils/authApi.js'
-import { flushCollections } from '../utils/collections.js'
-import { createLocalStorageAdapter, createApiAdapter } from '../utils/storageAdapter.js'
-import { AuthContext } from './AuthContextDef.js'
+import { flushCollections } from '@stadar/shared/utils/collections.js'
+import { createLocalStorageAdapter, createApiAdapter } from '@stadar/shared/utils/storageAdapter.js'
+import { AuthContext } from '@stadar/shared/context/AuthContextDef.js'
 
 const LOGOUT_FLUSH_TIMEOUT_MS = 3000
 

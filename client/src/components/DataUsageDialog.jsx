@@ -2,12 +2,12 @@ import { useEffect, useId, useRef } from 'react'
 import {
   getFocusRestoreTarget,
   getFocusTrapTarget,
-} from '../utils/eventDetailState.js'
+} from '@stadar/shared/utils/eventDetailState.js'
 import {
   DATA_USAGE_SECTIONS,
   DATA_USAGE_TITLE,
   GITHUB_URL,
-} from './profileCopy.js'
+} from '@stadar/shared/copy/profileCopy.js'
 
 const FOCUSABLE_SELECTOR = [
   'a[href]',

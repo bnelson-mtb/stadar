@@ -1,8 +1,8 @@
 import { useEffect } from 'react'
-import useAuth from '../hooks/useAuth.js'
-import useAccountLink from '../hooks/useAccountLink.js'
-import { effectiveLinkMode } from '../utils/accountLink.js'
-import { collections } from '../utils/collections.js'
+import useAuth from '@stadar/shared/hooks/useAuth.js'
+import useAccountLink from '@stadar/shared/hooks/useAccountLink.js'
+import { effectiveLinkMode } from '@stadar/shared/utils/accountLink.js'
+import { collections } from '@stadar/shared/utils/collections.js'
 
 // Keeps the app-wide collections pointed at the right backing store: the
 // local cache while signed out, the account once signed in and linked.

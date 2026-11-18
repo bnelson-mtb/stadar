@@ -4,17 +4,17 @@ import AuthButton from '../components/AuthButton.jsx'
 import DataUsageDialog from '../components/DataUsageDialog.jsx'
 import TeamLogo from '../components/TeamLogo.jsx'
 import { ArrowRightIcon } from '../components/icons.jsx'
-import useAuth from '../hooks/useAuth.js'
-import useFavorites from '../hooks/useFavorites.js'
-import useSavedEvents from '../hooks/useSavedEvents.js'
-import { getTeamShortName } from '../utils/eventDisplay.js'
+import useAuth from '@stadar/shared/hooks/useAuth.js'
+import useFavorites from '@stadar/shared/hooks/useFavorites.js'
+import useSavedEvents from '@stadar/shared/hooks/useSavedEvents.js'
+import { getTeamShortName } from '@stadar/shared/utils/eventDisplay.js'
 import {
   DATA_USAGE_TITLE,
   PROVIDER_NOTE,
   getAccountNotice,
   getFollowStats,
   getProfileIdentity,
-} from '../components/profileCopy.js'
+} from '@stadar/shared/copy/profileCopy.js'
 
 export default function ProfilePage() {
   const { user, status, sessionExpired } = useAuth()

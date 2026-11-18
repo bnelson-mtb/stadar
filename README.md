@@ -61,6 +61,8 @@ flowchart LR
 | Layer | Choice |
 |-------|--------|
 | Frontend | React (Vite), React Router v7, Tailwind CSS v4 |
+| Mobile | React Native (Expo SDK 57, Expo Router, NativeWind 4) in `mobile/`, same screens as the web app |
+| Shared code | `packages/shared` (`@stadar/shared`) — data, utils, copy, and hooks shared by the web client and the mobile app (npm workspace) |
 | Backend | ASP.NET Core Web API (.NET 10) |
 | External data | Ticketmaster Discovery API v2, SeatGeek, Gemini (`gemini-2.5-flash-lite`) |
 | Auth | Google OAuth via ASP.NET Core built-in handlers |
@@ -89,7 +91,7 @@ cd Api
 dotnet watch
 
 # Terminal 2 — client  (http://localhost:5173)
-cd client
+# Run from the repo root: it is an npm workspace (client + packages/shared).
 npm install
 npm run dev
 ```
@@ -99,11 +101,16 @@ The API needs a Ticketmaster key in `Api/appsettings.Development.json` (`Ticketm
 ```bash
 # Run the API test suite
 cd Api.Tests && dotnet test
+
+# Run the JavaScript tests (client + packages/shared), from the repo root
+npm test
 ```
+
+The Android app lives in [`mobile/`](mobile/README.md) (its own `npm install`; `npm start` runs it in Expo).
 
 ## Roadmap
 
-The Web MVP (discovery, favorites, location, deploy, detail page, persistence) is complete. I'm now porting Stadar to a React Native app with Expo, sharing the existing API and data layer.
+The Web MVP (discovery, favorites, location, deploy, detail page, persistence) is complete, and the React Native app in `mobile/` matches it screen for screen, sharing the API and data layer. Next: tester builds and the Google Play closed test.
 
 ## License
 

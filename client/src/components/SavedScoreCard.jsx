@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
-import { getCanonicalTeamName } from '../data/teams'
-import { formatLongDate, getTeamShortName } from '../utils/eventDisplay.js'
-import { getWinnerSide } from '../utils/savedHelpers.js'
+import { getCanonicalTeamName } from '@stadar/shared/data/teams.js'
+import { formatLongDate, getTeamShortName } from '@stadar/shared/utils/eventDisplay.js'
+import { getWinnerSide } from '@stadar/shared/utils/savedHelpers.js'
 import TeamLogo from './TeamLogo.jsx'
 import { PencilIcon } from './icons.jsx'
 

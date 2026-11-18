@@ -1,14 +1,14 @@
 import { Link } from 'react-router-dom'
-import { getCanonicalTeamName } from '../data/teams'
-import useCountdown from '../hooks/useCountdown.js'
-import { formatCountdown } from '../utils/countdown.js'
+import { getCanonicalTeamName } from '@stadar/shared/data/teams.js'
+import useCountdown from '@stadar/shared/hooks/useCountdown.js'
+import { formatCountdown } from '@stadar/shared/utils/countdown.js'
 import {
   formatLocalTime,
   getDayLabel,
   getEventStart,
   getStartTerm,
   getTeamShortName,
-} from '../utils/eventDisplay.js'
+} from '@stadar/shared/utils/eventDisplay.js'
 import { LivePill } from './Countdown.jsx'
 import TeamLogo from './TeamLogo.jsx'
 

@@ -3,6 +3,10 @@ name: Deploy
 on:
   push:
     branches: [main]
+    # The mobile app is not part of the deployed container; a push that only
+    # touches it must not rebuild and redeploy the site.
+    paths-ignore:
+      - 'mobile/**'
   workflow_dispatch:
 
 permissions:
@@ -26,16 +30,15 @@ jobs:
         with:
           node-version: 22
           cache: npm
-          cache-dependency-path: client/package-lock.json
+          cache-dependency-path: package-lock.json
+
+      - name: Install JS dependencies
+        run: npm ci
 
       - name: Build client
-        working-directory: client
-        run: |
-          npm ci
-          npm run build
+        run: npm run build -w client
 
-      - name: Run client tests
-        working-directory: client
+      - name: Run JS tests (client + shared)
         run: npm test
 
   deploy:

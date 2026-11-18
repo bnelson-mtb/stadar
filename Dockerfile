@@ -1,10 +1,13 @@
-# Stage 1: build the React client
+# Stage 1: build the React client (npm workspace: client + packages/shared)
 FROM node:22-alpine AS client-build
-WORKDIR /src/client
-COPY client/package.json client/package-lock.json ./
+WORKDIR /src
+COPY package.json package-lock.json ./
+COPY client/package.json client/
+COPY packages/shared/package.json packages/shared/
 RUN npm ci
-COPY client/ ./
-RUN npm run build
+COPY packages/shared/ packages/shared/
+COPY client/ client/
+RUN npm run build -w client
 
 # Stage 2: build the API
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS api-build

@@ -5,8 +5,8 @@ import NotesSheet from '../components/NotesSheet.jsx'
 import SavedEventRow from '../components/SavedEventRow.jsx'
 import SavedScoreCard from '../components/SavedScoreCard.jsx'
 import SegmentedControl from '../components/SegmentedControl.jsx'
-import useSavedEvents from '../hooks/useSavedEvents.js'
-import { getSavedSummary, partitionByTime, splitUpcomingByWeek } from '../utils/savedHelpers.js'
+import useSavedEvents from '@stadar/shared/hooks/useSavedEvents.js'
+import { getSavedSummary, partitionByTime, splitUpcomingByWeek } from '@stadar/shared/utils/savedHelpers.js'
 
 const TABS = [
   { value: 'upcoming', label: 'Upcoming' },

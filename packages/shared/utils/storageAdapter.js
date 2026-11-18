@@ -16,7 +16,7 @@
 // syncedCollection.js) only ever reach localStorage through an adapter.
 // `stadar-location` stays a raw string outside the adapter on purpose.
 
-import { API_BASE } from './api.js'
+import { getApiBase } from './api.js'
 
 // Maps a storage key to its server endpoint. Favorites now; saved events in slice 3.
 const ENDPOINTS = {
@@ -73,7 +73,7 @@ export function createApiAdapter(fetchImpl = fetch, storage = globalThis.localSt
     const endpoint = ENDPOINTS[key]
     if (!endpoint) return { ok: false, status: 404 }
     try {
-      const res = await fetchImpl(`${API_BASE}${endpoint}`, { credentials: 'include' })
+      const res = await fetchImpl(`${getApiBase()}${endpoint}`, { credentials: 'include' })
       if (!res.ok) return { ok: false, status: res.status }
       return { ok: true, value: await res.json() }
     } catch (error) {
@@ -99,7 +99,7 @@ export function createApiAdapter(fetchImpl = fetch, storage = globalThis.localSt
       const endpoint = ENDPOINTS[key]
       if (!endpoint) return local.writeCache(key, value)
       try {
-        const res = await fetchImpl(`${API_BASE}${endpoint}`, {
+        const res = await fetchImpl(`${getApiBase()}${endpoint}`, {
           method: 'PUT',
           credentials: 'include',
           headers: { 'Content-Type': 'application/json' },

@@ -8,7 +8,7 @@ import 'dotenv/config'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const LOGOS_DIR = join(__dirname, 'logos')
-const MANIFEST_PATH = join(__dirname, '..', 'client', 'src', 'data', 'logoManifest.json')
+const MANIFEST_PATH = join(__dirname, '..', 'packages', 'shared', 'data', 'logoManifest.json')
 const CONTAINER = 'logos'
 const ACCOUNT_NAME = 'stadarstorage'
 const BASE_URL = `https://${ACCOUNT_NAME}.blob.core.windows.net/${CONTAINER}`
@@ -83,7 +83,7 @@ async function main() {
   console.log(`\nUpload: ${uploaded} uploaded, ${skipped} skipped, ${failed} failed`)
 
   // Rebuild manifest: map every team name whose slug file exists to its blob URL
-  const { default: TEAMS } = await import('../client/src/data/teams.js')
+  const { default: TEAMS } = await import('../packages/shared/data/teams.js')
 
   // Build slug→blobUrl map from what's in logos/
   const slugToUrl = {}

@@ -30,7 +30,7 @@ async function downloadLogo(url, destPath) {
 }
 
 async function main() {
-  const { default: TEAMS } = await import('../client/src/data/teams.js')
+  const { default: TEAMS } = await import('../packages/shared/data/teams.js')
 
   // Deduplicate: map canonical key → logo URL (skip aliases pointing to same data)
   const seen = new Set()

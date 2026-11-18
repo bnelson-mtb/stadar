@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
-import { getDayLabel, getTeamShortName, isToday } from '../utils/eventDisplay.js'
-import { getNextGameForTeam } from '../utils/feedFilters.js'
+import { getDayLabel, getTeamShortName, isToday } from '@stadar/shared/utils/eventDisplay.js'
+import { getNextGameForTeam } from '@stadar/shared/utils/feedFilters.js'
 import TeamLogo from './TeamLogo.jsx'
 import { PlusIcon } from './icons.jsx'
 

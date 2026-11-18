@@ -11,8 +11,10 @@ npm install
 npm run dev      # http://localhost:5173
 ```
 
-In dev the client calls the API at `http://localhost:5068` (`API_BASE` in
-[`src/utils/api.js`](src/utils/api.js)); override with `VITE_API_URL` if needed.
+In dev the client calls the API at `http://localhost:5068` (set at startup by
+[`src/apiBase.js`](src/apiBase.js) via `setApiBase()` from
+`@stadar/shared/utils/api.js`); override with `VITE_API_URL` if needed.
+Run `npm install` from the repo root: the repo is an npm workspace.
 Start the API separately with `dotnet watch` from [`../Api`](../Api).
 
 `npm run build` outputs to `dist/`, which the .NET API serves from `wwwroot`
