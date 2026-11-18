@@ -20,6 +20,14 @@ export function createSavedRecord(event, savedAt = new Date().toISOString()) {
   }
 }
 
+// Adds a record unless that event is already saved, in which case the existing
+// record (with its notes and score) is kept and the same list is returned.
+export function addSavedRecord(records, record) {
+  return records.some(existing => existing.event.id === record.event.id)
+    ? records
+    : [...records, record]
+}
+
 export function updateSavedMetadata(records, eventId, patch) {
   const targetIndex = records.findIndex(record => record.event.id === eventId)
   if (targetIndex === -1) return records

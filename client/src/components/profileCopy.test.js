@@ -4,6 +4,7 @@ import {
   DATA_USAGE_SECTIONS,
   GITHUB_URL,
   SIGN_IN_PITCH,
+  getAccountNotice,
   getFollowStats,
   getProfileIdentity,
 } from './profileCopy.js'
@@ -80,4 +81,17 @@ test('data usage disclosure states that passwords are never collected', () => {
 
 test('github url points at the public repository', () => {
   assert.match(GITHUB_URL, /^https:\/\/github\.com\/[\w.-]+\/[\w.-]+$/)
+})
+
+test('account notice: a failed sign-in asks the user to try again', () => {
+  assert.match(getAccountNotice({ signedIn: false, signInFailed: true, sessionExpired: false }), /didn't complete/)
+})
+
+test('account notice: an expired session says so', () => {
+  assert.match(getAccountNotice({ signedIn: false, signInFailed: false, sessionExpired: true }), /signed out/)
+})
+
+test('account notice: nothing to say when signed in or when nothing went wrong', () => {
+  assert.equal(getAccountNotice({ signedIn: true, signInFailed: true, sessionExpired: true }), null)
+  assert.equal(getAccountNotice({ signedIn: false, signInFailed: false, sessionExpired: false }), null)
 })
