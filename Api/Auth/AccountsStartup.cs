@@ -34,6 +34,8 @@ public static class AccountsStartup
         services.AddDbContext<AppDbContext>(o =>
             o.UseSqlServer(config.GetConnectionString("Default")));
         services.AddScoped<UserAccountService>();
+        services.AddSingleton(TimeProvider.System);
+        services.AddSingleton<MobileSignInCodes>();
         AddPersistentKeys(services, config);
 
         var allowedOrigins = config.AllowedClientOrigins();
@@ -81,7 +83,11 @@ public static class AccountsStartup
                 o.Events.OnRemoteFailure = ctx =>
                 {
                     Console.WriteLine($"Sign-in failed: {ctx.Failure?.Message}");
-                    ctx.Response.Redirect(SignInFailedUrl(ctx.Properties?.RedirectUri, allowedOrigins));
+                    // An app sign-in goes back to the app (closing its browser
+                    // tab) rather than to the web Profile page.
+                    ctx.Response.Redirect(
+                        MobileSignIn.FailureRedirect(ctx.Properties?.RedirectUri, allowedOrigins)
+                        ?? SignInFailedUrl(ctx.Properties?.RedirectUri, allowedOrigins));
                     ctx.HandleResponse();
                     return Task.CompletedTask;
                 };
@@ -257,6 +263,9 @@ public static class AccountsStartup
             await ctx.SignOutAsync();
             return Results.Ok();
         });
+
+        // Sign-in for the mobile app (see MobileSignIn.cs).
+        app.MapMobileSignIn(allowedOrigins);
 
         // Current user's favorite team names (canonical). Auth required.
         app.MapGet("/api/me/favorites", async (ClaimsPrincipal principal, AppDbContext db) =>
