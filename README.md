@@ -17,7 +17,7 @@ A discovery-first web app backed by live Ticketmaster data, an AI event-classifi
 
 ## Screenshots
 
-![Discover feed](docs/screenshots/stadar-current.jpg)
+![Stadar mobile app screens showing Discover, event details, Saved, and a team page](docs/screenshots/stadar-app-overview.jpg)
 
 ## Features
 
@@ -107,7 +107,7 @@ npm test
 
 ## Roadmap
 
-The Web MVP (discovery, favorites, location, deploy, detail page, persistence) is done. My direction from here is to validate on web, then continue iterating and making the app better, including a possible UI overhaul. Later in the roadmap is creating a React Native mobile app (Expo) sharing the same API and data layer, 
+The Web MVP (discovery, favorites, location, deploy, detail page, persistence) is complete. I'm now porting Stadar to a React Native app with Expo, sharing the existing API and data layer.
 
 ## License
 

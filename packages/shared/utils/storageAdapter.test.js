@@ -80,3 +80,34 @@ test('api adapter: saved-events persist PUTs /api/me/saved', async () => {
   assert.ok(calledUrl.endsWith('/api/me/saved'))
   assert.deepEqual(res, { ok: true })
 })
+
+test('local adapter: clearCache drops the local copy', () => {
+  const store = { ...fakeStorage(), removed: [] }
+  store.removeItem = k => store.removed.push(k)
+  createLocalStorageAdapter(store).clearCache('stadar-favorites')
+  assert.deepEqual(store.removed, ['stadar-favorites'])
+})
+
+test('api adapter: fetchRemoteResult carries the HTTP status of a failure', async () => {
+  const a = createApiAdapter(async () => ({ ok: false, status: 401 }), fakeStorage())
+  assert.deepEqual(await a.fetchRemoteResult('stadar-favorites'), { ok: false, status: 401 })
+})
+
+test('api adapter: fetchRemoteResult has no status when there was no response', async () => {
+  const a = createApiAdapter(async () => { throw new Error('offline') }, fakeStorage())
+  const result = await a.fetchRemoteResult('stadar-favorites')
+  assert.equal(result.ok, false)
+  assert.equal(result.status, undefined)
+})
+
+test('api adapter: fetchRemoteResult returns the server value on 200', async () => {
+  const a = createApiAdapter(async () => ({ ok: true, json: async () => ['Jazz'] }), fakeStorage())
+  assert.deepEqual(await a.fetchRemoteResult('stadar-favorites'), { ok: true, value: ['Jazz'] })
+})
+
+test('api adapter: a refused persist reports its HTTP status', async () => {
+  const a = createApiAdapter(async () => ({ ok: false, status: 401 }), fakeStorage())
+  const res = await a.persist('stadar-favorites', ['Jazz'])
+  assert.equal(res.ok, false)
+  assert.equal(res.status, 401)
+})

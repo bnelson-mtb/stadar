@@ -1,5 +1,5 @@
-import { useRef, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useEffect, useRef, useState } from 'react'
+import { Link, useSearchParams } from 'react-router-dom'
 import AuthButton from '../components/AuthButton.jsx'
 import DataUsageDialog from '../components/DataUsageDialog.jsx'
 import TeamLogo from '../components/TeamLogo.jsx'
@@ -11,18 +11,33 @@ import { getTeamShortName } from '@stadar/shared/utils/eventDisplay.js'
 import {
   DATA_USAGE_TITLE,
   PROVIDER_NOTE,
+  getAccountNotice,
   getFollowStats,
   getProfileIdentity,
 } from '@stadar/shared/copy/profileCopy.js'
 
 export default function ProfilePage() {
-  const { user, status } = useAuth()
+  const { user, status, sessionExpired } = useAuth()
   const { favorites } = useFavorites()
   const { savedEvents } = useSavedEvents()
   const [dataDialogOpen, setDataDialogOpen] = useState(false)
   const mainRef = useRef(null)
 
+  // A failed sign-in lands here as /profile?signin=failed. Remember it for
+  // this visit, then drop it from the URL so a reload or the next sign-in
+  // attempt (which returns to the current URL) doesn't repeat the message.
+  const [searchParams, setSearchParams] = useSearchParams()
+  const [signInFailed] = useState(() => searchParams.get('signin') === 'failed')
+  useEffect(() => {
+    if (searchParams.has('signin')) setSearchParams({}, { replace: true })
+  }, [searchParams, setSearchParams])
+
   const identity = getProfileIdentity(status, user)
+  const accountNotice = getAccountNotice({
+    signedIn: identity.signedIn,
+    signInFailed,
+    sessionExpired,
+  })
   const stats = getFollowStats(favorites.length, savedEvents.length)
   const isLoading = status === 'loading'
 
@@ -75,6 +90,9 @@ export default function ProfilePage() {
                     <span className="text-xs text-ink-500">{PROVIDER_NOTE}</span>
                   )}
                 </div>
+                {accountNotice && (
+                  <p role="status" className="mt-3 text-xs text-rose-400">{accountNotice}</p>
+                )}
               </>
             )}
           </div>
