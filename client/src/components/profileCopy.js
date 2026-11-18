@@ -13,6 +13,15 @@ export const PROVIDER_NOTE = 'Stadar currently supports Google sign-in only.'
 
 export const DATA_USAGE_TITLE = 'How my data is used'
 
+// One-line notice under the account card when sign-in did not go as expected.
+// A failed attempt is the more recent event, so it wins over an expired session.
+export function getAccountNotice({ signedIn, signInFailed, sessionExpired }) {
+  if (signedIn) return null
+  if (signInFailed) return "Sign-in didn't complete. Please try again."
+  if (sessionExpired) return 'You were signed out. Sign in again to keep syncing.'
+  return null
+}
+
 // Identity block for the account card. `loading` is treated as anonymous by
 // callers, which skip rendering entirely until auth resolves.
 export function getProfileIdentity(status, user) {

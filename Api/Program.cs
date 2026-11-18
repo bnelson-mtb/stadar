@@ -32,14 +32,16 @@ builder.Services.AddSingleton<IVerdictStore>(_ =>
 // Extra origins (e.g. a separately hosted client) via Cors:AllowedOrigins
 // (env: Cors__AllowedOrigins__0, Cors__AllowedOrigins__1, ...).
 // Not needed when the API serves the client from wwwroot (same origin).
-var allowedOrigins = builder.Configuration.GetSection("Cors:AllowedOrigins").Get<string[]>()
-    ?? ["http://localhost:5173", "https://localhost:5173"];
+var allowedOrigins = builder.Configuration.AllowedClientOrigins();
 
 builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(policy =>
     {
-        policy.WithOrigins(allowedOrigins).AllowAnyHeader().AllowAnyMethod();
+        // Credentials: the client sends the sign-in cookie with /api/me/*
+        // requests, which a cross-origin page can only read back when the
+        // policy says so (and only for the origins listed above).
+        policy.WithOrigins(allowedOrigins).AllowAnyHeader().AllowAnyMethod().AllowCredentials();
     });
 });
 

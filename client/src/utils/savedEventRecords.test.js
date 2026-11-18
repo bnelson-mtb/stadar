@@ -2,6 +2,7 @@ import test from 'node:test'
 import assert from 'node:assert/strict'
 
 import {
+  addSavedRecord,
   createSavedRecord,
   normalizeSavedRecords,
   removeSavedRecord,
@@ -141,3 +142,16 @@ test('removeSavedRecord removes only the target record', () => {
   assert.strictEqual(result[0], unmatched)
 })
 
+
+test('addSavedRecord appends a new event', () => {
+  const existing = [createSavedRecord(event, '2026-01-01T00:00:00.000Z')]
+  const added = addSavedRecord(existing, createSavedRecord({ id: 'event-2' }, '2026-01-02T00:00:00.000Z'))
+  assert.deepEqual(added.map(record => record.event.id), ['event-1', 'event-2'])
+})
+
+test('addSavedRecord keeps the existing record, notes included, when the event is already saved', () => {
+  const existing = [{ ...createSavedRecord(event, '2026-01-01T00:00:00.000Z'), notes: 'great game' }]
+  const result = addSavedRecord(existing, createSavedRecord(event, '2026-02-02T00:00:00.000Z'))
+  assert.equal(result, existing)
+  assert.equal(result[0].notes, 'great game')
+})

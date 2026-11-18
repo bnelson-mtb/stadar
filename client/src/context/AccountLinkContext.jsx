@@ -15,23 +15,11 @@ export function AccountLinkProvider({ children }) {
     if (status === 'loading') return
 
     const authenticated = status === 'authenticated' && !!user
-    const linkedKey = authenticated ? `stadar-linked-${user.id}` : null
-    const alreadyLinked =
-      authenticated && globalThis.localStorage.getItem(linkedKey) === 'true'
-
     const favoritesCount = (storageAdapter.readCache(FAVORITES_KEY, []) || []).length
     const savedCount = (storageAdapter.readCache(SAVED_KEY, []) || []).length
 
-    const decision = decideInitialLinkMode({
-      authenticated,
-      alreadyLinked,
-      favoritesCount,
-      savedCount,
-    })
+    const decision = decideInitialLinkMode({ authenticated, favoritesCount, savedCount })
 
-    if (decision.markLinked && linkedKey) {
-      globalThis.localStorage.setItem(linkedKey, 'true')
-    }
     // Batch initialization of mode and counts on auth/storage-state change.
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setMode(decision.mode)
@@ -39,9 +27,6 @@ export function AccountLinkProvider({ children }) {
   }, [status, user, storageAdapter])
 
   function resolve(nextMode) {
-    if (status === 'authenticated' && user) {
-      globalThis.localStorage.setItem(`stadar-linked-${user.id}`, 'true')
-    }
     setCounts(null)
     setMode(nextMode)
   }

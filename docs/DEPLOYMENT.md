@@ -17,7 +17,7 @@ docker run -p 8080:8080 -e Ticketmaster__ApiKey=<your-key> stadar
 | `Cors__AllowedOrigins__0`, `__1`, … | No | Only needed if the client is hosted on a different origin than the API. |
 | `VITE_API_URL` | No | Client **build-time** var. Leave unset for the single-container setup (client uses same-origin requests). |
 | `Gemini__ApiKey` | No | Enables the AI event-classification layer. Unset → the layer is fully inert (pre-LLM behavior). |
-| `Storage__ConnectionString` | No | Persists classifier verdicts to blob `verdicts/verdicts.json` in `stadarstorage`. Without it (but with a Gemini key) verdicts are memory-only. |
+| `Storage__ConnectionString` | No | Persists classifier verdicts to blob `verdicts/verdicts.json` in `stadarstorage`. Without it (but with a Gemini key) verdicts are memory-only. **Also holds the sign-in keys** (container `dataprotection`) when accounts are enabled; see [Staying signed in](#staying-signed-in). |
 | `ConnectionStrings__Default` | No | Azure SQL connection string. Required **together with** the two `Google__*` vars to enable accounts; see below. |
 | `Google__ClientId` / `Google__ClientSecret` | No | Google OAuth client credentials. Required **together with** `ConnectionStrings__Default`. |
 
@@ -70,6 +70,27 @@ or with:
 ```bash
 az consumption budget list -o table
 ```
+
+#### Staying signed in
+
+The sign-in cookie lasts 30 days (renewed while the account is in use) and is
+encrypted with ASP.NET Core Data Protection keys. Those keys must outlive the
+container: on its own disk they are regenerated on every scale-to-zero wake
+and every deploy, which invalidates every cookie and signs everyone out.
+
+With `Storage__ConnectionString` set, the key ring is kept in the storage
+account (container `dataprotection`, one blob per key under `keys/`; the
+container is created on first start). Without it the app still runs, logs
+`Storage:ConnectionString missing - sign-in keys stay on local disk`, and
+sessions end whenever the container restarts. To confirm which mode
+production is in, look for that line in the container logs after a deploy:
+
+```bash
+az containerapp logs show -n stadar -g stadar-rg --tail 50 | grep -i "sign-in key"
+```
+
+The keys are stored unencrypted in the blob, so the `dataprotection`
+container must stay private (the default for a new container).
 
 **Every origin the app is served from must be registered with Google before
 sign-in works there.** Google matches the `redirect_uri` verbatim against the
